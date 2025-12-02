@@ -1,0 +1,110 @@
+[tool.poetry]
+name = "ai-incident-agent"
+version = "0.1.0"
+description = "AI-powered incident intelligence agent for AWS infrastructure observability"
+authors = ["GenAI Enablement Team"]
+readme = "README.md"
+packages = [{include = "src"}]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+langgraph = "^0.2.0"
+langchain = "^0.3.0"
+langchain-aws = "^0.2.0"
+langchain-core = "^0.3.0"
+boto3 = "^1.35.0"
+pydantic = "^2.9.0"
+pydantic-settings = "^2.6.0"
+python-dotenv = "^1.0.0"
+slack-sdk = "^3.33.0"
+pypd = "^1.1.0"
+opensearch-py = "^2.7.0"
+sentence-transformers = "^3.3.0"
+redis = "^5.2.0"
+tenacity = "^9.0.0"
+structlog = "^24.4.0"
+prometheus-client = "^0.21.0"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.3.0"
+pytest-asyncio = "^0.24.0"
+pytest-cov = "^6.0.0"
+pytest-mock = "^3.14.0"
+black = "^24.10.0"
+ruff = "^0.8.0"
+mypy = "^1.13.0"
+ipython = "^8.29.0"
+
+[tool.poetry.group.test.dependencies]
+moto = {extras = ["all"], version = "^5.0.0"}
+pytest-env = "^1.1.0"
+localstack = "^3.8.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.black]
+line-length = 100
+target-version = ['py311']
+include = '\.pyi?$'
+extend-exclude = '''
+/(
+  \.eggs
+  | \.git
+  | \.hg
+  | \.mypy_cache
+  | \.tox
+  | \.venv
+  | _build
+  | buck-out
+  | build
+  | dist
+)/
+'''
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+select = [
+    "E",  # pycodestyle errors
+    "W",  # pycodestyle warnings
+    "F",  # pyflakes
+    "I",  # isort
+    "C",  # flake8-comprehensions
+    "B",  # flake8-bugbear
+    "UP", # pyupgrade
+]
+ignore = [
+    "E501",  # line too long (handled by black)
+    "B008",  # do not perform function calls in argument defaults
+    "C901",  # too complex
+]
+
+[tool.mypy]
+python_version = "3.11"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true
+plugins = ["pydantic.mypy"]
+
+[tool.pytest.ini_options]
+minversion = "8.0"
+addopts = "-ra -q --strict-markers"
+testpaths = ["tests"]
+pythonpath = ["."]
+markers = [
+    "unit: Unit tests",
+    "integration: Integration tests",
+    "e2e: End-to-end tests",
+    "slow: Slow running tests",
+]
+
+[tool.coverage.run]
+source = ["src"]
+omit = ["tests/*", "**/__init__.py"]
+
+[tool.coverage.report]
+precision = 2
+show_missing = true
+skip_covered = false
