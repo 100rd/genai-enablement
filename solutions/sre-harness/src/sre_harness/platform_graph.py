@@ -12,7 +12,7 @@ The port mirrors the Omniscience MCP ``list_entities`` contract:
 from __future__ import annotations
 
 from dataclasses import dataclass
-from typing import Protocol, runtime_checkable
+from typing import Any, Protocol, runtime_checkable
 
 
 @dataclass(frozen=True)
@@ -70,26 +70,38 @@ class InMemoryPlatformGraph:
         }
 
 
-_NOT_WIRED = (
-    "OmniscienceMcpPlatformGraph is a stub. Wire it to the Omniscience MCP "
-    "`list_entities` tool: input {kind, cluster, name, as_of}, workspace-scoped, "
-    "returning entities (same shape as the `get_entity` tool). The tool is being "
-    "implemented on the Omniscience `feat/sre-gate-graph` branch."
-)
+_LIST_ENTITIES_TOOL = "list_entities"
+
+
+@runtime_checkable
+class McpToolClient(Protocol):
+    """Minimal structural client for invoking a single MCP tool.
+
+    A thin seam so the adapter is testable without depending on an MCP SDK.
+    A real client (e.g. one wrapping the ``mcp`` Python SDK) implements
+    ``call_tool``; if that client is async, wrap it to expose this sync surface.
+    """
+
+    def call_tool(self, name: str, arguments: dict[str, Any]) -> dict[str, Any]:
+        """Call MCP tool ``name`` with ``arguments`` and return its result."""
+        ...
 
 
 class OmniscienceMcpPlatformGraph:
-    """Adapter that will call the Omniscience MCP ``list_entities`` tool.
+    """``PlatformGraph`` backed by the Omniscience MCP ``list_entities`` tool.
 
-    Contract (must match the Omniscience tool exactly):
-        list_entities(kind: str, cluster: str | None, name: str | None,
-                      as_of: ISO-8601 str | None) -> list[entity]
+    Contract (matches the Omniscience tool exactly):
+        list_entities(kind, cluster?, name?, as_of?) ->
+            {"entities": [{name, kind, source, chunk_text,
+                           valid_from, valid_to, recorded_at}, ...],
+             "effective_as_of": ..., "meta": ...}
 
-    Not yet wired — methods raise ``NotImplementedError``. All harness logic is
-    exercised through :class:`InMemoryPlatformGraph` until the live tool lands.
+    The tool exposes ``cluster`` as a *query filter*, not a per-entity field, so
+    entities resolved with a ``cluster`` argument carry that cluster; an
+    unfiltered query leaves :attr:`Entity.cluster` as ``None``.
     """
 
-    def __init__(self, client: object, *, as_of: str | None = None) -> None:
+    def __init__(self, client: McpToolClient, *, as_of: str | None = None) -> None:
         self._client = client
         self._as_of = as_of
 
@@ -99,15 +111,32 @@ class OmniscienceMcpPlatformGraph:
         cluster: str | None = None,
         name: str | None = None,
     ) -> list[Entity]:
-        raise NotImplementedError(_NOT_WIRED)
+        result = self._client.call_tool(
+            _LIST_ENTITIES_TOOL,
+            {"kind": kind, "cluster": cluster, "name": name, "as_of": self._as_of},
+        )
+        rows = result.get("entities", []) if isinstance(result, dict) else []
+        return [
+            Entity(
+                kind=str(row.get("kind", kind)),
+                name=str(row["name"]),
+                cluster=cluster,
+            )
+            for row in rows
+            if isinstance(row, dict) and row.get("name") is not None
+        ]
 
     def storageclasses_in_cluster(self, cluster_id: str) -> set[str]:
-        raise NotImplementedError(_NOT_WIRED)
+        return {
+            entity.name
+            for entity in self.list_entities("StorageClass", cluster=cluster_id)
+        }
 
 
 __all__ = [
     "Entity",
     "InMemoryPlatformGraph",
+    "McpToolClient",
     "OmniscienceMcpPlatformGraph",
     "PlatformGraph",
 ]

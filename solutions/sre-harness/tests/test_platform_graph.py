@@ -74,14 +74,72 @@ class TestListEntities:
         assert graph.storageclasses_in_cluster("prod-eu-1") == {"gold", "silver"}
 
 
-@pytest.mark.unit
-class TestOmniscienceAdapterStub:
-    def test_list_entities_not_implemented(self) -> None:
-        adapter = OmniscienceMcpPlatformGraph(client=object())
-        with pytest.raises(NotImplementedError):
-            adapter.list_entities(kind="StorageClass")
+class _FakeMcpClient:
+    """Records calls and returns a canned ``list_entities`` response."""
 
-    def test_storageclasses_in_cluster_not_implemented(self) -> None:
-        adapter = OmniscienceMcpPlatformGraph(client=object())
-        with pytest.raises(NotImplementedError):
-            adapter.storageclasses_in_cluster("prod-eu-1")
+    def __init__(self, response: dict) -> None:
+        self._response = response
+        self.calls: list[tuple[str, dict]] = []
+
+    def call_tool(self, name: str, arguments: dict) -> dict:
+        self.calls.append((name, arguments))
+        return self._response
+
+
+@pytest.mark.unit
+class TestOmniscienceAdapter:
+    def test_list_entities_maps_response_rows_to_entities(self) -> None:
+        client = _FakeMcpClient(
+            {"entities": [
+                {"name": "gold", "kind": "StorageClass"},
+                {"name": "silver", "kind": "StorageClass"},
+            ]}
+        )
+        adapter = OmniscienceMcpPlatformGraph(client=client)
+
+        result = adapter.list_entities(kind="StorageClass", cluster="prod-eu-1")
+
+        # cluster comes from the query argument (the tool filters by it).
+        assert {(e.kind, e.name, e.cluster) for e in result} == {
+            ("StorageClass", "gold", "prod-eu-1"),
+            ("StorageClass", "silver", "prod-eu-1"),
+        }
+
+    def test_list_entities_sends_the_contract_arguments(self) -> None:
+        client = _FakeMcpClient({"entities": []})
+        adapter = OmniscienceMcpPlatformGraph(client=client, as_of="2026-06-16T00:00:00Z")
+
+        adapter.list_entities(kind="Service", cluster="c1", name="payments")
+
+        assert client.calls == [
+            (
+                "list_entities",
+                {
+                    "kind": "Service",
+                    "cluster": "c1",
+                    "name": "payments",
+                    "as_of": "2026-06-16T00:00:00Z",
+                },
+            )
+        ]
+
+    def test_storageclasses_in_cluster_returns_name_set(self) -> None:
+        client = _FakeMcpClient(
+            {"entities": [
+                {"name": "gold", "kind": "StorageClass"},
+                {"name": "silver", "kind": "StorageClass"},
+            ]}
+        )
+        adapter = OmniscienceMcpPlatformGraph(client=client)
+
+        assert adapter.storageclasses_in_cluster("prod-eu-1") == {"gold", "silver"}
+        # queried by kind=StorageClass scoped to the cluster
+        name, args = client.calls[-1]
+        assert name == "list_entities"
+        assert args["kind"] == "StorageClass"
+        assert args["cluster"] == "prod-eu-1"
+
+    def test_missing_or_empty_entities_yields_empty(self) -> None:
+        assert OmniscienceMcpPlatformGraph(client=_FakeMcpClient({})).list_entities("StorageClass") == []
+        empty = OmniscienceMcpPlatformGraph(client=_FakeMcpClient({"entities": []}))
+        assert empty.storageclasses_in_cluster("c1") == set()

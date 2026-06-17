@@ -12,7 +12,7 @@ gate — pure, deterministic, fully unit-tested. No LLM in the loop here.
 | Module | Responsibility |
 |---|---|
 | `sre_harness.autonomy_tiers` | Tier model `T1 read-only → T4 autonomous`, the action-tier table, and `classify()` which **degrades down** (toward more human control) on low confidence or off-plan actions. |
-| `sre_harness.platform_graph` | `PlatformGraph` port mirroring the Omniscience MCP `list_entities` contract, an `InMemoryPlatformGraph` fake, and an `OmniscienceMcpPlatformGraph` adapter stub. |
+| `sre_harness.platform_graph` | `PlatformGraph` port mirroring the Omniscience MCP `list_entities` contract, an `InMemoryPlatformGraph` fake, and an `OmniscienceMcpPlatformGraph` adapter over an `McpToolClient` seam. |
 | `sre_harness.change_gate` | Change-validation gate (check #1): is every required StorageClass present in the target clusters? Verdict `proceed` / `block` / `require_human`. The analysis is T1; the verdict is T2 (advisory) — the gate never executes anything. |
 
 ## The Omniscience contract
@@ -40,8 +40,10 @@ poetry run mypy
 
 - Autonomy-tier engine — done, unit-tested.
 - Change-validation gate (StorageClass check) — done, unit-tested against the fake.
-- `OmniscienceMcpPlatformGraph` — stub (raises `NotImplementedError`); wire to the
-  live MCP tool once the Omniscience `feat/sre-gate-graph` branch lands.
+- `OmniscienceMcpPlatformGraph` — implemented over an `McpToolClient` seam and
+  unit-tested with a fake client; maps the `list_entities` response to `Entity`.
+  Remaining: a concrete `McpToolClient` against a running Omniscience (real MCP
+  client + workspace-scoped token) for end-to-end use.
 - PR-diff / k8s-manifest parsing into `ChangeRequest` — stubbed (`parse_change_request`
   accepts a structured payload today).
 </content>
