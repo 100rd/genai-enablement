@@ -1,8 +1,17 @@
 # GenAI Enablement - Project Status
 
-**Last Updated**: 2026-03-07
-**Phase**: Research & Planning
+**Last Updated**: 2026-06-16
+**Phase**: Research & Planning → starting development (Autonomous SRE Harness)
 **Overall Health**: On Track
+
+## Direction shift (2026-06-16)
+The SRE workstream is reframed from a "smart pager" (enriched notifications) to an
+**Autonomous SRE Harness** — *"the harness is the product"*: agents do pre-triage,
+change-validation gates, permanent-fix chase, RCA drafting, and bounded auto-healing under
+tiered autonomy, measured on leverage not tickets closed.
+- Landscape refresh: [`research/2026-agentic-sre-refresh.md`](research/2026-agentic-sre-refresh.md)
+- Plan & vision: [`docs/autonomous-sre-harness-plan.md`](docs/autonomous-sre-harness-plan.md)
+- Anchor fact: SOTA agents autonomously resolve ~11% of SRE incidents (ITBench) → bet on the harness.
 
 ## Completed
 - [x] Market research — 40+ GenAI DevOps/SRE solutions analyzed across 7 categories
@@ -14,6 +23,8 @@
 - [x] Implementation roadmap document
 - [x] Success metrics framework
 - [x] Engagement templates (kickoff, assessment, playbook, ROI tracker)
+- [x] **Agentic SRE landscape refresh (June 2026)** — 3 parallel research threads (market, architecture, AWS-native)
+- [x] **Autonomous SRE Harness plan v2** — autonomy-tier model, action-tier governance, revised roadmap
 
 ## In Progress
 - [ ] AI Incident Agent — complete implementation and testing
