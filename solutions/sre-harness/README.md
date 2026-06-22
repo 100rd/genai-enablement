@@ -14,6 +14,7 @@ gate — pure, deterministic, fully unit-tested. No LLM in the loop here.
 | `sre_harness.autonomy_tiers` | Tier model `T1 read-only → T4 autonomous`, the action-tier table, and `classify()` which **degrades down** (toward more human control) on low confidence or off-plan actions. |
 | `sre_harness.platform_graph` | `PlatformGraph` port mirroring the Omniscience MCP `list_entities` contract, an `InMemoryPlatformGraph` fake, and an `OmniscienceMcpPlatformGraph` adapter over an `McpToolClient` seam. |
 | `sre_harness.change_gate` | Change-validation gate (check #1): is every required StorageClass present in the target clusters? Verdict `proceed` / `block` / `require_human`. The analysis is T1; the verdict is T2 (advisory) — the gate never executes anything. |
+| `sre_harness.eval` | Offline eval harness (plan Stage 0): frozen incident-replay labels (`Scenario` = `{id, kind, snapshot, ground_truth}`), a `run_eval(scenarios, target)` runner, **Pass@1** scoring, and a 5-scenario seed suite covering the gate's verdict space. Pure, offline, deterministic — no LLM. Run with `python -m sre_harness.eval`. |
 
 ## The Omniscience contract
 
@@ -36,10 +37,25 @@ poetry run ruff check src tests
 poetry run mypy
 ```
 
+## Run the eval suite
+
+```bash
+python -m sre_harness.eval            # summary (pass rate + per-kind breakdown)
+python -m sre_harness.eval --verbose  # also prints per-scenario verdicts
+```
+
+Exits non-zero if any scenario fails, so it can gate CI later.
+
 ## Status
 
 - Autonomy-tier engine — done, unit-tested.
 - Change-validation gate (StorageClass check) — done, unit-tested against the fake.
+- Offline eval harness (Stage 0) — done, unit-tested. Scenario/label format,
+  `run_eval` runner, **Pass@1** verdict scoring, and a 5-scenario seed suite
+  (proceed / block / require-human / empty-requirements / multi-class). Scored
+  now: Pass@1 only. Stubbed extension points (typed, raise rather than fake a
+  number): `Pass@k` / `trajectory` / `depth` / `signal-surfacing` — wire real
+  scorers once there is a stochastic, multi-step agent target (Stage 1+).
 - `OmniscienceMcpPlatformGraph` — implemented over an `McpToolClient` seam and
   unit-tested with a fake client; maps the `list_entities` response to `Entity`.
   Remaining: a concrete `McpToolClient` against a running Omniscience (real MCP
