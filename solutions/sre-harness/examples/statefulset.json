@@ -1,0 +1,13 @@
+{
+  "apiVersion": "apps/v1",
+  "kind": "StatefulSet",
+  "metadata": {
+    "name": "payments",
+    "labels": { "cluster": "prod-eu-1" }
+  },
+  "spec": {
+    "volumeClaimTemplates": [
+      { "metadata": { "name": "data" }, "spec": { "storageClassName": "gold" } }
+    ]
+  }
+}

@@ -1,0 +1,70 @@
+# ArgoCD PreSync advisory change-validation gate (Stage 2 of the SRE harness).
+#
+# This Job runs as an ArgoCD PreSync hook: ArgoCD creates it BEFORE syncing the
+# rest of the application, so the gate evaluates the change ahead of the deploy.
+#
+# ADVISORY semantics (the point of Stage 2 / autonomy tier T2): the command ends
+# with `|| true` and the hook is marked for deletion on success, so a non-zero
+# verdict is RECORDED (in the Job logs / ArgoCD UI) but does NOT abort the sync.
+# A controller or a human acts on it. Read the verdict with
+# `kubectl logs job/sre-harness-change-gate`.
+#
+# TO MAKE IT BLOCKING (later, once trusted): a failed PreSync hook Job aborts the
+# sync by default. Remove the `|| true` from the command so the container exits
+# non-zero on block/require_human, and ArgoCD will treat the failed hook as a
+# failed sync. See integrations/README.md.
+#
+# Exit codes from `sre-harness gate`: 0=proceed, 1=block, 2=require_human.
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: sre-harness-change-gate
+  annotations:
+    argocd.argoproj.io/hook: PreSync
+    # Advisory: clean up the hook Job after it runs; combined with `|| true`
+    # below this never aborts the sync. Make the gate blocking by removing the
+    # `|| true` (see header).
+    argocd.argoproj.io/hook-delete-policy: HookSucceeded
+spec:
+  backoffLimit: 0
+  template:
+    metadata:
+      name: sre-harness-change-gate
+    spec:
+      restartPolicy: Never
+      containers:
+        - name: gate
+          image: python:3.11-slim
+          command: ["/bin/sh", "-c"]
+          args:
+            - |
+              set -eu
+              pip install --quiet sre-harness
+              echo "Running advisory change-validation gate (PreSync)..."
+              # `--change-format k8s` parses the rendered manifest mounted below;
+              # the graph fixture is mounted from a ConfigMap. In production the
+              # graph should come from the live OmniscienceMcpPlatformGraph
+              # adapter (see the live-adapter TODO in integrations/README.md).
+              sre-harness gate \
+                --change /work/change/manifest.json \
+                --change-format k8s \
+                --target-cluster "$TARGET_CLUSTER" \
+                --graph /work/graph/platform-graph.json || true
+              # `|| true` keeps this advisory. Remove it to make the gate blocking.
+          env:
+            - name: TARGET_CLUSTER
+              value: "prod-eu-1"
+          volumeMounts:
+            - name: change
+              mountPath: /work/change
+            - name: graph
+              mountPath: /work/graph
+      volumes:
+        # The manifest to validate (e.g. rendered StatefulSet) as JSON.
+        - name: change
+          configMap:
+            name: sre-harness-change
+        # The platform-graph fixture as JSON.
+        - name: graph
+          configMap:
+            name: sre-harness-graph

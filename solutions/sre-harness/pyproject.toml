@@ -6,6 +6,9 @@ authors = ["GenAI Enablement Team"]
 readme = "README.md"
 packages = [{ include = "sre_harness", from = "src" }]
 
+[tool.poetry.scripts]
+sre-harness = "sre_harness.cli:main"
+
 [tool.poetry.dependencies]
 python = "^3.11"
 
