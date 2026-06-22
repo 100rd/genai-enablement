@@ -1,0 +1,10 @@
+{
+  "_comment": "Example platform-graph fixture for the sre-harness gate CLI. In production this same shape is served by the live OmniscienceMcpPlatformGraph adapter (list_entities). 'silver' exists in both prod clusters; 'gold' only in prod-eu-1.",
+  "entities": [
+    { "kind": "StorageClass", "name": "silver", "cluster": "prod-eu-1" },
+    { "kind": "StorageClass", "name": "silver", "cluster": "prod-us-1" },
+    { "kind": "StorageClass", "name": "gold", "cluster": "prod-eu-1" },
+    { "kind": "Cluster", "name": "prod-eu-1" },
+    { "kind": "Cluster", "name": "prod-us-1" }
+  ]
+}

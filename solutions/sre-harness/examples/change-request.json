@@ -1,0 +1,5 @@
+{
+  "service": "payments",
+  "target_cluster_ids": ["prod-eu-1", "prod-us-1"],
+  "required_storageclasses": ["gold"]
+}

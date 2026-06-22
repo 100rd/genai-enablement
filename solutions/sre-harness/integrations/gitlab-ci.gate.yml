@@ -1,0 +1,55 @@
+# Advisory change-validation gate for GitLab CI (Stage 2 of the SRE harness).
+#
+# This snippet adds a `change-validation` stage that runs the deterministic
+# `sre-harness gate` over the change in the MR and surfaces a verdict
+# (proceed / block / require_human) BEFORE the deploy stage.
+#
+# It is ADVISORY by default: `allow_failure: true` means a `block` (exit 1) or
+# `require_human` (exit 2) verdict shows a warning on the pipeline but does NOT
+# stop the deploy. This matches the plan's Stage 2 ("Low risk — advisory"): a
+# controller or a human acts on the verdict (autonomy tier T2). See
+# `integrations/README.md`.
+#
+# TO MAKE IT BLOCKING (later, once trusted): delete the `allow_failure: true`
+# line. The job's exit code then fails the pipeline on `block`/`require_human`.
+#
+# How to include from your project's .gitlab-ci.yml:
+#   include:
+#     - local: solutions/sre-harness/integrations/gitlab-ci.gate.yml
+# and add `change-validation` to your `stages:` list before `deploy`.
+
+stages:
+  - change-validation
+  - deploy
+
+change-validation:
+  stage: change-validation
+  image: python:3.11-slim
+  # Advisory: a non-zero verdict warns but does not block the pipeline.
+  # Remove the next line to make the gate blocking.
+  allow_failure: true
+  variables:
+    # Path to the platform-graph fixture. In production, point this at a file
+    # rendered from the live OmniscienceMcpPlatformGraph adapter (see the
+    # live-adapter TODO in integrations/README.md) instead of a static fixture.
+    HARNESS_GRAPH: "solutions/sre-harness/examples/platform-graph.json"
+    # Path to the change request. Swap for `--change-format k8s` against the
+    # rendered manifest, or `--change-format pr-diff` against the MR diff.
+    HARNESS_CHANGE: "solutions/sre-harness/examples/change-request.json"
+  before_script:
+    - pip install --quiet ./solutions/sre-harness
+  script:
+    - |
+      echo "Running advisory change-validation gate..."
+      sre-harness gate \
+        --change "$HARNESS_CHANGE" \
+        --graph "$HARNESS_GRAPH" | tee gate-verdict.json
+      # Exit codes: 0=proceed, 1=block, 2=require_human.
+  artifacts:
+    when: always
+    paths:
+      - gate-verdict.json
+    expire_in: 1 week
+  rules:
+    # Run on merge requests (where a change is proposed) only.
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
