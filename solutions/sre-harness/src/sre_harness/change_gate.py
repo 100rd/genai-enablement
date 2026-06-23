@@ -24,6 +24,8 @@ from typing import Any
 
 from sre_harness.autonomy_tiers import Tier
 from sre_harness.change_checks import DEFAULT_CHECKS, Check, CheckResult
+from sre_harness.observability import attributes as attrs
+from sre_harness.observability import set_attributes, span
 from sre_harness.platform_graph import PlatformGraph
 
 
@@ -91,9 +93,26 @@ def evaluate_change(
 
     Runs every registered check and aggregates their verdicts (block dominates,
     then require_human, then proceed). Each check is pure and read-only.
+
+    Instrumented (AgentOps): an overall ``gate.evaluate`` span with a child span
+    per check. Tracing is no-op by default, so behaviour is unchanged when no
+    OTel provider is configured.
     """
-    check_results = tuple(check(request, graph) for check in checks)
-    verdict = _aggregate(check_results)
+    with span(
+        "gate.evaluate",
+        {
+            attrs.GATE_SERVICE: request.service,
+            attrs.GATE_TARGET_CLUSTER_COUNT: len(request.target_cluster_ids),
+            attrs.GATE_CHECK_COUNT: len(checks),
+            attrs.GATE_ANALYSIS_TIER: Tier.T1.name,
+            attrs.GATE_RECOMMENDATION_TIER: Tier.T2.name,
+        },
+        service="sre-harness",
+    ) as gate_span:
+        check_results = tuple(_run_check(check, request, graph) for check in checks)
+        verdict = _aggregate(check_results)
+        set_attributes(gate_span, {attrs.GATE_VERDICT: verdict.value})
+
     missing_by_cluster, classes_absent_everywhere = _storageclass_back_compat(check_results)
 
     return GateResult(
@@ -105,6 +124,24 @@ def evaluate_change(
         recommendation_tier=Tier.T2,  # advisory verdict; the gate never executes
         check_results=check_results,
     )
+
+
+def _run_check(check: Check, request: ChangeRequest, graph: PlatformGraph) -> CheckResult:
+    """Run one check inside a child ``gate.check`` span (AgentOps).
+
+    Wrapping at this boundary keeps :mod:`sre_harness.change_checks` free of any
+    tracing concern. The span is no-op when tracing is off.
+    """
+    with span("gate.check") as check_span:
+        result = check(request, graph)
+        set_attributes(
+            check_span,
+            {
+                attrs.GATE_CHECK_ID: result.check_id,
+                attrs.GATE_CHECK_VERDICT: result.verdict.value,
+            },
+        )
+        return result
 
 
 def _aggregate(check_results: tuple[CheckResult, ...]) -> Verdict:

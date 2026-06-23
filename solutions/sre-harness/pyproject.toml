@@ -11,6 +11,10 @@ sre-harness = "sre_harness.cli:main"
 
 [tool.poetry.dependencies]
 python = "^3.11"
+# AgentOps: a thin tracing facade over OpenTelemetry (no-op by default). The API
+# is the hot-path dependency; the SDK is only needed to configure/test exporters.
+opentelemetry-api = "^1.27"
+opentelemetry-sdk = "^1.27"
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^8.3.0"
