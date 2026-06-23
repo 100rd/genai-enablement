@@ -23,6 +23,9 @@ def graph() -> InMemoryPlatformGraph:
             Entity(kind="StorageClass", name="silver", cluster="prod-eu-1"),
             Entity(kind="StorageClass", name="silver", cluster="prod-us-1"),
             Entity(kind="Service", name="payments", cluster="prod-eu-1"),
+            Entity(kind="Namespace", name="payments", cluster="prod-eu-1"),
+            Entity(kind="Namespace", name="staging", cluster="prod-eu-1"),
+            Entity(kind="Namespace", name="payments", cluster="prod-us-1"),
         ]
     )
 
@@ -46,6 +49,18 @@ class TestStorageClassesInCluster:
 
     def test_unknown_cluster_returns_empty_set(self, graph: InMemoryPlatformGraph) -> None:
         assert graph.storageclasses_in_cluster("does-not-exist") == set()
+
+
+@pytest.mark.unit
+class TestNamespacesInCluster:
+    def test_returns_set_of_names_for_cluster(self, graph: InMemoryPlatformGraph) -> None:
+        assert graph.namespaces_in_cluster("prod-eu-1") == {"payments", "staging"}
+
+    def test_returns_only_matching_cluster(self, graph: InMemoryPlatformGraph) -> None:
+        assert graph.namespaces_in_cluster("prod-us-1") == {"payments"}
+
+    def test_unknown_cluster_returns_empty_set(self, graph: InMemoryPlatformGraph) -> None:
+        assert graph.namespaces_in_cluster("does-not-exist") == set()
 
 
 @pytest.mark.unit
@@ -90,10 +105,12 @@ class _FakeMcpClient:
 class TestOmniscienceAdapter:
     def test_list_entities_maps_response_rows_to_entities(self) -> None:
         client = _FakeMcpClient(
-            {"entities": [
-                {"name": "gold", "kind": "StorageClass"},
-                {"name": "silver", "kind": "StorageClass"},
-            ]}
+            {
+                "entities": [
+                    {"name": "gold", "kind": "StorageClass"},
+                    {"name": "silver", "kind": "StorageClass"},
+                ]
+            }
         )
         adapter = OmniscienceMcpPlatformGraph(client=client)
 
@@ -125,10 +142,12 @@ class TestOmniscienceAdapter:
 
     def test_storageclasses_in_cluster_returns_name_set(self) -> None:
         client = _FakeMcpClient(
-            {"entities": [
-                {"name": "gold", "kind": "StorageClass"},
-                {"name": "silver", "kind": "StorageClass"},
-            ]}
+            {
+                "entities": [
+                    {"name": "gold", "kind": "StorageClass"},
+                    {"name": "silver", "kind": "StorageClass"},
+                ]
+            }
         )
         adapter = OmniscienceMcpPlatformGraph(client=client)
 
@@ -139,7 +158,27 @@ class TestOmniscienceAdapter:
         assert args["kind"] == "StorageClass"
         assert args["cluster"] == "prod-eu-1"
 
+    def test_namespaces_in_cluster_returns_name_set(self) -> None:
+        client = _FakeMcpClient(
+            {
+                "entities": [
+                    {"name": "payments", "kind": "Namespace"},
+                    {"name": "staging", "kind": "Namespace"},
+                ]
+            }
+        )
+        adapter = OmniscienceMcpPlatformGraph(client=client)
+
+        assert adapter.namespaces_in_cluster("prod-eu-1") == {"payments", "staging"}
+        name, args = client.calls[-1]
+        assert name == "list_entities"
+        assert args["kind"] == "Namespace"
+        assert args["cluster"] == "prod-eu-1"
+
     def test_missing_or_empty_entities_yields_empty(self) -> None:
-        assert OmniscienceMcpPlatformGraph(client=_FakeMcpClient({})).list_entities("StorageClass") == []
+        assert (
+            OmniscienceMcpPlatformGraph(client=_FakeMcpClient({})).list_entities("StorageClass")
+            == []
+        )
         empty = OmniscienceMcpPlatformGraph(client=_FakeMcpClient({"entities": []}))
         assert empty.storageclasses_in_cluster("c1") == set()

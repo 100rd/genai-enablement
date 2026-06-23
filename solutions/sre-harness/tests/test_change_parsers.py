@@ -101,3 +101,80 @@ class TestPrDiffParser:
         }
         req = parse_k8s_manifest(manifest, fallback_clusters=[])
         assert req.required_storageclasses == {"gold"}
+
+
+@pytest.mark.unit
+class TestK8sNamespaceExtraction:
+    def test_metadata_namespace_becomes_required_namespace(self) -> None:
+        manifest = {
+            "kind": "PersistentVolumeClaim",
+            "metadata": {"name": "cache", "namespace": "payments"},
+            "spec": {"storageClassName": "fast"},
+        }
+        req = parse_k8s_manifest(manifest, fallback_clusters=["prod-eu-1"])
+        assert req.required_namespaces == frozenset({"payments"})
+
+    def test_absent_namespace_yields_empty_set(self) -> None:
+        manifest = {
+            "kind": "PersistentVolumeClaim",
+            "metadata": {"name": "cache"},
+            "spec": {"storageClassName": "fast"},
+        }
+        req = parse_k8s_manifest(manifest, fallback_clusters=["prod-eu-1"])
+        assert req.required_namespaces == frozenset()
+
+
+@pytest.mark.unit
+class TestK8sBlastRadiusActions:
+    def test_high_blast_radius_kind_maps_to_action(self) -> None:
+        manifest = {
+            "kind": "DBInstance",  # AWS ACK / Crossplane RDS
+            "metadata": {"name": "orders-db", "labels": {"cluster": "prod-eu-1"}},
+            "spec": {},
+        }
+        req = parse_k8s_manifest(manifest, fallback_clusters=[])
+        assert "rds_param_change" in req.actions
+
+    def test_iam_kind_maps_to_iam_change(self) -> None:
+        manifest = {
+            "kind": "Role",
+            "metadata": {"name": "orders-role", "labels": {"cluster": "prod-eu-1"}},
+            "spec": {},
+        }
+        req = parse_k8s_manifest(manifest, fallback_clusters=[])
+        assert "iam_change" in req.actions
+
+    def test_ordinary_kind_has_no_actions(self) -> None:
+        manifest = {
+            "kind": "StatefulSet",
+            "metadata": {"name": "orders", "labels": {"cluster": "prod-eu-1"}},
+            "spec": {"volumeClaimTemplates": [{"spec": {"storageClassName": "gold"}}]},
+        }
+        req = parse_k8s_manifest(manifest, fallback_clusters=[])
+        assert req.actions == frozenset()
+
+
+@pytest.mark.unit
+class TestPrDiffBlastRadiusActions:
+    def test_added_rds_resource_maps_to_action(self) -> None:
+        diff = (
+            "+++ b/infra/db.tf\n"
+            '+resource "aws_db_instance" "orders" {\n'
+            '+  identifier = "orders"\n'
+        )
+        req = parse_pr_diff(diff, service="orders", fallback_clusters=["prod-eu-1"])
+        assert "rds_param_change" in req.actions
+
+    def test_added_iam_and_sg_resources_map_to_actions(self) -> None:
+        diff = (
+            "+++ b/infra/iam.tf\n"
+            '+resource "aws_iam_policy" "orders" {\n'
+            '+resource "aws_security_group" "orders" {\n'
+        )
+        req = parse_pr_diff(diff, service="orders", fallback_clusters=["prod-eu-1"])
+        assert {"iam_change", "security_group_change"} <= req.actions
+
+    def test_removed_high_risk_line_ignored(self) -> None:
+        diff = '-resource "aws_db_instance" "old" {\n+some docs\n'
+        req = parse_pr_diff(diff, service="orders", fallback_clusters=["prod-eu-1"])
+        assert req.actions == frozenset()
