@@ -18,6 +18,7 @@ gate — pure, deterministic, fully unit-tested. No LLM in the loop here.
 | `sre_harness.change_parsers` | Best-effort parsers extracting `service` / `target_cluster_ids` / `required_storageclasses` and (Stage 2) `required_namespaces` + high-blast-radius `actions` from a k8s manifest dict (`parse_k8s_manifest`) or a unified PR diff (`parse_pr_diff`). |
 | `sre_harness.cli` | `sre-harness gate` command (Stage 2): loads a change request + a `PlatformGraph` fixture, runs the gate, prints the verdict JSON, and sets a CI-meaningful exit code. |
 | `sre_harness.eval` | Offline eval harness (plan Stage 0): frozen incident-replay labels (`Scenario` = `{id, kind, snapshot, ground_truth}`), a `run_eval(scenarios, target)` runner, **Pass@1** scoring, and a 10-scenario seed suite covering all three checks' verdict space. Pure, offline, deterministic — no LLM. Run with `python -m sre_harness.eval`. |
+| `sre_harness.observability` | **AgentOps** (plan cross-cutting): a thin tracing facade over OpenTelemetry — `get_tracer()`, the `span(...)` context manager, the `@traced(...)` decorator, and an optional `configure_tracing(...)` for OTLP export. Defines a **stable `sre_harness.*` attribute schema** (`attributes.py`) and instruments the gate and the eval runner. **No-op by default** — zero behaviour change and near-zero cost when no OTel provider is configured. |
 
 ## The gate — three deterministic checks, aggregated
 
@@ -84,6 +85,58 @@ targets the MCP tool:
 list_entities(kind: str, cluster: str | null, name: str | null,
               as_of: ISO-8601 | null) -> [entity]
 ```
+
+## Observability / AgentOps
+
+The harness emits OpenTelemetry spans for the gate and the eval runner so a run is
+auditable end to end (plan cross-cutting row: *AgentOps — OTel GenAI spans, cost,
+reasoning provenance*). The instrumentation lives behind a thin facade
+(`sre_harness.observability`) and is **no-op by default**: with no OTel
+`TracerProvider` configured, the API hands back a no-op tracer, every span is a
+cheap side-effect-free object, and behaviour is unchanged. Nothing to run, no
+collector required.
+
+**What's traced**
+
+| Span | Parent | Key attributes |
+|---|---|---|
+| `gate.evaluate` | (root) | `gate.verdict`, `gate.service`, `gate.target_cluster_count`, `gate.check_count`, `gate.analysis_tier`, `gate.recommendation_tier`, `service` |
+| `gate.check` | `gate.evaluate` | `gate.check_id`, `gate.check_verdict` (one child span per check) |
+| `eval.suite` | (root) | `eval.scenario_count`, `eval.passed_count`, `eval.pass_rate`, `service` |
+| `eval.scenario` | `eval.suite` | `eval.scenario_id`, `eval.scenario_kind`, `eval.score`, `eval.passed` (one per scenario) |
+
+**The attribute schema (why our own names).** The OTel GenAI semantic conventions
+(`gen_ai.*`) are still *experimental* and have churned across releases. AgentOps is
+a cross-cutting concern meant to outlive that churn, so the harness defines its own
+**stable** attribute names under the `sre_harness.*` namespace
+(`sre_harness/observability/attributes.py`) and sets those at every call site. A
+small, safe subset of the token/cost scaffold is *additively* mirrored onto the
+standardised GenAI names internally (e.g. `sre_harness.llm.input_tokens` →
+`gen_ai.usage.input_tokens`) so an OTel-native backend still sees them — but the
+unstable `gen_ai.*` strings never appear in harness code.
+
+A token/cost scaffold (`sre_harness.llm.input_tokens` / `...output_tokens` /
+`...cost_usd` / `...model`) is defined for the future read-only triage / RCA LLM
+steps (plan Stage 1); no LLM runs today, so those attributes are declared but not
+yet emitted.
+
+**Enabling an exporter.** Tracing stays no-op until you wire a provider. The
+convenience helper reads an endpoint from the environment:
+
+```bash
+export SRE_HARNESS_OTLP_ENDPOINT="http://localhost:4318/v1/traces"
+```
+
+```python
+from sre_harness.observability import configure_tracing
+configure_tracing()  # returns False (and stays no-op) if no endpoint is set
+```
+
+`configure_tracing()` installs an SDK `TracerProvider` with a batch OTLP/HTTP
+exporter. It requires the optional `opentelemetry-exporter-otlp-proto-http`
+package (not a declared dependency); without it, `configure_tracing()` raises a
+clear error. You can also bring your own provider via the standard OTel SDK —
+the facade resolves through the global API either way.
 
 ## Develop
 
