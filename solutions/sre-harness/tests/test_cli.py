@@ -120,6 +120,19 @@ class TestOutputShape:
         assert tier["tier"] == "T2"
         assert tier["off_plan"] is False
 
+    def test_emits_per_check_results(
+        self, tmp_path: Path, capsys: pytest.CaptureFixture[str]
+    ) -> None:
+        graph = _graph_file(tmp_path)
+        change = _change_file(tmp_path, required_storageclasses=["gold"])
+        _, doc = _run(["gate", "--change", str(change), "--graph", str(graph)], capsys)
+        checks = doc["check_results"]
+        assert isinstance(checks, list)
+        ids = {check["check_id"] for check in checks}
+        assert ids == {"storageclass_present", "blast_radius", "namespace_present"}
+        for check in checks:
+            assert {"check_id", "verdict", "rationale", "evidence"} <= set(check)
+
 
 # --- manifest / PR-diff parsing ---------------------------------------------
 

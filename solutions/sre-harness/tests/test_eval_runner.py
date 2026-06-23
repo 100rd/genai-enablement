@@ -78,3 +78,9 @@ class TestSeedScenarios:
 
     def test_seed_suite_has_at_least_three_scenarios(self) -> None:
         assert len(load_seed_scenarios()) >= 3
+
+    def test_seed_suite_exercises_blast_radius_and_namespace_checks(self) -> None:
+        ids = {s.id for s in load_seed_scenarios()}
+        # Blast-radius escalation and missing-namespace block are both covered.
+        assert any("blast-radius" in scenario_id for scenario_id in ids)
+        assert any("namespace" in scenario_id for scenario_id in ids)

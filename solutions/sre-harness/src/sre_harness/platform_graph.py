@@ -41,6 +41,10 @@ class PlatformGraph(Protocol):
         """Return the set of StorageClass names available in ``cluster_id``."""
         ...
 
+    def namespaces_in_cluster(self, cluster_id: str) -> set[str]:
+        """Return the set of Namespace names present in ``cluster_id``."""
+        ...
+
 
 class InMemoryPlatformGraph:
     """In-memory ``PlatformGraph`` for tests and local runs."""
@@ -63,10 +67,16 @@ class InMemoryPlatformGraph:
         ]
 
     def storageclasses_in_cluster(self, cluster_id: str) -> set[str]:
+        return self._names_of_kind("StorageClass", cluster_id)
+
+    def namespaces_in_cluster(self, cluster_id: str) -> set[str]:
+        return self._names_of_kind("Namespace", cluster_id)
+
+    def _names_of_kind(self, kind: str, cluster_id: str) -> set[str]:
         return {
             entity.name
             for entity in self._entities
-            if entity.kind == "StorageClass" and entity.cluster == cluster_id
+            if entity.kind == kind and entity.cluster == cluster_id
         }
 
 
@@ -127,10 +137,10 @@ class OmniscienceMcpPlatformGraph:
         ]
 
     def storageclasses_in_cluster(self, cluster_id: str) -> set[str]:
-        return {
-            entity.name
-            for entity in self.list_entities("StorageClass", cluster=cluster_id)
-        }
+        return {entity.name for entity in self.list_entities("StorageClass", cluster=cluster_id)}
+
+    def namespaces_in_cluster(self, cluster_id: str) -> set[str]:
+        return {entity.name for entity in self.list_entities("Namespace", cluster=cluster_id)}
 
 
 __all__ = [

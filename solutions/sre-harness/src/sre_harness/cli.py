@@ -12,11 +12,18 @@ change-validation gate usable *in a pipeline*. The ``gate`` subcommand:
    T2 — advisory), and
 5. prints the verdict + rationale as JSON and exits with a CI-meaningful code.
 
-Exit codes (so a CI stage can branch on them):
+The gate runs multiple deterministic checks (StorageClass presence, blast-radius
+action classification, Namespace presence) and aggregates them; the JSON output
+includes the aggregate verdict plus per-check ``check_results``.
 
-    0  proceed         — gate is satisfied
-    1  block           — a required StorageClass is absent in every target
-    2  require_human   — gaps in some-but-not-all targets
+Exit codes (so a CI stage can branch on them) derive from the *aggregate*
+verdict:
+
+    0  proceed         — every check is satisfied
+    1  block           — a check blocked (e.g. required class/namespace absent
+                          in every target)
+    2  require_human   — a check needs a human (partial coverage, or a
+                          high-blast-radius action)
 
 A usage error (bad args, missing/invalid input) also exits ``2`` and writes a
 human-readable message to stderr; ``argparse`` itself exits ``2`` on bad CLI
@@ -36,6 +43,7 @@ from pathlib import Path
 from typing import Any
 
 from sre_harness.autonomy_tiers import TierClassification, classify
+from sre_harness.change_checks import CheckResult
 from sre_harness.change_gate import (
     ChangeRequest,
     GateResult,
@@ -176,7 +184,26 @@ def _render(
         "recommendation_tier": result.recommendation_tier.name,
         "advisory": True,
         "tier_classification": _render_tier(tier),
+        "check_results": [_render_check(check) for check in result.check_results],
     }
+
+
+def _render_check(check: CheckResult) -> dict[str, Any]:
+    return {
+        "check_id": check.check_id,
+        "verdict": check.verdict.value,
+        "rationale": check.rationale,
+        "evidence": _jsonable(check.evidence),
+    }
+
+
+def _jsonable(value: Any) -> Any:
+    """Render check evidence (tuples / nested dicts) as JSON-friendly types."""
+    if isinstance(value, dict):
+        return {key: _jsonable(item) for key, item in value.items()}
+    if isinstance(value, tuple | list | set):
+        return [_jsonable(item) for item in value]
+    return value
 
 
 def _render_tier(tier: TierClassification) -> dict[str, Any]:

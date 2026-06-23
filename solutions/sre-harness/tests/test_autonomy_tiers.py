@@ -105,5 +105,5 @@ class TestClassify:
 
     def test_result_is_immutable(self) -> None:
         result = classify("query_logs", confidence=0.9)
-        with pytest.raises(Exception):
+        with pytest.raises(AttributeError):  # frozen dataclass -> FrozenInstanceError
             result.tier = Tier.T4  # type: ignore[misc]
