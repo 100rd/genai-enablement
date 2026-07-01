@@ -1,0 +1,17 @@
+{
+  "version": 1,
+  "skills": {
+    "golang-dev": {
+      "source": "100rd/genai-enablement",
+      "sourceType": "local",
+      "skillPath": "skills/engineering/golang-dev/SKILL.md",
+      "computedHash": "f2c487241066c846929763257def6a7a4e96dd2e7e2afbaff0cd451646a73dfa"
+    },
+    "gpu-node-unhealthy": {
+      "source": "100rd/genai-enablement",
+      "sourceType": "local",
+      "skillPath": "skills/sre/gpu-node-unhealthy/SKILL.md",
+      "computedHash": "1398402390bf8dc7d2868978e5e5698c6da7b541822a5e81606fcee5e13f7891"
+    }
+  }
+}
