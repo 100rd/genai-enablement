@@ -72,12 +72,16 @@ PB-SRE frontmatter over time.
 **The file contains content only.** Trust state, success statistics, and validation
 metadata never live in the file (see D3).
 
-### D2. Distribution: one git repo, lock-file pinning, two consumption modes
+### D2. Distribution: one git-backed registry, lock-file pinning, two consumption modes
 
-A single git repository — working name **`platform-skills`** — is the source of truth:
+A single git-backed registry is the source of truth. **Initial home: the `skills/`
+directory of this repo (genai-enablement).** Extraction into a dedicated `platform-skills`
+repository happens later, when consumer count or access-control needs justify it — the
+layout below is designed to survive that move unchanged (consumers reference the directory
+subtree, not the repo root):
 
 ```
-platform-skills/
+skills/
 ├── engineering/golang-dev/SKILL.md
 ├── engineering/terraform/SKILL.md        # seeded from vendored .claude/skills
 ├── sre/gpu-node-unhealthy/SKILL.md       # converted PB-SRE runbook, tier-tagged steps
@@ -188,8 +192,8 @@ of success-delta degradation with model upgrades.
 
 ## Follow-ups
 
-- [ ] Create `platform-skills` repo; seed with 2–3 skills (`golang-dev` new;
-      `terraform` from vendored set; one converted PB-SRE runbook).
+- [ ] Create the `skills/` registry directory in this repo; seed with 2–3 skills
+      (`golang-dev` new; `terraform` from vendored set; one converted PB-SRE runbook).
 - [ ] Registry CI: frontmatter schema lint, secret scan, lock-file update job.
 - [ ] multiqlti: SKILL.md parser in `git-skill-sync` (PoC target — first live consumer).
 - [ ] omnius: issue to rename Cedar `permitted_skill_set` → `capability set`
