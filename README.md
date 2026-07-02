@@ -13,11 +13,14 @@ deterministic gates (L4, never L5).
 
 | Project | Role | Status |
 |---|---|---|
-| **Omniscience** | Knowledge hub — ingests platform sources (code, IaC, K8s, CI, alerts, chat) into a bitemporal graph; serves it to any client via MCP (13 tools) | v0.2 shipped, stabilizing |
-| **multiqlti** | Personal dark factory — multi-model SDLC pipelines for one engineer; the platform's proving ground | live |
-| **omnius** | Centralized dark factory — org-scale governed SDLC (deterministic core, untrusted agents, human-owned merges) | design + tested mockup |
-| **platform-design** | Infra substrate (AWS/EKS/GitOps/policy) + PB-SRE advisory diagnostics | design estate |
-| **genai-enablement** (this repo) | Program frame, shared artifacts, autonomous SRE harness (safety core: autonomy tiers, change gates) | active |
+| [**Omniscience**](https://github.com/100rd/Omniscience) | Knowledge hub — ingests platform sources (code, IaC, K8s, CI, alerts, chat) into a bitemporal graph; serves it to any client via MCP (13 tools) | v0.2 shipped, stabilizing |
+| [**multiqlti**](https://github.com/100rd/multiqlti) | Personal dark factory — multi-model SDLC pipelines for one engineer; the platform's proving ground | live |
+| [**omnius**](https://github.com/100rd/omnius) | Centralized dark factory — org-scale governed SDLC (deterministic core, untrusted agents, human-owned merges) | design + tested mockup |
+| [**platform-design**](https://github.com/100rd/platform-design) | Infra substrate (AWS/EKS/GitOps/policy) + PB-SRE advisory diagnostics | design estate |
+| [**genai-enablement**](https://github.com/100rd/genai-enablement) (this repo) | Program frame, shared artifacts, autonomous SRE harness (safety core: autonomy tiers, change gates) | active |
+
+> Some component repositories are private — ask the platform owner for access if a link
+> returns 404.
 
 ## How they connect
 
