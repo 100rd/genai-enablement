@@ -1,6 +1,6 @@
 # ADR-0005: The autonomous factory — committed spec as the unit of work, tracker intake, standing roles
 
-- **Status:** Proposed
+- **Status:** Accepted
 - **Date:** 2026-07-06
 - **Deciders:** platform owner
 - **Scope:** cross-repo (multiqlti = proving ground, omnius = governed consumer, genai-enablement = this contract)
