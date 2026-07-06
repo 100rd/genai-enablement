@@ -341,3 +341,16 @@ class TestReadJsonObject:
 
         with pytest.raises(ValueError, match="object"):
             read_json_object(path)
+
+    def test_deeply_nested_json_is_rejected_not_a_raw_recursion_error(
+        self, tmp_path: Path
+    ) -> None:
+        # json.loads() recurses per nesting level; deep-enough input raises a
+        # bare RecursionError, not json.JSONDecodeError — must still surface
+        # as the documented ValueError, not crash the CLI uncaught.
+        path = tmp_path / "deep.json"
+        depth = 2000
+        path.write_text("[" * depth + "]" * depth, encoding="utf-8")
+
+        with pytest.raises(ValueError, match="not valid JSON"):
+            read_json_object(path)

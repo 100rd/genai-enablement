@@ -199,7 +199,10 @@ def read_json_object(path: Path) -> dict[str, Any]:
         raise ValueError(f"{path} is not a file")
     try:
         payload = json.loads(path.read_text(encoding="utf-8"))
-    except json.JSONDecodeError as exc:
+    except (json.JSONDecodeError, RecursionError) as exc:
+        # Deeply-nested JSON makes the decoder recurse per level and raise a
+        # bare RecursionError, not JSONDecodeError — fold it into the same
+        # clean ValueError path rather than an uncaught crash.
         raise ValueError(f"{path} is not valid JSON: {exc}") from exc
     if not isinstance(payload, dict):
         raise ValueError(f"{path} must contain a JSON object, got {type(payload).__name__}")

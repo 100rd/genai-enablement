@@ -10,6 +10,7 @@ adapter, exercised the same way.
 from __future__ import annotations
 
 import json
+import stat
 from pathlib import Path
 
 import pytest
@@ -96,6 +97,15 @@ class TestJsonFileFindingStoreRoundTrip:
         store.save_open([])
 
         assert store.load_open() == ()
+
+    def test_save_creates_the_file_with_restrictive_permissions(self, tmp_path: Path) -> None:
+        # Contents are operator-controlled monitoring metadata, not secrets,
+        # but there is no reason for it to be world-readable either — the
+        # atomic temp-file write (tempfile.mkstemp) already yields 0600.
+        path = tmp_path / "open.json"
+        JsonFileFindingStore(path).save_open([_finding()])
+
+        assert stat.S_IMODE(path.stat().st_mode) == 0o600
 
 
 @pytest.mark.unit

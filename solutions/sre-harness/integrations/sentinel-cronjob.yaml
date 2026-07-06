@@ -28,6 +28,20 @@
 # omission (a scan only persists what its detectors actually reproduced) —
 # not tracked history. To force-clear a finding a detector still reproduces
 # every scan, an operator edits the open-findings file directly.
+#
+# HARDENING. Pod/container run as a fixed non-root UID with a read-only root
+# filesystem, no privilege escalation, all Linux capabilities dropped, and the
+# default seccomp profile. `pip install` therefore needs somewhere writable
+# that isn't the rootfs: an `emptyDir` mounted at `/tmp` holds both the pip
+# cache and the installed package (via `pip install --target`), and the
+# command runs the module (`python -m sre_harness.cli`) instead of the
+# `sre-harness` console script so it works without relying on a script
+# wrapper landing on `PATH`. The image tag and the installed `sre-harness`
+# version are both pinned (not floating) so the code that runs every tick is
+# reproducible and reviewable — bump both deliberately together. For maximum
+# supply-chain assurance, pin the image by digest too (e.g.
+# `python:3.11.9-slim-bookworm@sha256:<digest>`), resolved at apply-time
+# against the registry — omitted here since it can't be hardcoded generically.
 apiVersion: batch/v1
 kind: CronJob
 metadata:
@@ -46,25 +60,51 @@ spec:
           name: sre-harness-sentinel-scan
         spec:
           restartPolicy: Never
+          securityContext:
+            runAsNonRoot: true
+            runAsUser: 65532
+            runAsGroup: 65532
+            fsGroup: 65532
+            seccompProfile:
+              type: RuntimeDefault
           containers:
             - name: sentinel-scan
-              image: python:3.11-slim
+              image: python:3.11.9-slim-bookworm
               command: ["/bin/sh", "-c"]
               args:
                 - |
                   set -eu
-                  pip install --quiet sre-harness
+                  export HOME=/tmp
+                  export PIP_CACHE_DIR=/tmp/pip-cache
+                  export PYTHONPATH=/tmp/pip-packages
+                  pip install --quiet --target /tmp/pip-packages "sre-harness==0.1.0"
                   echo "Running Sentinel scan (advisory, Tier 1 detect / Tier 2 finding)..."
                   # Advisory: `|| true` — a fresh-findings exit (1) never fails this Job.
-                  sre-harness sentinel scan \
+                  python -m sre_harness.cli sentinel scan \
                     --state /work/state/sentinel-state.json \
                     --open-findings /work/open-findings/open-findings.json \
                     --verbose || true
+              securityContext:
+                allowPrivilegeEscalation: false
+                readOnlyRootFilesystem: true
+                capabilities:
+                  drop: ["ALL"]
+              resources:
+                requests:
+                  cpu: 100m
+                  memory: 128Mi
+                limits:
+                  cpu: 500m
+                  memory: 256Mi
               volumeMounts:
                 - name: state
                   mountPath: /work/state
                 - name: open-findings
                   mountPath: /work/open-findings
+                # Writable scratch space: pip cache + install target, since
+                # the root filesystem is read-only.
+                - name: tmp
+                  mountPath: /tmp
           volumes:
             # Static state snapshot today (see the STATE SOURCE TODO above).
             - name: state
@@ -74,3 +114,5 @@ spec:
             - name: open-findings
               persistentVolumeClaim:
                 claimName: sre-harness-sentinel-open-findings
+            - name: tmp
+              emptyDir: {}
