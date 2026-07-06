@@ -24,9 +24,10 @@
 #
 # OPEN-FINDINGS PERSISTENCE. `--open-findings` must point at a path that
 # survives across CronJob runs (a PVC here; a shared object store/DB is
-# future work) so repeat scans dedupe against history. Finding
-# resolution/closure is manual for now: an operator edits the open-findings
-# file to drop a finding once it's fixed.
+# future work) so repeat scans dedupe against history. Findings auto-drop by
+# omission (a scan only persists what its detectors actually reproduced) —
+# not tracked history. To force-clear a finding a detector still reproduces
+# every scan, an operator edits the open-findings file directly.
 apiVersion: batch/v1
 kind: CronJob
 metadata:

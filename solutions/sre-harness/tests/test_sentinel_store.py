@@ -134,3 +134,45 @@ class TestJsonFileFindingStoreErrors:
 
         with pytest.raises(ValueError, match="not a file"):
             JsonFileFindingStore(directory).save_open([_finding()])
+
+    def test_missing_parent_directory_is_rejected_on_save(self, tmp_path: Path) -> None:
+        path = tmp_path / "does-not-exist" / "open.json"
+
+        with pytest.raises(OSError):
+            JsonFileFindingStore(path).save_open([_finding()])
+
+
+@pytest.mark.unit
+class TestJsonFileFindingStoreAtomicity:
+    def test_failed_write_does_not_corrupt_the_existing_file(
+        self, tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+    ) -> None:
+        path = tmp_path / "open.json"
+        store = JsonFileFindingStore(path)
+        store.save_open([_finding("a")])
+        original = path.read_text(encoding="utf-8")
+
+        def _boom(*_args: object, **_kwargs: object) -> None:
+            raise OSError("simulated crash mid-write")
+
+        monkeypatch.setattr("sre_harness.sentinel.store.os.replace", _boom)
+
+        with pytest.raises(OSError, match="simulated crash mid-write"):
+            store.save_open([_finding("b")])
+
+        assert path.read_text(encoding="utf-8") == original
+
+    def test_failed_write_leaves_no_temp_file_behind(
+        self, tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+    ) -> None:
+        path = tmp_path / "open.json"
+
+        def _boom(*_args: object, **_kwargs: object) -> None:
+            raise OSError("simulated crash mid-write")
+
+        monkeypatch.setattr("sre_harness.sentinel.store.os.replace", _boom)
+
+        with pytest.raises(OSError):
+            JsonFileFindingStore(path).save_open([_finding()])
+
+        assert list(tmp_path.iterdir()) == []

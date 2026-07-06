@@ -13,20 +13,30 @@ Mirrors the :class:`~sre_harness.platform_graph.PlatformGraph` port shape: a
 adapter usable today (a CronJob mounts a file/PVC) while a database-backed
 store is future work.
 
-Finding resolution/closure (removing a finding from the open set once it is
-fixed) is manual for this step: an operator edits the open-findings file. A
-finding-lifecycle mechanism is future work.
+A finding auto-drops from the open set the first time a scan's detectors no
+longer reproduce it (condition resolved, or a flapping metric currently under
+threshold) — ``save_open`` only ever persists what *this* scan actually
+produced. To force-clear a finding a detector still reproduces every scan, an
+operator edits the open-findings file directly. A more deliberate
+finding-lifecycle mechanism (explicit acknowledge/resolve, an audit trail of
+closures) is future work.
 """
 
 from __future__ import annotations
 
 import json
+import os
+import tempfile
 from collections.abc import Sequence
 from pathlib import Path
-from typing import Any, Protocol, runtime_checkable
+from typing import Protocol, runtime_checkable
 
 from sre_harness.sentinel.finding import Finding
-from sre_harness.sentinel.serialization import finding_from_dict, finding_to_dict
+from sre_harness.sentinel.serialization import (
+    finding_from_dict,
+    finding_to_dict,
+    read_json_object,
+)
 
 _OPEN_FINDINGS_KEY = "open_findings"
 
@@ -62,7 +72,8 @@ class JsonFileFindingStore:
 
     ``load_open`` returns an empty tuple when the file does not exist yet (the
     first scan of a fresh deployment has no history). ``save_open`` overwrites
-    the file wholesale — the file *is* the open set, not an append log.
+    the file wholesale via an atomic temp-file + rename (see
+    :func:`_atomic_write`) — the file *is* the open set, not an append log.
     """
 
     def __init__(self, path: Path) -> None:
@@ -71,7 +82,7 @@ class JsonFileFindingStore:
     def load_open(self) -> tuple[Finding, ...]:
         if not self._path.exists():
             return ()
-        payload = _read_json_object(self._path)
+        payload = read_json_object(self._path)
         rows = payload.get(_OPEN_FINDINGS_KEY, [])
         if not isinstance(rows, list):
             raise ValueError(f"'{_OPEN_FINDINGS_KEY}' must be a list, got {type(rows).__name__}")
@@ -81,19 +92,25 @@ class JsonFileFindingStore:
         if self._path.exists() and not self._path.is_file():
             raise ValueError(f"{self._path} is not a file")
         payload = {_OPEN_FINDINGS_KEY: [finding_to_dict(finding) for finding in findings]}
-        self._path.write_text(json.dumps(payload, indent=2, sort_keys=True), encoding="utf-8")
+        _atomic_write(self._path, json.dumps(payload, indent=2, sort_keys=True))
 
 
-def _read_json_object(path: Path) -> dict[str, Any]:
-    if not path.is_file():
-        raise ValueError(f"{path} is not a file")
+def _atomic_write(path: Path, text: str) -> None:
+    """Write ``text`` to ``path`` atomically via a same-directory temp file + rename.
+
+    A direct ``write_text`` left the file truncated/corrupt if the process
+    died mid-write (an OOM-killed CronJob pod is a realistic way for that to
+    happen); a rename is atomic on the same filesystem, so a crash can only
+    ever leave the *previous* valid content in place, never a partial write.
+    """
+    fd, tmp_name = tempfile.mkstemp(dir=path.parent, prefix=f".{path.name}.", suffix=".tmp")
     try:
-        payload = json.loads(path.read_text(encoding="utf-8"))
-    except json.JSONDecodeError as exc:
-        raise ValueError(f"{path} is not valid JSON: {exc}") from exc
-    if not isinstance(payload, dict):
-        raise ValueError(f"{path} must contain a JSON object, got {type(payload).__name__}")
-    return payload
+        with os.fdopen(fd, "w", encoding="utf-8") as tmp_file:
+            tmp_file.write(text)
+        os.replace(tmp_name, path)
+    except BaseException:
+        Path(tmp_name).unlink(missing_ok=True)
+        raise
 
 
 __all__ = [

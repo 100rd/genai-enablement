@@ -202,6 +202,37 @@ class TestOpenFindingsPersistence:
         assert second_code == EXIT_FRESH_FINDINGS
         assert second_doc["finding_count"] == 1
 
+    def test_finding_auto_drops_once_the_detector_stops_reproducing_it(
+        self, tmp_path: Path, capsys: pytest.CaptureFixture[str]
+    ) -> None:
+        # Closure-by-omission: save_open only ever persists what THIS scan
+        # produced, so a finding the detector no longer reproduces (condition
+        # resolved) silently drops out of the open set — not tracked history.
+        open_findings = tmp_path / "open.json"
+        hot_state = _hot_state_file(tmp_path, name="hot.json")
+        healthy_state = _clean_state_file(tmp_path)
+
+        _run(
+            ["sentinel", "scan", "--state", str(hot_state), "--open-findings", str(open_findings)],
+            capsys,
+        )
+        code, doc = _run(
+            [
+                "sentinel",
+                "scan",
+                "--state",
+                str(healthy_state),
+                "--open-findings",
+                str(open_findings),
+            ],
+            capsys,
+        )
+
+        assert code == EXIT_NO_FRESH_FINDINGS
+        assert doc["findings"] == []
+        persisted = json.loads(open_findings.read_text(encoding="utf-8"))
+        assert persisted["open_findings"] == []
+
 
 # --- error handling -----------------------------------------------------------
 
@@ -246,3 +277,33 @@ class TestErrors:
 
         assert code == EXIT_USAGE
         assert "scan" in capsys.readouterr().err.lower()
+
+    def test_null_typed_state_field_errors_cleanly_not_a_traceback(
+        self, tmp_path: Path, capsys: pytest.CaptureFixture[str]
+    ) -> None:
+        state = _write(
+            tmp_path / "state.json",
+            {
+                "saturation_samples": [
+                    {"resource": "r", "kind": "disk", "used": None, "capacity": 10.0}
+                ]
+            },
+        )
+
+        code = main(["sentinel", "scan", "--state", str(state)])
+
+        assert code == EXIT_USAGE
+        assert "used" in capsys.readouterr().err.lower()
+
+    def test_open_findings_save_failure_errors_cleanly_not_a_traceback(
+        self, tmp_path: Path, capsys: pytest.CaptureFixture[str]
+    ) -> None:
+        state = _clean_state_file(tmp_path)
+        unwritable = tmp_path / "does-not-exist" / "open.json"
+
+        code = main(
+            ["sentinel", "scan", "--state", str(state), "--open-findings", str(unwritable)]
+        )
+
+        assert code == EXIT_USAGE
+        assert capsys.readouterr().err.strip() != ""

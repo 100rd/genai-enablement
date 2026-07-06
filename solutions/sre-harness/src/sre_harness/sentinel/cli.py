@@ -44,7 +44,12 @@ class _SentinelCliError(Exception):
 
 
 def add_subparser(sub: argparse._SubParsersAction[argparse.ArgumentParser]) -> None:
-    """Register ``sentinel`` (and its ``scan`` subcommand) on the top-level parser."""
+    """Register ``sentinel`` (and its ``scan`` subcommand) on the top-level parser.
+
+    ``argparse._SubParsersAction`` is what ``ArgumentParser.add_subparsers()``
+    actually returns; there is no public alias for it, so this reaches into
+    argparse's private API for the type hint (a common, harmless idiom).
+    """
     sentinel_help = "Sentinel continuous-detection commands (Stage 7)."
     sentinel = sub.add_parser("sentinel", help=sentinel_help, description=sentinel_help)
     sentinel_sub = sentinel.add_subparsers(dest="sentinel_command")
@@ -84,13 +89,12 @@ def _run_scan(args: argparse.Namespace) -> int:
         state = _load_state(Path(args.state))
         store = _open_finding_store(args.open_findings)
         open_findings = _load_open_findings(store)
+        report = run_sentinel(state, open_findings=open_findings)
+        if store is not None:
+            _save_open_findings(store, report)
     except _SentinelCliError as exc:
         print(f"sre-harness: error: {exc}", file=sys.stderr)
         return EXIT_USAGE
-
-    report = run_sentinel(state, open_findings=open_findings)
-    if store is not None:
-        store.save_open((*report.findings, *report.suppressed))
 
     print(json.dumps(_render(report, verbose=args.verbose), indent=2, sort_keys=True))
     return EXIT_FRESH_FINDINGS if report.findings else EXIT_NO_FRESH_FINDINGS
@@ -116,6 +120,13 @@ def _load_open_findings(store: FindingStore | None) -> tuple[Finding, ...]:
     try:
         return store.load_open()
     except ValueError as exc:
+        raise _SentinelCliError(str(exc)) from exc
+
+
+def _save_open_findings(store: FindingStore, report: SentinelReport) -> None:
+    try:
+        store.save_open((*report.findings, *report.suppressed))
+    except (OSError, ValueError) as exc:
         raise _SentinelCliError(str(exc)) from exc
 
 

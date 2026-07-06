@@ -11,11 +11,10 @@ to avoid untested, speculative adapter code).
 
 from __future__ import annotations
 
-import json
 from pathlib import Path
 from typing import Protocol, runtime_checkable
 
-from sre_harness.sentinel.serialization import state_from_dict
+from sre_harness.sentinel.serialization import read_json_object, state_from_dict
 from sre_harness.sentinel.state import SentinelState
 
 
@@ -47,20 +46,8 @@ class JsonFileStateSource:
     def snapshot(self) -> SentinelState:
         if not self._path.exists():
             raise ValueError(f"state file not found: {self._path}")
-        if not self._path.is_file():
-            raise ValueError(f"state file is not a file: {self._path}")
-        payload = _read_json_object(self._path)
+        payload = read_json_object(self._path)
         return state_from_dict(payload)
-
-
-def _read_json_object(path: Path) -> dict[str, object]:
-    try:
-        payload = json.loads(path.read_text(encoding="utf-8"))
-    except json.JSONDecodeError as exc:
-        raise ValueError(f"{path} is not valid JSON: {exc}") from exc
-    if not isinstance(payload, dict):
-        raise ValueError(f"{path} must contain a JSON object, got {type(payload).__name__}")
-    return payload
 
 
 __all__ = [

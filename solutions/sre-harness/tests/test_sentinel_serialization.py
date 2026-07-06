@@ -9,12 +9,15 @@ malformed input — never a bare ``KeyError``/``TypeError`` from blindly
 
 from __future__ import annotations
 
+from pathlib import Path
+
 import pytest
 
 from sre_harness.sentinel.finding import Finding, Severity
 from sre_harness.sentinel.serialization import (
     finding_from_dict,
     finding_to_dict,
+    read_json_object,
     state_from_dict,
 )
 from sre_harness.sentinel.state import SentinelState
@@ -57,6 +60,12 @@ class TestFindingRoundTrip:
 
         assert finding_from_dict(finding_to_dict(finding)) == finding
 
+    def test_missing_evidence_key_defaults_to_empty(self) -> None:
+        payload = finding_to_dict(_finding())
+        del payload["evidence"]
+
+        assert finding_from_dict(payload).evidence == {}
+
 
 @pytest.mark.unit
 class TestFindingFromDictErrors:
@@ -76,6 +85,16 @@ class TestFindingFromDictErrors:
         with pytest.raises(ValueError, match=field):
             finding_from_dict(payload)
 
+    @pytest.mark.parametrize(
+        "field",
+        ["detector_id", "kind", "severity", "confidence", "fingerprint", "rationale"],
+    )
+    def test_null_required_field_is_rejected(self, field: str) -> None:
+        payload = self._valid(**{field: None})
+
+        with pytest.raises(ValueError, match=field):
+            finding_from_dict(payload)
+
     def test_unknown_severity_name_is_rejected(self) -> None:
         with pytest.raises(ValueError, match="severity"):
             finding_from_dict(self._valid(severity="SUPER_CRITICAL"))
@@ -87,6 +106,15 @@ class TestFindingFromDictErrors:
     def test_non_dict_evidence_is_rejected(self) -> None:
         with pytest.raises(ValueError, match="evidence"):
             finding_from_dict(self._valid(evidence="not-a-dict"))
+
+    @pytest.mark.parametrize("falsy_value", ["", [], False])
+    def test_falsy_non_dict_evidence_is_rejected(self, falsy_value: object) -> None:
+        with pytest.raises(ValueError, match="evidence"):
+            finding_from_dict(self._valid(evidence=falsy_value))
+
+    def test_non_numeric_confidence_is_rejected(self) -> None:
+        with pytest.raises(ValueError, match="confidence"):
+            finding_from_dict(self._valid(confidence=[1, 2, 3]))
 
     def test_confidence_out_of_range_is_rejected(self) -> None:
         with pytest.raises(ValueError, match="confidence must be in"):
@@ -180,6 +208,13 @@ class TestStateFromDict:
         assert window.baseline == frozenset({"E1"})
         assert window.current == frozenset({"E1", "E2"})
 
+    def test_expiry_item_accepts_a_whole_number_float(self) -> None:
+        state = state_from_dict(
+            {"expiry_items": [{"name": "api-tls", "kind": "cert", "expires_in_days": 5.0}]}
+        )
+
+        assert state.expiry_items[0].expires_in_days == 5
+
 
 @pytest.mark.unit
 class TestStateFromDictErrors:
@@ -210,3 +245,99 @@ class TestStateFromDictErrors:
     def test_non_mapping_row_is_rejected(self) -> None:
         with pytest.raises(ValueError, match="saturation sample"):
             state_from_dict({"saturation_samples": ["not-a-mapping"]})
+
+    def test_saturation_sample_null_field_is_rejected(self) -> None:
+        with pytest.raises(ValueError, match="saturation sample"):
+            state_from_dict(
+                {"saturation_samples": [{"resource": None, "kind": "disk", "used": 1.0, "capacity": 10.0}]}
+            )
+
+    def test_expiry_item_null_field_is_rejected(self) -> None:
+        with pytest.raises(ValueError, match="expiry item"):
+            state_from_dict({"expiry_items": [{"name": None, "kind": "cert", "expires_in_days": 5}]})
+
+    def test_error_window_null_field_is_rejected(self) -> None:
+        with pytest.raises(ValueError, match="error window"):
+            state_from_dict(
+                {"error_windows": [{"service": None, "baseline": ["E1"], "current": ["E1"]}]}
+            )
+
+    def test_saturation_sample_non_numeric_used_is_rejected(self) -> None:
+        with pytest.raises(ValueError, match="used"):
+            state_from_dict(
+                {"saturation_samples": [{"resource": "r", "kind": "disk", "used": [1], "capacity": 10.0}]}
+            )
+
+    def test_saturation_sample_non_numeric_capacity_is_rejected(self) -> None:
+        with pytest.raises(ValueError, match="capacity"):
+            state_from_dict(
+                {"saturation_samples": [{"resource": "r", "kind": "disk", "used": 1.0, "capacity": {}}]}
+            )
+
+    def test_saturation_sample_non_numeric_growth_is_rejected(self) -> None:
+        with pytest.raises(ValueError, match="growth_per_interval"):
+            state_from_dict(
+                {
+                    "saturation_samples": [
+                        {
+                            "resource": "r",
+                            "kind": "disk",
+                            "used": 1.0,
+                            "capacity": 10.0,
+                            "growth_per_interval": "fast",
+                        }
+                    ]
+                }
+            )
+
+    def test_expiry_item_non_numeric_expires_in_days_is_rejected(self) -> None:
+        with pytest.raises(ValueError, match="expires_in_days"):
+            state_from_dict(
+                {"expiry_items": [{"name": "x", "kind": "cert", "expires_in_days": [1]}]}
+            )
+
+    def test_expiry_item_non_integral_float_is_rejected(self) -> None:
+        with pytest.raises(ValueError, match="expires_in_days"):
+            state_from_dict({"expiry_items": [{"name": "x", "kind": "cert", "expires_in_days": 5.5}]})
+
+    def test_baseline_not_a_list_is_rejected(self) -> None:
+        with pytest.raises(ValueError, match="baseline"):
+            state_from_dict(
+                {"error_windows": [{"service": "payments", "baseline": "E1E2", "current": ["E1"]}]}
+            )
+
+    def test_current_not_a_list_is_rejected(self) -> None:
+        with pytest.raises(ValueError, match="current"):
+            state_from_dict(
+                {"error_windows": [{"service": "payments", "baseline": ["E1"], "current": "E1E2"}]}
+            )
+
+
+@pytest.mark.unit
+class TestReadJsonObject:
+    def test_reads_a_valid_object(self, tmp_path: Path) -> None:
+        path = tmp_path / "data.json"
+        path.write_text('{"a": 1}', encoding="utf-8")
+
+        assert read_json_object(path) == {"a": 1}
+
+    def test_directory_is_rejected(self, tmp_path: Path) -> None:
+        directory = tmp_path / "as-dir"
+        directory.mkdir()
+
+        with pytest.raises(ValueError, match="not a file"):
+            read_json_object(directory)
+
+    def test_invalid_json_is_rejected(self, tmp_path: Path) -> None:
+        path = tmp_path / "bad.json"
+        path.write_text("{not json", encoding="utf-8")
+
+        with pytest.raises(ValueError, match="not valid JSON"):
+            read_json_object(path)
+
+    def test_non_object_payload_is_rejected(self, tmp_path: Path) -> None:
+        path = tmp_path / "list.json"
+        path.write_text("[1, 2, 3]", encoding="utf-8")
+
+        with pytest.raises(ValueError, match="object"):
+            read_json_object(path)

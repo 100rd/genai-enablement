@@ -147,9 +147,14 @@ suppressed union, so the next scan knows what's already open (per the ADR's
 "never re-alert a known/open finding"). The path must survive across CronJob
 runs — the template mounts a PVC; a shared object store/DB is future work.
 
-**Finding resolution/closure is manual for now**: an operator edits the
-open-findings file to drop a finding once it's fixed. A finding-lifecycle
-mechanism is future work.
+**Findings auto-drop by omission, not by tracked history**: `save_open` only
+ever persists what *this* scan's detectors actually produced (fresh +
+suppressed) — a previously-open finding whose condition has resolved (or a
+flapping metric currently under threshold) silently disappears from the next
+save, with no record that it was ever "closed". To force-clear a finding a
+detector still reproduces every scan, an operator edits the open-findings file
+directly. A more deliberate finding-lifecycle mechanism (explicit
+acknowledge/resolve, an audit trail of closures) is future work.
 
 ## Run it locally
 
