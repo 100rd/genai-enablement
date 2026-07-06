@@ -15,6 +15,20 @@
 # failed sync. See integrations/README.md.
 #
 # Exit codes from `sre-harness gate`: 0=proceed, 1=block, 2=require_human.
+#
+# HARDENING. Pod/container run as a fixed non-root UID with a read-only root
+# filesystem, no privilege escalation, all Linux capabilities dropped, and the
+# default seccomp profile. `pip install` therefore needs somewhere writable
+# that isn't the rootfs: an `emptyDir` mounted at `/tmp` holds both the pip
+# cache and the installed package (via `pip install --target`), and the
+# command runs the module (`python -m sre_harness.cli`) instead of the
+# `sre-harness` console script so it works without relying on a script
+# wrapper landing on `PATH`. The image tag and the installed `sre-harness`
+# version are both pinned (not floating) so the code that runs on every sync
+# is reproducible and reviewable — bump both deliberately together. For
+# maximum supply-chain assurance, pin the image by digest too (e.g.
+# `python:3.11.9-slim-bookworm@sha256:<digest>`), resolved at apply-time
+# against the registry — omitted here since it can't be hardcoded generically.
 apiVersion: batch/v1
 kind: Job
 metadata:
@@ -32,20 +46,30 @@ spec:
       name: sre-harness-change-gate
     spec:
       restartPolicy: Never
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 65532
+        runAsGroup: 65532
+        fsGroup: 65532
+        seccompProfile:
+          type: RuntimeDefault
       containers:
         - name: gate
-          image: python:3.11-slim
+          image: python:3.11.9-slim-bookworm
           command: ["/bin/sh", "-c"]
           args:
             - |
               set -eu
-              pip install --quiet sre-harness
+              export HOME=/tmp
+              export PIP_CACHE_DIR=/tmp/pip-cache
+              export PYTHONPATH=/tmp/pip-packages
+              pip install --quiet --target /tmp/pip-packages "sre-harness==0.1.0"
               echo "Running advisory change-validation gate (PreSync)..."
               # `--change-format k8s` parses the rendered manifest mounted below;
               # the graph fixture is mounted from a ConfigMap. In production the
               # graph should come from the live OmniscienceMcpPlatformGraph
               # adapter (see the live-adapter TODO in integrations/README.md).
-              sre-harness gate \
+              python -m sre_harness.cli gate \
                 --change /work/change/manifest.json \
                 --change-format k8s \
                 --target-cluster "$TARGET_CLUSTER" \
@@ -54,11 +78,27 @@ spec:
           env:
             - name: TARGET_CLUSTER
               value: "prod-eu-1"
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities:
+              drop: ["ALL"]
+          resources:
+            requests:
+              cpu: 100m
+              memory: 128Mi
+            limits:
+              cpu: 500m
+              memory: 256Mi
           volumeMounts:
             - name: change
               mountPath: /work/change
             - name: graph
               mountPath: /work/graph
+            # Writable scratch space: pip cache + install target, since the
+            # root filesystem is read-only.
+            - name: tmp
+              mountPath: /tmp
       volumes:
         # The manifest to validate (e.g. rendered StatefulSet) as JSON.
         - name: change
@@ -68,3 +108,5 @@ spec:
         - name: graph
           configMap:
             name: sre-harness-graph
+        - name: tmp
+          emptyDir: {}
