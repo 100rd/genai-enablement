@@ -105,3 +105,87 @@ Remaining wiring (out of scope for this PR):
    instead of `--graph <file>`, constructing `OmniscienceMcpPlatformGraph` in
    `cli._load_graph`. The rest of the CLI is unchanged — the gate already
    depends only on the `PlatformGraph` port.
+
+---
+
+# Sentinel continuous detection (Stage 7, build-order step 2)
+
+Wires the deterministic `sre-harness sentinel scan` CLI into a periodic
+`CronJob` so Sentinel actually runs continuously, per
+[`docs/decisions/0001-continuous-detection-sentinel.md`](../../../docs/decisions/0001-continuous-detection-sentinel.md)'s
+build order: *"2. Runtime: `monitor`/`CronJob` wiring + observability source
+adapters (needs cluster)."*
+
+## Sentinel is advisory (autonomy tiers T1 / T2) — never a gate
+
+Detection is **Tier 1** (read-only); emitting a finding is **Tier 2**
+(advisory). Unlike the change-validation gate, Sentinel has no "block" verdict
+at all — it never executes anything and it never fails a pipeline. The CLI's
+exit code is **informational**, not pass/fail:
+
+| Exit | Meaning |
+|---|---|
+| `0` | No fresh findings this scan. |
+| `1` | Fresh findings emitted this scan — **look at the JSON output**, do not treat this as a failure. |
+| `2` | Usage error (bad args, missing/invalid input). |
+
+**A CronJob wiring this command must never fail the Job on exit `1`** — see
+the `|| true` in [`sentinel-cronjob.yaml`](sentinel-cronjob.yaml), the same
+advisory pattern as the gate templates above.
+
+## Files
+
+| File | Use |
+|---|---|
+| [`sentinel-cronjob.yaml`](sentinel-cronjob.yaml) | A periodic `CronJob` running `sre-harness sentinel scan` against a mounted state fixture, persisting the open-findings set to a PVC so repeat scans dedupe against history. |
+
+## Open-findings persistence (dedup across scans)
+
+`sre-harness sentinel scan --open-findings <path>` reads that path's JSON at
+the start of a scan and **overwrites** it at the end with the fresh +
+suppressed union, so the next scan knows what's already open (per the ADR's
+"never re-alert a known/open finding"). The path must survive across CronJob
+runs — the template mounts a PVC; a shared object store/DB is future work.
+
+**Finding resolution/closure is manual for now**: an operator edits the
+open-findings file to drop a finding once it's fixed. A finding-lifecycle
+mechanism is future work.
+
+## Run it locally
+
+```sh
+# a hot disk sample -> one saturation_expiry finding, exit 1
+sre-harness sentinel scan --state examples/sentinel-state.json --verbose
+echo "exit: $?"
+
+# with persistence: the second run against the same state suppresses the repeat (exit 0)
+sre-harness sentinel scan --state examples/sentinel-state.json \
+  --open-findings /tmp/sentinel-open-findings.json --verbose
+sre-harness sentinel scan --state examples/sentinel-state.json \
+  --open-findings /tmp/sentinel-open-findings.json --verbose
+```
+
+Without `poetry install`, run the same thing as a module:
+`python -m sre_harness.cli sentinel scan ...` (with `src` on `PYTHONPATH`).
+
+## Live observability source adapter — TODO
+
+`--state` points at a **static JSON fixture** today. The CLI loads it via
+`JsonFileStateSource` into a `SentinelState`. Detectors depend only on the
+`StateSource` protocol (`src/sre_harness/sentinel/source.py`), mirroring the
+gate's `PlatformGraph` seam — but unlike Omniscience's `list_entities` (already
+a pinned contract), no live source's query contract (Datadog / Loki /
+CloudWatch / Omniscience) is specified yet, so no live adapter class is
+implemented here (that would be speculative, untestable-offline code).
+
+Remaining wiring (out of scope for this PR, needs a cluster + a specified
+source contract):
+
+1. Pin a query contract for at least one live source (Datadog metrics/logs
+   query, or an Omniscience signal, mapping to `SaturationSample` /
+   `ExpiryItem` / `ErrorSignatureWindow`).
+2. Implement a `StateSource` adapter against that contract, unit-tested
+   against a fake client (exactly like `OmniscienceMcpPlatformGraph` over
+   `McpToolClient`).
+3. A CLI flag (e.g. `--state-source datadog`) selecting the live adapter
+   instead of `--state <file>`. The rest of the CLI is unchanged.

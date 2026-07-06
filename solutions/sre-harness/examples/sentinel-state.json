@@ -1,0 +1,10 @@
+{
+  "_comment": "Example SentinelState fixture for `sre-harness sentinel scan`. The disk sample is at 97% (>= the 90% critical threshold), so this fixture always produces one saturation_expiry finding. In production this same shape is served by a live observability adapter (Datadog / Loki / CloudWatch), wired up separately (see integrations/README.md).",
+  "saturation_samples": [
+    { "resource": "pvc-payments", "kind": "disk", "used": 97.0, "capacity": 100.0, "cluster": "prod-eu-1" }
+  ],
+  "expiry_items": [
+    { "name": "api-tls", "kind": "cert", "expires_in_days": 45 }
+  ],
+  "error_windows": []
+}

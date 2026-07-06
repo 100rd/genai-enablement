@@ -1,0 +1,4 @@
+{
+  "_comment": "Example open-findings store for `sre-harness sentinel scan --open-findings`. Starts empty (first scan of a fresh deployment has no history); the CLI overwrites this file after each scan with the fresh+suppressed union so the next scan can dedupe against it.",
+  "open_findings": []
+}

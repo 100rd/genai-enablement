@@ -82,8 +82,9 @@ Sentinel is *continuous / periodic* (watch the **running system** for emerging
 risk and **new problem classes**). Same deterministic-first shape as the gate:
 detectors are pure `(state) -> [Finding]` rules over a `SentinelState` snapshot,
 so the whole surface is unit-/eval-testable offline while the live sources
-(Datadog / Loki / CloudWatch / Omniscience) and the runtime (`monitor`/`CronJob`)
-are wired up separately (ADR-0001, build order steps 2–3).
+(Datadog / Loki / CloudWatch / Omniscience) are wired up separately (ADR-0001,
+build order step 3). The `CronJob` runtime + a file-backed state/findings seam
+(build order step 2) are below.
 
 `run_sentinel(state, detectors=DEFAULT_DETECTORS, open_findings=())`:
 
@@ -112,6 +113,31 @@ python -m sre_harness.sentinel --verbose  # also prints per-scenario lead-time
 
 Exits non-zero if any scenario fails (fired too late, or a false positive on a
 clean timeline), so it can gate CI alongside the Pass@1 suite.
+
+### CLI — `sre-harness sentinel scan` (build order step 2)
+
+Makes Sentinel runnable periodically (a `CronJob`, see
+[`integrations/sentinel-cronjob.yaml`](integrations/sentinel-cronjob.yaml)):
+loads a `SentinelState` snapshot, optionally loads + persists an open-findings
+set so repeat scans dedupe against history, and prints the report as JSON.
+
+**Advisory, never a gate**: exit `0` = no fresh findings, `1` = fresh findings
+(informational — act on the JSON, do not treat as a failure), `2` = usage
+error. A `CronJob` must never fail on exit `1` (see the integrations doc).
+
+```bash
+sre-harness sentinel scan --state examples/sentinel-state.json --verbose
+
+# with persistence: a second run against the same state suppresses the repeat
+sre-harness sentinel scan --state examples/sentinel-state.json \
+  --open-findings /tmp/sentinel-open-findings.json
+```
+
+Without `poetry install`: `python -m sre_harness.cli sentinel scan ...` (with
+`src` on `PYTHONPATH`). See
+[`integrations/README.md`](integrations/README.md#sentinel-continuous-detection-stage-7-build-order-step-2)
+for the full CronJob wiring, the open-findings persistence contract, and the
+live observability source adapter TODO.
 
 ## The Omniscience contract
 

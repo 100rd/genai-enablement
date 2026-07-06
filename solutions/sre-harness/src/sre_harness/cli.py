@@ -53,6 +53,7 @@ from sre_harness.change_gate import (
 )
 from sre_harness.change_parsers import parse_k8s_manifest, parse_pr_diff
 from sre_harness.platform_graph import Entity, InMemoryPlatformGraph, PlatformGraph
+from sre_harness.sentinel import cli as sentinel_cli
 
 EXIT_PROCEED = 0
 EXIT_BLOCK = 1
@@ -87,6 +88,8 @@ def main(argv: list[str] | None = None) -> int:
 
     if args.command == "gate":
         return _run_gate(args)
+    if args.command == "sentinel":
+        return sentinel_cli.dispatch(args)
 
     parser.print_help(sys.stderr)
     return EXIT_USAGE
@@ -255,6 +258,7 @@ def _build_parser() -> argparse.ArgumentParser:
         "--service",
         help="Service name (required for --change-format pr-diff).",
     )
+    sentinel_cli.add_subparser(sub)
     return parser
 
 

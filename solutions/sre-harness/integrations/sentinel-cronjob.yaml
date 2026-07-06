@@ -1,0 +1,75 @@
+# Sentinel continuous-detection CronJob (Stage 7 build-order step 2 of the
+# SRE harness).
+#
+# Runs `sre-harness sentinel scan` on a schedule: it loads a SentinelState
+# snapshot, runs the deterministic detector registry, dedupes against the
+# persisted open-findings set, and prints the report as JSON.
+#
+# ADVISORY — NEVER A GATE. Detection is Tier 1 (read-only); emitting a finding
+# is Tier 2 (advisory). The command's exit code (0 = no fresh findings,
+# 1 = fresh findings, 2 = usage error) is INFORMATIONAL, not a pass/fail
+# signal — exit 1 must NEVER fail this Job. `|| true` on the command keeps a
+# fresh-findings run "Completed", exactly like the gate templates' advisory
+# pattern (see gitlab-ci.gate.yml / argocd-presync-gate.yaml). A human or a
+# downstream alert consumer acts on the JSON output (e.g. shipped to stdout /
+# a log sink), not on the exit code.
+#
+# STATE SOURCE — TODO (needs a cluster + a live source contract). `--state`
+# below points at a static JSON fixture mounted from a ConfigMap. The
+# production path is a live observability adapter (Datadog / Loki /
+# CloudWatch / Omniscience) implementing the `StateSource` protocol
+# (`src/sre_harness/sentinel/source.py`) — deferred until that source's query
+# contract is specified. See the "Live observability source adapter — TODO"
+# section in integrations/README.md.
+#
+# OPEN-FINDINGS PERSISTENCE. `--open-findings` must point at a path that
+# survives across CronJob runs (a PVC here; a shared object store/DB is
+# future work) so repeat scans dedupe against history. Finding
+# resolution/closure is manual for now: an operator edits the open-findings
+# file to drop a finding once it's fixed.
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: sre-harness-sentinel-scan
+spec:
+  # Every 15 minutes; tune to the platform's change/incident cadence.
+  schedule: "*/15 * * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 3
+  failedJobsHistoryLimit: 3
+  jobTemplate:
+    spec:
+      backoffLimit: 0
+      template:
+        metadata:
+          name: sre-harness-sentinel-scan
+        spec:
+          restartPolicy: Never
+          containers:
+            - name: sentinel-scan
+              image: python:3.11-slim
+              command: ["/bin/sh", "-c"]
+              args:
+                - |
+                  set -eu
+                  pip install --quiet sre-harness
+                  echo "Running Sentinel scan (advisory, Tier 1 detect / Tier 2 finding)..."
+                  # Advisory: `|| true` — a fresh-findings exit (1) never fails this Job.
+                  sre-harness sentinel scan \
+                    --state /work/state/sentinel-state.json \
+                    --open-findings /work/open-findings/open-findings.json \
+                    --verbose || true
+              volumeMounts:
+                - name: state
+                  mountPath: /work/state
+                - name: open-findings
+                  mountPath: /work/open-findings
+          volumes:
+            # Static state snapshot today (see the STATE SOURCE TODO above).
+            - name: state
+              configMap:
+                name: sre-harness-sentinel-state
+            # Must persist across runs for dedup to work across scans.
+            - name: open-findings
+              persistentVolumeClaim:
+                claimName: sre-harness-sentinel-open-findings
