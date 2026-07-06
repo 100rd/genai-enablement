@@ -1,4 +1,4 @@
-# ADR-0004: Unified loop decision model — how a task-loop decides, for multiqlti and omnius
+# ADR-0006: Unified loop decision model — how a task-loop decides, for multiqlti and omnius
 
 - **Status:** Proposed
 - **Date:** 2026-07-03
