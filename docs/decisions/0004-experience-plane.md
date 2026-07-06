@@ -1,6 +1,6 @@
 # ADR-0004: The Experience plane — a verification-grounded, cross-repo memory of how we solved things
 
-- **Status:** Proposed
+- **Status:** Accepted
 - **Date:** 2026-07-06
 - **Deciders:** platform owner
 - **Scope:** cross-repo (multiqlti = proving ground, omnius = consumer, Omniscience = the adjacent state plane, genai-enablement = this contract)
