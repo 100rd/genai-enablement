@@ -28,15 +28,17 @@ two things:
 Nothing operates **agents that do security operations on the running platform and on changes to it** —
 the security analogue of what AI SRE is for reliability.
 
-The harness already ships every primitive such a domain needs, deterministic and unit-tested:
+The harness already defines every primitive such a domain needs. The change-gate, the tier engine +
+action-tier table, and the skills registry are merged and unit-tested on `main`; **Sentinel is
+implemented on feature branches (PRs #18 → #24) and is landing pending merge, not yet on `main`**:
 
 - **Sentinel** ([ADR-0001](0001-continuous-detection-sentinel.md)) — a continuous-detection surface
   with a pure `Detector(SentinelState) -> Sequence[Finding]` contract, deterministic-first, dedup +
   rank by `severity × confidence`, scored offline by the eval harness on **lead-time**; detection is
   read-only (**T1**), emitting a finding is advisory (**T2**).
-- **The change-validation gate** (ADR-0003 GATED / Stage 2) — a pure
-  `Check(ChangeRequest, PlatformGraph) -> CheckResult` contract aggregated to a
-  `PROCEED / BLOCK / REQUIRE_HUMAN` verdict.
+- **The change-validation gate** (the harness Stage-2 multi-check gate; ADR-0003 contributes the GATED
+  lifecycle phase) — a pure `Check(ChangeRequest, PlatformGraph) -> CheckResult` contract aggregated to
+  a `PROCEED / BLOCK / REQUIRE_HUMAN` verdict.
 - **The autonomy-tier engine + action-tier table** — `ACTION_TIER_TABLE` already classes
   `iam_change` and `security_group_change` as **T3** (human-approved).
 - **The skills registry** ([ADR-0002](0002-platform-skills-registry.md)) — SKILL.md canon, git-backed,
@@ -68,14 +70,18 @@ changing the detector contract"). Detection stays **T1**; emitting a finding sta
 Sentinel registry serves both domains; a CLI `--family sre|security|all` selector picks which family
 runs.
 
-### D3 — Prevention: a security verifier family in the change-gate (inherits ADR-0003 GATED / Stage 2)
+### D3 — Prevention: a security verifier family in the change-gate (harness Stage 2; ADR-0003 contributes the GATED phase + action-tier extension)
 Security verifiers are pure `Check` callables added to the gate registry (e.g. `secret_in_change`,
 `iac_security_regression`, `image_cve_gate`, `privileged_workload`). ADR-0001's own taxonomy already
 places "secret / ExternalSecret declared" and "deployment-strategy fits workload role" as **gate**
 checks — security verifiers extend that Stage-2 multi-check gate; they are **not** Sentinel detectors.
 **Secret detection is primarily a gate verifier** (`secret_in_change`, BLOCK on a secret added in a
 diff); a Sentinel `secret_in_state` detector is defense-in-depth only (secrets already live in
-ConfigMaps/env that bypassed the gate).
+ConfigMaps/env that bypassed the gate). **Secret material never leaves as a value:** a secret-bearing
+finding stores only a fingerprint and location (repo / path / line, ConfigMap / key), never the secret
+value — values are redacted before the finding is persisted, before it enters the WORM audit trail or
+any at-rest store, and before any layer-④ prompt. This extends ADR-0001's *names / keys, never values*
+rule to the security domain.
 
 ### D4 — Capability: a `security/` namespace in the skills registry (inherits ADR-0002)
 A new top-level `skills/security/` sits beside `engineering/` and `sre/`, holding runbook-type SKILL.md
@@ -86,18 +92,26 @@ with step-level tier tags (seed: `security/leaked-credential-response`,
 ### D5 — Reasoning: security specialists live only in harness layer ④
 Security-domain reasoners draft T1 triage of a finding and T2 response advice, exactly as PB-SRE's nine
 SRE specialists do in layer ④. **The LLM lives only in layer ④** — the same platform invariant. Every
-"allowed / not-allowed" decision and every response remains deterministic (tiers + gates).
+"allowed / not-allowed" decision and every response remains deterministic (tiers + gates). Secret
+material never enters a layer-④ prompt — reasoners receive redacted findings (fingerprint + location),
+never secret values (D3).
 
 ### D6 — Response is tiered by the same action-tier table, extended with security actions (inherits I5)
 Security containment defaults to **T3 (human-in-the-loop, approval within a window)**. A deliberately
-narrow **T4 allow-list** (bounded, reversible, safe-direction — e.g. revoke an *already-leaked
-ephemeral* token; quarantine to an isolated namespace with auto-rollback + notify) exists in the table
-but **ships default-OFF**, degrading to T3 off-plan. The **NEVER-T4 list** is enumerated and marked
-**non-amendable by agents** (the C2 asymmetry applied to the action table): credential/key *deletion*
-(vs rotation), disabling MFA or security controls, modifying or disabling audit logging, IAM policy
-*broadening*, security-group / firewall *widening*, data deletion, mass or production quarantine, any
-change to the platform-design security substrate (Cedar / OPA / Kyverno / KMS), and disabling the gate
-or a detector itself. The full mapping is the security action-tier table in
+narrow **T4 allow-list** (bounded, safe-direction, time-bounded blast — e.g. revoke an *already-leaked
+ephemeral* token, whose blast is bounded because the token expires regardless; quarantine to an
+isolated namespace with auto-rollback + notify) exists in the table but **ships default-OFF**,
+degrading to T3 off-plan. **The predicate gating any T4 action must itself be a deterministic gate /
+graph fact** — e.g. *secret-appeared-in-a-public-diff* is a gate fact, *token TTL / type* is an
+IAM-inventory graph fact — **never a layer-④ LLM inference**; otherwise an LLM judgement would be
+driving an autonomous action, which the layer-④-only rule (D5) forbids. The **NEVER-T4 list** is
+enumerated and marked **non-amendable by agents** (the C2 asymmetry applied to the action table):
+credential / key *deletion* (vs rotation), disabling MFA or security controls, modifying or disabling
+audit logging, IAM policy *broadening*, security-group / firewall *widening*, data deletion, mass or
+production quarantine, any change to the platform-design security substrate (Cedar / OPA / Kyverno /
+KMS), disabling the gate or a detector itself, mutating the skills-registry trust store
+(`skills-lock.json` / CODEOWNERS / a skill's success criteria), and tampering with the eval harness or
+its golden sets. The full mapping is the security action-tier table in
 [ai-security-program.md](../ai-security-program.md).
 
 ### D7 — Security gates fail closed under severance; security detection degrades open
@@ -106,9 +120,9 @@ The security-specific inversion of AI SRE's degraded mode:
 - **Gate under severance fails CLOSED** — a verifier that cannot obtain its baseline (IAM / SBOM /
   exposure source down) returns **REQUIRE_HUMAN**, never PROCEED.
 - **Detection under severance degrades OPEN** — a detector that loses Omniscience falls back to direct
-  sources (AWS / registry / kubectl), slower but functional — **and detector liveness is monitored**,
-  because a detector that suddenly reports nothing may have been disabled by an adversary, not
-  satisfied.
+  sources (AWS / registry / kubectl) on a **least-privilege fallback credential scoped no wider than
+  the hub path**, slower but functional — **and detector liveness is monitored**, because a detector
+  that suddenly reports nothing may have been disabled by an adversary, not satisfied.
 - Any auto-response **preserves forensic evidence first**.
 
 ### D8 — Trust and severance rules apply verbatim, and matter more here (inherits ADR-0002 C1/C2, ADR-0004)
@@ -168,8 +182,9 @@ telemetry, tiers, eval, and the registry — and enlarge the very attack surface
 Mirrors the AI SRE roadmap: *eval first, read-only value early, write-autonomy last and deterministic.*
 
 1. **S0 — security lead-time eval scenarios** (offline, reuse `run_sentinel_eval`).
-2. **S1 — three deterministic security detectors, offline** (the first increment), against the shipped
-   Sentinel contract, registered in `DEFAULT_SECURITY_DETECTORS`:
+2. **S1 — three deterministic security detectors, offline** (the first increment), against the Sentinel
+   contract (implemented on feature branches, landing via PRs #18/#24, pending merge), registered in
+   `DEFAULT_SECURITY_DETECTORS`:
    - `iam_policy_drift` — live IAM grants minus an approved baseline (a set-difference, structurally
      identical to `new_error_signature`); severity by action/resource sensitivity (wildcard /
      privilege-escalation → CRITICAL); confidence 1.0.
@@ -180,8 +195,8 @@ Mirrors the AI SRE roadmap: *eval first, read-only value early, write-autonomy l
    - `exposed_surface_vs_policy` — each exposed surface (Service LB / Ingress / SG rule) not permitted
      by a declared exposure allow-list; severity by public × sensitive-port; confidence 1.0.
    - *Deferred, distinct from the above:* `credential_rotation_overdue` (age-since-rotation beyond
-     policy) — **not** a duplicate of the shipped `saturation_expiry` detector, whose expiry branch is
-     the *availability* framing (days-to-expiry). The two must not be merged.
+     policy) — **not** a duplicate of the `saturation_expiry` detector (on PRs #18/#24), whose expiry
+     branch is the *availability* framing (days-to-expiry). The two must not be merged.
 3. **S2 — security gate verifiers** wired advisory (`secret_in_change` BLOCK primary; `secret_in_state`
    Sentinel defense-in-depth; `iac_security_regression`; `image_cve_gate`; `privileged_workload`).
 4. **S3 — seed `security/` runbook skills** (D4).
@@ -222,8 +237,8 @@ Mirrors the AI SRE roadmap: *eval first, read-only value early, write-autonomy l
   [ADR-0004](0004-experience-plane.md) (verification-grounded memory),
   [ADR-0005](0005-autonomous-factory-intake.md) (committed-spec intake, standing roles)
 - [platform-glossary.md](../platform-glossary.md) — autonomy tiers, gate vs guardrail, severance
-- Sentinel contract: `solutions/sre-harness/src/sre_harness/sentinel/` ·
-  gate: `solutions/sre-harness/src/sre_harness/change_gate.py`, `change_checks.py` ·
-  action-tier table: `solutions/sre-harness/src/sre_harness/autonomy_tiers/action_table.py`
+- Sentinel contract: `solutions/sre-harness/src/sre_harness/sentinel/` (on PRs #18/#24, pending merge;
+  not yet on `main`) · gate: `solutions/sre-harness/src/sre_harness/change_gate.py`, `change_checks.py`
+  · action-tier table: `solutions/sre-harness/src/sre_harness/autonomy_tiers/action_table.py`
 - `research/sections/compliance-framework.md`, `research/comparisons/vendor-compliance-matrix.md` — the
   governance-of-AI-tools scope this domain is bounded *against*
