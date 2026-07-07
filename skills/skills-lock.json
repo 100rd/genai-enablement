@@ -13,6 +13,18 @@
       "skillPath": "skills/engineering/terraform/SKILL.md",
       "computedHash": "d5f7ba8f5e2f5f64bb95af83db8ba44225326e13096e244beb87536f797161ea"
     },
+    "terragrunt-skill": {
+      "source": "100rd/genai-enablement",
+      "sourceType": "local",
+      "skillPath": "skills/engineering/terragrunt/SKILL.md",
+      "computedHash": "d946d1a48fe32db92aaf962bd480b45daca231fc301ec3c653363de6e6fa49e9"
+    },
+    "kubernetes-skill": {
+      "source": "100rd/genai-enablement",
+      "sourceType": "local",
+      "skillPath": "skills/engineering/kubernetes/SKILL.md",
+      "computedHash": "7ade31ed12430a55dca971f446a8c36a97e95d8871d6ac434f03fdd28d3de06b"
+    },
     "gpu-node-unhealthy": {
       "source": "100rd/genai-enablement",
       "sourceType": "local",
@@ -30,6 +42,30 @@
       "sourceType": "local",
       "skillPath": "skills/sre/vllm-high-latency/SKILL.md",
       "computedHash": "fe3c704718dfb46612c499c62c8e6205d5aacc9cf509c15d68070a047c4cbddc"
+    },
+    "promql-generator": {
+      "source": "100rd/genai-enablement",
+      "sourceType": "local",
+      "skillPath": "skills/sre/promql-generator/SKILL.md",
+      "computedHash": "471e39de8dd7267c1ebe91aef6a299ca9a2c99ca4578a1723a947475a9736070"
+    },
+    "promql-validator": {
+      "source": "100rd/genai-enablement",
+      "sourceType": "local",
+      "skillPath": "skills/sre/promql-validator/SKILL.md",
+      "computedHash": "a12bebec6a1d5128b50231b70b05094af9b5fbbc6847dc5bcebc58c863648ff4"
+    },
+    "slo-architect": {
+      "source": "100rd/genai-enablement",
+      "sourceType": "local",
+      "skillPath": "skills/sre/slo-architect/SKILL.md",
+      "computedHash": "a174f9deae75b2364dd7f92e48c70aa7f05d7f3aa7a11e04997d98c6ecf97944"
+    },
+    "secrets-vault-manager": {
+      "source": "100rd/genai-enablement",
+      "sourceType": "local",
+      "skillPath": "skills/security/secrets-vault-manager/SKILL.md",
+      "computedHash": "974dd743810d859b27d769536c2d2045703031bcd60d64b5fa71d835039b4b07"
     }
   }
 }
