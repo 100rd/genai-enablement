@@ -1,0 +1,118 @@
+# Sentinel continuous-detection CronJob (Stage 7 build-order step 2 of the
+# SRE harness).
+#
+# Runs `sre-harness sentinel scan` on a schedule: it loads a SentinelState
+# snapshot, runs the deterministic detector registry, dedupes against the
+# persisted open-findings set, and prints the report as JSON.
+#
+# ADVISORY — NEVER A GATE. Detection is Tier 1 (read-only); emitting a finding
+# is Tier 2 (advisory). The command's exit code (0 = no fresh findings,
+# 1 = fresh findings, 2 = usage error) is INFORMATIONAL, not a pass/fail
+# signal — exit 1 must NEVER fail this Job. `|| true` on the command keeps a
+# fresh-findings run "Completed", exactly like the gate templates' advisory
+# pattern (see gitlab-ci.gate.yml / argocd-presync-gate.yaml). A human or a
+# downstream alert consumer acts on the JSON output (e.g. shipped to stdout /
+# a log sink), not on the exit code.
+#
+# STATE SOURCE — TODO (needs a cluster + a live source contract). `--state`
+# below points at a static JSON fixture mounted from a ConfigMap. The
+# production path is a live observability adapter (Datadog / Loki /
+# CloudWatch / Omniscience) implementing the `StateSource` protocol
+# (`src/sre_harness/sentinel/source.py`) — deferred until that source's query
+# contract is specified. See the "Live observability source adapter — TODO"
+# section in integrations/README.md.
+#
+# OPEN-FINDINGS PERSISTENCE. `--open-findings` must point at a path that
+# survives across CronJob runs (a PVC here; a shared object store/DB is
+# future work) so repeat scans dedupe against history. Findings auto-drop by
+# omission (a scan only persists what its detectors actually reproduced) —
+# not tracked history. To force-clear a finding a detector still reproduces
+# every scan, an operator edits the open-findings file directly.
+#
+# HARDENING. Pod/container run as a fixed non-root UID with a read-only root
+# filesystem, no privilege escalation, all Linux capabilities dropped, and the
+# default seccomp profile. `pip install` therefore needs somewhere writable
+# that isn't the rootfs: an `emptyDir` mounted at `/tmp` holds both the pip
+# cache and the installed package (via `pip install --target`), and the
+# command runs the module (`python -m sre_harness.cli`) instead of the
+# `sre-harness` console script so it works without relying on a script
+# wrapper landing on `PATH`. The image tag and the installed `sre-harness`
+# version are both pinned (not floating) so the code that runs every tick is
+# reproducible and reviewable — bump both deliberately together. For maximum
+# supply-chain assurance, pin the image by digest too (e.g.
+# `python:3.11.9-slim-bookworm@sha256:<digest>`), resolved at apply-time
+# against the registry — omitted here since it can't be hardcoded generically.
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: sre-harness-sentinel-scan
+spec:
+  # Every 15 minutes; tune to the platform's change/incident cadence.
+  schedule: "*/15 * * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 3
+  failedJobsHistoryLimit: 3
+  jobTemplate:
+    spec:
+      backoffLimit: 0
+      template:
+        metadata:
+          name: sre-harness-sentinel-scan
+        spec:
+          restartPolicy: Never
+          securityContext:
+            runAsNonRoot: true
+            runAsUser: 65532
+            runAsGroup: 65532
+            fsGroup: 65532
+            seccompProfile:
+              type: RuntimeDefault
+          containers:
+            - name: sentinel-scan
+              image: python:3.11.9-slim-bookworm
+              command: ["/bin/sh", "-c"]
+              args:
+                - |
+                  set -eu
+                  export HOME=/tmp
+                  export PIP_CACHE_DIR=/tmp/pip-cache
+                  export PYTHONPATH=/tmp/pip-packages
+                  pip install --quiet --target /tmp/pip-packages "sre-harness==0.1.0"
+                  echo "Running Sentinel scan (advisory, Tier 1 detect / Tier 2 finding)..."
+                  # Advisory: `|| true` — a fresh-findings exit (1) never fails this Job.
+                  python -m sre_harness.cli sentinel scan \
+                    --state /work/state/sentinel-state.json \
+                    --open-findings /work/open-findings/open-findings.json \
+                    --verbose || true
+              securityContext:
+                allowPrivilegeEscalation: false
+                readOnlyRootFilesystem: true
+                capabilities:
+                  drop: ["ALL"]
+              resources:
+                requests:
+                  cpu: 100m
+                  memory: 128Mi
+                limits:
+                  cpu: 500m
+                  memory: 256Mi
+              volumeMounts:
+                - name: state
+                  mountPath: /work/state
+                - name: open-findings
+                  mountPath: /work/open-findings
+                # Writable scratch space: pip cache + install target, since
+                # the root filesystem is read-only.
+                - name: tmp
+                  mountPath: /tmp
+          volumes:
+            # Static state snapshot today (see the STATE SOURCE TODO above).
+            - name: state
+              configMap:
+                name: sre-harness-sentinel-state
+            # Must persist across runs for dedup to work across scans.
+            - name: open-findings
+              persistentVolumeClaim:
+                claimName: sre-harness-sentinel-open-findings
+            - name: tmp
+              emptyDir: {}
