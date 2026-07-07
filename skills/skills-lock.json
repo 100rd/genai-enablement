@@ -7,6 +7,18 @@
       "skillPath": "skills/engineering/golang-dev/SKILL.md",
       "computedHash": "f2c487241066c846929763257def6a7a4e96dd2e7e2afbaff0cd451646a73dfa"
     },
+    "python-dev": {
+      "source": "100rd/genai-enablement",
+      "sourceType": "local",
+      "skillPath": "skills/engineering/python-dev/SKILL.md",
+      "computedHash": "b3854b7153a14731163630b44d0dc06cff60816435bcda8003387faa21ca0c22"
+    },
+    "typescript-dev": {
+      "source": "100rd/genai-enablement",
+      "sourceType": "local",
+      "skillPath": "skills/engineering/typescript-dev/SKILL.md",
+      "computedHash": "8bad3505b5965d8ba77504565bbb6a60c9a8790ead93340bc3bb1f6992884b86"
+    },
     "terraform-skill": {
       "source": "100rd/genai-enablement",
       "sourceType": "local",
