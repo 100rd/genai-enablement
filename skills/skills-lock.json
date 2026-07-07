@@ -25,6 +25,42 @@
       "skillPath": "skills/engineering/kubernetes/SKILL.md",
       "computedHash": "7ade31ed12430a55dca971f446a8c36a97e95d8871d6ac434f03fdd28d3de06b"
     },
+    "github-actions-generator": {
+      "source": "100rd/genai-enablement",
+      "sourceType": "local",
+      "skillPath": "skills/engineering/github-actions-generator/SKILL.md",
+      "computedHash": "b2656d11fedbdcad77c7c942362079f933fdfaa141f324f7571ca310806b3eea"
+    },
+    "github-actions-validator": {
+      "source": "100rd/genai-enablement",
+      "sourceType": "local",
+      "skillPath": "skills/engineering/github-actions-validator/SKILL.md",
+      "computedHash": "66301f9bb250545009fcb1a86758fd16e48d8e505b7386c7634112db933b062d"
+    },
+    "gitops-workflow": {
+      "source": "100rd/genai-enablement",
+      "sourceType": "local",
+      "skillPath": "skills/engineering/gitops-workflow/SKILL.md",
+      "computedHash": "9f1aff8930173c56bce71df7f1adc6d31833c37660e4e672cdc6762f2888b190"
+    },
+    "terraform-style-guide": {
+      "source": "100rd/genai-enablement",
+      "sourceType": "local",
+      "skillPath": "skills/engineering/terraform-style-guide/SKILL.md",
+      "computedHash": "c2c2703a711cb7e2a6d58b27906a5b553b8e6832c8f8161768df1665a0d4c984"
+    },
+    "terraform-test": {
+      "source": "100rd/genai-enablement",
+      "sourceType": "local",
+      "skillPath": "skills/engineering/terraform-test/SKILL.md",
+      "computedHash": "643beca56309b5f43ff763e996fc6b3e6ce3826423374e3cb9545df3312e054e"
+    },
+    "terraform-search-import": {
+      "source": "100rd/genai-enablement",
+      "sourceType": "local",
+      "skillPath": "skills/engineering/terraform-search-import/SKILL.md",
+      "computedHash": "1630dc69cae42c43504987b68926c1b0682b1fbd91f73bdcd9f8c670cb71b251"
+    },
     "gpu-node-unhealthy": {
       "source": "100rd/genai-enablement",
       "sourceType": "local",
@@ -60,6 +96,18 @@
       "sourceType": "local",
       "skillPath": "skills/sre/slo-architect/SKILL.md",
       "computedHash": "a174f9deae75b2364dd7f92e48c70aa7f05d7f3aa7a11e04997d98c6ecf97944"
+    },
+    "blast-radius": {
+      "source": "100rd/genai-enablement",
+      "sourceType": "local",
+      "skillPath": "skills/sre/blast-radius/SKILL.md",
+      "computedHash": "87cf0ddc007345b1fc0ee02b60ebf84e319fc858e99de1d60c07fd2a78b4fd4e"
+    },
+    "cost-estimate": {
+      "source": "100rd/genai-enablement",
+      "sourceType": "local",
+      "skillPath": "skills/sre/cost-estimate/SKILL.md",
+      "computedHash": "e004706b2ceab5dab8bc332a70941e203922223d630c3653e8c9e0ee425cbc68"
     },
     "secrets-vault-manager": {
       "source": "100rd/genai-enablement",
