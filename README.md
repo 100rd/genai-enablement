@@ -71,6 +71,8 @@ Detailed as-is map with per-link status and contract risks:
 
 `solutions/sre-harness/` — the deterministic safety core for SRE agents: autonomy-tier
 engine (T1–T4 with degradation), action-tier table, change-validation gate
-(PROCEED / BLOCK / REQUIRE_HUMAN — no LLM inside), platform-graph port with an Omniscience
-MCP adapter, offline eval harness, gate CLI with CI integrations. See the
-[plan](docs/autonomous-sre-harness-plan.md) and [ADR-0001](docs/decisions/0001-continuous-detection-sentinel.md).
+(PROCEED / BLOCK / REQUIRE_HUMAN — no LLM inside), continuous-detection **Sentinel**
+(deterministic detectors → deduped, ranked advisory findings, scored on lead-time),
+platform-graph port with an Omniscience MCP adapter, offline eval harness, gate CLI with
+CI integrations. See the [plan](docs/autonomous-sre-harness-plan.md) and
+[ADR-0001](docs/decisions/0001-continuous-detection-sentinel.md).

@@ -18,6 +18,7 @@ gate — pure, deterministic, fully unit-tested. No LLM in the loop here.
 | `sre_harness.change_parsers` | Best-effort parsers extracting `service` / `target_cluster_ids` / `required_storageclasses` and (Stage 2) `required_namespaces` + high-blast-radius `actions` from a k8s manifest dict (`parse_k8s_manifest`) or a unified PR diff (`parse_pr_diff`). |
 | `sre_harness.cli` | `sre-harness gate` command (Stage 2): loads a change request + a `PlatformGraph` fixture, runs the gate, prints the verdict JSON, and sets a CI-meaningful exit code. |
 | `sre_harness.eval` | Offline eval harness (plan Stage 0): frozen incident-replay labels (`Scenario` = `{id, kind, snapshot, ground_truth}`), a `run_eval(scenarios, target)` runner, **Pass@1** scoring, and a 10-scenario seed suite covering all three checks' verdict space. Pure, offline, deterministic — no LLM. Run with `python -m sre_harness.eval`. |
+| `sre_harness.sentinel` | **Continuous detection / Sentinel** (plan Stage 7 — [ADR-0001](../../docs/decisions/0001-continuous-detection-sentinel.md)): the *proactive* surface to the gate's *at-change* one. A `Detector(state) -> [Finding]` contract, a `DEFAULT_DETECTORS` registry, and `run_sentinel()` which dedupes findings against the open set and ranks them by `severity × confidence`. Two deterministic seed detectors (`saturation_expiry`, `new_error_signature`), scored offline by the eval harness on **lead-time**. Detection is T1, a finding is T2 (advisory) — Sentinel never executes. Run with `python -m sre_harness.sentinel`. |
 | `sre_harness.observability` | **AgentOps** (plan cross-cutting): a thin tracing facade over OpenTelemetry — `get_tracer()`, the `span(...)` context manager, the `@traced(...)` decorator, and an optional `configure_tracing(...)` for OTLP export. Defines a **stable `sre_harness.*` attribute schema** (`attributes.py`) and instruments the gate and the eval runner. **No-op by default** — zero behaviour change and near-zero cost when no OTel provider is configured. |
 
 ## The gate — three deterministic checks, aggregated
@@ -74,6 +75,44 @@ CI / GitOps templates live in [`integrations/`](integrations/) (GitLab CI stage
 + ArgoCD PreSync hook, both advisory by default with a documented switch to
 blocking). Example fixtures are in [`examples/`](examples/).
 
+## Sentinel — continuous detection (Stage 7)
+
+Where the gate is *point-in-time* (validate **this change** at the PR/sync),
+Sentinel is *continuous / periodic* (watch the **running system** for emerging
+risk and **new problem classes**). Same deterministic-first shape as the gate:
+detectors are pure `(state) -> [Finding]` rules over a `SentinelState` snapshot,
+so the whole surface is unit-/eval-testable offline while the live sources
+(Datadog / Loki / CloudWatch / Omniscience) and the runtime (`monitor`/`CronJob`)
+are wired up separately (ADR-0001, build order steps 2–3).
+
+`run_sentinel(state, detectors=DEFAULT_DETECTORS, open_findings=())`:
+
+1. runs every registered detector,
+2. **dedupes** findings against the caller's already-open set (never re-alert a
+   known finding) — suppressed ones are kept on the report for audit, and
+3. **ranks** the survivors most-urgent-first by `severity × confidence`.
+
+Detection is **T1** (read-only); a finding is **T2** (advisory) — Sentinel feeds
+the gate → runbook → permanent-fix loop and never executes remediation.
+
+| Detector | Surfaces | Findings |
+|---|---|---|
+| `saturation_expiry` | resources trending to exhaustion + near-expiry certs/tokens | `saturation` (observed critical / projected exhaustion / warn) and `expiry` (expired / critical / warn), by `Severity` |
+| `new_error_signature` | error signatures present now but absent from the baseline window (novel *class*, not raw volume) | one `HIGH` finding per novel signature; naming/clustering is a future model step |
+
+**Lead-time eval.** Detectors are scored offline by the eval harness on
+**lead-time** (ADR measurement): replay a timeline of state snapshots and verify
+the detector fires *before* the incident paged, with a clean-timeline
+false-positive control. Run with:
+
+```bash
+python -m sre_harness.sentinel            # summary (pass rate + mean lead-time)
+python -m sre_harness.sentinel --verbose  # also prints per-scenario lead-time
+```
+
+Exits non-zero if any scenario fails (fired too late, or a false positive on a
+clean timeline), so it can gate CI alongside the Pass@1 suite.
+
 ## The Omniscience contract
 
 The gate reasons over an authoritative platform-state graph behind the
@@ -104,6 +143,8 @@ collector required.
 | `gate.check` | `gate.evaluate` | `gate.check_id`, `gate.check_verdict` (one child span per check) |
 | `eval.suite` | (root) | `eval.scenario_count`, `eval.passed_count`, `eval.pass_rate`, `service` |
 | `eval.scenario` | `eval.suite` | `eval.scenario_id`, `eval.scenario_kind`, `eval.score`, `eval.passed` (one per scenario) |
+| `sentinel.scan` | (root) | `sentinel.detector_count`, `sentinel.finding_count`, `sentinel.suppressed_count`, `sentinel.detection_tier`, `sentinel.recommendation_tier`, `service` |
+| `sentinel.detector` | `sentinel.scan` | `sentinel.detector_id`, `sentinel.detector_finding_count` (one child span per detector) |
 
 **The attribute schema (why our own names).** The OTel GenAI semantic conventions
 (`gen_ai.*`) are still *experimental* and have churned across releases. AgentOps is
@@ -183,4 +224,14 @@ Exits non-zero if any scenario fails, so it can gate CI later.
   (Stage 2, advisory) — done, unit-tested (exit codes, parser paths, errors).
   Remaining: a `--graph-source omniscience` flag selecting the live
   `OmniscienceMcpPlatformGraph` adapter instead of a static `--graph` fixture.
+- Continuous detection / Sentinel (Stage 7, build-order step 1) — done,
+  unit-tested. Detector contract + `DEFAULT_DETECTORS` registry + dedup +
+  `severity × confidence` ranking (`sentinel.scan`), two deterministic detectors
+  (`saturation_expiry`, `new_error_signature`), and a **lead-time** eval
+  (`run_sentinel_eval` + a 4-scenario seed suite, `python -m sre_harness.sentinel`)
+  scoring how early a detector surfaces a problem, with a clean-timeline
+  false-positive control. AgentOps spans emitted; still advisory/deterministic,
+  no LLM. Remaining (build-order steps 2–3): the `monitor`/`CronJob` runtime +
+  live observability adapters (needs cluster), and the cheap-model novelty
+  clustering / expensive-model finding draft for `new_error_signature`.
 </content>

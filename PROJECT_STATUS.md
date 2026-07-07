@@ -1,7 +1,7 @@
 # GenAI Enablement - Project Status
 
-**Last Updated**: 2026-06-16
-**Phase**: Research & Planning → starting development (Autonomous SRE Harness)
+**Last Updated**: 2026-07-03
+**Phase**: Autonomous SRE Harness development — Stages 0 & 2 shipped, Stage 7 (Sentinel) step 1 shipped
 **Overall Health**: On Track
 
 ## Direction shift (2026-06-16)
@@ -25,6 +25,7 @@ tiered autonomy, measured on leverage not tickets closed.
 - [x] Engagement templates (kickoff, assessment, playbook, ROI tracker)
 - [x] **Agentic SRE landscape refresh (June 2026)** — 3 parallel research threads (market, architecture, AWS-native)
 - [x] **Autonomous SRE Harness plan v2** — autonomy-tier model, action-tier governance, revised roadmap
+- [x] **Sentinel (Stage 7, build-order step 1)** — continuous-detection detector contract + registry + dedup + `severity × confidence` ranking, two deterministic detectors (`saturation_expiry`, `new_error_signature`), and a **lead-time** eval (seed suite + false-positive control). Deterministic, offline, unit-tested; no LLM.
 
 ## In Progress
 - [ ] AI Incident Agent — complete implementation and testing

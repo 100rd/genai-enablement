@@ -61,6 +61,23 @@ EVAL_SCORE_PASSED: Final = "sre_harness.eval.passed"
 #: Numeric score value for the scenario (child span).
 EVAL_SCORE: Final = "sre_harness.eval.score"
 
+# --- Sentinel (continuous detection) ---------------------------------------
+
+#: Number of detectors run in a Sentinel scan.
+SENTINEL_DETECTOR_COUNT: Final = "sre_harness.sentinel.detector_count"
+#: Number of findings emitted after dedup + ranking.
+SENTINEL_FINDING_COUNT: Final = "sre_harness.sentinel.finding_count"
+#: Number of findings suppressed as already-open (deduped away).
+SENTINEL_SUPPRESSED_COUNT: Final = "sre_harness.sentinel.suppressed_count"
+#: Autonomy tier of the (read-only) detection.
+SENTINEL_DETECTION_TIER: Final = "sre_harness.sentinel.detection_tier"
+#: Autonomy tier of the (advisory) finding/recommendation.
+SENTINEL_RECOMMENDATION_TIER: Final = "sre_harness.sentinel.recommendation_tier"
+#: Identifier of an individual detector (child span).
+SENTINEL_DETECTOR_ID: Final = "sre_harness.sentinel.detector_id"
+#: Number of findings a single detector produced (child span).
+SENTINEL_DETECTOR_FINDING_COUNT: Final = "sre_harness.sentinel.detector_finding_count"
+
 # --- LLM token / cost scaffold (future triage / RCA steps) -----------------
 
 #: Input (prompt) tokens consumed by an LLM step.
@@ -104,5 +121,12 @@ __all__ = [
     "LLM_INPUT_TOKENS",
     "LLM_MODEL",
     "LLM_OUTPUT_TOKENS",
+    "SENTINEL_DETECTION_TIER",
+    "SENTINEL_DETECTOR_COUNT",
+    "SENTINEL_DETECTOR_FINDING_COUNT",
+    "SENTINEL_DETECTOR_ID",
+    "SENTINEL_FINDING_COUNT",
+    "SENTINEL_RECOMMENDATION_TIER",
+    "SENTINEL_SUPPRESSED_COUNT",
     "SERVICE",
 ]
