@@ -126,6 +126,24 @@
       "sourceType": "local",
       "skillPath": "skills/security/secrets-vault-manager/SKILL.md",
       "computedHash": "974dd743810d859b27d769536c2d2045703031bcd60d64b5fa71d835039b4b07"
+    },
+    "secret-leak-response": {
+      "source": "100rd/genai-enablement",
+      "sourceType": "local",
+      "skillPath": "skills/security/secret-leak-response/SKILL.md",
+      "computedHash": "e2aa24b0d2400de7f0af9c47429cf2ad6ab06f105ab48be0d380376783b2f090"
+    },
+    "cve-triage": {
+      "source": "100rd/genai-enablement",
+      "sourceType": "local",
+      "skillPath": "skills/security/cve-triage/SKILL.md",
+      "computedHash": "799e70246f3cf8916c4aadb8a469b4a9cba9f063f4adcdfb06327dadaee60950"
+    },
+    "iam-drift-response": {
+      "source": "100rd/genai-enablement",
+      "sourceType": "local",
+      "skillPath": "skills/security/iam-drift-response/SKILL.md",
+      "computedHash": "180f66dff966666a265410a0c46c56ea2ae5ecc1fc9734838dc4f0169391c578"
     }
   }
 }

@@ -41,7 +41,10 @@ production) consume only at lock-file hashes. Update the lock on every skill cha
 | [sre/blast-radius](sre/blast-radius/SKILL.md) | 0.1.0 | T1 | in-house, moved from monorepo `.claude/skills/blast-radius` | platform | MIT | 2026-07-07 | Read-only Terraform change blast-radius analysis + risk thresholds + advisory approval gate (no apply); moved verbatim |
 | [sre/cost-estimate](sre/cost-estimate/SKILL.md) | 0.1.0 | T1 | in-house, moved from monorepo `.claude/skills/cost-estimate` | platform | MIT | 2026-07-07 | Read-only infracost pre-apply cost estimate + threshold approval gate; one line de-coupled from PROJECT_HISTORY |
 | [security/secrets-vault-manager](security/secrets-vault-manager/SKILL.md) | 0.1.0 | T3 | vendored from monorepo `.claude/skills/secrets-vault-manager` | alirezarezvani / vendored | MIT | 2026-07-07 | First `security/` member (namespace proposed by ADR-0008, PR #26 pending); Vault + cloud secret-store patterns; T3 — body directs state-mutating secret ops |
+| [security/secret-leak-response](security/secret-leak-response/SKILL.md) | 0.1.0 | T3 | in-house, new; seeded from ADR-0008 (PR #26, pending) build order | platform | MIT | 2026-07-07 | Response runbook for the secret verifier/detector family (`secret_in_change` BLOCK / `secret_in_state`); confirm→scope→rotate→revoke→verify→learn; D3 fingerprint-only, NEVER-T4 no key deletion |
+| [security/cve-triage](security/cve-triage/SKILL.md) | 0.1.0 | T3 | in-house, new; seeded from ADR-0008 (PR #26, pending) build order | platform | MIT | 2026-07-07 | Response runbook for the `cve_in_sbom` detector; confirm→assess→advise→land-fix→verify; durable fix flows through the factory (D9), P0 buys queue not gate skip |
+| [security/iam-drift-response](security/iam-drift-response/SKILL.md) | 0.1.0 | T3 | in-house, new; seeded from ADR-0008 (PR #26, pending) build order | platform | MIT | 2026-07-07 | Response runbook for the `iam_policy_drift` detector; reproduce→classify→advise→revert-via-IaC-PR→verify; never direct console, never broaden (NEVER-T4) |
 
 ## Planned seeds
 
-- _none currently_
+- _none currently_ — the three ADR-0008 (PR #26, pending) seed detector families now have response runbooks (`secret-leak-response`, `cve-triage`, `iam-drift-response`).
