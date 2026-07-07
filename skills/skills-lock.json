@@ -12,6 +12,18 @@
       "sourceType": "local",
       "skillPath": "skills/sre/gpu-node-unhealthy/SKILL.md",
       "computedHash": "1398402390bf8dc7d2868978e5e5698c6da7b541822a5e81606fcee5e13f7891"
+    },
+    "high-pod-restart-rate": {
+      "source": "100rd/genai-enablement",
+      "sourceType": "local",
+      "skillPath": "skills/sre/high-pod-restart-rate/SKILL.md",
+      "computedHash": "ca50b6f43b87b60fab7c03cf3452cdafe8553f3908c59f39f2fe165a9cd08741"
+    },
+    "vllm-high-latency": {
+      "source": "100rd/genai-enablement",
+      "sourceType": "local",
+      "skillPath": "skills/sre/vllm-high-latency/SKILL.md",
+      "computedHash": "fe3c704718dfb46612c499c62c8e6205d5aacc9cf509c15d68070a047c4cbddc"
     }
   }
 }
