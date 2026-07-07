@@ -7,6 +7,12 @@
       "skillPath": "skills/engineering/golang-dev/SKILL.md",
       "computedHash": "f2c487241066c846929763257def6a7a4e96dd2e7e2afbaff0cd451646a73dfa"
     },
+    "terraform-skill": {
+      "source": "100rd/genai-enablement",
+      "sourceType": "local",
+      "skillPath": "skills/engineering/terraform/SKILL.md",
+      "computedHash": "d5f7ba8f5e2f5f64bb95af83db8ba44225326e13096e244beb87536f797161ea"
+    },
     "gpu-node-unhealthy": {
       "source": "100rd/genai-enablement",
       "sourceType": "local",
