@@ -9,7 +9,7 @@ license: MIT
 # runbook extension namespace:
 category: secret-exposure
 severity: critical
-trigger: secret_in_change gate BLOCK / secret_in_state Sentinel finding (per ADR-0008, PR #26, pending)
+trigger: secret_in_change gate BLOCK / secret_in_state Sentinel finding (per ADR-0008)
 ---
 
 # Secret Leak Response
@@ -19,11 +19,11 @@ Runbook-type skill. Each step is tagged with the autonomy tier required to execu
 explicit human approval within a window). An agent operating below a step's tier stops and
 escalates with its findings.
 
-Seeded from ADR-0008 (PR #26, pending) build order S3 — the `security/` response runbook for
+Seeded from ADR-0008 build order S3 — the `security/` response runbook for
 the secret verifier/detector family (`secret_in_change` gate BLOCK primary, `secret_in_state`
-Sentinel defense-in-depth). **ADR-0008, the gate verifier, and the detector are proposed and
-unbuilt; every capability referenced below is cited as pending.** Maps to the SIRL loop
-(per ADR-0008 program, PR #26, pending): DETECTED → TRIAGED (Steps 1–2) → CONTAINED
+Sentinel defense-in-depth). **ADR-0008 is accepted on `main`; the gate verifier and the detector
+are not yet built; those capabilities below are design-stage.** Maps to the SIRL loop
+(per ADR-0008 program): DETECTED → TRIAGED (Steps 1–2) → CONTAINED
 (Steps 3–4) → RECOVERED (Step 5) → LEARNED (Step 6); the durable ERADICATED fix runs through
 the factory (Step 6 / D9).
 
@@ -37,7 +37,7 @@ the factory (Step 6 / D9).
 
 ### Step 1 — Confirm the finding from its fingerprint and location [T1, auto]
 
-Per ADR-0008 D3 (PR #26, pending), a secret-bearing finding carries **only a fingerprint and a
+Per ADR-0008 D3, a secret-bearing finding carries **only a fingerprint and a
 location** (repo / path / line, or ConfigMap / key) — the secret value is redacted before the
 finding is persisted, before it enters the audit trail, and before any reasoner prompt.
 **Never read, echo, print, log, reconstruct, or commit the secret value** at any step of this
@@ -67,13 +67,13 @@ kubectl get pods -A -o json | jq -r '.items[] | select(.. | .name? == "<secret-n
 ```
 
 Classify from the inputs: **public repo → critical**; private + long history → high; internal
-+ single consumer → medium. **Preserve this evidence before any containment** (ADR-0008 D7,
-PR #26 pending: forensic evidence first).
++ single consumer → medium. **Preserve this evidence before any containment** (ADR-0008 D7:
+forensic evidence first).
 
 ### Step 3 — Rotate the credential at the source [T3, requires human approval]
 
 State-changing, security-sensitive, reversible-with-effort → **T3 (HITL within a window)** per
-the security action-tier table (ADR-0008 D6, PR #26 pending). **Rotate — never delete the key**
+the security action-tier table (ADR-0008 D6). **Rotate — never delete the key**
 (deletion is NEVER-T4). Use the platform secret manager; see the
 [`security/secrets-vault-manager`](../secrets-vault-manager/SKILL.md) skill for the how
 (rotation workflows, dynamic secrets, dual-account / overlap-window strategies).
@@ -104,13 +104,13 @@ revoke in Step 4 did not take — return to Step 4, do not close.
 ### Step 6 — Record the lesson (LEARNED) [T1, auto]
 
 LEARNED stage of the SIRL loop. Draft a forensics-aware post-incident note (machine drafts,
-**human finalizes** — ADR-0008 D8, PR #26 pending). Record fingerprint + location + root cause
-(**never the value**). Propose the durable fix as a **factory task** (ADR-0008 D9, PR #26
-pending): a committed spec with `task_id`, class, and tier; the P0 lane buys queue position,
+**human finalizes** — ADR-0008 D8). Record fingerprint + location + root cause
+(**never the value**). Propose the durable fix as a **factory task** (ADR-0008 D9): a
+committed spec with `task_id`, class, and tier; the P0 lane buys queue position,
 **never a gate skip**. The containment counts `verified` only from independent confirmation
 (never self-report).
 
-## Hard constraints (NEVER-T4 — non-amendable by agents; ADR-0008 D6, PR #26, pending)
+## Hard constraints (NEVER-T4 — non-amendable by agents; ADR-0008 D6)
 
 - **Rotate/revoke the credential — never *delete* a credential or key.** Deletion is NEVER-T4.
 - **Never disable or modify audit logging** — this entire response must remain fully audited.

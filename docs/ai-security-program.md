@@ -131,8 +131,7 @@ ADR-0008 *Boundaries*.
 
 **Built (reused as-is):** the harness deterministic core + eval + gate CLI, the action-tier table, and
 the skills registry mechanics (on `main`); the Sentinel engine, detector contract, dedup/rank, and
-lead-time eval **implemented on feature branches, landing via PRs #18/#24 (pending merge, not yet on
-`main`)**. None of this is security-specific yet, and none needs re-building.
+lead-time eval **landed on `main` via PRs #18/#24**. None of this is security-specific yet, and none needs re-building.
 **Missing (in unblocking order):** ① the three deterministic security detectors, offline
 (`iam_policy_drift`, `cve_in_sbom`, `exposed_surface_vs_policy`) → ② the security gate verifiers,
 advisory → ③ the `security/` skills namespace + seed runbooks → ④ the layer-④ security reasoners → ⑤

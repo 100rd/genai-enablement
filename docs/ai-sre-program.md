@@ -44,7 +44,7 @@ everything that rolls back is deterministic.
 | # | Layer | What it does | LLM | Built from |
 |---|---|---|---|---|
 | ① | **Prevention** | change-gate in CI blocks dangerous changes *before* deploy (blast-radius, resource presence, namespace checks); the cheapest incident is the one that never happened — the market white space | no | sre-harness change-gate + gate CLI + GitLab CI / ArgoCD PreSync (merged) |
-| ② | **Detection** | thresholds, evictions, canary metrics + **Sentinel**: trend-slope changes, drift, degradation | no | Prometheus/Datadog + Sentinel (ADR-0001, design) |
+| ② | **Detection** | thresholds, evictions, canary metrics + **Sentinel**: trend-slope changes, drift, degradation | no | Prometheus/Datadog + Sentinel (ADR-0001; offline core shipped: detectors + lead-time eval + `sentinel scan` CLI with finding persistence; runtime wiring pending) |
 | ③ | **Knowledge** | bitemporal platform graph: `incident_timeline`, `blast_radius`, `find_similar_incidents`, `suggest_runbook`, `as_of` replay | no | Omniscience v0.2 (live) + HA/freshness requirements (Omniscience#350) |
 | ④ | **Reasoning** | T1 pre-triage: operational RCA draft + confidence + proposed actions; T2 advisory remediation; deep root-cause hunt → factory research | **yes** | donors: ai-incident-agent nodes (gather_context, analyze, match_runbooks — see History below) + PB-SRE's 9 specialists (gpu-health, scaling, incident, …). The least-built layer |
 | ⑤ | **Safety** | autonomy tiers T1–T4 with degradation on low confidence; action-tier table (SR 11-7 artifact); verdicts PROCEED/BLOCK/REQUIRE_HUMAN; **rollback is deterministic, never LLM** | no | sre-harness core (merged, unit-tested) |
@@ -79,12 +79,15 @@ them · offline eval score on incident replays (ITBench-style) · toil hours.
 
 ## Maturity map (honest, 2026-07)
 
-**Built:** harness deterministic core + eval + gate CLI (main), Omniscience 13 MCP tools
-(v0.2), action-tier table, first runbook skill, ADR-0001/0003.
+**Built:** harness deterministic core + eval + gate CLI (main), Sentinel offline core
+(detectors + lead-time eval + `sentinel scan` CLI with finding persistence, main),
+Omniscience 13 MCP tools (v0.2), action-tier table, skills registry (24 skills incl.
+runbook and security response families), ADR-0001/0003/0008.
 **Missing (in unblocking order):** ① live harness→Omniscience MCP client (the
 `list_entities` contract gap) → ② the T1 reasoning layer (harness plan Stage 1) → ③ a
-live cluster to observe (platform-design agent-cluster IaC landed) → ④ Sentinel
-implementation → ⑤ escape join → ⑥ Omniscience HA profile (#350).
+live cluster to observe (platform-design agent-cluster IaC landed) → ④ Sentinel runtime
+wiring (CronJob on a live cluster + live observability-source adapters; offline core
+landed) → ⑤ escape join → ⑥ Omniscience HA profile (#350).
 
 **Interim mode that works today:** on-call opens Claude Code with the Omniscience MCP and
 performs layer ④ manually with the same tools.

@@ -9,7 +9,7 @@ license: MIT
 # runbook extension namespace:
 category: iam-drift
 severity: high
-trigger: iam_policy_drift Sentinel finding (per ADR-0008 S1, PR #26, pending)
+trigger: iam_policy_drift Sentinel finding (per ADR-0008 S1)
 ---
 
 # IAM Drift Response
@@ -19,12 +19,12 @@ Runbook-type skill. Each step is tagged with the autonomy tier required to execu
 explicit human approval within a window). An agent operating below a step's tier stops and
 escalates with its findings.
 
-Seeded from ADR-0008 (PR #26, pending) build order S3 — the `security/` response runbook for
+Seeded from ADR-0008 build order S3 — the `security/` response runbook for
 the `iam_policy_drift` Sentinel detector family (ADR-0008 S1: live IAM grants minus an approved
 baseline — a set-difference, structurally identical to `new_error_signature`; severity by
 action/resource sensitivity, wildcard / privilege-escalation → CRITICAL; confidence 1.0).
-**ADR-0008 and the detector are proposed and unbuilt; every capability below is cited as
-pending.** Maps to the SIRL loop (per ADR-0008 program, PR #26, pending): DETECTED → TRIAGED
+**ADR-0008 is accepted on `main`; the detector is not yet built; detector capabilities below
+are design-stage.** Maps to the SIRL loop (per ADR-0008 program): DETECTED → TRIAGED
 (Steps 1–2) → advice (Step 3) → ERADICATED via IaC PR (Step 4) → verify (Step 5).
 
 ## Trigger
@@ -38,7 +38,7 @@ pending.** Maps to the SIRL loop (per ADR-0008 program, PR #26, pending): DETECT
 
 Read-only. Pull the live grants and the approved baseline and compute the set-difference the
 detector reported. **Baseline is read from platform-design's policy substrate — read-only; this
-domain consumes it, never authors it** (ADR-0008 Boundaries, PR #26 pending).
+domain consumes it, never authors it** (ADR-0008 Boundaries).
 
 ```bash
 # live grants (read-only) — via the IAM inventory / Omniscience, or direct AWS as fallback
@@ -53,7 +53,7 @@ baseline.
 
 ### Step 2 — Classify severity [T1, auto]
 
-Use the **same logic the detector uses** (ADR-0008 S1, PR #26 pending) — decide from the drifted
+Use the **same logic the detector uses** (ADR-0008 S1) — decide from the drifted
 grants' actions and resources:
 
 - **Wildcard** (`Action: "*"` or `Resource: "*"`) or **privilege-escalation** actions
@@ -74,7 +74,7 @@ revert. A human decides; this step only proposes.
 
 The durable revert is a **PR to the baseline / IaC repo** — **never a direct console or API
 mutation of IAM.** platform-design **owns the policy substrate**; the correction lands as a
-reviewed change to that baseline (ADR-0008 Boundaries + D9, PR #26 pending), passing the same
+reviewed change to that baseline (ADR-0008 Boundaries + D9), passing the same
 gates. Reverting *narrows* privilege back to baseline; **never broaden** an IAM policy and
 **never widen** a security group — both are NEVER-T4.
 
@@ -88,7 +88,7 @@ gates. Reverting *narrows* privilege back to baseline; **never broaden** an IAM 
 Re-run `iam_policy_drift` after the IaC PR LANDS; confirm the set-difference (live − baseline)
 is empty. Only then is the drift eradicated.
 
-## Hard constraints (NEVER-T4 — non-amendable by agents; ADR-0008 D6, PR #26, pending)
+## Hard constraints (NEVER-T4 — non-amendable by agents; ADR-0008 D6)
 
 - **Never broaden an IAM policy** or **widen a security group / firewall** (both NEVER-T4). The
   only correction here is *narrowing* back to baseline.
@@ -102,7 +102,7 @@ is empty. Only then is the drift eradicated.
 
 If the drift is adversarial (unexplained privilege-escalation grants, a new unknown principal),
 escalate to **SecOps on-call** immediately and preserve forensic evidence before any
-containment (ADR-0008 D7, PR #26 pending). Under severance, if the baseline source is
+containment (ADR-0008 D7). Under severance, if the baseline source is
 unreachable the security gate fails **closed** (REQUIRE_HUMAN); the detector degrades **open** to
 a direct source on a least-privilege fallback credential with liveness monitored — do not assume
 "no drift" from a silent detector.

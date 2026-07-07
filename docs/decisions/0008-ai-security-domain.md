@@ -9,8 +9,8 @@
   [ADR-0002](0002-platform-skills-registry.md) · Done/tiers per
   [ADR-0003](0003-unified-sdlc-standard.md) · memory per [ADR-0004](0004-experience-plane.md)
 
-> ADR numbers 0006 and 0007 are held by open PRs (#19 unified loop decision model; #22 platform
-> portal) and are not yet on `main`; this ADR claims **0008** and does not depend on their content.
+> ADR numbers 0006 (unified loop decision model, PR #19) and 0007 (platform portal, PR #22)
+> landed alongside this ADR; it claims **0008** and does not depend on their content.
 
 ## Context
 
@@ -30,7 +30,7 @@ the security analogue of what AI SRE is for reliability.
 
 The harness already defines every primitive such a domain needs. The change-gate, the tier engine +
 action-tier table, and the skills registry are merged and unit-tested on `main`; **Sentinel is
-implemented on feature branches (PRs #18 → #24) and is landing pending merge, not yet on `main`**:
+landed on `main` via PRs #18/#24**:
 
 - **Sentinel** ([ADR-0001](0001-continuous-detection-sentinel.md)) — a continuous-detection surface
   with a pure `Detector(SentinelState) -> Sequence[Finding]` contract, deterministic-first, dedup +
@@ -183,7 +183,7 @@ Mirrors the AI SRE roadmap: *eval first, read-only value early, write-autonomy l
 
 1. **S0 — security lead-time eval scenarios** (offline, reuse `run_sentinel_eval`).
 2. **S1 — three deterministic security detectors, offline** (the first increment), against the Sentinel
-   contract (implemented on feature branches, landing via PRs #18/#24, pending merge), registered in
+   contract (landed via PRs #18/#24), registered in
    `DEFAULT_SECURITY_DETECTORS`:
    - `iam_policy_drift` — live IAM grants minus an approved baseline (a set-difference, structurally
      identical to `new_error_signature`); severity by action/resource sensitivity (wildcard /
@@ -237,8 +237,8 @@ Mirrors the AI SRE roadmap: *eval first, read-only value early, write-autonomy l
   [ADR-0004](0004-experience-plane.md) (verification-grounded memory),
   [ADR-0005](0005-autonomous-factory-intake.md) (committed-spec intake, standing roles)
 - [platform-glossary.md](../platform-glossary.md) — autonomy tiers, gate vs guardrail, severance
-- Sentinel contract: `solutions/sre-harness/src/sre_harness/sentinel/` (on PRs #18/#24, pending merge;
-  not yet on `main`) · gate: `solutions/sre-harness/src/sre_harness/change_gate.py`, `change_checks.py`
+- Sentinel contract: `solutions/sre-harness/src/sre_harness/sentinel/` (landed via PRs #18/#24)
+  · gate: `solutions/sre-harness/src/sre_harness/change_gate.py`, `change_checks.py`
   · action-tier table: `solutions/sre-harness/src/sre_harness/autonomy_tiers/action_table.py`
 - `research/sections/compliance-framework.md`, `research/comparisons/vendor-compliance-matrix.md` — the
   governance-of-AI-tools scope this domain is bounded *against*
