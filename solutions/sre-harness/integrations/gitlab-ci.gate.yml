@@ -17,6 +17,18 @@
 #   include:
 #     - local: solutions/sre-harness/integrations/gitlab-ci.gate.yml
 # and add `change-validation` to your `stages:` list before `deploy`.
+#
+# HARDENING NOTE. `image:` is pinned to a specific patch tag (not the
+# floating `:3.11-slim`) so the code that runs is reproducible — bump it
+# deliberately alongside dependency updates. Unlike the two Kubernetes-Job
+# integrations (argocd-presync-gate.yaml, sentinel-cronjob.yaml), there is no
+# `securityContext:`/`resources:` equivalent at this level: those are
+# runner/executor concerns (e.g. a Kubernetes GitLab Runner's own
+# `config.toml`, not this job's YAML) — set them there if your runner is
+# Kubernetes-backed. `pip install ./solutions/sre-harness` installs from the
+# checked-out repo path, not a resolved PyPI release, so it is already
+# pinned to whatever commit this pipeline is running (no separate version
+# pin applies, unlike the two files that `pip install` a published package).
 
 stages:
   - change-validation
@@ -24,7 +36,7 @@ stages:
 
 change-validation:
   stage: change-validation
-  image: python:3.11-slim
+  image: python:3.11.9-slim-bookworm
   # Advisory: a non-zero verdict warns but does not block the pipeline.
   # Remove the next line to make the gate blocking.
   allow_failure: true
