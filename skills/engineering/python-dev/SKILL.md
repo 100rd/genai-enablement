@@ -27,18 +27,19 @@ the reader's time is worth more than the writer's.
 
 - `from __future__ import annotations` at the top of every module; type-hint every function —
   mypy runs with `disallow_untyped_defs = true`, so an untyped def fails the build.
-- Model data with `@dataclass` (prefer `frozen=True` / `slots=True` for value objects); never
-  use a mutable default (`[]`, `{}`) — use `field(default_factory=...)`.
+- Model data with `@dataclass` — `frozen=True` value objects are pervasive in the harness;
+  `slots=True` and `field(default_factory=...)` for mutable defaults are recommended additions
+  (not yet used there). Never use a bare mutable default (`[]`, `{}`).
 - Define seams as `typing.Protocol` (structural), defined by the consumer — e.g. the
   platform-graph *port* is a Protocol the harness depends on, not a concrete class. Keep them
   small (1–3 methods).
-- Prefer `Enum`/`Literal` over bare strings for closed sets; `unknown`-style narrowing via
-  `assert_never` on exhaustive matches.
+- Prefer `Enum` over bare strings for closed sets (grounded in the harness); `Literal` and
+  `assert_never`-style exhaustiveness checks are recommended, not yet pervasive there.
 
 ## Errors
 
 - Raise specific exceptions; never `except:` bare and never swallow — catch the narrowest type
-  and re-raise with context (`raise GateError(...) from err`).
+  and re-raise with context (`raise CliError(...) from err`, the harness's own exception).
 - Validate at boundaries (CLI args, parsed change files, external responses); fail fast with a
   clear message. Don't trust external data.
 
@@ -61,7 +62,9 @@ the reader's time is worth more than the writer's.
 
 ## Verification loop (before every PR)
 
-Run all of it; all must pass clean (the loop `solutions/sre-harness` uses):
+Run all of it; all must pass clean — the documented `solutions/sre-harness` loop (`pytest`,
+`ruff check src tests`, `mypy`) plus `black --check` and coverage, both configured in its
+`pyproject.toml`:
 
 ```bash
 poetry install

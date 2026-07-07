@@ -63,9 +63,9 @@ Run all of it; all must pass clean:
 
 ```bash
 pnpm install
-pnpm eslint .
-pnpm prettier --check .
-pnpm tsc --noEmit
+pnpm run lint          # eslint .
+pnpm run format:check  # prettier --check .
+pnpm run typecheck     # tsc --noEmit
 pnpm test
 ```
 
