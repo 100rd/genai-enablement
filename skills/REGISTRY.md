@@ -21,6 +21,8 @@ production) consume only at lock-file hashes. Update the lock on every skill cha
 | Skill | Version | Tier | Origin | Author | License | Added | Notes |
 |---|---|---|---|---|---|---|---|
 | [engineering/golang-dev](engineering/golang-dev/SKILL.md) | 0.1.0 | T1 | in-house, new | platform | MIT | 2026-07-02 | Go development conventions + pre-PR verification loop |
+| [engineering/python-dev](engineering/python-dev/SKILL.md) | 0.1.0 | T1 | in-house, new | platform | MIT | 2026-07-07 | Python conventions grounded in `solutions/sre-harness` (Poetry, ruff, mypy, pytest) + pre-PR verification loop |
+| [engineering/typescript-dev](engineering/typescript-dev/SKILL.md) | 0.1.0 | T1 | in-house, new | platform | MIT | 2026-07-07 | TypeScript conventions (strict tsconfig, no `any`, explicit export return types) + eslint/prettier/tsc verification loop |
 | [engineering/terraform](engineering/terraform/SKILL.md) | 0.1.0 | T1 | vendored from monorepo `.claude/skills/terraform-skill` | Anton Babenko / vendored | Apache-2.0 | 2026-07-07 | Diagnose-first Terraform/OpenTofu guidance with `references/` tree; upstream provenance in `VENDORED.md`/`LICENSE` |
 | [engineering/terragrunt](engineering/terragrunt/SKILL.md) | 0.1.0 | T1 | vendored from monorepo `.claude/skills/terragrunt-skill` | Juan Reyes / vendored | Apache-2.0 | 2026-07-07 | Terragrunt catalog/live/stack scaffolding; ships own `VENDORED.md`/`VENDORED-DELTA.md`, `references/`, `assets/`, `scripts/` |
 | [engineering/kubernetes](engineering/kubernetes/SKILL.md) | 0.1.0 | T1 | vendored from monorepo `.claude/skills/kubernetes-skill` | Lukas Niessen / vendored | MIT | 2026-07-07 | Failure-mode manifest workflow (EKS/GKE/AKS/OpenShift, GitOps, Helm/Kustomize); `references/` tree |
