@@ -190,6 +190,52 @@ SDD coordinates the platform; it does not collapse it:
 
 No component copies another component's source of truth to make SDD convenient.
 
+### D10 - SDD depth is graded by decision risk
+
+SDD is mandatory, but its document weight is proportional to the decision being made:
+
+| Mode | Use when | Required authority |
+|---|---|---|
+| **Quick** | R0 exploration or a reversible edit with no new boundary, side effect, oracle, or policy | lightweight task SPEC citing the existing capability contract |
+| **Standard** | routine implementation inside an accepted capability and task class | complete task SPEC with registered acceptance probes |
+| **Full** | new capability/boundary, cross-repo contract, new side effect, Class B/C/E work, oracle or autonomy change | accepted ADR + ready capability SPEC + task SPEC |
+
+Classification is deterministic and may only move work to a heavier mode. An agent cannot select a
+lighter mode to avoid a human decision. Quick mode reduces ceremony, not traceability: it still records
+intent, provenance, scope, completion criteria, and the immutable execution revision.
+
+### D11 - Assurance is progressive, cumulative, and threat-driven
+
+The factory does not require every production-grade mechanism before proving its first useful vertical.
+Each task runs under a declared cumulative assurance profile:
+
+| Profile | Minimum claim |
+|---|---|
+| **P0 Control-plane MVP** | immutable ready SPEC, isolated worker, default-deny network, external deterministic verification, Draft PR, human merge, canonical outcome |
+| **P1 Governed** | P0 + durable replay/idempotency, separate verifier, pinned skills, deterministic policy adapter, canonical telemetry |
+| **P2 High Assurance** | P1 + threat-model-selected hardened sandbox, workload identity and leased secrets where required, independent verifier host, adversarial isolation/tamper probes |
+| **P3 Scale & Autonomy** | P2 + Standing Roles, Experience, trust cohorts, and evidence-earned per-class auto-merge |
+
+Profiles are floors, not product editions. A higher profile includes every lower-profile obligation.
+Profile selection follows the versioned threat model and task classification; product fashion or a named
+technology is not sufficient justification for a control. Activating a higher profile or making a claim
+that it is met is a human-owned, evidence-gated transition.
+
+### D12 - Merge conformance and assurance certification are distinct gates
+
+The platform exposes two results rather than overloading one permanently red check:
+
+1. **Contract conformance** is the required merge check. It fails on regressions, invalid artifacts,
+   missing probes for requirements claimed as implemented, or violation of the active profile.
+2. **Assurance certification** reports whether a target profile is RED, AMBER, or GREEN. Missing real
+   enforcement remains visible and cannot be called pass, but blocks profile activation, production
+   promotion, autonomy widening, and auto-merge rather than every repository change.
+
+This preserves fail-closed behavior at the risk transition. It also prevents a future-control placeholder
+from making routine development depend on recurring administrator bypasses. A component may not weaken a
+non-waivable invariant by relabeling it; it may only truthfully declare that the corresponding higher
+profile has not yet been certified.
+
 ## Consequences
 
 **Positive**
@@ -208,6 +254,8 @@ No component copies another component's source of truth to make SDD convenient.
 - The schema, traceability index, and conformance probes become governed product surfaces.
 - Over-specification can slow R0 exploration; R0 task SPECs therefore remain lightweight but
   still carry intent, provenance, and completion criteria.
+- Progressive profiles require explicit claim language; a P0 success cannot be presented as P2 security.
+- Two gate outputs add policy surface, but remove the incentive to normalize permanent merge overrides.
 
 ## Alternatives considered
 
@@ -223,7 +271,7 @@ No component copies another component's source of truth to make SDD convenient.
 
 ## Adoption map
 
-omnius adopts this ADR through a local component ADR and five initial capability SPECs:
+omnius adopts this ADR through local component ADRs and six initial capability SPECs:
 
 | Capability | Responsibility |
 |---|---|
@@ -232,6 +280,7 @@ omnius adopts this ADR through a local component ADR and five initial capability
 | `SPEC-EXP` | verification-grounded Experience plane |
 | `SPEC-REG` | pinned platform-skills registry consumption and local trust |
 | `SPEC-OT` | canonical OutcomeEvent / ReturnEvent and traceability joins |
+| `SPEC-TM` | threat model, assurance-profile selection, control mapping, and certification |
 
 These SPECs extend existing omnius capabilities; they do not replace SPEC-CD, SPEC-HB,
 SPEC-MEM, SPEC-SK, SPEC-FO, or SPEC-OS.
@@ -247,6 +296,11 @@ Platform-level conformance fixtures must prove:
 - evidence resolves to an exact task revision and `REQ-*` id;
 - a component can lose the coordination hub after materialization and continue the active
   task from its pinned local contract (severance), without accepting new unverified work.
+- an R0 change selects Quick mode while a new boundary or Class B/C/E change selects Full mode;
+- an agent request for a lighter SDD mode or assurance profile is widened or parked;
+- a missing P2 control leaves P2 certification RED without failing a conformant P0 implementation PR;
+- activation, production promotion, autonomy widening, and auto-merge fail closed unless the target
+  assurance profile is certified.
 
 ## References
 

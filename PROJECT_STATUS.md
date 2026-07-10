@@ -28,8 +28,8 @@ tiered autonomy, measured on leverage not tickets closed.
 - [x] **Sentinel (Stage 7, build-order step 1)** — continuous-detection detector contract + registry + dedup + `severity × confidence` ranking, two deterministic detectors (`saturation_expiry`, `new_error_signature`), and a **lead-time** eval (seed suite + false-positive control). Deterministic, offline, unit-tested; no LLM.
 
 ## In Progress
-- [ ] **Organizational Dark Factory SDD governance** — ADR-0009 proposed; omnius ADR-0015 and
-  SPEC-IN/ROLE/EXP/REG/OT drafted for human acceptance/readiness review
+- [ ] **Organizational Dark Factory SDD governance** — ADR-0009 proposed; omnius ADR-0015/0016
+  and SPEC-IN/ROLE/EXP/REG/OT/TM drafted for human acceptance/readiness review
 - [ ] AI Incident Agent — complete implementation and testing
 - [ ] Detailed implementation roadmap refinement per team
 
@@ -48,10 +48,10 @@ tiered autonomy, measured on leverage not tickets closed.
 | Tool stack for pilot | Pending | See research/quick-reference-table.md |
 | First pilot team | Pending | Need team assessment |
 | AI Incident Agent scope | In Progress | LangGraph-based, see solutions/ |
-| ADR-to-SPEC governance | Proposed | ADR-0009; humans decide in ADRs, agents execute ready SPECs |
+| ADR-to-SPEC governance | Proposed | ADR-0009; graded SDD, progressive assurance, and distinct conformance/certification gates |
 
 ## Next Actions
-1. Review/accept or revise ADR-0009 and the omnius ADR-0015/SPEC draft bundle
+1. Review/accept or revise ADR-0009 and the omnius ADR-0015/0016 + SPEC draft bundle
 2. Complete AI Incident Agent implementation
 3. Identify and assess first pilot team
 4. Create first CI/CD playbook from real workflow
