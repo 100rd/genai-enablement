@@ -202,6 +202,14 @@ Legend for the per-system columns: the local term and, where it differs, its loc
 | Canonical term | Definition |
 |---|---|
 | **Dark factory** | An SDLC system where agents do the production work and humans own approval. Two tiers: **personal** (multiqlti — exploration, low governance) and **centralized** (omnius — org-governed, gated). |
+| **ADR-to-SPEC governance / SDD** | The authority split accepted by ADR-0009: humans decide intent, boundaries, ownership, and consequences in ADRs; agents execute only human-ready capability/task SPECs with deterministic acceptance probes. |
+| **Capability SPEC** | A reusable, component-owned executable contract: requirements, interfaces, fallbacks, probes, and evidence obligations implementing one or more accepted ADRs. It is not one task instance. |
+| **Task SPEC** | One immutable execution contract in a component's `docs/specs/` queue. It cites governing ADRs/capability SPECs and carries scope, class/tier request, role, pinned skills, acceptance criteria, rollback, and provenance. Tickets are inbox; task SPECs are work. |
+| **SDD mode** | The decision-risk-weighted document depth from ADR-0009: **Quick** for R0/reversible work inside an existing boundary, **Standard** for routine work inside an accepted capability, and **Full** for new boundaries, side effects, or Class B/C/E work. A deterministic classifier may only widen the mode. |
+| **Assurance profile** | A cumulative, threat-model-selected claim about enforced controls: **P0 Control-plane MVP**, **P1 Governed**, **P2 High Assurance**, or **P3 Scale & Autonomy**. A profile is certified by evidence; it is not inferred from installed products. |
+| **Contract conformance** | Required merge result for implemented contracts, active-profile obligations, schemas, and regression probes. It is distinct from certification of a higher future profile. |
+| **Assurance certification** | RED/AMBER/GREEN evidence result for a target assurance profile. It gates profile activation, production promotion, autonomy widening, and auto-merge without making every development PR depend on future controls. |
+| **Standing Role** | A human-owned persistent definition (purpose, concerns, loop template, pinned skills, capability ceiling, experience scope) that spawns isolated ephemeral loops. It is not a running privileged agent. |
 | **Graduation path** | The pipeline by which a pattern/skill proven in the personal tier (with evidence) is admitted into the centralized tier (through its trust lifecycle). |
 | **Harness** | ⚠ Collision-prone. Canonical platform meaning: the deterministic safety machinery around agents (gates, tiers, verification) — "the harness is the product". Avoid using it for (a) agent runtime SDKs (say *agent harness/SDK*: Claude Agent SDK, PydanticAI) and (b) Claude Code's own tool environment. |
 | **Insight Mode / Action Mode** | Omniscience v1 (read-only retrieval with citations) vs future v2 (write/execute). The platform-wide analogue: T1/T2 vs T3/T4. |
@@ -224,6 +232,7 @@ Legend for the per-system columns: the local term and, where it differs, its loc
 | **verified** | omnius lifecycle state vs colloquial "tested" | Reserve **verified** for the lifecycle state; use "tested/validated" informally |
 | **agent** | runtime worker vs `.claude/agents` persona defs vs A2A remote agents | Default = runtime worker. Say **agent definition** for persona files, **remote agent** for A2A |
 | **T-tiers vs classes A–E vs auto/approval steps** | three encodings of autonomy | T1–T4 is the canonical scale (it's the governance-facing one, SR 11-7-mapped). Cedar classes and runbook step tags MUST document their T-mapping |
+| **spec** | reusable capability contract vs one task's committed execution contract | Always qualify **capability SPEC** or **task SPEC**. An ADR is neither: it records the human decision that governs both. |
 
 ---
 
@@ -233,5 +242,5 @@ Legend for the per-system columns: the local term and, where it differs, its loc
 - omnius: `phase_3/skill_lifecycle.py` (SkillModel/lifecycle), `mvp_core/pool/__init__.py` (CedarPDP, ReasoningPool, FamilyAttestation), `specs/SPEC-SK-skill-lifecycle.md`, `specs/SPEC-KP-knowledge-plane.md`, `architecture/MASTER-ARCHITECTURE.md` §0/§6.2/§7.5
 - Omniscience: `apps/server/src/omniscience_server/mcp/server.py` (13 tools), `packages/core/.../auth/{scopes,workspace}.py`, `docs/decisions/0015-multiqlti-as-mcp-consumer-and-source.md`, `docs/decisions/` ADR-0008 (bitemporal)
 - platform-design: `ai-sre/agents/orchestrator/config.py` (AgentDefinition), `ai-sre/runbooks/*.md` (step tags), `ai-sre/guardrails/read_only.py`, `docs/adrs/0055-*.md`
-- genai-enablement: `docs/autonomous-sre-harness-plan.md` §3 (tiers), `solutions/sre-harness/src/sre_harness/{autonomy_tiers,change_gate,platform_graph}.py`
+- genai-enablement: `docs/autonomous-sre-harness-plan.md` §3 (tiers), `docs/decisions/0009-organizational-dark-factory-sdd.md` (ADR-to-SPEC authority), `solutions/sre-harness/src/sre_harness/{autonomy_tiers,change_gate,platform_graph}.py`
 - monorepo: `.claude/skills/` + `VENDORED.md`, `skills-lock.json`, `.claude/agents/**`
