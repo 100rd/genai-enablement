@@ -1,6 +1,7 @@
 # ADR-0009: Organizational Dark Factory uses ADR-to-SPEC governance
 
-- **Status:** Proposed
+- **Status:** Accepted
+- **Accepted by:** `@100rd` via explicit owner approval on 2026-07-11
 - **Date:** 2026-07-10
 - **Deciders:** platform owner
 - **Scope:** cross-repo (genai-enablement decision plane; omnius governed execution;

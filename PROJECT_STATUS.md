@@ -26,10 +26,12 @@ tiered autonomy, measured on leverage not tickets closed.
 - [x] **Agentic SRE landscape refresh (June 2026)** — 3 parallel research threads (market, architecture, AWS-native)
 - [x] **Autonomous SRE Harness plan v2** — autonomy-tier model, action-tier governance, revised roadmap
 - [x] **Sentinel (Stage 7, build-order step 1)** — continuous-detection detector contract + registry + dedup + `severity × confidence` ranking, two deterministic detectors (`saturation_expiry`, `new_error_signature`), and a **lead-time** eval (seed suite + false-positive control). Deterministic, offline, unit-tested; no LLM.
+- [x] **Organizational Dark Factory SDD governance** — ADR-0009 accepted with graded SDD,
+  progressive assurance, and distinct conformance/certification gates
 
 ## In Progress
-- [ ] **Organizational Dark Factory SDD governance** — ADR-0009 proposed; omnius ADR-0015/0016
-  and SPEC-IN/ROLE/EXP/REG/OT/TM drafted for human acceptance/readiness review
+- [ ] **Repository adoption** — omnius ADR-0015/0016 and SPEC-IN/ROLE/EXP/REG/OT/TM remain
+  drafted for separate human acceptance/readiness review
 - [ ] AI Incident Agent — complete implementation and testing
 - [ ] Detailed implementation roadmap refinement per team
 
@@ -48,10 +50,10 @@ tiered autonomy, measured on leverage not tickets closed.
 | Tool stack for pilot | Pending | See research/quick-reference-table.md |
 | First pilot team | Pending | Need team assessment |
 | AI Incident Agent scope | In Progress | LangGraph-based, see solutions/ |
-| ADR-to-SPEC governance | Proposed | ADR-0009; graded SDD, progressive assurance, and distinct conformance/certification gates |
+| ADR-to-SPEC governance | Accepted | ADR-0009; graded SDD, progressive assurance, and distinct conformance/certification gates |
 
 ## Next Actions
-1. Review/accept or revise ADR-0009 and the omnius ADR-0015/0016 + SPEC draft bundle
+1. Review/accept or revise the omnius ADR-0015/0016 + SPEC draft bundle
 2. Complete AI Incident Agent implementation
 3. Identify and assess first pilot team
 4. Create first CI/CD playbook from real workflow

@@ -202,7 +202,7 @@ Legend for the per-system columns: the local term and, where it differs, its loc
 | Canonical term | Definition |
 |---|---|
 | **Dark factory** | An SDLC system where agents do the production work and humans own approval. Two tiers: **personal** (multiqlti — exploration, low governance) and **centralized** (omnius — org-governed, gated). |
-| **ADR-to-SPEC governance / SDD** | The authority split proposed by ADR-0009: humans decide intent, boundaries, ownership, and consequences in ADRs; agents execute only human-ready capability/task SPECs with deterministic acceptance probes. |
+| **ADR-to-SPEC governance / SDD** | The authority split accepted by ADR-0009: humans decide intent, boundaries, ownership, and consequences in ADRs; agents execute only human-ready capability/task SPECs with deterministic acceptance probes. |
 | **Capability SPEC** | A reusable, component-owned executable contract: requirements, interfaces, fallbacks, probes, and evidence obligations implementing one or more accepted ADRs. It is not one task instance. |
 | **Task SPEC** | One immutable execution contract in a component's `docs/specs/` queue. It cites governing ADRs/capability SPECs and carries scope, class/tier request, role, pinned skills, acceptance criteria, rollback, and provenance. Tickets are inbox; task SPECs are work. |
 | **SDD mode** | The decision-risk-weighted document depth from ADR-0009: **Quick** for R0/reversible work inside an existing boundary, **Standard** for routine work inside an accepted capability, and **Full** for new boundaries, side effects, or Class B/C/E work. A deterministic classifier may only widen the mode. |

@@ -51,7 +51,7 @@ Detailed as-is map with per-link status and contract risks:
 | Artifact | What it gives you |
 |---|---|
 | [`docs/platform-glossary.md`](docs/platform-glossary.md) | Canonical terms, component boundaries (what each project does and does NOT), term-collision rulings |
-| [`docs/decisions/`](docs/decisions/) | ADRs binding across repos, including the ADR-to-SPEC governance proposal (ADR-0009) |
+| [`docs/decisions/`](docs/decisions/) | ADRs binding across repos, including accepted ADR-to-SPEC governance (ADR-0009) |
 | [`skills/`](skills/) | Shared skills registry — SKILL.md format, sha256 lock, PR-only changes ([rules](skills/REGISTRY.md)) |
 | [`docs/autonomous-sre-harness-plan.md`](docs/autonomous-sre-harness-plan.md) | AI SRE direction: autonomy tiers, action tiers, gates |
 | [`research/`](research/) | Market and architecture research (40+ solutions, 2026 agentic-SRE refresh) |
@@ -60,8 +60,9 @@ Detailed as-is map with per-link status and contract risks:
 ## Rules for subproject engineers
 
 1. **A change touching two or more components starts with an ADR here.**
-2. **ADR-0009 proposes: humans decide in ADRs; agents execute ready SPECs.** While that ADR
-   is proposed, its draft adoption artifacts are review material, not implementation authorization.
+2. **ADR-0009: humans decide in ADRs; agents execute ready SPECs.** The accepted decision is the
+   organizational authority model; each repository still requires its own accepted adoption ADR and
+   human-ready capability/task contracts before implementation.
 3. **Terms per the glossary** — in docs, ADRs, and cross-repo contracts. Code identifiers
    may stay local.
 4. **How-tos become skills** in [`skills/`](skills/) (PR-only, evidence attached for
