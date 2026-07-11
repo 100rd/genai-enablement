@@ -1,7 +1,9 @@
 # Platform Glossary & Component Map
 
-**Status:** Draft v0.1 · 2026-07-02
-**Scope:** the five-repo AI platform — Omniscience, multiqlti, omnius, platform-design (incl. PB-SRE), genai-enablement (incl. sre-harness)
+**Status:** Draft v0.2 · 2026-07-11
+**Scope:** the six-product AI platform — Omniscience, multiqlti, omnius, platform-design
+(incl. PB-SRE), platform-portal, and genai-enablement (incl. sre-harness), with shared
+delivery enforcement from platform-workflows
 
 **Why this exists.** The same words mean different things across repos ("skill", "workspace",
 "harness", "connection"), and several different words name the same concept (autonomy tiers
@@ -36,17 +38,18 @@ serve it to any MCP-compatible client.
 
 ### multiqlti — the personal dark factory
 
-**Mission:** give one engineer a multi-model SDLC pipeline: describe a feature, a chain of
-specialized agent stages plans → architects → codes → tests → reviews → deploys, with any
-model per stage.
+**Mission:** give one engineer a personal, interactive Dark Factory that can take research or
+engineering work A-to-Z while allowing pauses, redirection, and ADR/SPEC revision before the
+execution contract is committed.
 
 - **Does:** pipeline orchestration (linear/DAG/swarm), 8 stage classes ("teams"), execution
   strategies (Debate/MoA/Voting), multi-provider gateway (Claude/Gemini/Grok/local + CLI
   subscriptions), own RAG (migrating to Omniscience), workspace code indexing, skills
   marketplace, guardrails, sandbox, federation, triggers; exposes itself as an MCP server.
-- **Does NOT:** org-level governance (no trust lifecycle on skills, no autonomy-tier
-  enforcement, human approval is per-pipeline config, not policy); production change
-  management.
+- **Does NOT:** claim org-level authority (no trust lifecycle on skills, no autonomy-tier
+  enforcement, human approval is per-pipeline config, not policy). Its results can reach
+  production through configured delivery, but personal evidence does not become organizational
+  policy without promotion through a shared PR.
 - **Maturity:** live, self-hosted, all planned phases shipped; Omniscience integration built
   but behind a feature flag against a mock.
 - **Role in the platform:** the proving ground / innovation edge. Patterns and skills are
@@ -54,15 +57,16 @@ model per stage.
 
 ### omnius — the centralized dark factory
 
-**Mission:** run engineering tasks end-to-end (plan → code in sandbox → verify → PR → merge)
-at org scale, with humans owning approval, not syntax review. Target autonomy L4, never L5.
+**Mission:** act as the organization's goal-oriented engineer: accept dialogue, goals, SPECs,
+tickets, events, and AI SRE orders; investigate and complete the necessary code, IaC, delivery,
+runtime verification, and evidence under Realm policy. Target autonomy L4, never L5.
 
 - **Does (by design):** deterministic core outside the LLM — Conductor FSM (Temporal),
   Gate Engine (Cedar policy), dual-sandbox Verifier with distinct model families
   (worker ≠ evaluator), transactional wrapper, Curator Console (human PARKED queue),
   skill-store with a trust lifecycle, knowledge-plane client to Omniscience (read-only,
   severable).
-- **Does NOT:** trust its own agents (they are ephemeral, swappable, untrusted by
+- **Does NOT:** trust supplied SPECs or its own agents blindly (they are ephemeral, swappable, untrusted by
   architecture); auto-merge by default (opt-in, fail-closed, per-class, earned); replace
   multiqlti (peer of a different tier).
 - **Maturity:** Phase 0 — the full logic exists as a tested Python mockup (81 green tests),
@@ -149,7 +153,8 @@ Legend for the per-system columns: the local term and, where it differs, its loc
 | **Agent** | A model + system prompt + tool allowlist + guardrails, executing one role. Ephemeral; owns no cross-task state. | "team" (`TeamConfig`: stage class like planning/development; 8 registered) | Planner / Worker / Evaluator — roles bound via SPIFFE SVID to model pools + harness | `.claude/agents/*.md` (frontmatter subagent defs); PB-SRE `AgentDefinition` dataclass (role, model, system_prompt, tool_permissions) |
 | **Orchestrator** | The component that owns control flow across agents; deterministic, outside the LLM | `PipelineController` | Conductor (FSM, → Temporal) | PB-SRE orchestrator (blackboard); harness = the deterministic gates around any orchestrator |
 | **Pipeline** | A declared sequence/DAG of agent stages | pipeline (linear/DAG/swarm) | task lifecycle FSM (`TRIGGERED→PLANNING→…→MERGED`) | harness roadmap stages |
-| **Run / Task** | One execution instance through a pipeline/lifecycle | run (`run_pipeline`, `get_run`) | task (`task_id`, joined to incident plane for escape tracking) | PB-SRE investigation |
+| **WorkOrder** | Durable normalized organizational request created from dialogue, MCP/API, tracker, event, SPEC, or AI SRE order. Conversation becomes work only through an authorized `proposed -> committed` transition. | interactive run/request; not organizational authority | parent durable execution and correlation unit | Jira item, AI SRE engineering order |
+| **Run / Task** | One execution instance through a pipeline/lifecycle; in omnius a task may be one child of a WorkOrder DAG | run (`run_pipeline`, `get_run`) | task (`task_id`, joined to work order and incident plane for escape tracking) | PB-SRE investigation |
 | **Execution strategy** | How multiple models combine on one stage | Single / Debate / MoA / Voting / parallel-split | worker≠evaluator family split (adversarial pair, not consensus) | — |
 | **Sandbox** | Isolated execution environment for agent-written code | Docker sandbox (#82) | Execution Fabric: Firecracker/Kata microVMs (design; Docker in mock), dual-mount | — |
 | **Trigger** | Event that starts a run | triggers: schedule/webhook/github_event/file_change | `TRIGGERED` FSM entry | PB-SRE alert ingestion (route by label prefix) |
@@ -169,6 +174,7 @@ Legend for the per-system columns: the local term and, where it differs, its loc
 | **Curator / Human gate** | The human approval surface | approval gates UI | Curator Console (PARKED queue, per-class auto-merge toggle) | harness REQUIRE_HUMAN / T3; PB-SRE Slack approve; SSM `aws:approve` |
 | **Guardrail** | Runtime filter on agent I/O (tool allowlists, write-verb blocking, secret scanning). Defense-in-depth; **not** an authorization mechanism (see Gate). | guardrail-runner | SkillContentGate; read-only MCP clamp | PB-SRE `guardrails/` 4 layers; Bedrock Guardrails caveat in harness plan |
 | **Severance** | The property that removing a dependency degrades a system instead of killing it | pgvector fallback behind memory feature flag | symmetric severance (REQ-KP-4): Planner falls back to direct source queries | canonical platform principle |
+| **Realm** | Organizational policy boundary inferred from authoritative declarations, code/IaC, delivery topology, and platform state. It scopes autonomy, credentials, gates, budgets, data, and blast radius. | optional target context | mandatory resolved execution boundary | Kubernetes/AWS/environment/resource policy domains |
 
 ### 2.4 Knowledge & data
 
@@ -176,7 +182,7 @@ Legend for the per-system columns: the local term and, where it differs, its loc
 |---|---|---|---|---|
 | **Platform graph** | The typed entity/edge graph of platform state (services, clusters, deps, owners), bitemporal | consumed via Omniscience provider | Knowledge Plane = Omniscience read-only MCP contract | harness `PlatformGraph` port; PB-SRE topology store; lives in Omniscience Neo4j |
 | **Knowledge plane** | A consumer's name for its read-only view of the platform graph | "world-knowledge" memory layer | `knowledge_plane.py` (MCPClientWrapper, read-only token guard) | — |
-| **Memory (3 layers)** | world-knowledge (platform-wide, → Omniscience) / agent-experience (lessons, stays local) / working (per-run) | exactly this split (memory-architecture ADR) | truth stores split: operational-reality (Omniscience) + others | Omniscience explicitly refuses the lessons layer |
+| **Memory (3 layers)** | working loop state / factory experience and task lessons / platform state. The first two belong to each factory; platform state belongs to Omniscience. | personal working + cross-task memory | organizational loop/task/factory memory | Omniscience explicitly refuses the lessons layer and serves platform state |
 | **Connector (source)** | An **ingestion** adapter feeding data INTO Omniscience (git, k8s operator, Slack, Datadog…) | its workspaces become connectors (ADR-0015) | — | Omniscience `sources` + connectors pkg |
 | **Connection** | An **outbound** credentialed link FROM an agent runtime to an external tool (MCP client, GitLab, Jira…). ⚠ Do not confuse with Connector. | External Connections (AES-GCM secrets) | MCP Gateway routes | PB-SRE `mcp_registry` |
 | **Workspace** | ⚠ Collision. (a) multiqlti: an indexed code repo an agent works on; (b) Omniscience: a **tenancy unit** (`workspace_id` on tokens, fail-closed filter). Canonical ruling: qualify — *code workspace* vs *tenant workspace*. | code workspace | — | Omniscience tenant workspace |
@@ -201,10 +207,12 @@ Legend for the per-system columns: the local term and, where it differs, its loc
 
 | Canonical term | Definition |
 |---|---|
-| **Dark factory** | An SDLC system where agents do the production work and humans own approval. Two tiers: **personal** (multiqlti — exploration, low governance) and **centralized** (omnius — org-governed, gated). |
-| **ADR-to-SPEC governance / SDD** | The authority split accepted by ADR-0009: humans decide intent, boundaries, ownership, and consequences in ADRs; agents execute only human-ready capability/task SPECs with deterministic acceptance probes. |
+| **Dark factory** | An SDLC system that can perform work A-to-Z while humans own organizational policy. Two full-capability tiers: **personal** (multiqlti — interactive and revisable) and **organizational** (omnius — durable, policy-governed, Realm-scoped). |
+| **ADR-to-SPEC governance / SDD** | The authority split accepted by ADR-0009 and extended by ADR-0010: humans define organizational boundaries in ADRs; a frozen SPEC with precommitted completion probes is required before mutation, but dialogue, goals, tickets, alerts, and AI SRE orders may enter bounded discovery first. |
 | **Capability SPEC** | A reusable, component-owned executable contract: requirements, interfaces, fallbacks, probes, and evidence obligations implementing one or more accepted ADRs. It is not one task instance. |
 | **Task SPEC** | One immutable execution contract in a component's `docs/specs/` queue. It cites governing ADRs/capability SPECs and carries scope, class/tier request, role, pinned skills, acceptance criteria, rollback, and provenance. Tickets are inbox; task SPECs are work. |
+| **Condition of Done** | The complete set of pre-execution conditions and independent probes that make a WorkOrder terminal. It may be supplied by a requester or derived by AI during assessment, but the producer cannot redefine it during execution. |
+| **EntityClass** | A versioned executable organizational standard for an application, environment, datastore, or resource, with metadata contract, lifecycle, required capabilities, delivery path, and Realm admission policy. |
 | **SDD mode** | The decision-risk-weighted document depth from ADR-0009: **Quick** for R0/reversible work inside an existing boundary, **Standard** for routine work inside an accepted capability, and **Full** for new boundaries, side effects, or Class B/C/E work. A deterministic classifier may only widen the mode. |
 | **Assurance profile** | A cumulative, threat-model-selected claim about enforced controls: **P0 Control-plane MVP**, **P1 Governed**, **P2 High Assurance**, or **P3 Scale & Autonomy**. A profile is certified by evidence; it is not inferred from installed products. |
 | **Contract conformance** | Required merge result for implemented contracts, active-profile obligations, schemas, and regression probes. It is distinct from certification of a higher future profile. |
