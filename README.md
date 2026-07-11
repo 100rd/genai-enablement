@@ -63,6 +63,9 @@ Detailed as-is map with per-link status and contract risks:
 2. **ADR-0009: humans decide in ADRs; agents execute ready SPECs.** The accepted decision is the
    organizational authority model; each repository still requires its own accepted adoption ADR and
    human-ready capability/task contracts before implementation.
+   **ADR-0010 extends intake:** a SPEC is required before mutating execution, but a goal, dialogue,
+   ticket, alert, or AI SRE order may enter bounded discovery first. Policy may authorize low-risk
+   readiness and SPEC repair inside an accepted boundary.
 3. **Terms per the glossary** — in docs, ADRs, and cross-repo contracts. Code identifiers
    may stay local.
 4. **How-tos become skills** in [`skills/`](skills/) (PR-only, evidence attached for
