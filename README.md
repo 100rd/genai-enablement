@@ -66,6 +66,9 @@ Detailed as-is map with per-link status and contract risks:
    **ADR-0010 extends intake:** a SPEC is required before mutating execution, but a goal, dialogue,
    ticket, alert, or AI SRE order may enter bounded discovery first. Policy may authorize low-risk
    readiness and SPEC repair inside an accepted boundary.
+   **ADR-0011 adds the product boundary:** users and agents request PlatformProducts through versioned
+   executable PlatformPaths; omnius coordinates those paths but does not absorb the portal, knowledge,
+   incident, or execution systems it calls.
 3. **Terms per the glossary** — in docs, ADRs, and cross-repo contracts. Code identifiers
    may stay local.
 4. **How-tos become skills** in [`skills/`](skills/) (PR-only, evidence attached for
