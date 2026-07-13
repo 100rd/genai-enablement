@@ -1,6 +1,6 @@
 # Platform Glossary & Component Map
 
-**Status:** Draft v0.2 · 2026-07-11
+**Status:** Draft v0.3 · 2026-07-13
 **Scope:** the six-product AI platform — Omniscience, multiqlti, omnius, platform-design
 (incl. PB-SRE), platform-portal, and genai-enablement (incl. sre-harness), with shared
 delivery enforcement from platform-workflows
@@ -69,11 +69,11 @@ runtime verification, and evidence under Realm policy. Target autonomy L4, never
 - **Does NOT:** trust supplied SPECs or its own agents blindly (they are ephemeral, swappable, untrusted by
   architecture); auto-merge by default (opt-in, fail-closed, per-class, earned); replace
   multiqlti (peer of a different tier).
-- **Maturity:** Phase 0 — the full logic exists as a tested Python mockup (81 green tests),
+- **Maturity:** Phase 0 — the full logic exists as a tested Python mockup (94 green tests),
   but every security/infra guarantee is simulated ("security posture 0%"). Phase 1
-  (Firecracker/Temporal/OpenBao/SPIRE swaps) not started.
-- **First real task class (planned):** reversible Terraform-module changes in
-  platform-design.
+  real-path adapter and durable-control-plane work has not started.
+- **First real vertical (planned):** `standard-http-service/v1` in a disposable
+  `preview-*` Realm; reversible Terraform-module changes remain a candidate future path.
 
 ### platform-design — the platform substrate (infra + security)
 
@@ -212,6 +212,7 @@ Legend for the per-system columns: the local term and, where it differs, its loc
 | **PlatformProduct** | A supported, outcome-oriented platform offer with owner, consumers, contract, SLO, cost/support boundary, versions, metrics, and retirement lifecycle. It exposes an environment/service/inference/data outcome, not raw resources. |
 | **ADR-to-SPEC governance / SDD** | The authority split accepted by ADR-0009 and extended by ADR-0010: humans define organizational boundaries in ADRs; a frozen SPEC with precommitted completion probes is required before mutation, but dialogue, goals, tickets, alerts, and AI SRE orders may enter bounded discovery first. |
 | **Capability SPEC** | A reusable, component-owned executable contract: requirements, interfaces, fallbacks, probes, and evidence obligations implementing one or more accepted ADRs. It is not one task instance. |
+| **CapabilityReadinessProfile** | A human-approved immutable authorization for an exact set of REQ/probe IDs from exact capability SPEC revisions, bounded to a scope and assurance profile. Unselected requirements remain draft; readiness does not certify assurance. |
 | **Task SPEC** | One immutable execution contract in a component's `docs/specs/` queue. It cites governing ADRs/capability SPECs and carries scope, class/tier request, role, pinned skills, acceptance criteria, rollback, and provenance. Tickets are inbox; task SPECs are work. |
 | **Condition of Done** | The complete set of pre-execution conditions and independent probes that make a WorkOrder terminal. It may be supplied by a requester or derived by AI during assessment, but the producer cannot redefine it during execution. |
 | **EntityClass** | A versioned executable organizational standard for an application, environment, datastore, or resource, with metadata contract, lifecycle, required capabilities, delivery path, and Realm admission policy. |

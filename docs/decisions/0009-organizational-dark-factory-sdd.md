@@ -12,6 +12,8 @@
   [ADR-0005](0005-autonomous-factory-intake.md), and
   [ADR-0006](0006-unified-loop-decision-model.md)
 - **Vocabulary:** terms as defined in [platform-glossary.md](../platform-glossary.md)
+- **Superseded in part by:** [ADR-0012](0012-capability-readiness-profiles.md) for requirement-slice
+  readiness in multi-profile capability SPECs and for the first omnius vertical
 
 ## Context
 
@@ -111,6 +113,10 @@ conformance/evidence path may move a capability SPEC to `verified`. Only the lif
 landing gates may move a task SPEC beyond `in-progress`. Agents may propose state changes;
 they never authorize their own readiness or verification.
 
+For a multi-profile capability SPEC, ADR-0012 refines `ready` into a human-approved immutable
+CapabilityReadinessProfile over exact REQ/probe IDs and revisions. Requirements outside that profile
+remain draft; the profile does not certify assurance.
+
 ### D5 - Every requirement is executable or explicitly fail-closed
 
 Every capability `REQ-*` carries:
@@ -176,8 +182,9 @@ task class and one Standing Role through this sequence:
 4. measure verifier-alone quality, counterfactual escapes, cost, and human curation time;
 5. widen autonomy or add task classes only by a new human decision backed by that evidence.
 
-The first omnius class remains reversible Terraform-module work in non-production. Priority
-changes queue position, never gate requirements.
+The first omnius vertical is superseded by ADR-0011/0012 as `standard-http-service/v1` in a disposable
+`preview-*` Realm. Reversible Terraform-module work remains a candidate future path. Priority changes
+queue position, never gate requirements.
 
 ### D9 - Component boundaries remain intact
 
