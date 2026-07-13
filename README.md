@@ -69,6 +69,9 @@ Detailed as-is map with per-link status and contract risks:
    **ADR-0011 adds the product boundary:** users and agents request PlatformProducts through versioned
    executable PlatformPaths; omnius coordinates those paths but does not absorb the portal, knowledge,
    incident, or execution systems it calls.
+   **ADR-0012 makes readiness exact:** multi-profile capability SPECs remain draft as documents while a
+   human-approved CapabilityReadinessProfile pins the precise REQs, probes, dependencies, scope, and
+   revisions an agent may execute.
 3. **Terms per the glossary** — in docs, ADRs, and cross-repo contracts. Code identifiers
    may stay local.
 4. **How-tos become skills** in [`skills/`](skills/) (PR-only, evidence attached for
