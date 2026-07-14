@@ -77,6 +77,9 @@ Detailed as-is map with per-link status and contract risks:
    **Proposed ADR-0014 freezes HTTP completion:** bounded relative GET expectations are committed before
    mutation, targets derive from delivery identity, and only externally signed four-state evidence can
    satisfy a Condition of Done.
+   **Proposed ADR-0015 separates observer authority attestation:** a dedicated platform-control
+   identity resolves live RBAC and server authorization, then signs domain-separated evidence with a
+   production trust root that can never be substituted by local-kind qualification.
 3. **Terms per the glossary** — in docs, ADRs, and cross-repo contracts. Code identifiers
    may stay local.
 4. **How-tos become skills** in [`skills/`](skills/) (PR-only, evidence attached for
