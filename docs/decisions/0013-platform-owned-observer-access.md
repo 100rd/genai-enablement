@@ -51,9 +51,17 @@ For one WorkOrder, the admitted shape is:
 - one RoleBinding in the preview Realm binding that shared ClusterRole to the exact observer
   ServiceAccount.
 
-No rule grants Secrets, ConfigMaps, AppProjects, discovery fallback, watch, logs, exec,
-port-forward, proxy, impersonation, token minting, or any mutation verb. A workload Role remains
-forbidden. Any extra RoleBinding, subject, verb, API group, resource, or namespace fails closed.
+No platform-owned rule grants Secrets, ConfigMaps, AppProjects, non-resource discovery URLs, watch,
+logs, exec, port-forward, proxy, impersonation, token minting, or any mutation verb. A workload Role
+remains forbidden. Any extra RoleBinding, subject, verb, API group, resource, or namespace fails
+closed.
+
+Kubernetes commonly grants `/api` and `/apis` discovery to every authenticated principal through the
+built-in `system:discovery` binding. The native profile does not claim that inherited permission can be
+denied portably. Instead, the observer transport exposes no discovery operation, recordings prove that
+it was not invoked, and attestation proves that the platform-owned access bundle adds no
+`nonResourceURLs` rule. Any inherited authority is recorded separately from the authority granted by
+the bundle.
 
 ### D3 - Credential scope and server-side authority are both required
 
@@ -63,8 +71,10 @@ Namespace, kind set, operation set, and absolute observation deadline.
 
 Client-side scope does not prove bearer-token authority. Independent admission evidence must bind
 the live ServiceAccount, Role/ClusterRole rules, RoleBindings/ClusterRoleBinding, token audience,
-and negative authorization matrix. Missing or stale server-side evidence produces UNKNOWN and no
-delivery evidence.
+the platform-granted negative authorization matrix, and any inherited effective authority. Missing or
+stale server-side evidence produces UNKNOWN and no delivery evidence. A forbidden resource or verb
+being allowed fails closed; inherited Kubernetes discovery is the sole declared portability exception
+and is safe only while the transport cannot invoke it.
 
 ### D4 - Observation verifies its own access binding
 
@@ -136,6 +146,9 @@ pass.
 - all declared Realm list operations succeed and complete pagination under one deadline;
 - Secret, ConfigMap, AppProject, watch, log, exec, port-forward, proxy, impersonation, TokenRequest,
   create, update, patch, and delete authorization all fail;
+- transport recordings contain no discovery request, the platform-owned rules contain no
+  `nonResourceURLs`, and inherited discovery authority is reported rather than misclassified as a
+  portable denial;
 - a changed role reference, extra subject, second RoleBinding, workload Role, stale token, wrong audience,
   foreign Realm, changed CA, or incomplete cleanup produces no evidence;
 - cancellation and timeout revoke/remove access, and the orphan reaper detects a deliberately stranded binding;
