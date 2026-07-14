@@ -28,9 +28,11 @@ execution gate.
 
 Assessment resolves every load-bearing condition to a versioned probe profile before the first
 mutating action. The signed execution envelope binds the request acceptance digest, PlatformPath and
-probe-profile revisions, expected responses, consecutive-pass requirement, evidence TTL, Realm, and
+probe-profile revisions, expected responses, consecutive-pass requirement, evidence TTL, Realm,
+subject-issuer profile, result-verifier profile, their protected trust-anchor binding digest, and
 compensation. A worker may implement the endpoint but cannot modify the frozen probe, expected value,
-verifier trust anchor, or evidence store.
+signer profile/key binding, or evidence store. An adapter reference is a lookup location, not authority:
+the resolved immutable profile and public-key/KMS identity must join the signed envelope before authoring.
 
 If assessment cannot define an observable condition, the WorkOrder remains assessing or becomes
 bounded research. It cannot enter mutating execution with a post-hoc definition of done.
@@ -56,6 +58,15 @@ resource-version, UID, address, readiness, or image drift. The signed snapshot d
 revision-attribution evidence; Service routing correctness remains part of delivery evidence rather
 than being inferred from one load-balanced response.
 
+The delivery-to-HTTP projection is normative. `service.routingSpecDigest` is RFC 8785 SHA-256 over
+the live Service projection `{type, clusterIP, clusterIPs, ipFamilies, ipFamilyPolicy, selector,
+ports[name, protocol, port, targetPort]}` with absent optional fields represented exactly as the
+versioned projection schema defines. `renderedPodTemplateDigest` is the delivery verifier's canonical
+digest of the admitted Deployment `spec.template`; `networkPolicySetDigest` is the canonical digest of
+the complete sorted admitted NetworkPolicy set from the same stable delivery snapshot. The subject
+copies those signed delivery values; the runtime producer re-reads and compares them but cannot invent
+or replace their projection rules.
+
 The caller supplies only a bounded ASCII origin-form path. It has exactly one leading `/`, contains
 only non-empty unreserved-character segments, and has no `.` or `..` segment, repeated slash,
 percent encoding, backslash, query, fragment, or control character. It cannot supply scheme, host,
@@ -80,6 +91,13 @@ The initial reusable profile runs:
 - at most five attempt batches per condition with one second between completed batches;
 - a five-second per-backend request deadline, a 30-second batch deadline, a 64-KiB response limit per
   backend, and a four-minute overall run deadline.
+
+Each target snapshot uses complete paginated reads with no more than five pages, 100 objects across
+the Realm runtime collections, and 1 MiB per Kubernetes response. The session reads the exact Namespace
+and Service identities plus Deployment, ReplicaSet, EndpointSlice, NetworkPolicy, and Pod collections;
+it has no discovery, watch, Secret/ConfigMap, log/exec/proxy, TokenRequest, foreign-Realm, or mutation
+operation. An incomplete page, 101st object, repeated continuation, resource-version drift, oversized
+response, or deadline crossing is unavailable evidence, never a partial target.
 
 The two status-only probes accept a bounded HTTP 200 response without requiring or decoding a media
 type. An exact-text assertion requires its declared text media type and compares strictly decoded
@@ -108,6 +126,12 @@ Only three consecutive `pass` batches satisfy a condition. Otherwise, at attempt
 aggregate precedence is `probe-error`, then `fail`, then `inconclusive`; no missing response or other
 state is coerced to pass. A non-pass resets the consecutive-pass counter but remains in evidence.
 
+When the producer has a valid pre-snapshot but the post-snapshot detects drift, it emits the closed
+`target-drift` attempt and discards backend observations. When Kubernetes state cannot produce the
+schema-required pre/post snapshot, signing or persistence fails, or the producer disappears, no
+synthetic target/result is constructed. The CompletionGate deterministically reduces missing or
+unverifiable required evidence to `probe-error`; lack of a signed result is never a pass.
+
 ### D5 - Evidence binds subject, oracle, time, and trust
 
 The signed result binds WorkOrder, execution-envelope digest, PlatformPath and probe IDs/revisions,
@@ -128,6 +152,14 @@ bodies, credentials, and Secret values do not enter durable evidence.
 The verifier runs outside the worker identity and writable workspace. Its profile and signing key are
 resolved from an adapter-owned trust anchor. Self-declared verifier identity or worker-authored
 evidence is invalid even when structurally well formed.
+
+Subject issuance and result signing are separate roles and trust profiles. The subject issuer signs
+the frozen run authority before network execution and has no Kubernetes/HTTP producer authority. The
+result signer signs only the bounded producer output. Both trust profiles pin role, profile digest,
+algorithm, signing key ID/public-key digest or exact KMS key, provider, and readiness eligibility.
+The producer cannot supply the public key used to judge itself; verification context is assembled
+independently from the protected envelope/profile store. Local process-memory keys use distinct
+development-only profiles and cannot satisfy a production readiness profile.
 
 ### D6 - Publication does not grant readiness
 
@@ -192,4 +224,10 @@ current v3 path or change the existing v2 readiness pin.
   before or during an attempt produces `probe-error`;
 - evidence from another WorkOrder, Service/Namespace UID, commit, image, or expired window fails;
 - worker-authored/self-signed evidence cannot satisfy a Condition of Done;
+- post-freeze subject/result trust-anchor substitution, equal issuer/verifier roles, or a profile/key
+  not joined to the protected execution envelope fails before network execution or completion;
+- delivery projection mutation for Service routing, pod template, or NetworkPolicy set fails even when
+  the mutated subject/result is internally re-signed;
+- incomplete pagination, 101st runtime object, repeated continuation, Kubernetes read failure, signing
+  failure, or missing evidence becomes `probe-error` at the CompletionGate and never a synthetic pass;
 - draft publication and runner qualification do not create Realm admission or readiness.
