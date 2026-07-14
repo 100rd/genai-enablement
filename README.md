@@ -72,6 +72,8 @@ Detailed as-is map with per-link status and contract risks:
    **ADR-0012 makes readiness exact:** multi-profile capability SPECs remain draft as documents while a
    human-approved CapabilityReadinessProfile pins the precise REQs, probes, dependencies, scope, and
    revisions an agent may execute.
+   **Proposed ADR-0013 separates observer authority:** a closed workload inventory may coexist with one
+   exact platform-owned, independently attested read binding; arbitrary Realm RBAC remains forbidden.
 3. **Terms per the glossary** — in docs, ADRs, and cross-repo contracts. Code identifiers
    may stay local.
 4. **How-tos become skills** in [`skills/`](skills/) (PR-only, evidence attached for
