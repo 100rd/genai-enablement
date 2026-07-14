@@ -112,6 +112,15 @@ transport tests and qualifies neither credential lifecycle nor readiness. Kubern
 service account token lifetimes to be at least 600 seconds, so the previous five-minute local assumption
 was not implementable on a conforming cluster.
 
+Credential cleanup deletes the exact bound producer Pod UID, then proves revocation rather than
+assuming it from the delete response or token expiry. For at most 60 seconds it performs a bounded
+authenticated read of a fixed permitted object, or an equivalent online TokenReview, using the same
+token and audience. Only an explicit unauthenticated result proves invalidation; authorization denial,
+transport failure, or continued authentication at the deadline remains unresolved and parks
+completion. The token stays process-local and is never written to cleanup evidence. This window follows
+the Kubernetes bound-token deletion semantics and accommodates authenticator cache propagation without
+turning the ten-minute token lifetime into a cleanup wait.
+
 The two status-only probes accept a bounded HTTP 200 response without requiring or decoding a media
 type. An exact-text assertion requires its declared text media type and compares strictly decoded
 UTF-8 bytes after no normalization. A JSON-subset assertion requires its declared JSON media type;
@@ -288,12 +297,13 @@ current v3 path or change the existing v2 readiness pin.
 - signer/store/receipt failure still attempts credential, producer-Pod, and registered-access cleanup,
   while missing ordered persistence remains `probe-error` and cannot be repaired by unsigned evidence;
 - a 599-second TokenRequest is rejected by Kubernetes, an exact 600-second Pod-bound token covers the
-  four-minute run, and any longer actual lifetime, wrong bound Pod UID, refresh/reuse, or post-cleanup
-  usability is rejected without completion evidence;
+  four-minute run, and any longer actual lifetime, wrong bound Pod UID, refresh/reuse, or continued
+  authentication 60 seconds after exact-Pod deletion is rejected without completion evidence;
 - draft publication and runner qualification do not create Realm admission or readiness.
 
-Kubernetes references: [projected service account tokens require at least 600 seconds](https://kubernetes.io/docs/concepts/storage/projected-volumes/#serviceaccounttoken-projected-volumes)
-and [the API server controls maximum issued lifetime](https://kubernetes.io/docs/reference/command-line-tools-reference/kube-apiserver/#options).
+Kubernetes references: [projected service account tokens require at least 600 seconds](https://kubernetes.io/docs/concepts/storage/projected-volumes/#serviceaccounttoken-projected-volumes),
+[the API server controls maximum issued lifetime](https://kubernetes.io/docs/reference/command-line-tools-reference/kube-apiserver/#options),
+and [bound tokens fail when the object is absent or has been deleting for 60 seconds](https://kubernetes.io/docs/reference/access-authn-authz/service-accounts-admin/#bound-service-account-tokens).
 
 AWS references: [KMS `Sign` limits and Ed25519 message types](https://docs.aws.amazon.com/kms/latest/APIReference/API_Sign.html),
 [S3 conditional create-only writes](https://docs.aws.amazon.com/AmazonS3/latest/userguide/conditional-writes.html),
