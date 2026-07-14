@@ -174,6 +174,44 @@ The producer cannot supply the public key used to judge itself; verification con
 independently from the protected envelope/profile store. Local process-memory keys use distinct
 development-only profiles and cannot satisfy a production readiness profile.
 
+The result signer first computes `evidenceSha256` over RFC 8785 canonical result bytes excluding
+exactly `evidenceSha256` and `verifier.signature`. It signs exactly:
+
+```text
+UTF8("darkfactory.http-probe-result/v1") || 0x00 || hex_to_bytes(evidenceSha256)
+```
+
+This keeps the provider message below the AWS KMS `Sign` request limit, prevents cross-evidence-type
+signature replay, and makes canonicalization independently reproducible. Production uses a dedicated
+asymmetric `ECC_NIST_EDWARDS25519` KMS key with `ED25519_SHA_512`, `MessageType: RAW`, and only
+`kms:Sign` permission for the exact result-signer workload identity. It does not sign the potentially
+large canonical result directly and does not use the prehash Ed25519 variant under an `Ed25519` label.
+
+The protected evidence-store profile pins provider, exact bucket/resource identity, prefix, create-only
+policy, checksum, versioning, retention mode, and receipt schema in the execution envelope. The initial
+production profile stores the canonical signed bytes at the derived key
+`http-probe-result/v1/<workOrderId>/<runId>.json`. S3 writes use Signature V4 and `If-None-Match: *`,
+enforced by bucket policy. Versioning plus Object Lock COMPLIANCE retention at least through the profile's
+audit-retention deadline protects the committed version; Object Lock alone is insufficient because it
+does not prevent a new version at the same key.
+
+A write is committed only after exact-key read-back matches the canonical bytes and `evidenceSha256`,
+and the execution store durably records an immutable receipt containing the store profile, bucket/key,
+version ID, checksum, evidence digest, and commit time. Retry of the same key and identical bytes is
+idempotent; a different existing byte sequence is a conflict. A timeout or other ambiguous write is
+reconciled by bounded exact-key reads: identical means committed, confirmed absence may retry, and
+unavailable or different remains parked. No mutable pointer, list result, caller key, overwrite, delete,
+or last-writer-wins rule can establish completion authority.
+
+Credential and producer-Pod cleanup is fail-safe, not held hostage by storage availability. The normal
+ordered path is sign, persist/read-back/receipt, revoke, then attest cleanup. On signing, persistence, or
+receipt failure, no persisted-evidence capability exists and completion is `probe-error`, but the
+credential, producer Pod, and registered observer access are still driven toward revocation by the
+session finalizer and external reaper. Such emergency cleanup cannot manufacture a result or an ordered
+success receipt; ambiguity parks the WorkOrder and alerts. A crash at any boundary must therefore result
+in either an exact persisted result plus cleanup evidence, or missing/uncommitted result plus cleanup and
+non-completion, never retained authority merely to preserve evidence ordering.
+
 ### D6 - Publication does not grant readiness
 
 `platform-design` owns the closed reusable schemas and draft profile revision. Omnius may implement
@@ -215,7 +253,7 @@ current v3 path or change the existing v2 readiness pin.
 |---|---|
 | `genai-enablement` | cross-repo decision and shared terminology |
 | `platform-design` | closed probe profile/result schemas, draft path binding, invalid fixtures |
-| `omnius` | exact contract ingestion, bounded transport/runner, signature and evidence verification |
+| `omnius` | exact contract ingestion, bounded transport/runner, signing, create-only persistence, lifecycle and evidence verification |
 | Application repository | owns its relative request paths and expected domain responses |
 | Omniscience | indexes outcomes and later escapes; never supplies completion authority |
 
@@ -243,6 +281,12 @@ current v3 path or change the existing v2 readiness pin.
   the mutated subject/result is internally re-signed;
 - incomplete pagination, 101st runtime object, repeated continuation, Kubernetes read failure, signing
   failure, or missing evidence becomes `probe-error` at the CompletionGate and never a synthetic pass;
+- signature-domain, evidence digest, KMS key/algorithm/message-type, store profile, derived object key,
+  conditional-write, version, checksum, read-back, receipt, or retained bytes mutation fails closed;
+- crash or timeout before write, after ambiguous write, after read-back, after receipt, and during revoke
+  yields exactly one immutable result or no committed result; a different same-key object conflicts;
+- signer/store/receipt failure still attempts credential, producer-Pod, and registered-access cleanup,
+  while missing ordered persistence remains `probe-error` and cannot be repaired by unsigned evidence;
 - a 599-second TokenRequest is rejected by Kubernetes, an exact 600-second Pod-bound token covers the
   four-minute run, and any longer actual lifetime, wrong bound Pod UID, refresh/reuse, or post-cleanup
   usability is rejected without completion evidence;
@@ -250,3 +294,7 @@ current v3 path or change the existing v2 readiness pin.
 
 Kubernetes references: [projected service account tokens require at least 600 seconds](https://kubernetes.io/docs/concepts/storage/projected-volumes/#serviceaccounttoken-projected-volumes)
 and [the API server controls maximum issued lifetime](https://kubernetes.io/docs/reference/command-line-tools-reference/kube-apiserver/#options).
+
+AWS references: [KMS `Sign` limits and Ed25519 message types](https://docs.aws.amazon.com/kms/latest/APIReference/API_Sign.html),
+[S3 conditional create-only writes](https://docs.aws.amazon.com/AmazonS3/latest/userguide/conditional-writes.html),
+and [S3 Object Lock version semantics](https://docs.aws.amazon.com/AmazonS3/latest/userguide/object-lock.html).
