@@ -99,6 +99,19 @@ it has no discovery, watch, Secret/ConfigMap, log/exec/proxy, TokenRequest, fore
 operation. An incomplete page, 101st object, repeated continuation, resource-version drift, oversized
 response, or deadline crossing is unavailable evidence, never a partial target.
 
+The producer credential lifecycle follows the Kubernetes TokenRequest floor rather than inventing a
+shorter unsupported TTL. The protected issuer outside the producer requests exactly 600 seconds, binds
+the token to the exact producer Pod UID in production, and supplies it only after subject validation.
+The producer accepts an actual lifetime of at most 600 seconds, starts only when at least 245 seconds
+remain, and still has a non-extendable four-minute execution deadline. It cannot call TokenRequest,
+refresh or reuse the token, or turn token lifetime into execution budget; result persistence is followed
+by producer-Pod/access cleanup. A token that is unbound, longer-lived, reused from delivery observation,
+issued for another Pod/ServiceAccount/audience, or not invalidated by the qualified cleanup path is not
+production evidence. An unbound admin-issued token is permitted only in explicitly development-local
+transport tests and qualifies neither credential lifecycle nor readiness. Kubernetes requires requested
+service account token lifetimes to be at least 600 seconds, so the previous five-minute local assumption
+was not implementable on a conforming cluster.
+
 The two status-only probes accept a bounded HTTP 200 response without requiring or decoding a media
 type. An exact-text assertion requires its declared text media type and compares strictly decoded
 UTF-8 bytes after no normalization. A JSON-subset assertion requires its declared JSON media type;
@@ -230,4 +243,10 @@ current v3 path or change the existing v2 readiness pin.
   the mutated subject/result is internally re-signed;
 - incomplete pagination, 101st runtime object, repeated continuation, Kubernetes read failure, signing
   failure, or missing evidence becomes `probe-error` at the CompletionGate and never a synthetic pass;
+- a 599-second TokenRequest is rejected by Kubernetes, an exact 600-second Pod-bound token covers the
+  four-minute run, and any longer actual lifetime, wrong bound Pod UID, refresh/reuse, or post-cleanup
+  usability is rejected without completion evidence;
 - draft publication and runner qualification do not create Realm admission or readiness.
+
+Kubernetes references: [projected service account tokens require at least 600 seconds](https://kubernetes.io/docs/concepts/storage/projected-volumes/#serviceaccounttoken-projected-volumes)
+and [the API server controls maximum issued lifetime](https://kubernetes.io/docs/reference/command-line-tools-reference/kube-apiserver/#options).
