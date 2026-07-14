@@ -74,6 +74,9 @@ Detailed as-is map with per-link status and contract risks:
    revisions an agent may execute.
    **Proposed ADR-0013 separates observer authority:** a closed workload inventory may coexist with one
    exact platform-owned, independently attested read binding; arbitrary Realm RBAC remains forbidden.
+   **Proposed ADR-0014 freezes HTTP completion:** bounded relative GET expectations are committed before
+   mutation, targets derive from delivery identity, and only externally signed four-state evidence can
+   satisfy a Condition of Done.
 3. **Terms per the glossary** — in docs, ADRs, and cross-repo contracts. Code identifiers
    may stay local.
 4. **How-tos become skills** in [`skills/`](skills/) (PR-only, evidence attached for
