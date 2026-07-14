@@ -1,6 +1,6 @@
 # ADR-0013: Platform observer access is separate from workload authority
 
-- **Status:** Proposed
+- **Status:** Accepted
 - **Date:** 2026-07-14
 - **Deciders:** platform owner
 - **Scope:** cross-repo (`genai-enablement`, `omnius`, `platform-design`)
