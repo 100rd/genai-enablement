@@ -57,6 +57,14 @@ tiered autonomy, measured on leverage not tickets closed.
   the complete human-owned gate-config path manifest. Until these versioned inputs and accountable
   owners exist, Omnius must use the stricter human-gated/default-deny branches and cannot claim HB
   activation, rehearsed removability, or an autonomy increase.
+- [ ] **Delivery observation and HTTP evidence trust chain** — review and accept or revise proposed
+  ADR-0014/0015/0016, then publish the exact production identities and immutable trust profiles for
+  the HTTP subject issuer/result signer, observer-authority attestor, and safe-to-reclaim issuer. Pin
+  their distinct EKS Pod Identity/IAM boundaries and asymmetric KMS keys, the create-only S3 evidence
+  profile and receipt store, and the human-owned readiness revision. Until those protected bindings
+  and real-path negative/failure evidence exist, `standard-http-service/v3` remains catalog-only with
+  no readiness profile; local process-memory signatures, PVC storage, and kind qualification cannot
+  activate a Realm, production path, or autonomous merge.
 - [ ] AI Incident Agent — complete implementation and testing
 - [ ] Detailed implementation roadmap refinement per team
 
@@ -83,8 +91,9 @@ tiered autonomy, measured on leverage not tickets closed.
 3. Select and assign the cross-stack verified Experience store outside Omniscience
 4. Name the Terraform Maintainer CODEOWNERS group and pin measured cost/wall-clock breaker inputs
 5. Ratify and pin the Human Boundary governance inputs and complete gate-config path manifest
-6. Review/accept or revise the omnius ADR-0015/0016 + SPEC draft bundle
-7. Complete AI Incident Agent implementation
-8. Identify and assess first pilot team
-9. Create first CI/CD playbook from real workflow
-10. Set up metrics dashboard
+6. Review/accept or revise ADR-0014/0015/0016 and provision the delivery-observation production trust chain
+7. Review/accept or revise the omnius ADR-0015/0016 + SPEC draft bundle
+8. Complete AI Incident Agent implementation
+9. Identify and assess first pilot team
+10. Create first CI/CD playbook from real workflow
+11. Set up metrics dashboard
