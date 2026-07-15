@@ -1,6 +1,6 @@
 # GenAI Enablement - Project Status
 
-**Last Updated**: 2026-07-10
+**Last Updated**: 2026-07-15
 **Phase**: Autonomous SRE Harness development — Stages 0 & 2 shipped, Stage 7 (Sentinel) step 1 shipped
 **Overall Health**: On Track
 
@@ -32,6 +32,11 @@ tiered autonomy, measured on leverage not tickets closed.
 ## In Progress
 - [ ] **Repository adoption** — omnius ADR-0015/0016 and SPEC-IN/ROLE/EXP/REG/OT/TM remain
   drafted for separate human acceptance/readiness review
+- [ ] **Platform skill-registry trust root** — ADR-0002 defines git-backed pinned consumption,
+  but the current `skills-lock.json` carries only content hashes: select a human-owned signing
+  mechanism/key owner and publish exact immutable git revisions before Omnius P1 REG activation.
+  Until then Omnius must reject the live lock as unsigned/unpinned; executable `scripts/` remain
+  disabled for the first governed vertical.
 - [ ] AI Incident Agent — complete implementation and testing
 - [ ] Detailed implementation roadmap refinement per team
 
@@ -53,8 +58,9 @@ tiered autonomy, measured on leverage not tickets closed.
 | ADR-to-SPEC governance | Accepted | ADR-0009; graded SDD, progressive assurance, and distinct conformance/certification gates |
 
 ## Next Actions
-1. Review/accept or revise the omnius ADR-0015/0016 + SPEC draft bundle
-2. Complete AI Incident Agent implementation
-3. Identify and assess first pilot team
-4. Create first CI/CD playbook from real workflow
-5. Set up metrics dashboard
+1. Select the platform skill-registry lock signing mechanism/key owner and exact-revision schema
+2. Review/accept or revise the omnius ADR-0015/0016 + SPEC draft bundle
+3. Complete AI Incident Agent implementation
+4. Identify and assess first pilot team
+5. Create first CI/CD playbook from real workflow
+6. Set up metrics dashboard
