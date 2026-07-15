@@ -31,7 +31,10 @@ tiered autonomy, measured on leverage not tickets closed.
 
 ## In Progress
 - [ ] **Repository adoption** — omnius ADR-0015/0016 and SPEC-IN/ROLE/EXP/REG/OT/TM remain
-  drafted for separate human acceptance/readiness review
+  drafted for separate human acceptance/readiness review. Omnius now has a non-authorizing
+  `standard-http-service/v3` readiness draft and a deterministic compiler that fails closed on schema,
+  immutable revision/path-bundle pin, dependency, registered-probe, blocker, and probe-result drift;
+  this implementation evidence does not accept the ADRs or activate the profile.
 - [ ] **Platform skill-registry trust root** — ADR-0002 defines git-backed pinned consumption,
   but the current `skills-lock.json` carries only content hashes: select a human-owned signing
   mechanism/key owner and publish exact immutable git revisions before Omnius P1 REG activation.
@@ -63,8 +66,9 @@ tiered autonomy, measured on leverage not tickets closed.
   their distinct EKS Pod Identity/IAM boundaries and asymmetric KMS keys, the create-only S3 evidence
   profile and receipt store, and the human-owned readiness revision. Until those protected bindings
   and real-path negative/failure evidence exist, `standard-http-service/v3` remains catalog-only with
-  no readiness profile; local process-memory signatures, PVC storage, and kind qualification cannot
-  activate a Realm, production path, or autonomous merge.
+  only a `draft` readiness profile; the candidate record remains `admitted: false` with
+  `readinessProfile: null`. Local process-memory signatures, PVC storage, kind qualification, and the
+  draft compiler cannot activate a Realm, production path, or autonomous merge.
 - [ ] AI Incident Agent — complete implementation and testing
 - [ ] Detailed implementation roadmap refinement per team
 
