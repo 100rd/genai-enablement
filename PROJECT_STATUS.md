@@ -46,6 +46,11 @@ tiered autonomy, measured on leverage not tickets closed.
   verified Experience beside, but not inside, Omniscience. The store must preserve the state/capability/
   experience authority split, tenant isolation, immutable evidence joins, and cold-start severance;
   Omnius may implement the portable contract but cannot claim P3 Experience activation before binding it.
+- [ ] **Terraform Maintainer Standing Role activation inputs** — name the human CODEOWNERS group that
+  owns the first role definition and pin its cost/wall-clock breaker values from measured curation-pilot
+  evidence. Until both owner and threshold provenance are human-approved immutable revisions, Omnius may
+  implement the ROLE contract but must keep autonomous activation disabled and route unmatched,
+  production, irreversible, apply, direct-state, and unpinned-skill work to a human.
 - [ ] AI Incident Agent — complete implementation and testing
 - [ ] Detailed implementation roadmap refinement per team
 
@@ -70,8 +75,9 @@ tiered autonomy, measured on leverage not tickets closed.
 1. Select the platform skill-registry lock signing mechanism/key owner and exact-revision schema
 2. Select the Omniscience MCP contract pin/skew check and workspace read-token issuer/rotation/scopes
 3. Select and assign the cross-stack verified Experience store outside Omniscience
-4. Review/accept or revise the omnius ADR-0015/0016 + SPEC draft bundle
-5. Complete AI Incident Agent implementation
-6. Identify and assess first pilot team
-7. Create first CI/CD playbook from real workflow
-8. Set up metrics dashboard
+4. Name the Terraform Maintainer CODEOWNERS group and pin measured cost/wall-clock breaker inputs
+5. Review/accept or revise the omnius ADR-0015/0016 + SPEC draft bundle
+6. Complete AI Incident Agent implementation
+7. Identify and assess first pilot team
+8. Create first CI/CD playbook from real workflow
+9. Set up metrics dashboard
