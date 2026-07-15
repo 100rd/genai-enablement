@@ -37,6 +37,11 @@ tiered autonomy, measured on leverage not tickets closed.
   mechanism/key owner and publish exact immutable git revisions before Omnius P1 REG activation.
   Until then Omnius must reject the live lock as unsigned/unpinned; executable `scripts/` remain
   disabled for the first governed vertical.
+- [ ] **Omniscience MCP contract and workspace-token seam** — select the immutable contract-version
+  pin/CI-skew mechanism and name the human-owned workspace read-token issuer, rotation cadence, and
+  closed read scopes before Omnius KP activation. Omnius may implement and test the fail-closed client
+  contract, but must use direct-source severance and reject an unpinned contract or any write/admin
+  token until the platform binding exists.
 - [ ] AI Incident Agent — complete implementation and testing
 - [ ] Detailed implementation roadmap refinement per team
 
@@ -59,8 +64,9 @@ tiered autonomy, measured on leverage not tickets closed.
 
 ## Next Actions
 1. Select the platform skill-registry lock signing mechanism/key owner and exact-revision schema
-2. Review/accept or revise the omnius ADR-0015/0016 + SPEC draft bundle
-3. Complete AI Incident Agent implementation
-4. Identify and assess first pilot team
-5. Create first CI/CD playbook from real workflow
-6. Set up metrics dashboard
+2. Select the Omniscience MCP contract pin/skew check and workspace read-token issuer/rotation/scopes
+3. Review/accept or revise the omnius ADR-0015/0016 + SPEC draft bundle
+4. Complete AI Incident Agent implementation
+5. Identify and assess first pilot team
+6. Create first CI/CD playbook from real workflow
+7. Set up metrics dashboard
