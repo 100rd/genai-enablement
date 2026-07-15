@@ -51,6 +51,12 @@ tiered autonomy, measured on leverage not tickets closed.
   evidence. Until both owner and threshold provenance are human-approved immutable revisions, Omnius may
   implement the ROLE contract but must keep autonomous activation disabled and route unmatched,
   production, irreversible, apply, direct-state, and unpinned-skill work to a human.
+- [ ] **Human Boundary governance inputs** — ratify the auth/MFA production-migration Class-2
+  (human-forever) disposition; pin game-day cadence/pass thresholds, the `awaiting_human` target and
+  benign-reject allowance, and the deterministic Mode-B discarded-candidate degeneracy rule; publish
+  the complete human-owned gate-config path manifest. Until these versioned inputs and accountable
+  owners exist, Omnius must use the stricter human-gated/default-deny branches and cannot claim HB
+  activation, rehearsed removability, or an autonomy increase.
 - [ ] AI Incident Agent — complete implementation and testing
 - [ ] Detailed implementation roadmap refinement per team
 
@@ -76,8 +82,9 @@ tiered autonomy, measured on leverage not tickets closed.
 2. Select the Omniscience MCP contract pin/skew check and workspace read-token issuer/rotation/scopes
 3. Select and assign the cross-stack verified Experience store outside Omniscience
 4. Name the Terraform Maintainer CODEOWNERS group and pin measured cost/wall-clock breaker inputs
-5. Review/accept or revise the omnius ADR-0015/0016 + SPEC draft bundle
-6. Complete AI Incident Agent implementation
-7. Identify and assess first pilot team
-8. Create first CI/CD playbook from real workflow
-9. Set up metrics dashboard
+5. Ratify and pin the Human Boundary governance inputs and complete gate-config path manifest
+6. Review/accept or revise the omnius ADR-0015/0016 + SPEC draft bundle
+7. Complete AI Incident Agent implementation
+8. Identify and assess first pilot team
+9. Create first CI/CD playbook from real workflow
+10. Set up metrics dashboard
