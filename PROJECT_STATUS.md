@@ -42,6 +42,10 @@ tiered autonomy, measured on leverage not tickets closed.
   closed read scopes before Omnius KP activation. Omnius may implement and test the fail-closed client
   contract, but must use direct-source severance and reject an unpinned contract or any write/admin
   token until the platform binding exists.
+- [ ] **Cross-stack Experience store placement** — select the physical store and operational owner for
+  verified Experience beside, but not inside, Omniscience. The store must preserve the state/capability/
+  experience authority split, tenant isolation, immutable evidence joins, and cold-start severance;
+  Omnius may implement the portable contract but cannot claim P3 Experience activation before binding it.
 - [ ] AI Incident Agent — complete implementation and testing
 - [ ] Detailed implementation roadmap refinement per team
 
@@ -65,8 +69,9 @@ tiered autonomy, measured on leverage not tickets closed.
 ## Next Actions
 1. Select the platform skill-registry lock signing mechanism/key owner and exact-revision schema
 2. Select the Omniscience MCP contract pin/skew check and workspace read-token issuer/rotation/scopes
-3. Review/accept or revise the omnius ADR-0015/0016 + SPEC draft bundle
-4. Complete AI Incident Agent implementation
-5. Identify and assess first pilot team
-6. Create first CI/CD playbook from real workflow
-7. Set up metrics dashboard
+3. Select and assign the cross-stack verified Experience store outside Omniscience
+4. Review/accept or revise the omnius ADR-0015/0016 + SPEC draft bundle
+5. Complete AI Incident Agent implementation
+6. Identify and assess first pilot team
+7. Create first CI/CD playbook from real workflow
+8. Set up metrics dashboard
