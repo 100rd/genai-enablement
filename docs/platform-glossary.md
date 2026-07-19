@@ -25,14 +25,14 @@ serve it to any MCP-compatible client.
 
 - **Does:** ingestion (~16 connectors + Go K8s operator), parsing/chunking/embedding,
   3-store persistence (Postgres = metadata, Qdrant = hybrid vectors, Neo4j = bitemporal
-  graph), retrieval via 13 MCP tools (`search`, `get_entity`, `blast_radius`,
+  graph), retrieval via 14 current MCP tools (`search`, `get_entity`, `blast_radius`,
   `replay_context`, `incident_timeline`, …) and REST `/api/v1`, workspace-scoped fail-closed
-  tokens.
+  tokens. MCP v1 targets 15 tools by adding authenticated `contract_info`.
 - **Does NOT:** synthesize answers (no embedded LLM — the calling client's model does),
   execute actions ("Insight Mode" only; Action Mode is a future v2), store agent
   experience/lessons (explicitly out of scope per its ADR-0015).
-- **Maturity:** most mature component. v0.2 shipped, v0.3/v0.4 in flight. Deployable
-  (docker-compose.prod, Helm). Still stabilizing (June-2026 hardening review).
+- **Maturity:** most mature component. v0.5.0 is released; stable MCP v1 and consumer
+  severance are in progress. A release is not evidence that the target v1 contract is ready.
 - **Consumed by:** multiqlti (memory backend), omnius (knowledge plane), sre-harness
   (platform graph), PB-SRE (topology), IDE/agent clients.
 
@@ -118,6 +118,21 @@ deterministic rollback. Anchor fact: SOTA agents autonomously resolve only ~11% 
 - **Maturity:** research-heavy with a growing code core; deterministic safety core + eval +
   gate CLI unit-tested and merged; no live LLM/agent layer and no live Omniscience client yet.
 
+### Barbarossa — the Continuous Management Plane
+
+**Mission:** continuously observe, evaluate, improve and independently verify human-owned platform
+outcomes through one shared kernel and isolated domain packs.
+
+- **Does:** typed evidence/evaluation, case and multi-agent coordination, cross-loop constraints,
+  governed action requests, independent outcome verification, projections and progressive-autonomy
+  gates for Reliability, Cost & Value, AI assurance, Security, Privacy, Compliance, Supply Chain,
+  Delivery, Knowledge, Capacity/Performance/Sustainability, Toil and Product Outcomes.
+- **Does NOT:** let agents vote truth; own human objectives/policy/risk acceptance, Omniscience semantic
+  truth, Omnius execution, Portal composition, or PII policy.
+- **Maturity:** separate project with proposed ADR-0020 and 29 complete-for-planning capability SPECs;
+  `SPEC-AUT` remains blocked and no live runtime, identity, source, owner adapter, readiness profile or
+  production authority exists.
+
 ### Cross-component roles at a glance
 
 | Component | One-line role | Depends on | Depended on by |
@@ -126,7 +141,8 @@ deterministic rollback. Anchor fact: SOTA agents autonomously resolve only ~11% 
 | multiqlti | personal factory / proving ground | Omniscience (optional) | nobody (by design) |
 | omnius | governed org factory | Omniscience (severable), platform-design (task target) | nobody yet |
 | platform-design | ground truth substrate + PB-SRE | — | Omniscience (as source), omnius, harness |
-| genai-enablement | program frame + SRE safety core | Omniscience, platform-design | AI SRE program |
+| genai-enablement | program frame + reusable safety/eval core | Omniscience, platform-design | Barbarossa, AI SRE program |
+| Barbarossa | shared continuous-management kernel + isolated outcome domains | owner evidence/policy; Omniscience/Omnius/Portal are severable integrations | Platform Portal Continuous Management Center |
 
 ---
 
@@ -225,7 +241,10 @@ Legend for the per-system columns: the local term and, where it differs, its loc
 | **Graduation path** | The pipeline by which a pattern/skill proven in the personal tier (with evidence) is admitted into the centralized tier (through its trust lifecycle). |
 | **Harness** | ⚠ Collision-prone. Canonical platform meaning: the deterministic safety machinery around agents (gates, tiers, verification) — "the harness is the product". Avoid using it for (a) agent runtime SDKs (say *agent harness/SDK*: Claude Agent SDK, PydanticAI) and (b) Claude Code's own tool environment. |
 | **Insight Mode / Action Mode** | Omniscience v1 (read-only retrieval with citations) vs future v2 (write/execute). The platform-wide analogue: T1/T2 vs T3/T4. |
-| **AI SRE** | The program (not one repo): Sentinel continuous detection + Omniscience knowledge + harness gates + PB-SRE diagnostic reasoning. Owns "full knowledge of platform problems"; humans own decisions. |
+| **Continuous Management Loop** | A never-ending, domain-owned `define → observe → evaluate → case → assess/plan → authorize → act → verify → learn` process. Barbarossa supplies shared mechanics; each domain keeps separate truth, policy, constraints, data and readiness. |
+| **Continuous Management Plane** | Barbarossa's product boundary: the shared management kernel plus independently qualified domain packs. It is not one global optimizer, score, agent or authority. |
+| **Domain pack** | A versioned Barbarossa manifest and contracts for one outcome domain: owners, policy, evidence, evaluator, cases, constraints, actions, verification, PII/retention and qualification. |
+| **AI SRE** | The Reliability-domain program (not one repo): reusable harness/eval/Sentinel machinery plus Barbarossa Reliability pack, severable Omniscience context and governed Omnius execution. Barbarossa deterministically measures current journey availability; agents reason/propose; humans own policy, command and high-risk decisions. |
 | **Enable, Don't Own** | genai-enablement operating principle: build capability in teams, hand off, don't become the bottleneck. |
 | **L4 / never L5** | Autonomy ceiling: bounded autonomy with human ownership of correctness; full unattended autonomy is explicitly out of scope. |
 
