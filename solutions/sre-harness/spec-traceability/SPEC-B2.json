@@ -1,0 +1,78 @@
+{
+  "schemaVersion": "sre-harness.spec-portable-traceability/v1",
+  "specId": "SPEC-B2",
+  "specPath": "docs/specs/SPEC-B2-advisory-change-validation-integration.md",
+  "specSha256": "sha256:bd8b238837f2988b522fb9214caad5857920ac93fd939640d837bef3c40cd44a",
+  "evidenceScope": "local-portable-only",
+  "operationalState": "incomplete",
+  "authority": "non-authorizing",
+  "implementationPaths": [
+    "solutions/sre-harness/src/sre_harness/advisory_integration.py",
+    "solutions/sre-harness/src/sre_harness/change_gate.py",
+    "solutions/sre-harness/src/sre_harness/cli.py"
+  ],
+  "probes": [
+    {
+      "id": "P-B2-1",
+      "tests": [
+        "solutions/sre-harness/tests/test_advisory_integration.py::TestClosedEnvelope::test_bounded_file_loader_rejects_oversize_and_symlink",
+        "solutions/sre-harness/tests/test_advisory_integration.py::TestClosedEnvelope::test_direct_nonbytes_oversize_directory_and_invalid_shapes_fail",
+        "solutions/sre-harness/tests/test_advisory_integration.py::TestClosedEnvelope::test_duplicate_nonfinite_invalid_utf8_or_nonobject_json_fails",
+        "solutions/sre-harness/tests/test_advisory_integration.py::TestClosedEnvelope::test_exact_v1_envelope_loads_as_immutable_values"
+      ]
+    },
+    {
+      "id": "P-B2-2",
+      "tests": [
+        "solutions/sre-harness/tests/test_advisory_integration.py::TestClosedEnvelope::test_unknown_missing_foreign_stale_or_noncanonical_input_fails_closed"
+      ]
+    },
+    {
+      "id": "P-B2-3",
+      "tests": [
+        "solutions/sre-harness/tests/test_advisory_integration.py::TestClosedEnvelope::test_both_declared_integration_sources_are_accepted",
+        "solutions/sre-harness/tests/test_advisory_integration.py::TestClosedEnvelope::test_future_or_more_than_five_minute_old_platform_snapshot_fails",
+        "solutions/sre-harness/tests/test_advisory_integration.py::TestClosedEnvelope::test_unknown_missing_foreign_stale_or_noncanonical_input_fails_closed"
+      ]
+    },
+    {
+      "id": "P-B2-4",
+      "tests": [
+        "solutions/sre-harness/tests/test_advisory_integration.py::TestDeterministicAdvisoryResult::test_registered_gate_is_the_only_verdict_authority"
+      ]
+    },
+    {
+      "id": "P-B2-5",
+      "tests": [
+        "solutions/sre-harness/tests/test_advisory_integration.py::TestDeterministicAdvisoryResult::test_result_rejoins_exact_provenance_checks_and_boundary"
+      ]
+    },
+    {
+      "id": "P-B2-6",
+      "tests": [
+        "solutions/sre-harness/tests/test_advisory_integration.py::TestIntegrationCli::test_invalid_input_is_machine_distinct_and_does_not_fabricate_result",
+        "solutions/sre-harness/tests/test_advisory_integration.py::TestIntegrationCli::test_unwritable_result_sink_is_the_same_fail_closed_integration_error",
+        "solutions/sre-harness/tests/test_advisory_integration.py::TestIntegrationCli::test_valid_dispositions_are_distinct_and_always_write_the_result"
+      ]
+    },
+    {
+      "id": "P-B2-7",
+      "tests": [
+        "solutions/sre-harness/tests/test_advisory_integration.py::TestDeterministicAdvisoryResult::test_result_is_exactly_advisory_and_has_no_action_surface"
+      ]
+    },
+    {
+      "id": "P-B2-8",
+      "tests": [
+        "solutions/sre-harness/tests/test_advisory_integration.py::TestIntegrationTemplates::test_argocd_masks_only_the_explicit_presync_advisory_boundary",
+        "solutions/sre-harness/tests/test_advisory_integration.py::TestIntegrationTemplates::test_gitlab_preserves_gate_status_and_retains_artifact"
+      ]
+    },
+    {
+      "id": "P-B2-9",
+      "tests": [
+        "solutions/sre-harness/tests/test_advisory_integration.py::TestIntegrationTemplates::test_docs_retain_fixture_only_incomplete_boundary"
+      ]
+    }
+  ]
+}

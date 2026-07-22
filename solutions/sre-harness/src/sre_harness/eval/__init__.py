@@ -17,6 +17,7 @@ from sre_harness.eval.case import GateSnapshot, Scenario, ScenarioKind
 from sre_harness.eval.runner import (
     EvalResult,
     EvalSummary,
+    Scorer,
     Target,
     change_gate_target,
     run_eval,
@@ -38,6 +39,7 @@ __all__ = [
     "ScenarioKind",
     "Score",
     "ScoreKind",
+    "Scorer",
     "Target",
     "change_gate_target",
     "lead_time",

@@ -108,6 +108,14 @@ Path definitions originate in the owning platform repository, are reviewed throu
 indexed into Omniscience. `genai-enablement` owns the cross-repo decision/schema vocabulary and portfolio
 map, not copies of each executable path.
 
+Ownership is carried into readiness through a closed platform-contract publication. It binds the exact
+repository, bundle root, Git revision, deterministic bundle digest/algorithm/index, path artifact digest,
+lifecycle/catalog state, Realm-admission evidence, owner, CODEOWNERS revision, publication origin/revision,
+and verifier reference. An allowlisted external verifier must attest the owner's materialized bundle and
+return exact boolean true before an opaque capability is issued. A profile-authored bundle dictionary,
+raw binding, copied values, Omniscience projection, or truthy verifier response cannot establish source
+authority.
+
 ### D6 - Paths earn promotion and never mutate consumers silently
 
 PlatformPath lifecycle is:
@@ -119,6 +127,11 @@ draft -> experimental -> validated -> approved -> deprecated
 Evidence is accumulated through preview/development/staging before broader Realm admission. An existing
 WorkOrder pins an exact path revision. A new path version does not alter existing products/instances or
 active WorkOrders; migration is its own WorkOrder with compatibility and compensation evidence.
+
+A readiness draft may bind a verified catalog-only `draft` publication for planning, but `ready` requires
+the exact path publication to be non-catalog-only, Realm-admitted, and in `experimental`, `validated`, or
+`approved` state. `draft`, `deprecated`, inconsistent lifecycle/admission, or missing admission evidence
+parks before mutation.
 
 ### D7 - AI/inference is a first-class product family, not Dark Factory internals
 
@@ -204,4 +217,3 @@ thresholds or economic assumptions.
 - [State of AI in Platform Engineering 2025](https://platformengineering.org/reports/state-of-ai-in-platform-engineering-2025)
 - [Architecting Agentic Development Platforms](https://platformcon.com/sessions/architecting-agentic-development-platforms)
 - [The rise of agentic platforms](https://platformengineering.org/blog/the-rise-of-agentic-platforms-scaling-beyond-automation)
-

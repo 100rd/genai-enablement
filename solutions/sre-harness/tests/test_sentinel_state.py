@@ -29,6 +29,9 @@ def test_state_defaults_to_empty_signals() -> None:
     assert state.saturation_samples == ()
     assert state.expiry_items == ()
     assert state.error_windows == ()
+    assert state.error_rate_windows == ()
+    assert state.change_regression_windows == ()
+    assert state.drift_observations == ()
 
 
 def test_records_are_frozen() -> None:

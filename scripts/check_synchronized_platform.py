@@ -27,7 +27,9 @@ COMPONENT_PLAN_HEADINGS = {
 }
 ADR_ID_PATTERN = re.compile(r"\bADR-\d{4}\b")
 CAPABILITY_ID_PATTERN = re.compile(r"\bSPEC-[A-Z0-9]+(?:-[A-Z0-9]+)*\b")
-TASK_ID_PATTERN = re.compile(r"\bgh-issue-\d+-[a-z0-9]+(?:-[a-z0-9]+)*\b")
+TASK_ID_PATTERN = re.compile(
+    r"\b(?:gh-issue-\d+|task-sp-[a-z0-9]+)(?:-[a-z0-9]+)*\b"
+)
 PACKAGE_ID_PATTERN = re.compile(r"\bSP-[A-Z0-9]+(?:-[A-Z0-9]+)*\b")
 SOURCE_STATUS_PATTERN = re.compile(
     r"(?im)^\s*(?:-\s*)?"
@@ -77,6 +79,49 @@ def _source_status(text: str) -> str | None:
     return match.group(1).lower() if match else None
 
 
+def _task_handoff_findings(text: str) -> list[str]:
+    """Return missing immutable-handoff fields from one task SPEC frontmatter."""
+    if not text.startswith("---\n"):
+        return ["task frontmatter is missing"]
+    parts = text.split("---", 2)
+    if len(parts) < 3:
+        return ["task frontmatter is unterminated"]
+    frontmatter = parts[1]
+    findings: list[str] = []
+    task_id_match = re.search(r"(?m)^id:\s*(\S+)\s*$", frontmatter)
+    task_id = task_id_match.group(1) if task_id_match else ""
+    if re.search(r"(?m)^evidenceDestination:\s*\S+\s*$", frontmatter) is None:
+        findings.append("evidenceDestination is missing")
+
+    acceptance_match = re.search(
+        r"(?ms)^acceptanceCriteria:\s*\n(.*?)^rollback:\s*", frontmatter
+    )
+    if acceptance_match is None:
+        findings.append("acceptanceCriteria or rollback boundary is missing")
+    else:
+        acceptance = acceptance_match.group(1)
+        criteria_count = len(re.findall(r"\bid:\s*AC-[A-Z0-9-]+", acceptance))
+        ground_truth_count = len(re.findall(r"\bgroundTruth:\s*", acceptance))
+        if criteria_count == 0:
+            findings.append("acceptanceCriteria contains no AC-* entries")
+        elif ground_truth_count != criteria_count:
+            findings.append(
+                "every acceptance criterion requires exactly one external groundTruth"
+            )
+
+    scope_match = re.search(r"(?ms)^scope:\s*\n(.*?)^acceptanceCriteria:", frontmatter)
+    if scope_match is not None:
+        include_scope = scope_match.group(1).split("exclude:", 1)[0]
+        if "docs/specs/**" in include_scope:
+            findings.append("writable scope includes the task-SPEC oracle docs/specs/**")
+        if (
+            "portfolio/synchronized-platform.json" in include_scope
+            and task_id != "task-sp-70-continuous-management-contract-release"
+        ):
+            findings.append("writable scope includes the synchronized registry lock")
+    return findings
+
+
 def _table_rows(text: str, pattern: re.Pattern[str]) -> tuple[dict[str, list[str]], set[str]]:
     rows: dict[str, list[str]] = {}
     duplicates: set[str] = set()
@@ -111,8 +156,6 @@ def _component_roots(workspace_root: Path | None) -> dict[str, Path]:
     if workspace_root is not None:
         resolved_workspace = workspace_root.resolve()
         for component_id, directory in EXPECTED_COMPONENTS.items():
-            if component_id == "genai-enablement":
-                continue
             candidate = (resolved_workspace / directory).resolve()
             if candidate.parent == resolved_workspace:
                 roots[component_id] = candidate
@@ -144,11 +187,13 @@ def _discovered_capability_paths(component_id: str, root: Path) -> set[str]:
 
 
 def _discovered_task_paths(component_id: str, root: Path) -> set[str]:
-    if component_id != "omniscience":
+    task_root = root / "docs" / "specs"
+    if not task_root.is_dir():
         return set()
     return {
         path.relative_to(root).as_posix()
-        for path in (root / "docs" / "specs").glob("gh-issue-350-*.md")
+        for path in task_root.glob("*.md")
+        if TASK_ID_PATTERN.fullmatch(path.stem)
     }
 
 
@@ -281,14 +326,6 @@ def validate_registry(
                 errors.append(
                     f"{component_id}: duplicate {kind} ids: {sorted(duplicates)}"
                 )
-            if any(
-                not isinstance(item, dict)
-                or not _non_empty_string(item.get("status"))
-                for item in items
-            ):
-                errors.append(
-                    f"{component_id}: every {kind} requires a non-empty status"
-                )
             catalogs[(component_id, kind)] = {
                 item_id for item_id in ids if _non_empty_string(item_id)
             }
@@ -380,6 +417,9 @@ def validate_registry(
                     errors.append(f"{component_id}/{item_id}: id does not match source")
                 if not _non_empty_string(status) or _source_status(text) != status.lower():
                     errors.append(f"{component_id}/{item_id}: status does not match source")
+                if key == "task_specs":
+                    for finding in _task_handoff_findings(text):
+                        errors.append(f"{component_id}/{item_id}: {finding}")
 
         plan_section = _component_plan_section(plan_text, component_id)
         if not plan_section:

@@ -1,7 +1,8 @@
 # ADR-0018: PII Wall is a distributed, purpose-bound data boundary
 
-- **Status:** Proposed
+- **Status:** Accepted
 - **Date:** 2026-07-18
+- **Accepted:** 2026-07-21 by the platform owner for fail-closed component development
 - **Deciders:** platform owner
 - **Scope:** cross-repo (`genai-enablement`, `Omniscience`, `omnius`, `platform-portal`, and every
   synchronized-platform data producer or consumer)
@@ -34,7 +35,7 @@ semantics, lifecycle receipts, and a visualization surface that never becomes a 
 In this ADR, **PII** is an operational shorthand for personal data governed by a pinned platform policy.
 It is not a legal conclusion, a consent decision, or proof of compliance with any jurisdiction.
 
-## Decision if accepted
+## Decision
 
 ### D1 - Make the wall distributed, with one signed policy bundle
 
@@ -208,7 +209,7 @@ success. There is no generic portal override or reveal control.
 
 ### D11 - Require local adoption, readiness, and real-boundary evidence
 
-Acceptance of this ADR would authorize component owners to adopt the boundary, not activate it.
+Acceptance of this ADR authorizes component owners to adopt the boundary for development, not activate it.
 Implementation requires:
 
 1. an accepted local adoption ADR where project policy requires one;
@@ -257,7 +258,7 @@ profile or prove PII absence.
 - Creating a central raw-data lake, cross-tenant identity graph, or general re-identification service.
 - Replacing component tenant isolation, secrets management, authorization, or owner retention policy.
 - Activating runtime gates, external providers, deletion, exports, or production changes through this
-  proposed ADR.
+  ADR alone.
 
 ## Alternatives considered
 

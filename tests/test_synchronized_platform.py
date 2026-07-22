@@ -32,10 +32,7 @@ class SynchronizedPlatformContractTests(unittest.TestCase):
 
     def test_real_workspace_is_closed_and_discoverable(self) -> None:
         registry = checker.load_registry()
-        self.assertEqual([], checker.validate_registry(registry))
-        component_dirs = ("Barbarossa", "omnius", "Omniscience", "platform-portal")
-        if all((ROOT.parent / directory).is_dir() for directory in component_dirs):
-            self.assertEqual([], checker.validate_registry(registry, ROOT.parent))
+        self.assertEqual([], checker.validate_registry(registry, ROOT.parent))
 
     def test_unknown_contract_reference_fails(self) -> None:
         registry = copy.deepcopy(checker.load_registry())
@@ -57,7 +54,7 @@ class SynchronizedPlatformContractTests(unittest.TestCase):
 
     def test_work_package_dependency_plan_drift_fails(self) -> None:
         registry = copy.deepcopy(checker.load_registry())
-        self._package(registry, "SP-10")["depends_on"] = ["SP-85"]
+        self._package(registry, "SP-10")["depends_on"] = ["SP-B0-B7"]
         errors = checker.validate_registry(registry)
         self.assertTrue(any("dependency drift" in error for error in errors))
 
@@ -73,7 +70,7 @@ class SynchronizedPlatformContractTests(unittest.TestCase):
                 status=""
             ),
             "capability status": lambda registry: self._component(
-                registry, "barbarossa"
+                registry, "genai-enablement"
             )["capability_specs"][0].update(status=""),
             "package status": lambda registry: self._package(
                 registry, "SP-10"
@@ -118,6 +115,49 @@ class SynchronizedPlatformContractTests(unittest.TestCase):
         registry["canonical_plan"]["path"] = "../omnius/PLATFORM.md"
         errors = checker.validate_registry(registry)
         self.assertTrue(any("canonical plan path is missing" in error for error in errors))
+
+    def test_unregistered_ready_task_fails_workspace_discovery(self) -> None:
+        registry = copy.deepcopy(checker.load_registry())
+        portal = self._component(registry, "platform-portal")
+        removed = portal["task_specs"].pop()
+        errors = checker.validate_registry(registry, ROOT.parent)
+        self.assertTrue(
+            any(
+                "task inventory drift" in error and removed["path"] in error
+                for error in errors
+            )
+        )
+
+    def test_task_handoff_requires_evidence_and_per_ac_ground_truth(self) -> None:
+        task = """---
+id: task-sp-test
+status: ready
+scope:
+  include: [src/**]
+acceptanceCriteria:
+  - { id: AC-TEST-1, probe: test, expected: pass }
+rollback: { kind: revert-pr }
+---
+"""
+        findings = checker._task_handoff_findings(task)
+        self.assertTrue(any("evidenceDestination" in item for item in findings))
+        self.assertTrue(any("groundTruth" in item for item in findings))
+
+    def test_task_handoff_rejects_writable_oracle_and_registry(self) -> None:
+        task = """---
+id: task-sp-test
+status: ready
+evidenceDestination: ci-artifact://task/test/
+scope:
+  include: [src/**, docs/specs/**, portfolio/synchronized-platform.json]
+acceptanceCriteria:
+  - { id: AC-TEST-1, probe: test, expected: pass, groundTruth: external receipt }
+rollback: { kind: revert-pr }
+---
+"""
+        findings = checker._task_handoff_findings(task)
+        self.assertTrue(any("task-SPEC oracle" in item for item in findings))
+        self.assertTrue(any("registry lock" in item for item in findings))
 
 
 if __name__ == "__main__":

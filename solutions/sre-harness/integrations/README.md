@@ -1,9 +1,16 @@
 # CI / GitOps integrations — change-validation gate (Stage 2)
 
-These templates wire the deterministic `sre-harness gate` CLI into a delivery
+These templates wire the deterministic `sre-harness gate-integration` command into a delivery
 pipeline so the change-validation gate runs **before** a deploy/sync. This is
 Stage 2 of [`docs/autonomous-sre-harness-plan.md`](../../../docs/autonomous-sre-harness-plan.md):
 *"Advisory change-validation gate — own the white space."*
+
+The command implements
+[`SPEC-B2`](../../../docs/specs/SPEC-B2-advisory-change-validation-integration.md): it accepts one closed,
+content-addressed v1 envelope containing the exact change and platform snapshot and emits one versioned,
+exactly rejoined result. A future or more-than-five-minute-old platform snapshot fails before evaluation.
+The committed envelope and both templates are portable fixtures, not evidence of an observed consumer
+integration.
 
 ## The gate is advisory (autonomy tier T2)
 
@@ -16,11 +23,12 @@ changes, and only then turn it into a hard block once it has earned trust.
 | Verdict | Exit code | Meaning |
 |---|---|---|
 | `proceed` | `0` | Every required StorageClass is present in every target cluster. |
-| `block` | `1` | A required StorageClass is absent in **every** target cluster. |
-| `require_human` | `2` | Gaps in **some-but-not-all** target clusters — needs a human call. |
+| `block` | `10` | A deterministic check blocks. |
+| `require_human` | `20` | A deterministic check needs a human decision. |
+| integration error | `64` | The envelope/result sink is invalid or unavailable; no verdict is fabricated. |
 
-A usage error (bad args, missing/invalid input) also exits `2` and writes to
-stderr.
+The legacy `sre-harness gate` command retains its original `0`/`1`/`2` behavior for local compatibility;
+it is not the strict SPEC-B2 integration surface.
 
 ## Files
 
@@ -38,9 +46,10 @@ include:
   - local: solutions/sre-harness/integrations/gitlab-ci.gate.yml
 ```
 
-The job prints the verdict JSON and saves it as the `gate-verdict.json`
+The job prints the versioned verdict JSON and atomically saves it as the `gate-verdict.json`
 artifact. **Advisory** because `allow_failure: true` — a `block`/`require_human`
-verdict warns on the pipeline but does not stop the deploy.
+verdict warns on the pipeline but does not stop the deploy. The command is not piped through `tee`, so
+its real disposition reaches GitLab before `allow_failure` explicitly degrades it to a warning.
 
 **Make it blocking** (once trusted): delete the `allow_failure: true` line. The
 job's non-zero exit code then fails the pipeline.
@@ -56,24 +65,26 @@ the sync.
 so it exits non-zero on `block`/`require_human`. A failed PreSync hook aborts
 the sync.
 
-The example mounts the change manifest and the graph fixture from ConfigMaps:
+The example mounts the closed fixture envelope from one ConfigMap:
 
 ```sh
-kubectl create configmap sre-harness-graph \
-  --from-file=platform-graph.json=solutions/sre-harness/examples/platform-graph.json
-kubectl create configmap sre-harness-change \
-  --from-file=manifest.json=solutions/sre-harness/examples/statefulset.json
+kubectl create configmap sre-harness-change-advisory \
+  --from-file=change-advisory-invocation.json=solutions/sre-harness/examples/change-advisory-invocation.json
 ```
 
 ## Run it locally
 
 ```sh
-# structured JSON change request -> require_human (exit 2) against the example graph
-sre-harness gate \
-  --change examples/change-request.json \
-  --graph examples/platform-graph.json
+# strict fixture envelope -> require_human (exit 20), with a retained result
+sre-harness gate-integration \
+  --input examples/change-advisory-invocation.json \
+  --result /tmp/change-advisory-result.json
 echo "exit: $?"
+```
 
+The older local parser paths remain available outside the SPEC-B2 integration contract:
+
+```sh
 # best-effort from a k8s manifest (service + clusters + storageclasses extracted)
 sre-harness gate \
   --change examples/statefulset.json --change-format k8s \
@@ -87,13 +98,13 @@ sre-harness gate \
 ```
 
 Without `poetry install`, run the same thing as a module:
-`python -m sre_harness.cli gate ...` (with `src` on `PYTHONPATH`).
+`python -m sre_harness.cli gate-integration ...` (with `src` on `PYTHONPATH`).
 
 ## Live platform-graph adapter — TODO
 
-Both templates point `--graph` at a **static JSON fixture** today. The CLI loads
-it into the in-memory `PlatformGraph`. The production path is to feed the gate
-the *live* platform state via `OmniscienceMcpPlatformGraph`
+Both templates consume a **static closed fixture envelope** today. The adapter loads its embedded
+snapshot into the in-memory `PlatformGraph`. The production path is to construct that envelope from the
+exact proposed change and *live* platform state via `OmniscienceMcpPlatformGraph`
 (`src/sre_harness/platform_graph.py`), which is already implemented over an
 `McpToolClient` seam against the Omniscience `list_entities` MCP tool.
 
@@ -101,10 +112,89 @@ Remaining wiring (out of scope for this PR):
 
 1. A concrete `McpToolClient` against a running Omniscience (real MCP client +
    workspace-scoped token).
-2. A CLI flag (e.g. `--graph-source omniscience`) selecting the live adapter
-   instead of `--graph <file>`, constructing `OmniscienceMcpPlatformGraph` in
-   `cli._load_graph`. The rest of the CLI is unchanged — the gate already
-   depends only on the `PlatformGraph` port.
+2. A consumer-owned envelope producer that queries the approved adapter, canonicalizes the exact change
+   and platform snapshot, computes both content revisions, and retains the source artifact.
+3. An observed GitLab or Argo CD run bound to an immutable harness revision, with retained result,
+   latency, catch, false-positive, and override evidence.
+
+---
+
+# Deterministic canary rollback (Stage 3 portable construction)
+
+[`argo-rollouts-deterministic-canary.json`](argo-rollouts-deterministic-canary.json) is a Kubernetes JSON
+`List` generated from
+[`../examples/rollback-candidate-policy.json`](../examples/rollback-candidate-policy.json) under
+[`SPEC-B3`](../../../docs/specs/SPEC-B3-deterministic-canary-rollback.md). It contains a normal Service,
+a namespaced Datadog v2 AnalysisTemplate, and a basic-canary Rollout. The rollout sets an integral
+candidate pod weight, pauses, and runs a finite inline analysis over the latest ReplicaSet hash. Any
+breach, Datadog nil, NaN/Inf, inconclusive result, or provider error is configured to prevent promotion;
+an unsuccessful analysis aborts the canary toward the stable ReplicaSet without an LLM decision.
+
+This file is deliberately **not deployable evidence**. Its image points at `example.invalid`; its 1%
+error ceiling, Datadog metric/tag names, timing, namespace, Secret reference, resources, and controller
+floor are unapproved fixture candidates. No Secret or credential is included. Every resource carries
+the exact policy revision plus `evidence-scope=fixture` and `human-approval-required=true` annotations.
+
+Before any apply/sync, the consumer owner must replace and review those candidates, publish the exact
+immutable policy/workload revision, pin the installed controller and CRDs, provision the least-privilege
+namespaced Datadog Secret, and pass server-side admission. B3 exit additionally needs retained positive
+promotion and forced-negative rollback observations, stable-traffic verification, rollback latency,
+false-positive measurements, and an approved recovery/override procedure.
+
+The repository checks reproducibility rather than applying the bundle:
+
+```sh
+PYTHONPATH=src uv run --with pytest pytest tests/test_rollback.py
+```
+
+---
+
+# Tier-4 allowlisted remediation (Stage 4 portable construction)
+
+[`SPEC-B4`](../../../docs/specs/SPEC-B4-tier4-allowlisted-remediation.md) deliberately has no deployable
+integration manifest in this directory. Its portable core exposes explicit SSM Automation and notification
+ports, while the checked
+[`../examples/remediation-policy-publication.json`](../examples/remediation-policy-publication.json) is
+forced to `evidenceScope: fixture` and therefore always requires T3. A consumer must separately own and
+review the immutable runbooks, external policy publication, account/region binding, IAM/PassRole and target
+containment, durable workflow/ledger, notification delivery, audit retention, and live drills before any
+runtime adapter or deployment artifact is admitted here.
+
+Local verification exercises fakes only and makes no AWS call:
+
+```sh
+PYTHONPATH=src uv run --with pytest pytest tests/test_remediation.py
+```
+
+---
+
+# Tier-3 HITL remediation (Stage 5 portable construction)
+
+[`SPEC-B5`](../../../docs/specs/SPEC-B5-tier3-hitl-remediation.md) adds no deployable webhook, AWS client,
+GitLab token, or merge controller here. The checked proposal and `evidenceScope: fixture` receipt exercise
+only the strict portable contracts. A future consumer-owned adapter must expose exact read bindings,
+deduplicate AWS approval signals durably, keep GitLab observation read-only, and retain sanitized audit;
+human identity/MFA, reviewer eligibility, runbook/MR policy, credentials, CAS/outbox recovery, and live
+drills remain outside the repository fixture.
+
+```sh
+PYTHONPATH=src uv run --with pytest pytest tests/test_hitl.py
+```
+
+---
+
+# Permanent-fix chase (Stage 6 portable construction)
+
+[`SPEC-B6`](../../../docs/specs/SPEC-B6-permanent-fix-chase.md) adds no GitHub App, GitLab token, webhook,
+factory client, branch worker, MR/PR controller, pipeline trigger, or merge/close integration here. The
+checked policy and request are `evidenceScope: fixture`; they exercise only the strict portable contracts.
+A future consumer-owned adapter must durably deduplicate the one allowed issue-create call, use a separate
+read-only principal for issue/MR/PR observation, verify canonical factory outcomes independently, retain a
+transactional audit/outbox, and expose no automatic merge, issue-close, or incident-close operation.
+
+```sh
+PYTHONPATH=src uv run --with pytest pytest tests/test_permanent_fix.py
+```
 
 ---
 
@@ -132,6 +222,19 @@ exit code is **informational**, not pass/fail:
 **A CronJob wiring this command must never fail the Job on exit `1`** — see
 the `|| true` in [`sentinel-cronjob.yaml`](sentinel-cronjob.yaml), the same
 advisory pattern as the gate templates above.
+
+[`SPEC-B7`](../../../docs/specs/SPEC-B7-error-rate-baseline-detector.md) and
+[`SPEC-B7-CIR`](../../../docs/specs/SPEC-B7-change-induced-regression-detector.md), and
+[`SPEC-B7-DRIFT`](../../../docs/specs/SPEC-B7-drift-detector.md) add
+`error_rate_windows`, `change_regression_windows`, and `drift_observations`
+fixture signals plus deterministic detectors to this existing scan boundary.
+They do not activate a live metric/deploy/Omniscience query, publish a production
+baseline/SLO/association/tracked-resource policy or normalization algorithm,
+deploy the CronJob, prove source completeness or causation, reconcile state, or
+authorize alert/remediation delivery. The checked example is portable fixture
+evidence only: production admission requires separately owned source ordering/
+completeness, immutable config/revision-to-workload binding, controller
+convergence/deletion semantics, calibration, runtime, noise, and disable evidence.
 
 ## Files
 
@@ -188,7 +291,8 @@ source contract):
 
 1. Pin a query contract for at least one live source (Datadog metrics/logs
    query, or an Omniscience signal, mapping to `SaturationSample` /
-   `ExpiryItem` / `ErrorSignatureWindow`).
+   `ExpiryItem` / `ErrorSignatureWindow` / `ErrorRateWindow` /
+   `ChangeRegressionWindow`).
 2. Implement a `StateSource` adapter against that contract, unit-tested
    against a fake client (exactly like `OmniscienceMcpPlatformGraph` over
    `McpToolClient`).

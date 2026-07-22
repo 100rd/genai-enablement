@@ -12,6 +12,7 @@ from __future__ import annotations
 
 from collections.abc import Callable, Sequence
 from dataclasses import dataclass
+from typing import Protocol
 
 from sre_harness.change_gate import Verdict, evaluate_change
 from sre_harness.eval.case import GateSnapshot, Scenario, ScenarioKind
@@ -22,7 +23,13 @@ from sre_harness.observability import set_attributes, span
 # A target maps a scenario to the outcome under test. The seed target returns a
 # ``Verdict``; later targets (triage/RCA) may return a different outcome type,
 # which is why the scorer — not the runner — owns outcome interpretation.
-Target = Callable[[Scenario], Verdict]
+Target = Callable[[Scenario], object]
+
+
+class Scorer(Protocol):
+    """Score one expected/actual pair for a scenario-specific outcome."""
+
+    def __call__(self, *, expected: object, actual: object) -> Score: ...
 
 
 @dataclass(frozen=True)
@@ -31,8 +38,8 @@ class EvalResult:
 
     scenario_id: str
     kind: ScenarioKind
-    expected: Verdict
-    actual: Verdict
+    expected: object
+    actual: object
     score: Score
 
 
@@ -57,7 +64,12 @@ def change_gate_target(scenario: Scenario) -> Verdict:
     return evaluate_change(snapshot.request, snapshot.graph).verdict
 
 
-def run_eval(scenarios: Sequence[Scenario], target: Target) -> EvalSummary:
+def run_eval(
+    scenarios: Sequence[Scenario],
+    target: Target,
+    *,
+    scorer: Scorer | None = None,
+) -> EvalSummary:
     """Replay every scenario through ``target`` and score with Pass@1.
 
     Instrumented (AgentOps): an ``eval.suite`` span with a child ``eval.scenario``
@@ -72,7 +84,7 @@ def run_eval(scenarios: Sequence[Scenario], target: Target) -> EvalSummary:
         {attrs.EVAL_SCENARIO_COUNT: len(scenarios)},
         service="sre-harness",
     ) as suite_span:
-        results = tuple(_evaluate_one(scenario, target) for scenario in scenarios)
+        results = tuple(_evaluate_one(scenario, target, scorer) for scenario in scenarios)
         passed = sum(1 for result in results if result.score.passed)
         total = len(results)
         pass_rate = passed / total
@@ -90,9 +102,13 @@ def run_eval(scenarios: Sequence[Scenario], target: Target) -> EvalSummary:
     )
 
 
-def _evaluate_one(scenario: Scenario, target: Target) -> EvalResult:
+def _evaluate_one(
+    scenario: Scenario,
+    target: Target,
+    scorer: Scorer | None,
+) -> EvalResult:
     expected = scenario.ground_truth
-    if not isinstance(expected, Verdict):
+    if scorer is None and not isinstance(expected, Verdict):
         raise TypeError(
             f"scenario {scenario.id!r} ground_truth must be a Verdict, "
             f"got {type(expected).__name__}"
@@ -105,7 +121,11 @@ def _evaluate_one(scenario: Scenario, target: Target) -> EvalResult:
         },
     ) as scenario_span:
         actual = target(scenario)
-        score = pass_at_1(expected=expected, actual=actual)
+        if scorer is None:
+            assert isinstance(expected, Verdict)
+            score = pass_at_1(expected=expected, actual=actual)  # type: ignore[arg-type]
+        else:
+            score = scorer(expected=expected, actual=actual)
         set_attributes(
             scenario_span,
             {attrs.EVAL_SCORE: score.value, attrs.EVAL_SCORE_PASSED: score.passed},
@@ -132,6 +152,7 @@ def _pass_rate_by_kind(results: Sequence[EvalResult]) -> dict[ScenarioKind, floa
 __all__ = [
     "EvalResult",
     "EvalSummary",
+    "Scorer",
     "Target",
     "change_gate_target",
     "run_eval",

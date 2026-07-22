@@ -1,0 +1,42 @@
+{
+  "evidenceScope": "fixture",
+  "policy": {
+    "analysisTemplateName": "payments-api-error-rate",
+    "canaryWeight": 10,
+    "container": {
+      "limitCpu": "1000m",
+      "limitMemory": "512Mi",
+      "livenessPath": "/healthz",
+      "port": 8080,
+      "readinessPath": "/readyz",
+      "requestCpu": "250m",
+      "requestMemory": "256Mi",
+      "startupPath": "/startupz",
+      "terminationGraceSeconds": 30
+    },
+    "controllerFloor": "1.7.0",
+    "datadogSecretName": "datadog-rollouts-readonly",
+    "image": "registry.example.invalid/payments@sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "metric": {
+      "formula": "errors / requests",
+      "initialDelaySeconds": 60,
+      "maximumErrorRate": "0.01",
+      "measurementCount": 5,
+      "measurementIntervalSeconds": 30,
+      "name": "error-rate",
+      "providerWindowSeconds": 300,
+      "queries": {
+        "errors": "sum:trace.http.request.errors{service:{{args.service-name}},rollouts_pod_template_hash:{{args.canary-hash}}}.as_count()",
+        "requests": "sum:trace.http.request.hits{service:{{args.service-name}},rollouts_pod_template_hash:{{args.canary-hash}}}.as_count()"
+      }
+    },
+    "namespace": "payments-canary",
+    "pauseSeconds": 120,
+    "progressDeadlineSeconds": 900,
+    "replicas": 10,
+    "rolloutName": "payments-api",
+    "serviceName": "payments-api"
+  },
+  "policyRevision": "sha256:9df780d51c0ab19a58c1497b1dd56a8270fcd6be6a4c69ad4d4560e357f696c0",
+  "schemaVersion": "sre-harness.rollback-candidate/v1"
+}

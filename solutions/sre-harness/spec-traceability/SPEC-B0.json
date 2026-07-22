@@ -1,0 +1,82 @@
+{
+  "schemaVersion": "sre-harness.spec-portable-traceability/v1",
+  "specId": "SPEC-B0",
+  "specPath": "docs/specs/SPEC-B0-offline-eval-harness.md",
+  "specSha256": "sha256:c7cda193f117555904464b6e8e2cf0db11f317e5ef78d4434d4be25b582b5881",
+  "evidenceScope": "local-portable-only",
+  "operationalState": "incomplete",
+  "authority": "non-authorizing",
+  "implementationPaths": [
+    "solutions/sre-harness/src/sre_harness/eval/case.py",
+    "solutions/sre-harness/src/sre_harness/eval/runner.py",
+    "solutions/sre-harness/src/sre_harness/eval/scenarios.py",
+    "solutions/sre-harness/src/sre_harness/eval/score.py",
+    "solutions/sre-harness/src/sre_harness/observability/attributes.py"
+  ],
+  "probes": [
+    {
+      "id": "P-B0-1",
+      "tests": [
+        "solutions/sre-harness/tests/test_eval_case.py::TestGateSnapshot::test_gate_snapshot_is_frozen",
+        "solutions/sre-harness/tests/test_eval_case.py::TestScenario::test_blank_id_rejected",
+        "solutions/sre-harness/tests/test_eval_case.py::TestScenario::test_scenario_carries_id_kind_snapshot_and_ground_truth",
+        "solutions/sre-harness/tests/test_eval_case.py::TestScenario::test_scenario_is_frozen"
+      ]
+    },
+    {
+      "id": "P-B0-2",
+      "tests": [
+        "solutions/sre-harness/tests/test_eval_runner.py::TestChangeGateTarget::test_target_replays_scenario_through_evaluate_change",
+        "solutions/sre-harness/tests/test_eval_runner.py::TestRunEval::test_failing_target_is_reported_not_swallowed"
+      ]
+    },
+    {
+      "id": "P-B0-3",
+      "tests": [
+        "solutions/sre-harness/tests/test_eval_score.py::TestPassAt1::test_correct_verdict_scores_one",
+        "solutions/sre-harness/tests/test_eval_score.py::TestPassAt1::test_score_is_frozen",
+        "solutions/sre-harness/tests/test_eval_score.py::TestPassAt1::test_wrong_verdict_scores_zero",
+        "solutions/sre-harness/tests/test_eval_score.py::TestScoreValueBounds::test_value_must_be_in_unit_interval"
+      ]
+    },
+    {
+      "id": "P-B0-4",
+      "tests": [
+        "solutions/sre-harness/tests/test_eval_runner.py::TestRunEval::test_empty_suite_rejected",
+        "solutions/sre-harness/tests/test_eval_runner.py::TestRunEval::test_failing_target_is_reported_not_swallowed",
+        "solutions/sre-harness/tests/test_eval_runner.py::TestRunEval::test_per_kind_breakdown_present",
+        "solutions/sre-harness/tests/test_eval_runner.py::TestRunEval::test_perfect_target_passes_every_scenario"
+      ]
+    },
+    {
+      "id": "P-B0-5",
+      "tests": [
+        "solutions/sre-harness/tests/test_eval_runner.py::TestSeedScenarios::test_seed_suite_covers_all_three_verdicts",
+        "solutions/sre-harness/tests/test_eval_runner.py::TestSeedScenarios::test_seed_suite_exercises_blast_radius_and_namespace_checks",
+        "solutions/sre-harness/tests/test_eval_runner.py::TestSeedScenarios::test_seed_suite_has_at_least_three_scenarios",
+        "solutions/sre-harness/tests/test_eval_runner.py::TestSeedScenarios::test_seed_suite_has_unique_ids"
+      ]
+    },
+    {
+      "id": "P-B0-6",
+      "tests": [
+        "solutions/sre-harness/tests/test_observability.py::TestEvalInstrumentation::test_eval_emits_suite_and_per_scenario_spans",
+        "solutions/sre-harness/tests/test_observability.py::TestEvalInstrumentation::test_scenario_spans_carry_id_kind_and_score",
+        "solutions/sre-harness/tests/test_observability.py::TestEvalInstrumentation::test_suite_span_carries_aggregate_attributes",
+        "solutions/sre-harness/tests/test_observability.py::TestNoOpDefault::test_facade_calls_are_safe_with_no_provider"
+      ]
+    },
+    {
+      "id": "P-B0-7",
+      "tests": [
+        "solutions/sre-harness/tests/test_eval_score.py::TestExtensionStubs::test_unimplemented_scorers_raise"
+      ]
+    },
+    {
+      "id": "P-B0-8",
+      "tests": [
+        "solutions/sre-harness/tests/test_spec_catalog.py::test_b0_spec_is_discoverable_and_non_authorizing"
+      ]
+    }
+  ]
+}

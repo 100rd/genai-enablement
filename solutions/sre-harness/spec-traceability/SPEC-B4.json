@@ -1,0 +1,106 @@
+{
+  "schemaVersion": "sre-harness.spec-portable-traceability/v1",
+  "specId": "SPEC-B4",
+  "specPath": "docs/specs/SPEC-B4-tier4-allowlisted-remediation.md",
+  "specSha256": "sha256:24a069925337f13ed4e631de41ab3914ca3fadd07b1425affe75e964a8e5a20e",
+  "evidenceScope": "local-portable-only",
+  "operationalState": "incomplete",
+  "authority": "non-authorizing",
+  "implementationPaths": [
+    "solutions/sre-harness/src/sre_harness/autonomy_tiers/action_table.py",
+    "solutions/sre-harness/src/sre_harness/autonomy_tiers/classify.py",
+    "solutions/sre-harness/src/sre_harness/remediation.py"
+  ],
+  "probes": [
+    {
+      "id": "P-B4-1",
+      "tests": [
+        "solutions/sre-harness/tests/test_remediation.py::TestClosedPolicyPublication::test_exact_publication_loads_immutable_allowlist",
+        "solutions/sre-harness/tests/test_remediation.py::TestClosedPolicyPublication::test_malformed_duplicate_nonfinite_or_non_utf8_policy_fails",
+        "solutions/sre-harness/tests/test_remediation.py::TestClosedPolicyPublication::test_oversize_and_symlink_policy_fail",
+        "solutions/sre-harness/tests/test_remediation.py::TestClosedPolicyPublication::test_unknown_unbound_mutable_or_unsafe_policy_fails"
+      ]
+    },
+    {
+      "id": "P-B4-2",
+      "tests": [
+        "solutions/sre-harness/tests/test_remediation.py::TestExternalPolicyAuthority::test_exact_boolean_verifier_issues_opaque_capability",
+        "solutions/sre-harness/tests/test_remediation.py::TestExternalPolicyAuthority::test_false_or_truthy_non_boolean_verification_fails",
+        "solutions/sre-harness/tests/test_remediation.py::TestExternalPolicyAuthority::test_future_or_expired_publication_fails",
+        "solutions/sre-harness/tests/test_remediation.py::TestExternalPolicyAuthority::test_untrusted_origin_verifier_or_callback_mutation_fails",
+        "solutions/sre-harness/tests/test_remediation.py::test_checked_in_policy_is_fixture_only_and_cannot_authorize_t4"
+      ]
+    },
+    {
+      "id": "P-B4-3",
+      "tests": [
+        "solutions/sre-harness/tests/test_remediation.py::TestClosedPolicyPublication::test_exact_publication_loads_immutable_allowlist",
+        "solutions/sre-harness/tests/test_remediation.py::TestClosedPolicyPublication::test_unknown_unbound_mutable_or_unsafe_policy_fails"
+      ]
+    },
+    {
+      "id": "P-B4-4",
+      "tests": [
+        "solutions/sre-harness/tests/test_remediation.py::TestClosedRemediationRequest::test_duplicate_nonfinite_non_utf8_or_non_object_request_fails",
+        "solutions/sre-harness/tests/test_remediation.py::TestClosedRemediationRequest::test_exact_request_loads_and_rejoins_policy",
+        "solutions/sre-harness/tests/test_remediation.py::TestClosedRemediationRequest::test_unknown_malformed_or_noncanonical_request_fails"
+      ]
+    },
+    {
+      "id": "P-B4-5",
+      "tests": [
+        "solutions/sre-harness/tests/test_remediation.py::TestAuthorization::test_binding_time_or_parameter_mismatch_requires_t3",
+        "solutions/sre-harness/tests/test_remediation.py::TestAuthorization::test_exact_decimal_threshold_cannot_round_up_to_t4",
+        "solutions/sre-harness/tests/test_remediation.py::TestAuthorization::test_exact_external_candidate_authorizes_t4",
+        "solutions/sre-harness/tests/test_remediation.py::TestAuthorization::test_low_confidence_fixture_offplan_or_environment_mismatch_requires_t3",
+        "solutions/sre-harness/tests/test_remediation.py::TestAuthorization::test_raw_or_mutated_inputs_fail_before_decision"
+      ]
+    },
+    {
+      "id": "P-B4-6",
+      "tests": [
+        "solutions/sre-harness/tests/test_remediation.py::TestExactStart::test_client_account_or_region_drift_prevents_start",
+        "solutions/sre-harness/tests/test_remediation.py::TestExactStart::test_document_drift_prevents_start",
+        "solutions/sre-harness/tests/test_remediation.py::TestExactStart::test_non_t4_mutated_expired_or_invalid_execution_id_fails",
+        "solutions/sre-harness/tests/test_remediation.py::TestExactStart::test_repeated_start_reuses_client_token_and_notification_key",
+        "solutions/sre-harness/tests/test_remediation.py::TestExactStart::test_start_rejoins_document_and_uses_bounded_idempotent_call"
+      ]
+    },
+    {
+      "id": "P-B4-7",
+      "tests": [
+        "solutions/sre-harness/tests/test_remediation.py::TestCompensationLifecycle::test_compensation_failure_is_terminal_and_never_recursive",
+        "solutions/sre-harness/tests/test_remediation.py::TestCompensationLifecycle::test_execution_identity_drift_or_mutated_run_fails_before_action",
+        "solutions/sre-harness/tests/test_remediation.py::TestCompensationLifecycle::test_forward_failure_starts_exact_compensation_and_success_rolls_back",
+        "solutions/sre-harness/tests/test_remediation.py::TestCompensationLifecycle::test_running_is_stable_and_success_is_terminal"
+      ]
+    },
+    {
+      "id": "P-B4-8",
+      "tests": [
+        "solutions/sre-harness/tests/test_remediation.py::TestCompensationLifecycle::test_approval_or_calendar_state_escalates_without_compensation",
+        "solutions/sre-harness/tests/test_remediation.py::TestCompensationLifecycle::test_execution_identity_drift_or_mutated_run_fails_before_action",
+        "solutions/sre-harness/tests/test_remediation.py::TestCompensationLifecycle::test_reconcile_rechecks_client_account_and_region",
+        "solutions/sre-harness/tests/test_remediation.py::TestCompensationLifecycle::test_rollback_document_drift_escalates_without_starting_it"
+      ]
+    },
+    {
+      "id": "P-B4-9",
+      "tests": [
+        "solutions/sre-harness/tests/test_remediation.py::TestCompensationLifecycle::test_compensation_failure_is_terminal_and_never_recursive",
+        "solutions/sre-harness/tests/test_remediation.py::TestCompensationLifecycle::test_forward_failure_starts_exact_compensation_and_success_rolls_back",
+        "solutions/sre-harness/tests/test_remediation.py::TestCompensationLifecycle::test_retry_reuses_rollback_token_and_notifications_are_non_secret",
+        "solutions/sre-harness/tests/test_remediation.py::TestCompensationLifecycle::test_running_is_stable_and_success_is_terminal",
+        "solutions/sre-harness/tests/test_remediation.py::TestExactStart::test_notification_failure_retries_the_same_started_execution",
+        "solutions/sre-harness/tests/test_remediation.py::TestExactStart::test_repeated_start_reuses_client_token_and_notification_key"
+      ]
+    },
+    {
+      "id": "P-B4-10",
+      "tests": [
+        "solutions/sre-harness/tests/test_remediation.py::TestEvidenceBoundary::test_docs_retain_fixture_only_incomplete_boundary",
+        "solutions/sre-harness/tests/test_remediation.py::test_checked_in_policy_is_fixture_only_and_cannot_authorize_t4"
+      ]
+    }
+  ]
+}

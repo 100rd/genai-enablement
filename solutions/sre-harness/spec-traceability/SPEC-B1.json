@@ -1,0 +1,93 @@
+{
+  "schemaVersion": "sre-harness.spec-portable-traceability/v1",
+  "specId": "SPEC-B1",
+  "specPath": "docs/specs/SPEC-B1-read-only-triage-rca.md",
+  "specSha256": "sha256:901d8c96f51df43bcf53c4bc66857ae235e114f8e96220d8357af5bedf489daa",
+  "evidenceScope": "local-portable-only",
+  "operationalState": "incomplete",
+  "authority": "non-authorizing",
+  "implementationPaths": [
+    "solutions/sre-harness/src/sre_harness/observability/attributes.py",
+    "solutions/sre-harness/src/sre_harness/triage/contracts.py",
+    "solutions/sre-harness/src/sre_harness/triage/eval.py",
+    "solutions/sre-harness/src/sre_harness/triage/pipeline.py",
+    "solutions/sre-harness/src/sre_harness/triage/rules.py",
+    "solutions/sre-harness/src/sre_harness/triage/source.py"
+  ],
+  "probes": [
+    {
+      "id": "P-B1-1",
+      "tests": [
+        "solutions/sre-harness/tests/test_triage_source.py::TestStrictJsonSnapshotSource::test_closed_schema_and_types_fail_closed",
+        "solutions/sre-harness/tests/test_triage_source.py::TestStrictJsonSnapshotSource::test_duplicate_non_finite_and_malformed_json_fail_closed",
+        "solutions/sre-harness/tests/test_triage_source.py::TestStrictJsonSnapshotSource::test_invalid_utf8_oversize_symlink_and_non_file_fail_closed",
+        "solutions/sre-harness/tests/test_triage_source.py::TestStrictJsonSnapshotSource::test_valid_v1_json_loads_exact_snapshot"
+      ]
+    },
+    {
+      "id": "P-B1-2",
+      "tests": [
+        "solutions/sre-harness/tests/test_triage_pipeline.py::TestTriageContracts::test_contracts_require_timezone_aware_utc_and_bounded_values",
+        "solutions/sre-harness/tests/test_triage_pipeline.py::TestTriageContracts::test_snapshot_rejects_duplicate_or_future_evidence",
+        "solutions/sre-harness/tests/test_triage_source.py::TestSnapshotRequestAndSourceRejoin::test_foreign_incident_or_as_of_fails_closed",
+        "solutions/sre-harness/tests/test_triage_source.py::TestSnapshotRequestAndSourceRejoin::test_request_is_exact_utc_and_immutable"
+      ]
+    },
+    {
+      "id": "P-B1-3",
+      "tests": [
+        "solutions/sre-harness/tests/test_triage_source.py::TestSnapshotRequestAndSourceRejoin::test_invalid_or_unavailable_source_never_becomes_an_empty_success",
+        "solutions/sre-harness/tests/test_triage_source.py::TestSnapshotRequestAndSourceRejoin::test_only_snapshot_is_called_and_exact_result_is_admitted",
+        "solutions/sre-harness/tests/test_triage_source.py::TestSnapshotRequestAndSourceRejoin::test_source_integrates_with_action_free_triage_pipeline"
+      ]
+    },
+    {
+      "id": "P-B1-4",
+      "tests": [
+        "solutions/sre-harness/tests/test_triage_pipeline.py::TestGatherNode::test_gather_is_bounded_to_service_time_window_and_stable_order",
+        "solutions/sre-harness/tests/test_triage_pipeline.py::TestGatherNode::test_gather_rejects_non_positive_or_excessive_limits"
+      ]
+    },
+    {
+      "id": "P-B1-5",
+      "tests": [
+        "solutions/sre-harness/tests/test_triage_pipeline.py::TestAnalyzeAndRcaNodes::test_analyzer_cannot_cite_evidence_outside_the_gathered_context",
+        "solutions/sre-harness/tests/test_triage_pipeline.py::TestAnalyzeAndRcaNodes::test_invalid_hypothesis_confidence_fails_closed"
+      ]
+    },
+    {
+      "id": "P-B1-6",
+      "tests": [
+        "solutions/sre-harness/tests/test_triage_pipeline.py::TestAnalyzeAndRcaNodes::test_empty_context_stays_explicitly_unknown_instead_of_fabricating_evidence",
+        "solutions/sre-harness/tests/test_triage_pipeline.py::TestAnalyzeAndRcaNodes::test_resource_saturation_and_unknown_cases_are_calibrated"
+      ]
+    },
+    {
+      "id": "P-B1-7",
+      "tests": [
+        "solutions/sre-harness/tests/test_triage_pipeline.py::TestAnalyzeAndRcaNodes::test_rca_contract_exposes_no_authority_bearing_fields"
+      ]
+    },
+    {
+      "id": "P-B1-8",
+      "tests": [
+        "solutions/sre-harness/tests/test_triage_eval.py::TestTriageEval::test_seed_replays_cover_deploy_saturation_and_unknown",
+        "solutions/sre-harness/tests/test_triage_eval.py::TestTriageEval::test_wrong_root_cause_or_missing_required_citation_fails",
+        "solutions/sre-harness/tests/test_triage_eval.py::TestTriageEvalAdmission::test_absent_or_unmet_thresholds_fail_closed",
+        "solutions/sre-harness/tests/test_triage_eval.py::TestTriageEvalAdmission::test_pass_rate_duplicate_ids_and_unknown_overconfidence_are_reported",
+        "solutions/sre-harness/tests/test_triage_eval.py::TestTriageEvalAdmission::test_perfect_fixture_suite_is_threshold_conformant_but_never_production_evidence",
+        "solutions/sre-harness/tests/test_triage_eval_publication.py::TestCorpusPublicationEvalJoin::test_exact_policy_ids_and_manifest_must_rejoin",
+        "solutions/sre-harness/tests/test_triage_eval_publication.py::TestCorpusPublicationEvalJoin::test_raw_or_post_issuance_mutated_publication_cannot_enable",
+        "solutions/sre-harness/tests/test_triage_eval_publication.py::TestCorpusPublicationEvalJoin::test_verified_exact_curated_publication_can_issue_eligibility",
+        "solutions/sre-harness/tests/test_triage_eval_publication.py::TestCorpusPublicationGate::test_verifier_requires_exact_boolean_true"
+      ]
+    },
+    {
+      "id": "P-B1-9",
+      "tests": [
+        "solutions/sre-harness/tests/test_observability.py::TestTriageInstrumentation::test_triage_emits_one_parent_and_three_node_spans",
+        "solutions/sre-harness/tests/test_observability.py::TestTriageInstrumentation::test_triage_parent_carries_provenance_and_read_only_result"
+      ]
+    }
+  ]
+}

@@ -32,6 +32,14 @@ def _format_summary(summary: SentinelEvalSummary, *, verbose: bool) -> str:
         lines.append("-" * 62)
     lines.append(f"  mean lead-time (fired scenarios): {summary.mean_lead_time:.2f} snapshot(s)")
     lines.append(
+        f"  early detection  {summary.early_detections}/{summary.incident_scenarios} "
+        f"({summary.early_detection_rate:.1%})"
+    )
+    lines.append(
+        f"  false positives {summary.false_positives}/{summary.clean_scenarios} "
+        f"({summary.false_positive_rate:.1%})"
+    )
+    lines.append(
         f"  TOTAL          {summary.passed}/{summary.total} passed "
         f"(pass rate {summary.pass_rate:.1%})"
     )

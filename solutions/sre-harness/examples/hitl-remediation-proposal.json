@@ -1,0 +1,49 @@
+{
+  "proposal": {
+    "action": "config_change_prod",
+    "actionTierRevision": "sha256:f3c0a4a3bae2371b2d3c3ea2abe06069038b8f5ea701856203eb4df73c5c7913",
+    "confidence": "0.9",
+    "createdAt": "2026-07-16T10:00:00Z",
+    "environment": "production",
+    "evidenceRefs": [
+      "evidence://change/2048",
+      "evidence://incident/INC-2048"
+    ],
+    "expiresAt": "2026-07-16T12:00:00Z",
+    "mechanism": "aws_ssm",
+    "parameters": {
+      "AutomationAssumeRole": [
+        "arn:aws:iam::123456789012:role/sre-hitl-automation"
+      ],
+      "ChangeId": [
+        "chg-2026-0716-001"
+      ],
+      "Service": [
+        "payments-api"
+      ]
+    },
+    "planRevision": "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+    "proposalId": "bcd76f60-bec4-4caf-8eb1-80a6cdfc5ac4",
+    "proposerPrincipal": "agent:sre-harness",
+    "riskSummary": "One production configuration change scoped to payments-api.",
+    "rollbackRef": "runbook://payments-api/config-rollback/v3",
+    "rollbackRevision": "sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+    "subject": {
+      "approvalFirst": true,
+      "approvalStepName": "approveChange",
+      "automationExecutionId": "35878d6b-2bd4-40ff-9127-7f8bd3c211b3",
+      "awsAccountId": "123456789012",
+      "documentName": "SRE-ConfigChangeProd-WithApproval",
+      "documentSha256": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "documentVersion": "7",
+      "inputRevision": "sha256:98710e645bcf6ab55c8af65295067595877044f1e4457728eb76f95722699109",
+      "region": "eu-west-1",
+      "schemaVersion": "0.3",
+      "type": "aws_ssm"
+    },
+    "subjectRevision": "sha256:a6d56428ad6950194f82e34faee2752ae7efd9bfd4a291df0e45c1e640c9e802",
+    "triggerId": "incident:INC-2048"
+  },
+  "proposalRevision": "sha256:6c18cbfd8e9f63baa367278a8e8949d66c35ff08a2c973675dd3eed509d65677",
+  "schemaVersion": "sre-harness.hitl-remediation-proposal/v1"
+}

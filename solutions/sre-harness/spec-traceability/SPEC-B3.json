@@ -1,0 +1,80 @@
+{
+  "schemaVersion": "sre-harness.spec-portable-traceability/v1",
+  "specId": "SPEC-B3",
+  "specPath": "docs/specs/SPEC-B3-deterministic-canary-rollback.md",
+  "specSha256": "sha256:cb41e73f8796516746ef32dea5b07700301c1e94cfe130916ae0a20f11a98e18",
+  "evidenceScope": "local-portable-only",
+  "operationalState": "incomplete",
+  "authority": "non-authorizing",
+  "implementationPaths": [
+    "solutions/sre-harness/src/sre_harness/rollback.py"
+  ],
+  "probes": [
+    {
+      "id": "P-B3-1",
+      "tests": [
+        "solutions/sre-harness/tests/test_rollback.py::TestClosedCandidatePolicy::test_exact_fixture_policy_loads_as_immutable_values",
+        "solutions/sre-harness/tests/test_rollback.py::TestClosedCandidatePolicy::test_non_object_duplicate_nonfinite_or_non_utf8_json_fails",
+        "solutions/sre-harness/tests/test_rollback.py::TestClosedCandidatePolicy::test_oversize_policy_fails_before_json_acceptance",
+        "solutions/sre-harness/tests/test_rollback.py::TestClosedCandidatePolicy::test_regular_file_loads_but_symlink_is_rejected",
+        "solutions/sre-harness/tests/test_rollback.py::TestClosedCandidatePolicy::test_unknown_missing_unbound_mutable_or_unsafe_candidate_fails"
+      ]
+    },
+    {
+      "id": "P-B3-2",
+      "tests": [
+        "solutions/sre-harness/tests/test_rollback.py::TestClosedCandidatePolicy::test_unknown_missing_unbound_mutable_or_unsafe_candidate_fails"
+      ]
+    },
+    {
+      "id": "P-B3-3",
+      "tests": [
+        "solutions/sre-harness/tests/test_rollback.py::TestDeterministicOracle::test_breach_missing_error_or_nonfinite_aborts",
+        "solutions/sre-harness/tests/test_rollback.py::TestDeterministicOracle::test_extra_observations_fail_instead_of_reinterpreting_window",
+        "solutions/sre-harness/tests/test_rollback.py::TestDeterministicOracle::test_mutated_or_raw_policy_cannot_return_a_disposition",
+        "solutions/sre-harness/tests/test_rollback.py::TestDeterministicOracle::test_partial_success_observes_and_exact_success_continues",
+        "solutions/sre-harness/tests/test_rollback.py::TestDeterministicOracle::test_threshold_is_inclusive_for_success"
+      ]
+    },
+    {
+      "id": "P-B3-4",
+      "tests": [
+        "solutions/sre-harness/tests/test_rollback.py::TestKubernetesBundle::test_analysis_is_finite_inline_complementary_and_fail_closed"
+      ]
+    },
+    {
+      "id": "P-B3-5",
+      "tests": [
+        "solutions/sre-harness/tests/test_rollback.py::TestKubernetesBundle::test_datadog_v2_is_explicit_namespaced_and_has_no_credentials"
+      ]
+    },
+    {
+      "id": "P-B3-6",
+      "tests": [
+        "solutions/sre-harness/tests/test_rollback.py::TestKubernetesBundle::test_analysis_is_finite_inline_complementary_and_fail_closed",
+        "solutions/sre-harness/tests/test_rollback.py::TestKubernetesBundle::test_bundle_is_revision_annotated_deterministic_and_fixture_only",
+        "solutions/sre-harness/tests/test_rollback.py::TestKubernetesBundle::test_rollout_and_service_encode_basic_canary_and_safe_workload"
+      ]
+    },
+    {
+      "id": "P-B3-7",
+      "tests": [
+        "solutions/sre-harness/tests/test_rollback.py::TestKubernetesBundle::test_rollout_and_service_encode_basic_canary_and_safe_workload"
+      ]
+    },
+    {
+      "id": "P-B3-8",
+      "tests": [
+        "solutions/sre-harness/tests/test_rollback.py::TestKubernetesBundle::test_bundle_is_revision_annotated_deterministic_and_fixture_only",
+        "solutions/sre-harness/tests/test_rollback.py::TestKubernetesBundle::test_checked_in_bundle_is_exactly_generated_from_checked_in_policy",
+        "solutions/sre-harness/tests/test_rollback.py::TestKubernetesBundle::test_renderer_rejects_mutated_policy"
+      ]
+    },
+    {
+      "id": "P-B3-9",
+      "tests": [
+        "solutions/sre-harness/tests/test_rollback.py::TestEvidenceBoundary::test_docs_retain_fixture_only_incomplete_boundary"
+      ]
+    }
+  ]
+}
