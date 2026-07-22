@@ -1,0 +1,27 @@
+{
+  "caseId": "raw-receipt-reversible-token-and-prompt-excerpt",
+  "kind": "negative",
+  "category": "raw-receipt",
+  "receiptKind": "sanitization",
+  "requirement": "REQ-PII-POL-6",
+  "probe": "P-PII-POL-3",
+  "note": "A malformed receipt carries a reversible_token field, a prompt_excerpt field, and a synthetic (RFC 2606 example.test) email-shaped leaked value -- all forbidden by REQ-PII-POL-6. No real personal data.",
+  "receipt": {
+    "receipt_id": "dev-fixture-sanitization-receipt-bad-001",
+    "input_digest": "sha256:8a1798701b56e79af805b40007c45aab032f0a2a653d38a2b910a0b2de9d5f2f",
+    "policy_revision": "1.0.0",
+    "profile": "PW1",
+    "detector_revisions": ["exact-match-taxonomy-v1@1.0.0"],
+    "transformations": ["pseudonymized"],
+    "disposition": "complete",
+    "coverage": "full",
+    "produced_at": "2026-06-01T00:00:00Z",
+    "producer": "dev-fixture-producer-omniscience-ingest",
+    "reversible_token": "seeded-dev-fixture-token-should-never-appear-here",
+    "prompt_excerpt": "seeded contact me at jane.doe@example.test for details",
+    "integrity": {
+      "algorithm": "sha256",
+      "digest": "a8b9ee9ebc35fd59c398496625af751f80982484516c58ad775848e387c1d343"
+    }
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "caseId": "compatibility-matrix-valid",
+  "kind": "positive",
+  "category": "schema",
+  "requirement": "REQ-PII-POL-8",
+  "probe": "P-PII-POL-5",
+  "schema": "compatibility-matrix.schema.json",
+  "instance": [
+    {
+      "component_id": "dev-fixture-consumer-omniscience",
+      "schema_major": 1,
+      "policy_revision_pin": "1.0.0",
+      "signer_trust_profile": "dev-fixture-signer-v1"
+    },
+    {
+      "component_id": "dev-fixture-consumer-omnius",
+      "schema_major": 1,
+      "policy_revision_pin": "1.0.0",
+      "signer_trust_profile": "dev-fixture-signer-v1"
+    }
+  ]
+}

@@ -1,0 +1,192 @@
+{
+  "schema_version": 1,
+  "id": "task-sp-70-continuous-management-manifest",
+  "task": "task-sp-70-continuous-management-contract-release",
+  "governing_adr": "ADR-0020",
+  "generated_from": "portfolio/synchronized-platform.json#work_packages",
+  "note": "Navigation and compatibility facts only. No package status is changed by this artifact; every entry below is copied from the machine registry, which remains the single source of truth.",
+  "packages": [
+    {
+      "id": "SP-71",
+      "owner": "barbarossa",
+      "status": "implemented-local-non-live",
+      "depends_on": ["SP-60", "SP-70"],
+      "contracts": [
+        {"project": "barbarossa", "kind": "capability", "id": "SPEC-LOOP"},
+        {"project": "barbarossa", "kind": "capability", "id": "SPEC-DOM"},
+        {"project": "barbarossa", "kind": "capability", "id": "SPEC-OBS"},
+        {"project": "barbarossa", "kind": "capability", "id": "SPEC-EVAL"},
+        {"project": "barbarossa", "kind": "capability", "id": "SPEC-CASE"},
+        {"project": "barbarossa", "kind": "task", "id": "task-sp-71-kernel-runtime"}
+      ],
+      "gate": "ready"
+    },
+    {
+      "id": "SP-72",
+      "owner": "barbarossa",
+      "status": "implemented-local-non-live",
+      "depends_on": ["SP-71"],
+      "contracts": [
+        {"project": "barbarossa", "kind": "capability", "id": "SPEC-FED"},
+        {"project": "barbarossa", "kind": "capability", "id": "SPEC-CFL"},
+        {"project": "barbarossa", "kind": "task", "id": "task-sp-72-federation-constraints"}
+      ],
+      "gate": "ready"
+    },
+    {
+      "id": "SP-73",
+      "owner": "barbarossa",
+      "status": "implemented-local-non-live",
+      "depends_on": ["SP-72"],
+      "contracts": [
+        {"project": "barbarossa", "kind": "capability", "id": "SPEC-ACT"},
+        {"project": "barbarossa", "kind": "capability", "id": "SPEC-VRF"},
+        {"project": "barbarossa", "kind": "task", "id": "task-sp-73-actions-verification"}
+      ],
+      "gate": "ready"
+    },
+    {
+      "id": "SP-74",
+      "owner": "barbarossa",
+      "status": "implemented-local-non-live",
+      "depends_on": ["SP-71"],
+      "contracts": [
+        {"project": "barbarossa", "kind": "capability", "id": "SPEC-VIEW"},
+        {"project": "barbarossa", "kind": "task", "id": "task-sp-74-projection-cockpit"}
+      ],
+      "gate": "ready"
+    },
+    {
+      "id": "SP-75",
+      "owner": "barbarossa",
+      "status": "implemented-local-non-live",
+      "depends_on": ["SP-71"],
+      "contracts": [
+        {"project": "barbarossa", "kind": "capability", "id": "SPEC-JR"},
+        {"project": "barbarossa", "kind": "capability", "id": "SPEC-AVL"},
+        {"project": "barbarossa", "kind": "capability", "id": "SPEC-INC"},
+        {"project": "barbarossa", "kind": "capability", "id": "SPEC-ALT"},
+        {"project": "barbarossa", "kind": "task", "id": "task-sp-75-reliability-readonly"}
+      ],
+      "gate": "ready"
+    },
+    {
+      "id": "SP-76",
+      "owner": "barbarossa",
+      "status": "implemented-local-non-live",
+      "depends_on": ["SP-71", "SP-73"],
+      "contracts": [
+        {"project": "barbarossa", "kind": "capability", "id": "SPEC-COST-POL"},
+        {"project": "barbarossa", "kind": "capability", "id": "SPEC-COST-EVAL"},
+        {"project": "barbarossa", "kind": "capability", "id": "SPEC-COST-ACT"},
+        {"project": "barbarossa", "kind": "task", "id": "task-sp-76-cost-value-readonly"}
+      ],
+      "gate": "ready"
+    },
+    {
+      "id": "SP-77",
+      "owner": "barbarossa",
+      "status": "implemented-local-non-live",
+      "depends_on": ["SP-71", "SP-73"],
+      "contracts": [
+        {"project": "barbarossa", "kind": "capability", "id": "SPEC-AIE"},
+        {"project": "barbarossa", "kind": "task", "id": "task-sp-77-ai-effectiveness-readonly"}
+      ],
+      "gate": "ready"
+    },
+    {
+      "id": "SP-78",
+      "owner": "barbarossa",
+      "status": "implemented-local-non-live",
+      "depends_on": ["SP-71", "SP-73"],
+      "contracts": [
+        {"project": "barbarossa", "kind": "capability", "id": "SPEC-SEC"},
+        {"project": "barbarossa", "kind": "capability", "id": "SPEC-PRV"},
+        {"project": "barbarossa", "kind": "capability", "id": "SPEC-CMP"},
+        {"project": "barbarossa", "kind": "capability", "id": "SPEC-SCI"},
+        {"project": "barbarossa", "kind": "task", "id": "task-sp-78-assurance-packs-readonly"}
+      ],
+      "gate": "ready"
+    },
+    {
+      "id": "SP-79",
+      "owner": "barbarossa",
+      "status": "implemented-local-non-live",
+      "depends_on": ["SP-71", "SP-73", "SP-83"],
+      "contracts": [
+        {"project": "barbarossa", "kind": "capability", "id": "SPEC-DEL"},
+        {"project": "barbarossa", "kind": "capability", "id": "SPEC-KNW"},
+        {"project": "barbarossa", "kind": "task", "id": "task-sp-79-delivery-knowledge-readonly"}
+      ],
+      "gate": "ready"
+    },
+    {
+      "id": "SP-80",
+      "owner": "barbarossa",
+      "status": "implemented-local-non-live",
+      "depends_on": ["SP-71", "SP-72", "SP-73"],
+      "contracts": [
+        {"project": "barbarossa", "kind": "capability", "id": "SPEC-CAP"},
+        {"project": "barbarossa", "kind": "capability", "id": "SPEC-TOIL"},
+        {"project": "barbarossa", "kind": "capability", "id": "SPEC-PROD"},
+        {"project": "barbarossa", "kind": "task", "id": "task-sp-80-capacity-toil-product-readonly"}
+      ],
+      "gate": "ready"
+    },
+    {
+      "id": "SP-81",
+      "owner": "omniscience",
+      "status": "implemented-local-release-gated",
+      "depends_on": ["SP-70"],
+      "contracts": [
+        {"project": "omniscience", "kind": "capability", "id": "SPEC-MCTX"},
+        {"project": "omniscience", "kind": "task", "id": "task-sp-81-management-context-v1"}
+      ],
+      "gate": "ready"
+    },
+    {
+      "id": "SP-82",
+      "owner": "omnius",
+      "status": "implemented-local-no-effect",
+      "depends_on": ["SP-70"],
+      "contracts": [
+        {"project": "omnius", "kind": "capability", "id": "SPEC-MACT"},
+        {"project": "omnius", "kind": "task", "id": "task-sp-82-management-action-v1"}
+      ],
+      "gate": "ready"
+    },
+    {
+      "id": "SP-83",
+      "owner": "barbarossa",
+      "status": "implemented-local-producer-gated",
+      "depends_on": ["SP-72", "SP-81"],
+      "contracts": [
+        {"project": "barbarossa", "kind": "capability", "id": "SPEC-CTX"},
+        {"project": "barbarossa", "kind": "task", "id": "task-sp-83-context-consumer"}
+      ],
+      "gate": "ready"
+    },
+    {
+      "id": "SP-84",
+      "owner": "platform-portal",
+      "status": "implemented-local-source-gated",
+      "depends_on": ["SP-50", "SP-74", "SP-75", "SP-76", "SP-77", "SP-78", "SP-79", "SP-80"],
+      "contracts": [
+        {"project": "platform-portal", "kind": "capability", "id": "SPEC-CMC"},
+        {"project": "platform-portal", "kind": "task", "id": "task-sp-84-continuous-management-center"}
+      ],
+      "gate": "ready"
+    },
+    {
+      "id": "SP-85",
+      "owner": "barbarossa",
+      "status": "blocked-on-live-evidence",
+      "depends_on": ["SP-B0-B7", "SP-73", "SP-82"],
+      "contracts": [
+        {"project": "barbarossa", "kind": "capability", "id": "SPEC-AUT"}
+      ],
+      "gate": "blocked",
+      "blocked_reason": "SPEC-AUT is complete-for-planning-blocked (intentionally-unimplemented-blocked); no selected domain/action live qualification, owner identities, constraints, rollback or forced-negative-drill evidence exists. ADR-0020 D11 requires all of these before any autonomy promotion, and D12/acceptance record forbid treating planning completeness or ADR acceptance as live authorization."
+    }
+  ]
+}

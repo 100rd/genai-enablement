@@ -1,0 +1,25 @@
+{
+  "caseId": "privacy-coverage-envelope-valid",
+  "kind": "positive",
+  "category": "schema",
+  "requirement": "REQ-PII-POL-9",
+  "probe": "P-PII-POL-1",
+  "schema": "privacy-coverage-envelope.schema.json",
+  "instance": {
+    "component_id": "dev-fixture-component-omniscience",
+    "tenant_id": "dev-fixture-tenant-a",
+    "workspace_id": "dev-fixture-workspace-a1",
+    "policy_revision": "1.0.0",
+    "profile": "PW1",
+    "boundary_set": ["gate-2-decode-parse", "gate-3-chunk-embed"],
+    "covered_stores": ["postgres", "qdrant"],
+    "uncovered_or_unknown": ["backup-archive"],
+    "observed_at": "2026-06-02T00:00:00Z",
+    "freshness_deadline": "2026-06-03T00:00:00Z",
+    "source_health": "healthy",
+    "integrity": {
+      "algorithm": "sha256",
+      "digest": "32b7a1da7deaaae27066f513fb6f6e33fdb66ed1a4b83fbf3e50001653b037b3"
+    }
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "caseId": "sanitization-receipt-valid",
+  "kind": "positive",
+  "category": "schema",
+  "requirement": "REQ-PII-POL-6",
+  "probe": "P-PII-POL-3",
+  "schema": "sanitization-receipt.schema.json",
+  "instance": {
+    "receipt_id": "dev-fixture-sanitization-receipt-001",
+    "input_digest": "sha256:8a1798701b56e79af805b40007c45aab032f0a2a653d38a2b910a0b2de9d5f2f",
+    "output_digest": "sha256:bc9b504d32c93510714c2932f7a7d4e6a116e57d9be1876d9c9bfcf8e8d3126c",
+    "policy_revision": "1.0.0",
+    "profile": "PW1",
+    "detector_revisions": ["exact-match-taxonomy-v1@1.0.0"],
+    "transformations": ["pseudonymized"],
+    "disposition": "complete",
+    "coverage": "full",
+    "produced_at": "2026-06-01T00:00:00Z",
+    "producer": "dev-fixture-producer-omniscience-ingest",
+    "integrity": {
+      "algorithm": "sha256",
+      "digest": "039d1791766aa703e7ad92f3caaaa0c7e045b83485f3570e9d01de79e479a1a8"
+    }
+  }
+}

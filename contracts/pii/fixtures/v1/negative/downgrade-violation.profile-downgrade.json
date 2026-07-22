@@ -1,0 +1,11 @@
+{
+  "caseId": "downgrade-violation-profile-downgrade",
+  "kind": "negative",
+  "category": "downgrade-violation",
+  "mode": "profile-downgrade",
+  "requirement": "REQ-PII-POL-3",
+  "probe": "P-PII-POL-2",
+  "note": "Consumer requests PW2 (raw, purpose-bound) processing while owner policy admits only PW0 -- must be rejected.",
+  "policyMinimumProfile": "PW0",
+  "consumerRequestedProfile": "PW2"
+}

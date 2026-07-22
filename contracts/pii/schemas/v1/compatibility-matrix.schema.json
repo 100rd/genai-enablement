@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "compatibility-matrix.schema.json",
+  "title": "PolicyCompatibilityMatrix",
+  "description": "SPEC-PII-POLICY REQ-PII-POL-8. Per-component pinned schema major, policy revision, and signer trust profile used to detect skew (unknown major, stale/revoked policy, publisher outage) deterministically.",
+  "type": "array",
+  "minItems": 1,
+  "items": {
+    "type": "object",
+    "required": ["component_id", "schema_major", "policy_revision_pin", "signer_trust_profile"],
+    "additionalProperties": true,
+    "properties": {
+      "component_id": { "type": "string", "minLength": 1 },
+      "schema_major": { "type": "integer" },
+      "policy_revision_pin": { "type": "string", "minLength": 1 },
+      "signer_trust_profile": { "type": "string", "minLength": 1 }
+    }
+  }
+}

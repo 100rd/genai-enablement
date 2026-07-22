@@ -68,6 +68,41 @@ sets, hard dependencies, scope, assurance profile, status, or human authority. W
 mutable branch references are invalid. A task SPEC pins the profile revision and digest as well as its
 PlatformPath revision.
 
+The profile's `pathBundle` is a requested pin, not independent observation. Compilation must also consume
+an opaque platform-owner publication issued only after an allowlisted external verifier returns exact
+boolean true for a closed binding of repository/root/Git revision, deterministic bundle
+digest/algorithm/index, exact path and artifact digest, lifecycle/catalog state, Realm-admission evidence,
+owner, CODEOWNERS path/revision, publication origin/revision, and verifier reference. Compilation rejoins
+the publication to the profile's exact bundle and path. Missing, raw, copied, foreign, verifier-mismatched,
+or join-mismatched publication evidence parks for both draft and ready compilation.
+
+Compilation must join each capability entry to an independently observed immutable revision manifest.
+Its closed publication binds one capability namespace, repository, SPEC path, exact Git SHA, SPEC blob
+digest, REQ/probe ids, origin, publication revision, and verifier reference. An allowlisted external
+verifier must return exact boolean true before an opaque verified-manifest capability is issued; intake
+rejoins that capability to the profile's exact repository/path/revision. Lists copied from the profile,
+raw/caller-constructed bindings, or ids discovered only in a newer worktree are not membership evidence.
+An unavailable, malformed, foreign-origin/namespace, verifier-mismatched, revision/source-mismatched, or
+incomplete manifest parks.
+
+Caller-owned probe status maps are not a compiler input or readiness evidence. `ready` compilation also
+requires one externally verified closed evidence publication bound to the exact profile
+name/version/path/revision/digest, platform path and bundle revision/digest, assurance profile, concrete
+in-scope Realm, declared evidence TTL, canonical observation and expiry, real-path/readiness eligibility,
+complete selected probe set, each exact probe revision and immutable evidence reference/digest, the evidence
+manifest digest, publication origin/revision, and verifier reference. Only exact boolean true from an
+allowlisted external verifier issues the integrity-sealed opaque evidence capability. Missing, raw, copied,
+foreign, stale-at-or-after-expiry, future-dated, partial/extra/non-pass, revision-mismatched, or
+post-verification-modified evidence parks. Draft status observations remain non-authorizing.
+
+Every external authority capability consumed by compilation—the platform-contract publication,
+capability-revision manifests, human readiness-profile publication, probe-evidence publication, and the
+delivery trust-chain capability—must remain byte-equivalent to the binding its gate verified. Each gate
+snapshots and revalidates its closed binding across the external verifier callback and issues an opaque
+process-local integrity seal. The readiness compiler rejects an absent/invalid seal or any post-issuance
+field/nested-model mutation; delivery trust-anchor/store materializers enforce the same check before use.
+Frozen caller objects or an exact Python type alone are not immutability evidence.
+
 ### D2 - Unselected capability content remains draft and non-executable
 
 A profile changes no source SPEC text or whole-document state. Requirements absent from the profile
@@ -83,9 +118,25 @@ Only the component CODEOWNER may set a profile to `ready`. Agents may author a d
 fixtures, but cannot approve it or change its authority, REQ set, probe set, scope, forbidden actions,
 or assurance profile during the execution it governs.
 
+The transition is not established by the profile's own `approvedBy` field. A closed publication binds
+the profile name/version, repository/path, exact Git revision, canonical document digest, ready status,
+authority fields, CODEOWNERS path/revision, approval revision, publication origin/revision, and verifier
+reference. Only an allowlisted external verifier returning exact boolean true may issue the opaque
+publication capability accepted by compilation. Compilation rejoins that capability to the independently
+observed path/revision and exact document digest/identity/authority; missing, raw, copied-invalid,
+foreign-origin, verifier-mismatched, or join-mismatched publication evidence parks. Draft proposals remain
+inactive and need no publication capability.
+
 Changing a cited SPEC or probe invalidates the pin; it does not update the profile silently. The owner
-issues a new profile version after review. Missing revisions, references, probes, dependencies, expiry,
-or authority make intake park before mutation.
+issues a new profile version after review. Missing revisions, revision manifests, references, probes,
+dependencies, expiry, or authority make intake park before mutation.
+
+Realm scope may use an exact Realm ID or one bounded terminal `-*` prefix pattern needed for a
+WorkOrder-derived disposable Realm. Blanket, leading, interior, repeated, or suffix-bearing wildcards are
+invalid. Intake matches this pattern against the independently derived effective Realm, not task
+frontmatter. The signed envelope retains the exact path, Realm scope, evidence TTL, and forbidden actions;
+the execution compiler verifies the envelope signature and exact profile binding before adapter
+resolution, so it cannot replace profile-owned forbidden actions with a caller-selected set.
 
 Profile lifecycle is:
 
@@ -120,7 +171,10 @@ following hold:
 - production, shared-state, data, secret-bearing, and irreversible mutations are forbidden.
 
 For mutation admission, `Realm-admitted pinned path revision` replaces a blanket requirement for an
-`approved` path. `validated` and `approved` remain mandatory where Realm policy says so.
+`approved` path. The admission claim must come from the exact verified platform-owner publication, with a
+non-catalog-only path in `experimental`, `validated`, or `approved` state and an exact Realm-admission
+evidence digest. A caller/profile boolean or catalog projection is not authority. `validated` and
+`approved` remain mandatory where Realm policy says so.
 
 ### D6 - First implementation profile
 
@@ -173,8 +227,10 @@ Conformance fixtures must prove:
 
 - a task cannot execute a REQ absent from its pinned readiness profile;
 - a changed SPEC/probe revision invalidates the profile;
-- wildcard, missing, expired, agent-approved, or dependency-incomplete profiles park before mutation;
+- blanket/interior-wildcard, missing, expired, dependency-incomplete, self-declared agent-approved, or
+  unverified/profile-mismatched publication inputs park before mutation;
+- a caller-owned all-pass map cannot replace the exact externally verified profile/path/Realm-bound probe
+  result set; stale, future, partial, non-pass, wrong-revision, raw, or modified evidence parks;
 - a ready P0 profile leaves P1/P2/P3 requirements unauthorized and their certification unchanged;
 - an experimental path is admitted only in a matching disposable Realm with human landing and compensation;
 - a profile cannot enable auto-merge or production by omitting explicit forbidden actions.
-

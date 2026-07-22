@@ -1,0 +1,43 @@
+{
+  "caseId": "downgrade-violation-field-widening",
+  "kind": "negative",
+  "category": "downgrade-violation",
+  "mode": "envelope-propagation",
+  "requirement": "REQ-PII-POL-4",
+  "probe": "P-PII-POL-2",
+  "note": "Child envelope claims an extra field, an extra sink, and a later expiry than its parent -- must be rejected as widening.",
+  "parentEnvelope": {
+    "envelope_id": "dev-fixture-envelope-parent-901",
+    "tenant_id": "dev-fixture-tenant-a",
+    "source_ref": "dev-fixture-source-doc-901",
+    "data_class": "personal",
+    "transform_state": "pseudonymized",
+    "field_manifest": ["customer_ref"],
+    "allowed_fields": ["customer_ref"],
+    "allowed_sinks": ["knowledge-store"],
+    "policy_revision": "1.0.0",
+    "produced_at": "2026-06-01T00:00:00Z",
+    "expires_at": "2026-06-08T00:00:00Z",
+    "integrity": {
+      "algorithm": "sha256",
+      "digest": "7755dc570e7f69477f6cf066e2e31d1045f0f3fc50baee87124b16245d6da3db"
+    }
+  },
+  "childEnvelope": {
+    "envelope_id": "dev-fixture-envelope-child-902",
+    "tenant_id": "dev-fixture-tenant-a",
+    "source_ref": "dev-fixture-source-doc-901",
+    "data_class": "personal",
+    "transform_state": "pseudonymized",
+    "field_manifest": ["customer_ref", "email"],
+    "allowed_fields": ["customer_ref", "email"],
+    "allowed_sinks": ["knowledge-store", "external-provider"],
+    "policy_revision": "1.0.0",
+    "produced_at": "2026-06-02T00:00:00Z",
+    "expires_at": "2026-06-09T00:00:00Z",
+    "integrity": {
+      "algorithm": "sha256",
+      "digest": "af4ef4580c5ead376ab0194a5df449afc8b6ad102c4736456ff78b59bc96eb84"
+    }
+  }
+}

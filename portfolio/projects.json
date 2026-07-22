@@ -1,0 +1,500 @@
+{
+  "schema_version": 1,
+  "as_of": "2026-07-21",
+  "authority": {
+    "portfolio": "genai-enablement owns portfolio status, roadmap, glossary, cross-repository ADRs, dependencies, and readiness blockers",
+    "components": "Each component repository owns its capability and task SPECs, API/MCP schemas, runbooks, and implementation evidence",
+    "intake": "GitHub Issues is mutable intake and backlog, never an executable contract"
+  },
+  "decision_backlog": {
+    "owner": "@100rd",
+    "status": "human-disposition-required",
+    "items": [
+      {
+        "id": "ADR-0002",
+        "path": "docs/decisions/0002-platform-skills-registry.md",
+        "status": "proposed",
+        "review_group": "registry-trust",
+        "requires": [],
+        "next_gate": "human-disposition",
+        "blocks": ["skill-registry-adoption"]
+      },
+      {
+        "id": "ADR-0003",
+        "path": "docs/decisions/0003-unified-sdlc-standard.md",
+        "status": "proposed",
+        "review_group": "cross-factory-sdlc",
+        "requires": [],
+        "next_gate": "human-disposition",
+        "blocks": ["cross-factory-sdlc-adoption"]
+      },
+      {
+        "id": "ADR-0006",
+        "path": "docs/decisions/0006-unified-loop-decision-model.md",
+        "status": "proposed",
+        "review_group": "cross-factory-sdlc",
+        "requires": ["ADR-0003"],
+        "next_gate": "human-disposition",
+        "blocks": ["cross-factory-loop-adoption"]
+      },
+      {
+        "id": "ADR-0008",
+        "path": "docs/decisions/0008-ai-security-domain.md",
+        "status": "proposed",
+        "review_group": "ai-security",
+        "requires": [],
+        "next_gate": "human-disposition",
+        "blocks": ["ai-security-s0-s1-spec-authorship"]
+      },
+      {
+        "id": "ADR-0014",
+        "path": "docs/decisions/0014-precommitted-http-condition-evidence.md",
+        "status": "proposed",
+        "review_group": "delivery-evidence",
+        "requires": [],
+        "next_gate": "human-disposition",
+        "blocks": ["http-evidence-adoption"]
+      },
+      {
+        "id": "ADR-0015",
+        "path": "docs/decisions/0015-independent-observer-authority-attestor.md",
+        "status": "proposed",
+        "review_group": "delivery-evidence",
+        "requires": [],
+        "next_gate": "human-disposition",
+        "blocks": ["observer-attestation-adoption"]
+      },
+      {
+        "id": "ADR-0016",
+        "path": "docs/decisions/0016-independent-safe-to-reclaim-decision-issuer.md",
+        "status": "proposed",
+        "review_group": "delivery-evidence",
+        "requires": ["ADR-0006", "ADR-0015"],
+        "next_gate": "human-disposition",
+        "blocks": ["safe-to-reclaim-adoption"]
+      }
+    ]
+  },
+  "track_b_spec_backlog": {
+    "owner": "genai-enablement",
+    "status": "external-evidence-required",
+    "items": [
+      {
+        "id": "SPEC-B0",
+        "path": "docs/specs/SPEC-B0-offline-eval-harness.md",
+        "stage": "B0",
+        "source_status": "draft-portable-construction",
+        "requirements": 8,
+        "probes": 8,
+        "requires": [],
+        "portable_evidence": "local-construction-only",
+        "portable_traceability_manifest": "solutions/sre-harness/spec-traceability/SPEC-B0.json",
+        "operational_state": "incomplete",
+        "next_gate": "human-corpus-and-regression-policy-publication",
+        "authority": "non-authorizing"
+      },
+      {
+        "id": "SPEC-B1",
+        "path": "docs/specs/SPEC-B1-read-only-triage-rca.md",
+        "stage": "B1",
+        "source_status": "draft-construction",
+        "requirements": 9,
+        "probes": 9,
+        "requires": ["SPEC-B0"],
+        "portable_evidence": "local-construction-only",
+        "portable_traceability_manifest": "solutions/sre-harness/spec-traceability/SPEC-B1.json",
+        "operational_state": "incomplete",
+        "next_gate": "approved-sources-analyzer-and-real-corpus",
+        "authority": "non-authorizing"
+      },
+      {
+        "id": "SPEC-B2",
+        "path": "docs/specs/SPEC-B2-advisory-change-validation-integration.md",
+        "stage": "B2",
+        "source_status": "draft-construction",
+        "requirements": 9,
+        "probes": 9,
+        "requires": ["SPEC-B0"],
+        "portable_evidence": "local-construction-only",
+        "portable_traceability_manifest": "solutions/sre-harness/spec-traceability/SPEC-B2.json",
+        "operational_state": "incomplete",
+        "next_gate": "approved-consumer-and-observed-advisory-run",
+        "authority": "non-authorizing"
+      },
+      {
+        "id": "SPEC-B3",
+        "path": "docs/specs/SPEC-B3-deterministic-canary-rollback.md",
+        "stage": "B3",
+        "source_status": "draft-construction",
+        "requirements": 9,
+        "probes": 9,
+        "requires": [],
+        "portable_evidence": "local-construction-only",
+        "portable_traceability_manifest": "solutions/sre-harness/spec-traceability/SPEC-B3.json",
+        "operational_state": "incomplete",
+        "next_gate": "human-policy-and-live-canary-qualification",
+        "authority": "non-authorizing"
+      },
+      {
+        "id": "SPEC-B4",
+        "path": "docs/specs/SPEC-B4-tier4-allowlisted-remediation.md",
+        "stage": "B4",
+        "source_status": "draft-construction",
+        "requirements": 10,
+        "probes": 10,
+        "requires": [],
+        "portable_evidence": "local-construction-only",
+        "portable_traceability_manifest": "solutions/sre-harness/spec-traceability/SPEC-B4.json",
+        "operational_state": "incomplete",
+        "next_gate": "human-allowlist-and-live-provider-drills",
+        "authority": "non-authorizing"
+      },
+      {
+        "id": "SPEC-B5",
+        "path": "docs/specs/SPEC-B5-tier3-hitl-remediation.md",
+        "stage": "B5",
+        "source_status": "draft-construction",
+        "requirements": 10,
+        "probes": 10,
+        "requires": [],
+        "portable_evidence": "local-construction-only",
+        "portable_traceability_manifest": "solutions/sre-harness/spec-traceability/SPEC-B5.json",
+        "operational_state": "incomplete",
+        "next_gate": "human-authority-and-live-provider-drills",
+        "authority": "non-authorizing"
+      },
+      {
+        "id": "SPEC-B6",
+        "path": "docs/specs/SPEC-B6-permanent-fix-chase.md",
+        "stage": "B6",
+        "source_status": "draft-portable-construction",
+        "requirements": 10,
+        "probes": 10,
+        "requires": ["ADR-0003", "SPEC-B1", "SPEC-B5"],
+        "portable_evidence": "local-construction-only",
+        "portable_traceability_manifest": "solutions/sre-harness/spec-traceability/SPEC-B6.json",
+        "operational_state": "incomplete",
+        "next_gate": "human-policy-and-live-provider-drills",
+        "authority": "non-authorizing"
+      },
+      {
+        "id": "SPEC-B7-CORE",
+        "path": "docs/specs/SPEC-B7-core-sentinel-runtime-contract.md",
+        "stage": "B7",
+        "source_status": "draft-portable-construction",
+        "requirements": 8,
+        "probes": 8,
+        "requires": ["SPEC-B0"],
+        "portable_evidence": "local-construction-only",
+        "portable_traceability_manifest": "solutions/sre-harness/spec-traceability/SPEC-B7-CORE.json",
+        "operational_state": "incomplete",
+        "next_gate": "human-runtime-source-and-operations-policy",
+        "authority": "non-authorizing"
+      },
+      {
+        "id": "SPEC-B7",
+        "path": "docs/specs/SPEC-B7-error-rate-baseline-detector.md",
+        "stage": "B7",
+        "source_status": "draft-portable-construction",
+        "requirements": 9,
+        "probes": 9,
+        "requires": ["SPEC-B0", "SPEC-B7-CORE"],
+        "portable_evidence": "local-construction-only",
+        "portable_traceability_manifest": "solutions/sre-harness/spec-traceability/SPEC-B7.json",
+        "operational_state": "incomplete",
+        "next_gate": "human-policy-source-and-live-calibration",
+        "authority": "non-authorizing"
+      },
+      {
+        "id": "SPEC-B7-NES",
+        "path": "docs/specs/SPEC-B7-new-error-signature-detector.md",
+        "stage": "B7",
+        "source_status": "draft-portable-construction",
+        "requirements": 8,
+        "probes": 8,
+        "requires": ["SPEC-B0", "SPEC-B7-CORE"],
+        "portable_evidence": "local-construction-only",
+        "portable_traceability_manifest": "solutions/sre-harness/spec-traceability/SPEC-B7-NES.json",
+        "operational_state": "incomplete",
+        "next_gate": "human-policy-source-and-live-calibration",
+        "authority": "non-authorizing"
+      },
+      {
+        "id": "SPEC-B7-CIR",
+        "path": "docs/specs/SPEC-B7-change-induced-regression-detector.md",
+        "stage": "B7",
+        "source_status": "draft-portable-construction",
+        "requirements": 10,
+        "probes": 10,
+        "requires": ["SPEC-B0", "SPEC-B7", "SPEC-B7-CORE"],
+        "portable_evidence": "local-construction-only",
+        "portable_traceability_manifest": "solutions/sre-harness/spec-traceability/SPEC-B7-CIR.json",
+        "operational_state": "incomplete",
+        "next_gate": "human-policy-source-and-live-calibration",
+        "authority": "non-authorizing"
+      },
+      {
+        "id": "SPEC-B7-DRIFT",
+        "path": "docs/specs/SPEC-B7-drift-detector.md",
+        "stage": "B7",
+        "source_status": "draft-portable-construction",
+        "requirements": 10,
+        "probes": 10,
+        "requires": ["SPEC-B0", "SPEC-B7-CORE"],
+        "portable_evidence": "local-construction-only",
+        "portable_traceability_manifest": "solutions/sre-harness/spec-traceability/SPEC-B7-DRIFT.json",
+        "operational_state": "incomplete",
+        "next_gate": "human-policy-source-and-live-calibration",
+        "authority": "non-authorizing"
+      },
+      {
+        "id": "SPEC-B7-SAT",
+        "path": "docs/specs/SPEC-B7-saturation-expiry-detector.md",
+        "stage": "B7",
+        "source_status": "draft-portable-construction",
+        "requirements": 9,
+        "probes": 9,
+        "requires": ["SPEC-B0", "SPEC-B7-CORE"],
+        "portable_evidence": "local-construction-only",
+        "portable_traceability_manifest": "solutions/sre-harness/spec-traceability/SPEC-B7-SAT.json",
+        "operational_state": "incomplete",
+        "next_gate": "human-policy-source-and-live-calibration",
+        "authority": "non-authorizing"
+      }
+    ]
+  },
+  "projects": [
+    {
+      "id": "omniscience",
+      "name": "Omniscience",
+      "repository": "https://github.com/100rd/Omniscience",
+      "role": "Platform knowledge hub and read-only evidence surface",
+      "portfolio_status": "issue-350-all-slices-implemented",
+      "owners": {
+        "component": "@100rd",
+        "portfolio": "@100rd"
+      },
+      "current_release": {
+        "version": "v0.5.0",
+        "evidence": "https://github.com/100rd/Omniscience/tree/v0.5.0"
+      },
+      "roadmap": {
+        "status": "issue-350-all-slices-implemented",
+        "page": "docs/portfolio/omniscience.md",
+        "component_milestones": "https://github.com/100rd/Omniscience/milestones"
+      },
+      "canonical_documents": {
+        "capability_specs": "https://github.com/100rd/Omniscience/blob/main/specs/SPEC-INDEX.md",
+        "task_specs": "https://github.com/100rd/Omniscience/blob/main/docs/specs/README.md",
+        "mcp_contract": "https://github.com/100rd/Omniscience/blob/main/docs/api/mcp.md",
+        "rest_contract": "https://github.com/100rd/Omniscience/blob/main/docs/api/rest.md",
+        "adrs": "https://github.com/100rd/Omniscience/blob/main/docs/decisions/README.md",
+        "runbooks": "https://github.com/100rd/Omniscience/tree/main/docs/runbooks"
+      },
+      "initiatives": [
+        {
+          "id": "230",
+          "title": "v0.5 SRE and MCP distribution epic",
+          "status": "open-pm-only",
+          "completed_tasks": 12,
+          "total_tasks": 13,
+          "remaining": ["242"],
+          "url": "https://github.com/100rd/Omniscience/issues/230"
+        },
+        {
+          "id": "244",
+          "title": "v0.6 Agentic Data Platform discovery",
+          "status": "pre-plan",
+          "next_gate": "competing-hypothesis discovery",
+          "url": "https://github.com/100rd/Omniscience/issues/244"
+        },
+        {
+          "id": "350",
+          "title": "Production readiness and stable consumer contract",
+          "status": "all-slices-implemented",
+          "url": "https://github.com/100rd/Omniscience/issues/350",
+          "slices": [
+            {"id": "mcp-v1", "status": "implemented"},
+            {"id": "production-ha", "status": "implemented"},
+            {"id": "backup-restore", "status": "implemented"},
+            {"id": "read-scaling-priority", "status": "implemented"},
+            {"id": "consumer-severance", "status": "implemented"}
+          ]
+        }
+      ],
+      "blockers": [
+        "MCP v1 manifest, schemas, contract_info handshake, and consumer pin are not yet published",
+        "Omnius severance drill and human verification evidence are not yet recorded",
+        "HA requires a separate Neo4j Enterprise/Aura licensing and Qdrant topology decision",
+        "OAuth 2.1, passport propagation, and the policy engine remain in issue #244 discovery"
+      ],
+      "mcp": {
+        "current_contract_version": "v0",
+        "target_contract_version": "1.0.0",
+        "current_runtime_tool_count": 14,
+        "target_tool_count": 15,
+        "target_tool_registry": [
+          "blast_radius",
+          "contract_info",
+          "find_similar_incidents",
+          "generate_postmortem",
+          "get_document",
+          "get_entity",
+          "get_related_entities",
+          "incident_timeline",
+          "list_entities",
+          "list_sources",
+          "replay_context",
+          "resolve_incident",
+          "search",
+          "source_stats",
+          "suggest_runbook"
+        ],
+        "token_profile": {
+          "id": "omniscience-mcp-read-v1",
+          "issuer": "Omniscience admin token API",
+          "exact_scopes": ["search"],
+          "max_lifetime_days": 30,
+          "rotation_overlap_hours": 24,
+          "workspace_binding": "required"
+        }
+      },
+      "spec_index": [
+        {"id": "SPEC-MCP", "kind": "capability", "status": "implemented-component-contract"},
+        {"id": "mcp-v1", "kind": "task", "status": "implemented"},
+        {"id": "production-ha", "kind": "task", "status": "implemented"},
+        {"id": "backup-restore", "kind": "task", "status": "implemented"},
+        {"id": "read-scaling-priority", "kind": "task", "status": "implemented"},
+        {"id": "consumer-severance", "kind": "task", "status": "implemented"}
+      ],
+      "execution_evidence": [
+        {
+          "id": "gh-issue-355",
+          "status": "implemented",
+          "pull_request": "https://github.com/100rd/Omniscience/pull/359",
+          "merge_commit": "d050eba8ffe6d025cc0db75ebc4dfc5a60dba937",
+          "verification": "component execution index"
+        }
+      ]
+    },
+    {
+      "id": "multiqlti",
+      "name": "multiqlti",
+      "repository": "https://github.com/100rd/multiqlti",
+      "role": "Personal Dark Factory and proving ground",
+      "portfolio_status": "live",
+      "owners": {"component": "@100rd", "portfolio": "@100rd"},
+      "current_release": {"version": null, "evidence": null}
+    },
+    {
+      "id": "omnius",
+      "name": "omnius",
+      "repository": "https://github.com/100rd/omnius",
+      "role": "Governed organizational Dark Factory",
+      "portfolio_status": "control-plane-implementation",
+      "owners": {"component": "@100rd", "portfolio": "@100rd"},
+      "current_release": {"version": null, "evidence": null},
+      "roadmap": {
+        "status": "control-plane-implementation",
+        "page": "docs/portfolio/omnius.md"
+      },
+      "canonical_documents": {
+        "capability_specs": "https://github.com/100rd/omnius/blob/main/specs/SPEC-INDEX.md",
+        "task_specs": "https://github.com/100rd/omnius/blob/main/docs/specs/README.md",
+        "readiness_profiles": "https://github.com/100rd/omnius/blob/main/specs/readiness/README.md",
+        "adrs": "https://github.com/100rd/omnius/blob/main/docs/adr/README.md",
+        "conformance": "https://github.com/100rd/omnius/blob/main/conformance/README.md",
+        "runbooks": "https://github.com/100rd/omnius/tree/main/docs/runbooks"
+      },
+      "initiatives": [
+        {
+          "id": "repository-adoption",
+          "title": "SPEC-driven repository adoption",
+          "status": "implementation-evidence-uncommitted",
+          "next_gate": "human ADR and readiness review"
+        },
+        {
+          "id": "p0-standard-http-service-v3",
+          "title": "First governed P0 vertical",
+          "status": "draft-non-authorizing",
+          "next_gate": "immutable external evidence and human activation"
+        }
+      ],
+      "blockers": [
+        "Current implementation and conformance evidence exists only in a dirty unpublished worktree",
+        "The component-owned p0-standard-http-service-v3 profile records eleven readiness blockers",
+        "Three human waivers and three target-profile failures keep assurance certification RED",
+        "Production authorities, immutable publications, real-path evidence, Realm admission, and human activation are absent"
+      ],
+      "readiness": {
+        "profile": {
+          "id": "p0-standard-http-service-v3",
+          "status": "draft",
+          "assurance_profile": "P0",
+          "platform_path": "standard-http-service/v3",
+          "source_path": "specs/readiness/p0-standard-http-service-v3.json",
+          "source_sha256": "sha256:30d81c62c67d96ee7ef46d3db2f78e97255cdfe595440412ea12910469060ede",
+          "selected_capabilities": 15,
+          "selected_requirements": 129,
+          "selected_probes": 126,
+          "readiness_blockers": 11,
+          "forbidden_actions": 14
+        },
+        "local_verification": {
+          "evidence_scope": "dirty-worktree-local",
+          "inspected_head": "a32fecd35588a10bd5453af4244c6fc219c7527f",
+          "worktree_publication_status": "dirty-unpublished",
+          "acceptance_tests_passed": 1025,
+          "environment_qualified_skips": 2,
+          "portable_probes_passed": 290,
+          "human_waivers": 3,
+          "target_profile_failures": 3,
+          "contract_conformance": "conformant",
+          "assurance_certification": "red",
+          "activation": "blocked"
+        }
+      }
+    },
+    {
+      "id": "platform-design",
+      "name": "platform-design",
+      "repository": "https://github.com/100rd/platform-design",
+      "role": "Infrastructure, security, and policy substrate",
+      "portfolio_status": "design-estate",
+      "owners": {"component": "@100rd", "portfolio": "@100rd"},
+      "current_release": {"version": null, "evidence": null}
+    },
+    {
+      "id": "platform-portal",
+      "name": "platform-portal",
+      "repository": "https://github.com/100rd/platform-portal",
+      "role": "Federated cross-component visualization, component-detail, and owner-delegated control experience",
+      "portfolio_status": "proposed",
+      "owners": {"component": "@100rd", "portfolio": "@100rd"},
+      "current_release": {"version": null, "evidence": null},
+      "canonical_documents": {
+        "vision": "https://github.com/100rd/platform-portal/blob/main/VISION.md",
+        "synchronized_entrypoint": "https://github.com/100rd/platform-portal/blob/main/PLATFORM.md",
+        "capability_specs": "https://github.com/100rd/platform-portal/blob/main/specs/SPEC-INDEX.md"
+      }
+    },
+    {
+      "id": "barbarossa",
+      "name": "Barbarossa",
+      "repository": "https://github.com/100rd/Barbarossa",
+      "role": "Independent synchronized-platform Continuous Management Plane with a shared kernel and isolated domain packs",
+      "portfolio_status": "proposed",
+      "owners": {"component": "@100rd", "portfolio": "@100rd"},
+      "current_release": {"version": null, "evidence": null}
+    },
+    {
+      "id": "genai-enablement",
+      "name": "genai-enablement",
+      "repository": "https://github.com/100rd/genai-enablement",
+      "role": "Portfolio decision plane and autonomous SRE safety harness",
+      "portfolio_status": "active",
+      "owners": {"component": "@100rd", "portfolio": "@100rd"},
+      "current_release": {"version": null, "evidence": null}
+    }
+  ]
+}

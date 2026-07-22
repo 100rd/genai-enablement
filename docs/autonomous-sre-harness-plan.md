@@ -126,14 +126,14 @@ deterministic.* Each stage is independently valuable and shippable.
 
 | Stage | Goal | Key deliverables | Risk |
 |---|---|---|---|
-| **0. Eval harness** | Measure before we trust | Incident-replay format `{ground_truth, snapshot}`; scorer (trajectory/depth/Pass@k); seed scenarios; port RCAEval/ITBench ideas | None (offline) |
+| **0. Eval harness** | Measure before we trust | [`SPEC-B0`](specs/SPEC-B0-offline-eval-harness.md): incident-replay format `{ground_truth, snapshot}`; honest implemented scorers plus fail-closed extensions; seed scenarios; publish real corpus/policy before stronger claims | None (offline) |
 | **1. Read-only triage + RCA** | Immediate value, zero write risk | Enable Datadog Bits AI; finish `ai-incident-agent` nodes (gather/analyze/RCA draft) against the eval harness; confidence scores | Low |
 | **2. Advisory change-validation gate** | Own the white space | GitLab CI stage + ArgoCD PreSync advisory check: blast-radius analysis -> proceed/block/require-human verdict | Low (advisory) |
 | **3. Deterministic rollback** | "Tested rollback ready" | Argo Rollouts + Datadog AnalysisTemplate canary auto-rollback (no LLM) | Medium (infra) |
 | **4. Tier-4 auto-remediation** | Bounded auto-healing | Allow-listed SSM runbooks (restart/scale/re-sync) with auto-rollback + notify; degrade->T3 off-plan | Medium |
 | **5. Tier-3 HITL remediation** | Approved actions | `aws:approve` / MR-approval flow; action-tier table enforced | Medium |
 | **6. Permanent-fix chase** | Close the loop | Agent opens MRs/issues for the real fix; tracks to done; never auto-merges | Low |
-| **7. Continuous Detection / Sentinel** | Catch a class before it recurs | Long-running/periodic detectors over platform state (anomaly / new-signature / change-induced-regression / drift / saturation+expiry); deterministic-first; T1 detect → T2 advise; scored by eval on lead-time. See [ADR-0001](decisions/0001-continuous-detection-sentinel.md). | Low (logic) / runtime needs cluster |
+| **7. Continuous Detection / Sentinel** | Catch a class before it recurs | [`SPEC-B7-CORE`](specs/SPEC-B7-core-sentinel-runtime-contract.md) plus the five [catalog SPECs](specs/README.md): long-running/periodic detectors over platform state (anomaly / new-signature / change-induced-regression / drift / saturation+expiry); deterministic-first; T1 detect → T2 advise; scored by eval on lead-time. See [ADR-0001](decisions/0001-continuous-detection-sentinel.md). | Low (logic) / runtime needs cluster |
 | **Cross-cutting** | Trust & audit | Autonomy-tier engine; OTel GenAI AgentOps; WORM audit trail; MRM inventory registration; ISO 42001 AIMS | — |
 
 **Buy vs build**: buy pre-triage/RCA (Datadog Bits AI / AWS DevOps Agent — both already integrate our

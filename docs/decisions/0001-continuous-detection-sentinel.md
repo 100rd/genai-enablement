@@ -66,6 +66,20 @@ Sentinel detectors are scored by the **eval harness** (Stage 0) on **lead-time**
 2. Runtime: `monitor`/`CronJob` wiring + observability source adapters (needs cluster).
 3. Cheap-model novelty clustering for `new-error-signature`; expensive-model finding draft.
 
+## Implementation map
+
+| Decision surface | Capability SPEC | Current evidence boundary |
+|---|---|---|
+| Common finding/state/source/scan/store/CLI contract | [`SPEC-B7-CORE`](../specs/SPEC-B7-core-sentinel-runtime-contract.md) | Portable local construction only |
+| `error-rate-vs-baseline` | [`SPEC-B7`](../specs/SPEC-B7-error-rate-baseline-detector.md) | Portable candidate rule and fixtures |
+| `new-error-signature` deterministic core | [`SPEC-B7-NES`](../specs/SPEC-B7-new-error-signature-detector.md) | Normalized identities only; model clustering deferred |
+| `change-induced-regression` | [`SPEC-B7-CIR`](../specs/SPEC-B7-change-induced-regression-detector.md) | Portable correlation only, never causation |
+| `drift` | [`SPEC-B7-DRIFT`](../specs/SPEC-B7-drift-detector.md) | Normalized digest observation only; no reconciliation |
+| `saturation / expiry` | [`SPEC-B7-SAT`](../specs/SPEC-B7-saturation-expiry-detector.md) | Candidate thresholds and fixture timelines only |
+
+The map closes source-SPEC coverage for the accepted detector catalog. It does not realize the live
+runtime, source, delivery, calibration, model, or operational evidence gates.
+
 ## See also
 - Plan: [`docs/autonomous-sre-harness-plan.md`](../autonomous-sre-harness-plan.md)
 - Eval harness (Stage 0): `solutions/sre-harness/src/sre_harness/eval/`

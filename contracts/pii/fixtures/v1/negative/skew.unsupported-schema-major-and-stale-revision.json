@@ -1,0 +1,23 @@
+{
+  "caseId": "skew-unsupported-schema-major-and-stale-revision",
+  "kind": "negative",
+  "category": "skew",
+  "requirement": "REQ-PII-POL-8",
+  "probe": "P-PII-POL-5",
+  "note": "Consumer pins schema_major 2 (bundle only supports 1) and an old policy_revision_pin, and evaluates after the bundle's expires_at -- all three must block new processing.",
+  "referenceNow": "2027-06-01T00:00:00Z",
+  "consumerPin": {
+    "component_id": "dev-fixture-consumer-omniscience",
+    "schema_major": 2,
+    "policy_revision_pin": "0.9.0",
+    "signer_trust_profile": "dev-fixture-signer-v1"
+  },
+  "bundle": {
+    "bundle_id": "dev-fixture-bundle-sp60-v1",
+    "policy_revision": "1.0.0",
+    "compatibility": { "schema_major": 1, "min_supported_major": 1, "max_supported_major": 1 },
+    "issued_at": "2026-01-01T00:00:00Z",
+    "expires_at": "2027-01-01T00:00:00Z",
+    "signer": { "key_id": "dev-fixture-signer-v1", "algorithm": "ed25519-dev-fixture-only" }
+  }
+}

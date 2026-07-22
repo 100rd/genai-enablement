@@ -1,0 +1,23 @@
+{
+  "caseId": "skew-signer-trust-mismatch",
+  "kind": "negative",
+  "category": "skew",
+  "requirement": "REQ-PII-POL-8",
+  "probe": "P-PII-POL-5",
+  "note": "Consumer's pinned signer_trust_profile no longer matches the bundle's current signer key_id (simulated key rotation/revocation) -- must block new processing even though schema_major and policy_revision otherwise match.",
+  "referenceNow": "2026-06-15T00:00:00Z",
+  "consumerPin": {
+    "component_id": "dev-fixture-consumer-omnius",
+    "schema_major": 1,
+    "policy_revision_pin": "1.0.0",
+    "signer_trust_profile": "dev-fixture-signer-v0-revoked"
+  },
+  "bundle": {
+    "bundle_id": "dev-fixture-bundle-sp60-v1",
+    "policy_revision": "1.0.0",
+    "compatibility": { "schema_major": 1, "min_supported_major": 1, "max_supported_major": 1 },
+    "issued_at": "2026-01-01T00:00:00Z",
+    "expires_at": "2027-01-01T00:00:00Z",
+    "signer": { "key_id": "dev-fixture-signer-v1", "algorithm": "ed25519-dev-fixture-only" }
+  }
+}

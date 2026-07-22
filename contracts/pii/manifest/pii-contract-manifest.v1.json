@@ -1,0 +1,154 @@
+{
+  "algorithm": "sha256-of-sorted-path-digest-pairs-v1",
+  "canonicalDigest": "sha256:fa312387e5fa4b3980b085e20033fc8d947474c62c15dd9e3836372dea01f038",
+  "contract": "SPEC-PII-POLICY",
+  "coveredRoots": [
+    "schemas/v1",
+    "fixtures/v1"
+  ],
+  "entries": [
+    {
+      "path": "fixtures/v1/negative/downgrade-violation.field-widening.json",
+      "sha256": "cb7e59bca700b045853fe6dbbb401f7007c78408b6741ae00060f39f192e9c26"
+    },
+    {
+      "path": "fixtures/v1/negative/downgrade-violation.permit-widen.json",
+      "sha256": "39fd029be08f3a8f862851b103f018a8c62e1c73c2cb5ca8906ff7ac4af6da59"
+    },
+    {
+      "path": "fixtures/v1/negative/downgrade-violation.profile-downgrade.json",
+      "sha256": "c1c520ce9cf93eff5235179e62752d877c80fdef82b662090e5f47ca94d89b84"
+    },
+    {
+      "path": "fixtures/v1/negative/lifecycle-collapse.non-conformant-deleted-literal.json",
+      "sha256": "400f084939c8f241355d0841dbdf194e287f8d6cc1c5be1952803ce4995d3e52"
+    },
+    {
+      "path": "fixtures/v1/negative/lifecycle-collapse.partial-claimed-complete.json",
+      "sha256": "66a15cb69be26bedf0006286bdbeac200d36a3dbb12eba237bd1cfe13aeab01c"
+    },
+    {
+      "path": "fixtures/v1/negative/raw-receipt.reversible-token-and-prompt-excerpt.json",
+      "sha256": "e1ed5fbd4c448c0cc51e9d314cdae6c65f2494e8f5005dfe7df092c202416783"
+    },
+    {
+      "path": "fixtures/v1/negative/replay.cross-sink-nonce-reuse.json",
+      "sha256": "680856dec52b2daf4f3395b43966a9e4c35339742b726bd83cc6db2b34b9a8ad"
+    },
+    {
+      "path": "fixtures/v1/negative/skew.signer-trust-mismatch.json",
+      "sha256": "3b682f03ab8f175950e1ca2904d8f8592f6fd2ddcf2e4c69acfc90bfe5264f60"
+    },
+    {
+      "path": "fixtures/v1/negative/skew.unsupported-schema-major-and-stale-revision.json",
+      "sha256": "10358b60113b6dff50ff4a8e2d0d4ea985f94c97a15da473bc16b44dea3e8601"
+    },
+    {
+      "path": "fixtures/v1/positive/boundary-decision-receipt.valid.json",
+      "sha256": "7845fec1141fe637e0b7a8038805203a64fd894cdbdb38f2c42d6f3902e727a6"
+    },
+    {
+      "path": "fixtures/v1/positive/compatibility-matrix.valid.json",
+      "sha256": "13d9c7b92b321f35045b051a90b3ac33fa159816a00540e87500dbe2037258ac"
+    },
+    {
+      "path": "fixtures/v1/positive/data-envelope.pw0.valid.json",
+      "sha256": "516915dbbb8ff1053e5cf01cee8a4450ddf73e1fc60fc82d1e479f73a7adc23f"
+    },
+    {
+      "path": "fixtures/v1/positive/data-envelope.pw1.valid.json",
+      "sha256": "95a93c574f4a83a2bc416bf716f7a132690740dacbd6009dc6ca5f82a9c91364"
+    },
+    {
+      "path": "fixtures/v1/positive/deletion-receipt.honest-partial.valid.json",
+      "sha256": "7752f10a6d22b3f9022d8326d0c1e61e9c8191a1aaf23877ffce3ccbbc4eade9"
+    },
+    {
+      "path": "fixtures/v1/positive/pii-permit.pw2-issuance.valid.json",
+      "sha256": "22a4ab72292c8e83fa087c470593b2d4313fb24a6ea8a1c86746ba5b9b9dd7fd"
+    },
+    {
+      "path": "fixtures/v1/positive/pii-policy-bundle.valid.json",
+      "sha256": "a9dc687aa74966db13bc9381fb758c9f0cb35be0bad6b97d21637a9e1872a8f7"
+    },
+    {
+      "path": "fixtures/v1/positive/privacy-coverage-envelope.valid.json",
+      "sha256": "d02daa193cdc548f66af6f8166377dfb744f02e37a460a09bb57f99affda2cc4"
+    },
+    {
+      "path": "fixtures/v1/positive/profile-downgrade.consumer-stricter.valid.json",
+      "sha256": "d700c32a1f0b33b40c8742d963a9b8a3badd5ffebaa89d994d3fbcb42c11a739"
+    },
+    {
+      "path": "fixtures/v1/positive/sanitization-receipt.valid.json",
+      "sha256": "5d3994a2a3fa7426f05b98b55f9752cfe127e09f383a076d45f4cb25d66e799c"
+    },
+    {
+      "path": "schemas/v1/boundary-decision-receipt.schema.json",
+      "sha256": "426b9c15a254c08a5e05be42c3223091d991166e9e264a90131f024d004d2f8f"
+    },
+    {
+      "path": "schemas/v1/compatibility-matrix.schema.json",
+      "sha256": "4c7ea687f9820749fb037a68c68a2e4621317cea83b3cc605f85ae1f6381cc44"
+    },
+    {
+      "path": "schemas/v1/compatibility-pin.schema.json",
+      "sha256": "c8336bb7316c229a717cda49038c782e50b45e04fbd0c19cc06137b4d47359c6"
+    },
+    {
+      "path": "schemas/v1/data-class.schema.json",
+      "sha256": "19eb0a02cc94cebf1ba61f9f456d217983bf847740216628c6caa67b6d70c886"
+    },
+    {
+      "path": "schemas/v1/data-envelope.schema.json",
+      "sha256": "4aeaf4ef829bbfd4e85cef8d2bf5b81ca9424d02e89370135b43e67f5d647700"
+    },
+    {
+      "path": "schemas/v1/deletion-receipt.schema.json",
+      "sha256": "a75591521b96561c3030486dffae947b3bb726fac1143365d3b95a6d8b3343ac"
+    },
+    {
+      "path": "schemas/v1/disposition.schema.json",
+      "sha256": "6612e35656fc8eb5d9a8584c55d8eedbf20afee3d718edd02dd0a6238bbb2996"
+    },
+    {
+      "path": "schemas/v1/integrity.schema.json",
+      "sha256": "b1a592e2b3a59e24b50193b50624c3d516e67ae0d3e35ecfc2b8faf1afc69896"
+    },
+    {
+      "path": "schemas/v1/pii-permit.schema.json",
+      "sha256": "f920df9bf0b9f0179dcc9762e0447c44c1ab224cdf41ada8bcd8845699783631"
+    },
+    {
+      "path": "schemas/v1/pii-policy-bundle.schema.json",
+      "sha256": "02038e6b41c9ac7de07c95bf15b679782f5b760534790d9b604d67edc5d037ec"
+    },
+    {
+      "path": "schemas/v1/privacy-coverage-envelope.schema.json",
+      "sha256": "ace53bc02b12a6b530550d3fc218f61f3957d359795c052a7ef902e46dc7ce9b"
+    },
+    {
+      "path": "schemas/v1/profile-rule.schema.json",
+      "sha256": "58f745e0826da6a8755c573443ee9dcc109d51ebb4b1ee8f914f1e8dd0701463"
+    },
+    {
+      "path": "schemas/v1/profile.schema.json",
+      "sha256": "ce34ceeeb4da8f7df56c72edb6974f52905eb36cae154d06ac7c385bfd3d0e73"
+    },
+    {
+      "path": "schemas/v1/sanitization-receipt.schema.json",
+      "sha256": "90c2908cdffc45c1cb2e19eb836a49934da97ae9bfdf12351ef92e6fb06d98fe"
+    },
+    {
+      "path": "schemas/v1/transform-state.schema.json",
+      "sha256": "eaaeed3b2b17aa63b3eb8e46aaad0bc242ee3433b4de01f11d46a4640ca09031"
+    }
+  ],
+  "entryCount": 34,
+  "generatedBy": "contracts/pii/tooling/build_manifest.py",
+  "governingAdrs": [
+    "genai-enablement/ADR-0018"
+  ],
+  "schemaMajor": 1,
+  "workPackage": "SP-60"
+}

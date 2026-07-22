@@ -1,0 +1,29 @@
+{
+  "caseId": "data-envelope-pw0-valid",
+  "kind": "positive",
+  "category": "schema",
+  "requirement": "REQ-PII-POL-4",
+  "probe": "P-PII-POL-1",
+  "schema": "data-envelope.schema.json",
+  "instance": {
+    "envelope_id": "dev-fixture-envelope-pw0-001",
+    "tenant_id": "dev-fixture-tenant-a",
+    "workspace_id": "dev-fixture-workspace-a1",
+    "source_ref": "dev-fixture-source-doc-001",
+    "purpose_id": "dev-fixture-purpose-support",
+    "data_class": "internal_non_personal",
+    "transform_state": "redacted",
+    "field_manifest": ["title", "summary"],
+    "allowed_fields": ["title", "summary"],
+    "allowed_sinks": ["knowledge-store", "portal-projection"],
+    "policy_revision": "1.0.0",
+    "lineage": ["dev-fixture-source-doc-001"],
+    "produced_at": "2026-06-01T00:00:00Z",
+    "expires_at": "2026-12-01T00:00:00Z",
+    "coverage": "full",
+    "integrity": {
+      "algorithm": "sha256",
+      "digest": "cf8d82395c2be793918dd22868eb62bfb80fb73dfd4bea6853617277afdcda94"
+    }
+  }
+}

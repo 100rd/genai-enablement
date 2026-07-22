@@ -1,0 +1,29 @@
+{
+  "caseId": "deletion-receipt-honest-partial-valid",
+  "kind": "positive",
+  "category": "lifecycle-aggregation-honest",
+  "requirement": "REQ-PII-POL-7",
+  "probe": "P-PII-POL-4",
+  "deletionReceipt": {
+    "request_id": "dev-fixture-deletion-request-001",
+    "tenant_id": "dev-fixture-tenant-a",
+    "workspace_id": "dev-fixture-workspace-a1",
+    "subject_ref": "dev-fixture-subject-ref-771",
+    "policy_revision": "1.0.0",
+    "store_class": "knowledge-store",
+    "covered_artifacts": ["postgres-doc-771", "qdrant-vector-771"],
+    "excluded_or_pending": ["backup-archive-771"],
+    "disposition": "backup_pending",
+    "store_states": [
+      { "store": "postgres-doc-771", "disposition": "complete" },
+      { "store": "qdrant-vector-771", "disposition": "complete" },
+      { "store": "backup-archive-771", "disposition": "backup_pending" }
+    ],
+    "produced_at": "2026-06-02T00:00:00Z",
+    "producer": "dev-fixture-producer-omniscience-lifecycle",
+    "integrity": {
+      "algorithm": "sha256",
+      "digest": "6676a2df0d7f31897928ae8e726a01570e8e60cf7614bd30a6bafe3269409d5e"
+    }
+  }
+}

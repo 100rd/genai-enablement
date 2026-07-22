@@ -2,245 +2,327 @@
 
 - **Status:** Proposed
 - **Date:** 2026-07-03
+- **Last reviewed:** 2026-07-16
 - **Deciders:** platform owner
-- **Scope:** binding for multiqlti and omnius; informative for PB-SRE / sre-harness
-  (the action-tier table is the shared seed for D1)
-- **Builds on:** [ADR-0003](0003-unified-sdlc-standard.md) (task-lifecycle invariants I1–I8).
-  ADR-0003 defines *what* Produced / Verified / Done / Landed / Escaped mean; this ADR defines
-  *how* each branch point in the loop is decided.
-- **Vocabulary:** [platform-glossary.md](../platform-glossary.md) (autonomy tiers T1–T4,
-  task classes, gate vs guardrail) · skills per [ADR-0002](0002-platform-skills-registry.md)
+- **Scope:** cross-repository compatibility proposal for `multiqlti` and `omnius`; informative for the
+  Autonomous SRE harness
+- **Builds on:** proposed [ADR-0003](0003-unified-sdlc-standard.md) and accepted
+  [ADR-0009](0009-organizational-dark-factory-sdd.md),
+  [ADR-0010](0010-goal-oriented-organizational-dark-factory.md), and
+  [ADR-0012](0012-capability-readiness-profiles.md)
+- **Vocabulary:** [platform-glossary.md](../platform-glossary.md); skills remain governed by proposed
+  [ADR-0002](0002-platform-skills-registry.md)
 
 ## Context
 
-The platform runs two factory loops that must make decisions the same *way*, without sharing
-an engine: **multiqlti** (personal tier, staged DAG pipeline) and **omnius** (centralized tier,
-durable FSM). ADR-0003 unified the task lifecycle. It did **not** unify the *decision rules* at
-the loop's branch points — how the next step is chosen, how a verdict is reached, when work
-escalates to a human, when the loop stops or rolls back.
+The platform has factory loops with different internal engines: `multiqlti` uses task orchestration and a
+Consilium/SDLC loop, while `omnius` is constructing a durable Conductor FSM. Shared organizational work
+needs compatible branch semantics without requiring one engine, one stage vocabulary, one model, or one
+implementation language.
 
-A code-level reconnaissance of both loops (2026-07-03, two independent read-only passes) found:
+The original 2026-07-03 reconnaissance is no longer current evidence. As of 2026-07-16:
 
-- **omnius** already decides every load-bearing branch by a deterministic, out-of-LLM rule that
-  fails closed. Two conformance probes (`probe_cc5_gate_deterministic`,
-  `probe_bm3_no_llm_judge_in_gate`) statically grep the gate/verifier packages for an LLM import
-  or a `route_turn(` call and **block the merge** if found. The LLM is a *producer*, never an
-  *arbiter*.
-- **multiqlti** has **two execution paths** with opposite decision postures:
-  - the base `PipelineController` is **autonomous-by-default with a process-completion DoD** —
-    its only hard blocks are deterministic *structural* checks (DAG readiness/conditions,
-    sandbox exit code) and *opt-in, default-off* human gates. Its quality machinery
-    (`guardrail-runner`, the "Dark Factory" plan/DoD evaluators) is **unwired** — `applyGuardrails`
-    has zero callers, `GuardrailValidator.validate()` is never invoked, the evaluator services
-    have no callers and return stubs. Quality is aspirational here.
-  - the separate **Consilium / SDLC FSM** genuinely enforces a DoD: a deterministic convergence
-    derivation (converged ⟺ zero open P0 action points), a refute-by-default per-AP judge
-    verifier (schema requires `passed: bool`; absence ⇒ not-passed), a mechanical weak-criterion
-    lint, and a human `merge_approved` + Draft-PR gate.
+- the local `multiqlti` checkout at `44a6a33...` is dirty, although the dirty files are outside its loop
+  core. Commit `42af803` retired the legacy `PipelineController` and `guardrail-runner` files this ADR
+  previously treated as the autonomous base path. The current Consilium loop has a deterministic reducer,
+  structured convergence, optional per-criterion checks, a refute-by-default model-verifier parser, and a
+  Draft-PR human gate. Its `class` field is explicitly metadata-only, `autonomyTier` remains unset, no
+  admission logic reads either field, and no indexed `WorkOrder`, canonical `OutcomeEvent`, or
+  `ReturnEvent` contract exists. Optional planner/verification switches and a human-visible flagged result
+  are useful construction seams, not a complete decision authority;
+- the local `omnius` checkout at `a32fecd...` is extensively dirty. It contains strong candidate contracts
+  for frozen execution bundles, deterministic FSM replay, breakers, readiness, action and delivery gates,
+  transactions, outcomes, and return-source health. Those mechanisms sit beside legacy seams, including a
+  broad `phase_3` autonomy table and a minimal `phase_2.OutcomeEvent`; their governing component SPECs are
+  draft and their exact revisions are not published or activated. Static conformance probes and local tests
+  demonstrate mechanisms, not adoption of this ADR or production authority.
 
-So the two loops *already agree* on decision posture **in their strict paths** — deterministic
-control-flow, out-of-LLM gates, fail-closed, human-owns-the-irreversible. The divergence is that
-this posture is omnius's **only** path but multiqlti's **non-default** path. This is a correctness
-hazard: a cross-factory workflow (graduation, shared yield) that assumes a task was *decided* the
-same way inherits multiqlti's autonomous base path silently.
+The current evidence therefore supports a compatibility decision and an adoption map, not a claim that
+either component is already conformant. In particular, a deterministic transition is not enough when its
+input can be supplied by the producer, an action-tier lookup is not provider authorization, a human gate
+does not repair missing technical evidence, and a return inside a time window does not by itself prove an
+escape.
 
-> Note — this corrects an assumption in ADR-0003 Appendix A ("the mechanism already exists,
-> guardrail-runner + DAG condition evaluator — this changes the default, not the engine"): the
-> guardrail path is not wired into the base pipeline. multiqlti's conformant path is the
-> Consilium/SDLC loop; adoption routes class ≥ A there (or wires blocking guardrails into the
-> base pipeline). See Appendix A.
+## Acceptance boundary and precedence
+
+This ADR is non-binding while `Proposed`. Proposed ADR-0003, ADR-0006, ADR-0014, ADR-0015, and ADR-0016
+cannot accept one another by reference. Accepted ADR-0009, ADR-0010, and ADR-0012 remain authoritative:
+humans own ADRs and profiles, mutation requires a governed WorkOrder/SPEC, Done is end-to-end and
+probe-defined, and readiness is an exact human-owned requirement/probe/revision decision.
+
+The platform owner may accept a mutually compatible ADR-0003/0006 revision set or supersede either
+proposal. Acceptance would authorize component-owned SPEC and conformance work. It would not publish a
+shared schema or action catalog, accept component drafts, activate a profile or Realm, admit an action,
+grant a provider credential, approve a merge/deploy, widen autonomy, create a cloud resource, or make
+dirty/local evidence immutable. Those transitions keep their own owners and exact evidence gates.
+
+This proposal edit changes no ADR status, component code/SPEC/schema, WorkOrder or workflow state,
+readiness decision, credential, provider/cloud/Kubernetes resource, repository revision, external policy,
+or deployed system.
 
 ## Decision
 
-The standard is **seven decision rules over a task-loop** — the *model*, not the engine, not the
-tools, not the prompts, not the model choices. Each factory keeps its loop (multiqlti's DAG +
-Consilium FSM, omnius's conductor FSM) and MUST decide each branch point by the rule below,
-through its own mechanism. Conformance mapping is in Appendices A/B.
+The proposed standard is seven rules for load-bearing branch decisions. A branch decision consumes a
+frozen decision context containing the exact WorkOrder/task/SPEC/requirement revisions, readiness profile
+and Realm, action/effect/target, class and requested tier, producer/verifier/executor identities, policy and
+evidence authorities, budget/clock, state epoch, and compensation posture. A missing, stale, ambiguous,
+caller-substituted, or mismatched field produces no positive authority.
 
-Two principles govern all seven (both already visible in code): **autonomy is inversely
-proportional to irreversibility**, and **ground truth for a decision comes from outside the
-producer**.
+Every positive decision is a closed, versioned, integrity-protected record or opaque capability binding
+the complete input projection, policy/verifier/profile revisions, decision and expiry times, outcome,
+reason codes, and issuing authority. Free text, a raw boolean, a model self-report, a task label, a local
+enum, or an action-table row is never that decision. Components may implement the record differently but
+must prove equivalent semantics and replay behavior.
 
-### D1 — Action admission (before every side effect)
+### D1 — Action admission separates risk classification from authorization
 
-Every side-effecting action is classified — task **class** (R0/A/B/C/E per ADR-0003 I1) and a
-minimum **tier** — by a deterministic classifier **before** it executes. Irreversible or
-production actions are never auto-admitted. An **unknown** action classifies to the most
-restrictive posture (→ human), never the least. The action-tier table (sre-harness
-`ACTION_TIER_TABLE`) is the shared seed; each factory extends it for its own action kinds
-(commit, PR, merge, deploy, migration, sandbox exec).
+Before every state-changing effect, a closed versioned catalog deterministically maps the exact action
+kind and target class to minimum obligations. Unknown, broad, conflicting, or unregistered actions select
+the most restrictive posture and reach no provider. Task class and autonomy tier are risk/admission
+inputs, not permissions.
 
-- *Inherited (norm):* classify-before-execute, unknown → most-restrictive, prod/irreversible ≠ auto.
-- *Per factory (execution):* which classifier (Cedar policy vs a TS action map), the exact table.
+The effect executes only after a separate, atomic admission step joins the exact ready requirement/profile,
+effective Realm and deny policy, immutable action/target/plan, executor identity and credential scope,
+required human receipt or bounded-autonomy capability, idempotency claim, compensation/forbidden posture,
+budget, and audit sink. The resulting step-scoped capability cannot authorize another effect or survive a
+relevant revision change. Admission establishes an exclusive effect/state fence, and an enforced mutation
+boundary atomically redeems the single-use capability against the complete unchanged projection before the
+provider call. A caller-side check followed by an independently credentialed mutation is insufficient.
+Classification without this join performs no mutation.
 
-### D2 — Control-flow selection (deterministic, out-of-LLM)
+Production and non-compensatable effects remain default-deny for autonomous execution. This proposal does
+not create an exception merely because an action is labeled reversible, low-tier, or human-reviewed. An
+R0 task that acquires a persistent workspace, provider, network, repository, or deployment effect must
+park and reclassify before the first effect.
 
-Which step/transition runs next is decided by deterministic code reading **structured fields** —
-never by an LLM's free text, never by `eval()`. An LLM may *produce* the content a step consumes;
-it may not *choose* the control flow. (This is the control/data-flow separation of SPEC-CD
-REQ-CD-9 / SPEC-BM REQ-BM-15, raised to platform law.)
+### D2 — Control-flow selection is deterministic, replayable, and out of the model
 
-- *Inherited (norm):* control flow is a pure function of structured state; content ≠ routing.
-- *Per factory (execution):* FSM transition table (omnius) vs topological DAG + condition
-  evaluator (multiqlti).
+The next state/step is a pure, replayable function of committed structured state plus independently
+verified decision capabilities and recorded events. Models may propose plans, content, criteria, or
+candidate actions; their text, tool choice, confidence, or self-reported status cannot select a transition.
+Clock, randomness, provider responses, and human signals enter the reducer only as bounded, persisted,
+schema-validated events with provenance and idempotency identity.
 
-### D3 — Verification decision (producer ≠ verifier, LLM never the sole arbiter)
+Missing, duplicated, reordered, future, unknown-schema, or conflicting events fail closed or replay to the
+same result. A parser, planner, verifier, source, or durable-store failure parks/stops the affected branch;
+there is no unskilled, cached, local-state, or model-text fallback that preserves mutation authority.
 
-A pass/fail verdict is issued by a verifier **independent of the producer** (different model
-family, ADR-0003 I4) and is **derived by deterministic rule over structured signals**. An LLM is
-**never the sole arbiter of a gate** (SPEC-BM REQ-BM-3). Where an LLM verifier is used, its output
-is schema/enum-clamped and **refute-by-default**: absence, error, or unparseable output ⇒
-not-passed, never a silent pass.
+### D3 — Verification authority and ground truth are independent of the producer
 
-- *Inherited (norm):* independent verifier, deterministic derivation, LLM-refute-by-default,
-  no-LLM-as-sole-gate.
-- *Per factory (execution):* proofs A/A′/B/E + canaries + independence weights (omnius) vs
-  convergence derivation + per-AP refute-by-default judge + weak-criterion lint (multiqlti
-  Consilium loop).
+The producer cannot define or alter the verifier identity, acceptance criterion, expected result, policy,
+evidence source, gate configuration, or immutable result for its own work. Deterministic external probes
+are preferred. Verification deterministically derives `pass`, `fail`, or `inconclusive` from closed
+structured evidence; missing/unmeasured/errored evidence is `inconclusive`, never pass.
 
-### D4 — Landing decision (fail-closed: auto vs human)
+A model may analyze evidence only when the accepted risk/profile permits it. Its output is schema-clamped
+and refute-by-default, but that does not make a model an independent oracle. Different family/provider,
+blind voting, debate, judge prompts, or consensus is supporting evidence only; it is insufficient when the
+producer controls the prompt, criteria, diff, sources, policy, routing, or result. A governed mutation or
+completion gate cannot use an LLM as its sole arbiter.
 
-Landing (merge / commit / deploy) is auto **only if every condition is measurable and true and
-the class permits it**; any condition that is `None` / unmeasured / unknown routes to a **human
-gate** (fail-closed). Production never auto-lands.
+A human decision is also exact evidence rather than a universal fallback. It must come from a pre-admitted
+eligible identity and bind the specific revision/action/target; it cannot turn an unavailable technical
+fact, forged provenance, unready profile, or forbidden effect into a verified one.
 
-- *Inherited (norm):* all-conditions-measurable-and-true, else human; `None` = fail, not pass;
-  prod = human.
-- *Per factory (execution):* `can_auto_merge` 7-condition predicate (omnius) vs `awaiting_merge →
-  merge_approved` + Draft-PR (multiqlti Consilium loop).
+### D4 — Verification, landing, and Done are separate decisions
 
-### D5 — Autonomy disposition & escalation (one matrix, no self-widening)
+Landing may proceed only when every precommitted landing condition is measured true, the exact verification
+and delivery-trust capabilities are current, the class/profile permits the branch, and D1/D5 authority is
+present. `None`, missing, stale, partial, copied, or mismatched inputs park. A human gate may choose among
+technically admissible branches but cannot waive an absent invariant unless a separately accepted,
+revision-bound waiver policy explicitly permits it.
 
-Escalation is decided by a single disposition model — `{ auto, human-gate, human-forever }` — over
-(action, environment). An **unknown row escalates to human.** No autonomous chain may widen its own
-autonomy: the autonomy toggle is **human-set and out of the factory's reach** (no-self-promotion,
-L4-never-L5); a chain that transitively reaches a correctness-defining or boundary-expanding node
-must not run autonomously.
+Auto-landing is default-off and requires its own accepted policy plus an exact ready profile/path and
+certified required assurance. Production auto-landing is not authorized by this ADR. A verifier pass,
+`converged` label, Draft PR, merge, deploy, or `can_auto_merge` result proves only its own branch; Done still
+requires every frozen delivery/runtime/compensation Condition of Done under ADR-0010/ADR-0003.
 
-- *Inherited (norm):* one disposition table, unknown → human, human-owned toggle,
-  no-self-promotion / L5 composition check.
-- *Per factory (execution):* Autonomy Matrix (17 rows) + L5CompositionProbe (omnius) vs the
-  disposition table multiqlti must adopt (today: only default-off `approvalRequired` + human merge).
+### D5 — Disposition is closed, human-owned, and cannot self-widen
 
-### D6 — Stop & rollback decision (breakers; compensate for class ≥ B)
+One versioned disposition policy maps the exact action, environment/Realm, class, and current assurance to
+`autonomous`, `requires-human`, or `prohibited`. An unknown action or policy row is prohibited until a human
+owner publishes an admitted classification; a known but unmeasurable row is non-autonomous. A factory,
+model, skill, task frontmatter field, local administrator flag, or transitive tool chain cannot widen its
+own row, eligibility, tier, target, or profile.
 
-The loop stops on deterministic **circuit breakers** scoped per class (cost, wall-clock, retry
-ceiling, crash). For class ≥ B, a landed-then-failed task **must** roll back — a registered
-compensator, or "the disposable environment *is* the rollback". Effects are **idempotent**: a
-duplicate execution is a no-op, not a second effect.
+Human execution requires an immutable, append-only, single-purpose receipt binding the eligible human
+identity/role, any required MFA or step-up evidence, decision, exact action/target/revisions, issue and
+expiry times, and one-time/replay semantics. A generic `approved`, mutable toggle, actor string, UI click,
+or factory-authored receipt is invalid. Composition analysis must fail any autonomous chain that reaches a
+correctness-defining, boundary-expanding, credential-minting, policy-changing, or self-approval node.
 
-- *Inherited (norm):* per-class breakers, mandatory rollback for class ≥ B, idempotent effects.
-- *Per factory (execution):* saga reconciler + IntentClaim (DB-unique) + breakers (omnius) vs the
-  compensator/idempotency model multiqlti must add (today: stage-fail ⇒ run-fail, no rollback).
+### D6 — Breakers stop new effects; claims, compensation, and reconciliation close old ones
 
-### D7 — Outcome & escape decision (return signal independent of the verifier)
+Every side effect has an atomic intent claim and an exact idempotency/concurrency strategy before the
+provider call. It also has a pre-registered, independently admitted, idempotent compensator or is classified
+non-compensatable and prohibited from autonomous execution. Task class informs the obligations; it does
+not create a fictional rollback for an irreversible action or exempt a reversible action from effect
+safety.
 
-A landed task that returns (bug, incident, revert, regression) within window **W** is decided
-**ESCAPED**, and the return signal's source MUST be **independent of the verifier that passed it**
-(ADR-0003 I8). A yield figure computed without D7 is invalid.
+Precommitted class/profile budgets bound steps/retries, wall-clock, spend, provider calls, parked capacity,
+and other accepted axes. A tripped breaker prevents new effects and drives the durable loop into a typed
+stop/compensate/park state; it does not erase an in-flight external effect. Crash, timeout, response loss,
+duplicate delivery, and controller disappearance reconcile exact provider truth under the persisted
+claim. Compensation order and completion are decided by deterministic external probes, never an agent
+signal. Unknown or failed reconciliation remains pinned/FROZEN for human resolution.
 
-- *Inherited (norm):* independent return signal, ESCAPED within W, no-escape-tracking = invalid-yield.
-- *Per factory (execution):* incident-plane escape rate (omnius, already the platform model) vs the
-  OutcomeEvent/return join multiqlti must add.
+Retries cannot produce a second effect, cancellation cannot release an unresolved effect fence, and a
+disposable filesystem/environment counts as rollback only for state proven not to have escaped that
+boundary.
+
+### D7 — Outcome and escape decisions require exact independent return evidence
+
+`OutcomeEvent` and `ReturnEvent` are versioned, append-only, signal-only records emitted after durable
+state changes. They never authorize a transition, provider action, landing, completion, rollback, or
+autonomy widening. Exporter/backend failure cannot change workflow truth.
+
+A return inside window `W` is only a candidate. `ESCAPED` requires an accepted attribution policy to join
+the exact WorkOrder/task/SPEC, landed artifact/deployment and state epoch, independently owned return
+source/revision, source coverage/freshness/liveness, return type, and human-owned window-policy revision.
+Temporal proximity, matching text, a dashboard correlation, or a producer/verifier-authored incident is
+insufficient and routes to human review or `unavailable`.
+
+Missing/stale/partial return coverage makes escape rate and Autonomous Yield unavailable, never zero. The
+verifier cannot create, suppress, close, or attest its own return. Replay, duplicates, late returns, source
+severance, and disputed attribution preserve an append-only audit and cannot rewrite the original outcome.
 
 ## Consequences
 
-**multiqlti (most of the change is here):**
-- The **conformant loop is the Consilium/SDLC FSM**, which already satisfies D2/D3/D4 and the human
-  half of D5. Any run of **class ≥ A must be decided on that path** — OR the base pipeline must wire
-  blocking guardrails (currently dead) + an action-admission classifier before it may run class ≥ A.
-- **D1**: add a before-execute action classifier (workspace/commit/PR/deploy/sandbox) with
-  auto-escalation (ADR-0003 I1).
-- **D5**: adopt an explicit disposition table (seed from sre-harness `ACTION_TIER_TABLE`) instead of
-  the single default-off `approvalRequired` flag.
-- **D6**: add a compensator/idempotency model for class ≥ B (today none).
-- **D7**: emit the OutcomeEvent + escape join (ADR-0003 I8, already tracked as multiqlti#445).
-- Engine unchanged: DAG, strategies, Consilium FSM all stay.
+**multiqlti:**
 
-**omnius (already conformant):**
-- D1–D7 each map to an existing deterministic mechanism (Appendix B). No behavioral change.
-- Only alignment work: keep the `probe_cc5` / `probe_bm3` gate-determinism probes as the machine
-  enforcement of D2/D3 (already present), and emit the platform OutcomeEvent for D7 (ADR-0003 I6).
+- the current Consilium reducer, CAS transitions, bounded rounds, Draft-PR pause, structured convergence,
+  refute-by-default parser, and optional mechanical checks are useful construction mechanisms;
+- current `class`/`autonomyTier` metadata, model-proposed criteria, optional verification/planner switches,
+  human-visible flagged results, and local `converged` state do not jointly implement D1-D7;
+- adoption needs a governed non-R0 WorkOrder/SPEC envelope, atomic effect admission, accepted external
+  verification/landing authorities, closed disposition policy and receipts, effect claim/compensation,
+  breaker/reconciliation semantics, and canonical outcome/return joins. The retired legacy pipeline is no
+  longer an adoption target.
+
+**omnius:**
+
+- current dirty/local execution-bundle, Conductor, readiness, transaction, delivery, outcome, and Human
+  Boundary contracts are candidate implementation evidence;
+- legacy and candidate seams must be reconciled under accepted component SPECs, immutable revisions, exact
+  profiles, protected identities, and real-path probes before any conformance claim;
+- `can_auto_merge`, static no-LLM probes, a broad legacy autonomy row, a local HMAC test double, or a draft
+  outcome model cannot independently establish D1-D7 or end-to-end Done.
 
 **Platform:**
-- A decision made in either factory means the same thing; the graduation path can trust that a
-  task was *decided*, not just *labeled*, the same way.
-- The gate-determinism probes (omnius) become the reference conformance mechanism other loops
-  should mirror.
 
-**Costs / risks:**
-- Routing multiqlti class ≥ A exclusively through the Consilium loop narrows what the fast base
-  pipeline may autonomously land — intended, but needs a migration note and the R0 escape hatch
-  (base pipeline stays fully autonomous for R0/text-only work).
-- D6 (compensators) is real new engineering for multiqlti, not a config change.
-- Two loops asserting D3 differently (proofs vs convergence) must both be expressible as
-  "deterministic derivation over structured signals" — the conformance fixtures must test the
-  *rule*, not the mechanism.
+- equivalent branch decisions can be compared across engines without equating local state names;
+- every decision has an explicit authority, frozen input projection, failure posture, expiry/replay rule,
+  and non-authority boundary; and
+- ADR-0016 may consume the final D6/D7 semantics only after the platform owner accepts compatible exact
+  revisions; its proposed status does not bootstrap this proposal.
 
-## Alternatives considered
+**Costs and risks:**
 
-1. **Fold the decision model into ADR-0003** — rejected: I1–I8 are lifecycle *states*; D1–D7 are
-   branch *rules*. Mixing them hides that a task can be in the right state via the wrong decision.
-2. **Standardize the loop engine (one harness/action-space)** — rejected (matches the component-map
-   ruling): the tiers optimize different things; the owner wants a light base pipeline for R0.
-   This ADR standardizes the *rules*, explicitly not the engine, tools, prompts, or models.
-3. **Wire multiqlti's base-pipeline guardrails and call it done** — insufficient alone: guardrails
-   are a validator hook, not the independent-verifier + fail-closed-landing + disposition model
-   D3/D4/D5 require. The Consilium loop already implements those; adoption should build on it.
+- both components need closed conformance fixtures and component-owned adoption contracts;
+- multiqlti needs real effect admission and compensation rather than metadata plus a human-visible flag;
+- omnius must retire or version-gate conflicting legacy seams rather than let strong candidate modules
+  imply whole-system conformance; and
+- conservative `inconclusive`/park behavior reduces apparent throughput but prevents unmeasured work from
+  becoming authority.
 
-## Appendix A — multiqlti conformance mapping
+## Rejected alternatives
 
-> Two paths. **Base `PipelineController`** = the autonomous default. **Consilium/SDLC FSM** = the
-> strict path. Class ≥ A must decide on the strict path (or the base pipeline gains the missing
-> gates). Anchors are `project/multiqlti/`.
+| Alternative | Reason |
+|---|---|
+| Standardize one loop engine | Shared semantics do not require shared orchestration technology. |
+| Action class/tier row is authorization | Classification omits profile, Realm, target, identity, compensation, and evidence. |
+| Structured model boolean is a gate | Schema validity does not make the model an independent ground-truth authority. |
+| Different model family proves independence | The producer may still control criteria, prompt, sources, routing, or result. |
+| Human approval repairs missing evidence | A human may choose an admissible branch, not fabricate technical truth or readiness. |
+| Merge, deploy, or `converged` means Done | Landing is only one condition in the frozen end-to-end contract. |
+| All class-B effects must roll back | An irreversible action may have no honest rollback and must instead be prohibited/autonomy-gated. |
+| Breaker expiration releases all locks | An unresolved external effect must remain fenced through reconciliation. |
+| Return inside `W` means ESCAPED | Time correlation alone does not establish exact attribution. |
+| Telemetry advances the workflow | Exporter compromise or outage would become execution authority. |
 
-| Rule | Base pipeline (default) | Consilium/SDLC loop (conformant path) | Gap to close |
-|---|---|---|---|
-| D1 admission | sandbox/workspace/deploy classified only opt-in; no before-execute class check | class carried by the SDLC run | **new**: action classifier + auto-escalation (I1) |
-| D2 control-flow | ✅ `dag-executor` topological + `dag-condition-evaluator` (safe ops, never `eval()`) | ✅ FSM `decide()` | none — already deterministic both paths |
-| D3 verification | ✗ no quality gate; `guardrail-runner` **unwired** (zero callers); consensus opt-in/default-off | ✅ convergence (zero-open-P0) + per-AP refute-by-default judge + weak-criterion lint | route class ≥ A to Consilium **or** wire blocking guardrails |
-| D4 landing | ✗ run `completed` on process completion; no landing gate | ✅ `awaiting_merge → merge_approved` (human) + Draft-PR | route class ≥ A to Consilium |
-| D5 disposition | opt-in `approvalRequired` (**default-off**) only | human `merge_approved` gate | **new**: explicit disposition table (seed `ACTION_TIER_TABLE`) |
-| D6 stop/rollback | stage-fail ⇒ run-fail (deterministic); **no rollback/compensator**, no idempotency | — | **new**: compensator + idempotency for class ≥ B |
-| D7 outcome/escape | telemetry only | — | **new**: OutcomeEvent + escape join (I8, multiqlti#445) |
+## Current component adoption map
 
-## Appendix B — omnius conformance mapping
+These tables are a 2026-07-16 read-only observation, not a component SPEC, conformance result, or
+readiness decision.
 
-> Single path, already conformant. Anchors are `project/omnius/`.
+### multiqlti
 
-| Rule | Mechanism (deterministic, fail-closed) | Anchor |
+| Rule | Current candidate mechanism | Required adoption boundary |
 |---|---|---|
-| D1 admission | `CedarPDP.classify` (default class E), `AutonomyMatrix.evaluate_action`, `tx_ledger.check_forbidden_actions`; prod-from-merged-main guard | `pool/__init__.py:22-51`, `conductor/__init__.py:249-258,274-295` |
-| D2 control-flow | conductor FSM transitions C1–C13; verdict branch reads `verdict.result`, not LLM text | `conductor/__init__.py:219-527` |
-| D3 verification | `VerificationCore.verify` (family-mismatch, canaries, secrets/migration scan, independence weights) — no LLM import; enforced by `probe_cc5`/`probe_bm3` | `verifier/__init__.py:42-183`, `conformance/probes.py:156,312` |
-| D4 landing | `can_auto_merge` — 7 conditions, each `!= expected` / `is not True` ⇒ `None` fails closed → PARKED_AWAITING_HUMAN | `conformance/can_auto_merge.py:76-101`, `conductor/__init__.py:478-495` |
-| D5 disposition | `AutonomyMatrix` 17 rows, unknown → HUMAN row_id −1; `L5CompositionProbe`; toggle `policy_set_by=="human"` | `phase_3/human_boundary.py:77-130`, `can_auto_merge.py:82-97` |
-| D6 stop/rollback | breakers (timeout / retry>3 / crash); saga reconciler commit-or-compensate; IntentClaim DB-UNIQUE dedup; never reclaim FROZEN | `conductor/__init__.py:305-330,374-381`, `phase_2/tx_ledger.py:225-271` |
-| D7 outcome/escape | escape rate from the incident plane, independent of the evaluator (FactoryObservability) | `phase_2/observability.py` |
+| D1 | Consilium `class` launch metadata (`R0`/`A`; higher classes reserved) | field is explicitly unread metadata; add frozen WorkOrder/profile/Realm/action authority and atomic pre-effect admission |
+| D2 | Consilium reducer and state CAS; task-orchestrator dependency scheduling | prove total released-state/event mapping; remove fail-soft mutation fallbacks and bind every routing input to admitted structured authority |
+| D3 | structured convergence, optional test/web/judge methods, refute-by-default judge parser | independently own criteria/oracle/evidence; model judge and optional/flag-only checks cannot be sole governed gate |
+| D4 | Draft-PR human merge pause; optional verify-before-merge | exact delivery-trust/readiness join and end-to-end Conditions of Done; local `converged` is not organizational completion |
+| D5 | selected human routes and trigger restrictions | closed disposition matrix, eligible-human authority, exact immutable receipts, composition and no-self-widen probes |
+| D6 | max-round/anti-stall/throttle/cancel controls and some local idempotency | class/profile budgets, atomic effect claims, external compensators/reconciliation, crash and ambiguous-result fencing |
+| D7 | local outcome/experience statistics | canonical append-only OutcomeEvent/ReturnEvent, independent live source health, exact attribution, no-silent-zero |
+
+### omnius
+
+| Rule | Current candidate mechanism | Required adoption boundary |
+|---|---|---|
+| D1 | execution compiler/readiness/action contracts and transaction ledger | reconcile legacy/broad action seams; publish exact action/profile/Realm/identity authority and real-path negative evidence |
+| D2 | `mvp_core.conductor.contracts` deterministic FSM/replay and static probes | bind one released durable engine/state/event schema; prove crash/replay behavior rather than module purity alone |
+| D3 | verifier, delivery trust-chain, observer/HTTP evidence candidates | exact independent production authorities, protected evidence, closed schemas and external positive/negative probes |
+| D4 | `can_auto_merge`, completion and delivery-observation candidate gates | accepted policy/profile and complete delivery/runtime Conditions of Done; no merge-only completion |
+| D5 | Human Boundary and readiness candidate contracts | retire/version-gate broad legacy matrix rows; pin human eligibility, receipts, profiles and composition evidence |
+| D6 | SPEC-TX/CD candidates, intent claims, compensators, breakers and proposed reclaim issuer | publish effect/compensator catalog and durable store/engine bindings; qualify ambiguity, FROZEN, and exact reclaim fences |
+| D7 | draft SPEC-OT, `mvp_core.outcomes`, source-health candidates and legacy `phase_2` model | publish shared schemas/outbox/compatibility; bind independent live return sources and prove liveness/attribution |
+
+## Required conformance evidence
+
+Component-owned fixtures must prove, without activating a production path:
+
+- a proposed ADR, draft/unselected requirement, raw readiness field, task class, autonomy tier, action row,
+  model output, or caller boolean cannot authorize mutation;
+- every effect requires an exact frozen WorkOrder/task/SPEC/profile/Realm/action/target/identity projection,
+  exclusive state/effect fence and atomic single-use redemption at an enforced mutation boundary; any
+  post-freeze change conflicts or invalidates the capability before the provider call, and direct caller
+  mutation is denied;
+- unknown/broad/conflicting actions and missing profile/policy/receipt/capability evidence perform zero
+  provider calls;
+- equivalent committed state and recorded events replay to the same branch, while model text, duplicated,
+  reordered, malformed, or unavailable events cannot select a positive transition;
+- producer-controlled criteria, oracle, evidence, prompt, verifier policy, identity, or result cannot pass;
+  model-family separation, debate, consensus, and schema-valid `passed: true` alone remain insufficient;
+- `inconclusive`, stale, unmeasured, copied, or mismatched verification cannot land, and landing cannot
+  close a WorkOrder whose frozen delivery/runtime/compensation probes remain open;
+- autonomous composition cannot reach correctness/policy/credential/boundary/self-approval nodes; forged,
+  wrong-human, wrong-revision/target, reused, expired, or mutable approvals fail;
+- breakers prevent new effects without releasing unresolved ones; crash/timeout/response-loss/concurrent
+  replay produces one claimed effect and a deterministic confirmed/compensated/pinned outcome;
+- non-compensatable actions are prohibited from autonomy, failed/ambiguous compensation remains FROZEN,
+  and disposable-environment rollback cannot erase an escaped external effect;
+- OutcomeEvent/ReturnEvent payloads are closed, ordered, idempotent, redacted, lineage-complete and
+  signal-only; forged/duplicate/reordered telemetry cannot change workflow state;
+- temporal-only, wrong-artifact/task/revision/source/window, verifier-owned, stale, or partial returns
+  cannot mark ESCAPED, and missing source liveness makes escape/yield unavailable rather than zero; and
+- both factories derive the same decision meaning from equivalent frozen fixtures while retaining their
+  own engines, and dirty/local evidence cannot satisfy an immutable release/profile requirement.
 
 ## Follow-ups
 
-- [ ] Accept this ADR (Proposed → Accepted) — platform owner.
-- [ ] multiqlti issue(s): route class ≥ A through the Consilium/SDLC loop (or wire blocking
-      guardrails into the base pipeline); D1 action classifier; D5 disposition table; D6
-      compensator/idempotency for class ≥ B. (D7 already in multiqlti#445.)
-- [ ] omnius: no behavioral change; confirm `probe_cc5`/`probe_bm3` stay Required; emit platform
-      OutcomeEvent (D7 / ADR-0003 I6).
-- [ ] genai-enablement: publish conformance fixtures that test the D1–D7 **rules** (mechanism-
-      agnostic) alongside the OutcomeEvent schema (ADR-0003 follow-up).
-- [ ] Extend the sre-harness `ACTION_TIER_TABLE` with factory action kinds (D1 seed).
-- [ ] Add a "loop decision model" row to the glossary Part 2 after acceptance.
+- [ ] Platform owner accepts this precedence-compatible revision with the matching ADR-0003 revision or
+      marks ADR-0006 superseded.
+- [ ] After acceptance, publish closed versioned decision-record/capability fixtures for D1-D7 and exact
+      action/disposition catalogs without granting provider authority.
+- [ ] `multiqlti` component SPEC: non-R0 WorkOrder/effect admission, independent verification/landing,
+      disposition/receipt, breaker/compensation, and canonical outcome/return adoption.
+- [ ] `omnius` component SPEC/readiness updates: reconcile legacy/candidate seams and pin exact released
+      D1-D7 authorities, schemas, identities, durable stores, and probes.
+- [ ] Add the loop-decision-model glossary row only after human acceptance.
 
 ## References
 
-- Reconnaissance inputs — omnius: `mvp_core/conductor/__init__.py`, `mvp_core/verifier/__init__.py`,
-  `mvp_core/pool/__init__.py`, `conformance/can_auto_merge.py`, `conformance/probes.py`,
-  `phase_3/human_boundary.py`, `phase_2/{tx_ledger,observability}.py`.
-- Reconnaissance inputs — multiqlti: `server/pipeline/{dag-executor,dag-condition-evaluator,
-  guardrail-runner}.ts`, `server/controller/pipeline-controller.ts`,
-  `services/strategy-executor.ts`, `services/orchestrator/convergence.ts`,
-  `services/consilium/consilium-loop-controller.ts`, `services/sdlc/executor.ts`,
-  `pipeline/{plan-evaluator-gate,evaluator-worker,meta-loop}.ts`.
-- [ADR-0003](0003-unified-sdlc-standard.md) — task-lifecycle invariants I1–I8.
-- [ADR-0002](0002-platform-skills-registry.md) — skills registry.
-- [platform-glossary.md](../platform-glossary.md) — autonomy tiers, task classes, gate vs guardrail.
+- Current multiqlti evidence: `shared/schema.ts`, `server/services/task-orchestrator.ts`,
+  `server/services/consilium/consilium-loop-controller.ts`,
+  `server/services/orchestrator/convergence.ts`, and `server/services/sdlc/executor.ts`.
+- Current omnius evidence: `mvp_core/conductor/contracts.py`, `mvp_core/outcomes/__init__.py`,
+  `mvp_core/human_boundary/contracts.py`, `conformance/can_auto_merge.py`,
+  `phase_2/{tx_ledger,observability}.py`, `phase_3/human_boundary.py`, and draft
+  `specs/SPEC-{CD,TX,OT}*.md`.
+- [ADR-0003](0003-unified-sdlc-standard.md) — proposed lifecycle/telemetry compatibility standard.
+- [ADR-0009](0009-organizational-dark-factory-sdd.md) — accepted ADR/SPEC/evidence authority.
+- [ADR-0010](0010-goal-oriented-organizational-dark-factory.md) — accepted WorkOrder and end-to-end Done.
+- [ADR-0012](0012-capability-readiness-profiles.md) — accepted exact readiness authority.
+- [ADR-0016](0016-independent-safe-to-reclaim-decision-issuer.md) — proposed reclaim decision consumer.
