@@ -1,7 +1,8 @@
 # ADR-0020: Barbarossa is the synchronized-platform Continuous Management Plane
 
-- **Status:** Proposed
+- **Status:** Accepted
 - **Date:** 2026-07-19
+- **Accepted:** 2026-07-21 by the platform owner for component development
 - **Deciders:** platform owner
 - **Scope:** cross-repo (`genai-enablement`, `Barbarossa`, `Omniscience`, `omnius`,
   `platform-portal`, the PII Wall, and synchronized-platform evidence producers)
@@ -14,8 +15,8 @@
   [ADR-0013](0013-platform-owned-observer-access.md),
   [ADR-0017](0017-omniscience-mcp-v1-contract-and-severance.md), and
   [ADR-0019](0019-barbarossa-independent-reliability-plane.md)
-- **Related proposals:** [ADR-0007](0007-platform-portal-federated-surface.md),
-  [ADR-0008](0008-ai-security-domain.md), and
+- **Related decisions:** accepted [ADR-0007](0007-platform-portal-federated-surface.md),
+  proposed [ADR-0008](0008-ai-security-domain.md), and accepted
   [ADR-0018](0018-pii-wall-purpose-bound-data-boundary.md)
 
 ## Context
@@ -38,7 +39,7 @@ authorization.
 The synchronized platform therefore needs a common continuous-management runtime with domain-specific
 truth and authority kept rigorously separate.
 
-## Decision if accepted
+## Decision
 
 ### D1 — Generalize Barbarossa into the Continuous Management Plane
 
@@ -244,13 +245,13 @@ adoption and planning, not live operation.
   [Software Carbon Intensity](https://sci.greensoftware.foundation/) — method-bound software carbon
   condition.
 
-## Acceptance gate
+## Acceptance record
 
-Before acceptance:
+The platform owner accepted this boundary on 2026-07-21 after confirming that:
 
-1. human owner reviews the 12-domain boundary and non-compensating constraint rule;
+1. the human owner reviewed the 12-domain boundary and non-compensating constraint rule;
 2. Barbarossa local ADR-0002 and its 29-spec registry remain aligned with this decision;
-3. synchronized registry/plan checks pass against all available sibling projects;
+3. synchronized registry/plan checks are required against all available sibling projects before handoff;
 4. Omniscience, Omnius and Platform Portal producer/action/view gaps remain explicit work packages;
 5. the PII Wall boundary applies to every domain class; and
 6. no wording implies that planning completeness or ADR acceptance grants live authorization.

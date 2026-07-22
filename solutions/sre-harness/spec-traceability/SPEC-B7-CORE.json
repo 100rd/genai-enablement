@@ -1,0 +1,109 @@
+{
+  "schemaVersion": "sre-harness.spec-portable-traceability/v1",
+  "specId": "SPEC-B7-CORE",
+  "specPath": "docs/specs/SPEC-B7-core-sentinel-runtime-contract.md",
+  "specSha256": "sha256:936f8d09a5a9f0c833797bb3cffceb8cd21ab638bb65603f5cb2dcec80b8b919",
+  "evidenceScope": "local-portable-only",
+  "operationalState": "incomplete",
+  "authority": "non-authorizing",
+  "implementationPaths": [
+    "solutions/sre-harness/src/sre_harness/observability/attributes.py",
+    "solutions/sre-harness/src/sre_harness/sentinel/__main__.py",
+    "solutions/sre-harness/src/sre_harness/sentinel/finding.py",
+    "solutions/sre-harness/src/sre_harness/sentinel/scan.py",
+    "solutions/sre-harness/src/sre_harness/sentinel/serialization.py",
+    "solutions/sre-harness/src/sre_harness/sentinel/source.py",
+    "solutions/sre-harness/src/sre_harness/sentinel/state.py",
+    "solutions/sre-harness/src/sre_harness/sentinel/store.py"
+  ],
+  "probes": [
+    {
+      "id": "P-B7CORE-1",
+      "tests": [
+        "solutions/sre-harness/tests/test_sentinel_finding.py::test_blank_fingerprint_is_rejected",
+        "solutions/sre-harness/tests/test_sentinel_finding.py::test_confidence_out_of_range_is_rejected",
+        "solutions/sre-harness/tests/test_sentinel_finding.py::test_dedup_key_is_scoped_by_detector_kind_and_fingerprint",
+        "solutions/sre-harness/tests/test_sentinel_finding.py::test_finding_is_frozen",
+        "solutions/sre-harness/tests/test_sentinel_finding.py::test_rank_is_severity_times_confidence",
+        "solutions/sre-harness/tests/test_sentinel_finding.py::test_same_fingerprint_different_detector_do_not_collide",
+        "solutions/sre-harness/tests/test_sentinel_finding.py::test_severity_orders_low_to_critical",
+        "solutions/sre-harness/tests/test_sentinel_finding.py::test_suggested_runbook_defaults_to_none"
+      ]
+    },
+    {
+      "id": "P-B7CORE-2",
+      "tests": [
+        "solutions/sre-harness/tests/test_sentinel_source.py::TestJsonFileStateSource::test_empty_object_yields_default_state",
+        "solutions/sre-harness/tests/test_sentinel_source.py::TestJsonFileStateSource::test_reads_a_valid_fixture",
+        "solutions/sre-harness/tests/test_sentinel_source.py::TestJsonFileStateSourceErrors::test_invalid_json_is_rejected",
+        "solutions/sre-harness/tests/test_sentinel_source.py::TestJsonFileStateSourceErrors::test_invalid_saturation_sample_propagates",
+        "solutions/sre-harness/tests/test_sentinel_source.py::TestJsonFileStateSourceErrors::test_missing_file_is_rejected",
+        "solutions/sre-harness/tests/test_sentinel_source.py::TestJsonFileStateSourceErrors::test_non_object_payload_is_rejected",
+        "solutions/sre-harness/tests/test_sentinel_source.py::TestProtocolConformance::test_json_file_source_is_a_state_source",
+        "solutions/sre-harness/tests/test_sentinel_source.py::TestProtocolConformance::test_static_source_is_a_state_source",
+        "solutions/sre-harness/tests/test_sentinel_source.py::TestStaticStateSource::test_snapshot_returns_the_wrapped_state"
+      ]
+    },
+    {
+      "id": "P-B7CORE-3",
+      "tests": [
+        "solutions/sre-harness/tests/test_sentinel_scan.py::test_custom_detector_list_is_respected",
+        "solutions/sre-harness/tests/test_sentinel_scan.py::test_empty_state_produces_empty_report_with_advisory_tiers",
+        "solutions/sre-harness/tests/test_sentinel_scan.py::test_findings_are_ranked_most_urgent_first",
+        "solutions/sre-harness/tests/test_sentinel_scan.py::test_open_finding_is_suppressed_not_re_alerted",
+        "solutions/sre-harness/tests/test_sentinel_scan.py::test_suppressed_findings_are_ranked",
+        "solutions/sre-harness/tests/test_sentinel_scan.py::test_unrelated_open_finding_does_not_suppress_anything",
+        "solutions/sre-harness/tests/test_sentinel_scan.py::test_within_scan_duplicate_keys_collapse_to_higher_rank"
+      ]
+    },
+    {
+      "id": "P-B7CORE-4",
+      "tests": [
+        "solutions/sre-harness/tests/test_sentinel_store.py::TestInMemoryFindingStore::test_save_empty_clears_the_open_set",
+        "solutions/sre-harness/tests/test_sentinel_store.py::TestInMemoryFindingStore::test_save_replaces_the_open_set",
+        "solutions/sre-harness/tests/test_sentinel_store.py::TestJsonFileFindingStoreAtomicity::test_failed_write_does_not_corrupt_the_existing_file",
+        "solutions/sre-harness/tests/test_sentinel_store.py::TestJsonFileFindingStoreErrors::test_invalid_json_is_rejected",
+        "solutions/sre-harness/tests/test_sentinel_store.py::TestJsonFileFindingStoreErrors::test_open_findings_not_a_list_is_rejected",
+        "solutions/sre-harness/tests/test_sentinel_store.py::TestJsonFileFindingStoreRoundTrip::test_save_creates_the_file_with_restrictive_permissions",
+        "solutions/sre-harness/tests/test_sentinel_store.py::TestJsonFileFindingStoreRoundTrip::test_save_empty_writes_a_readable_empty_set",
+        "solutions/sre-harness/tests/test_sentinel_store.py::TestJsonFileFindingStoreRoundTrip::test_save_then_load_round_trips"
+      ]
+    },
+    {
+      "id": "P-B7CORE-5",
+      "tests": [
+        "solutions/sre-harness/tests/test_sentinel_cli.py::TestErrors::test_invalid_json_open_findings_errors",
+        "solutions/sre-harness/tests/test_sentinel_cli.py::TestErrors::test_invalid_json_state_errors",
+        "solutions/sre-harness/tests/test_sentinel_cli.py::TestErrors::test_missing_state_file_errors",
+        "solutions/sre-harness/tests/test_sentinel_cli.py::TestErrors::test_open_findings_save_failure_errors_cleanly_not_a_traceback",
+        "solutions/sre-harness/tests/test_sentinel_cli.py::TestExitCodes::test_clean_state_exits_0_with_no_findings",
+        "solutions/sre-harness/tests/test_sentinel_cli.py::TestExitCodes::test_hot_state_exits_1_with_fresh_findings",
+        "solutions/sre-harness/tests/test_sentinel_cli.py::TestOutputShape::test_finding_fields_include_rank_and_dedup_key"
+      ]
+    },
+    {
+      "id": "P-B7CORE-6",
+      "tests": [
+        "solutions/sre-harness/tests/test_sentinel_observability.py::TestSentinelInstrumentation::test_detector_spans_are_children_of_the_scan_span",
+        "solutions/sre-harness/tests/test_sentinel_observability.py::TestSentinelInstrumentation::test_detector_spans_carry_id_and_count",
+        "solutions/sre-harness/tests/test_sentinel_observability.py::TestSentinelInstrumentation::test_scan_emits_parent_and_per_detector_spans",
+        "solutions/sre-harness/tests/test_sentinel_observability.py::TestSentinelInstrumentation::test_scan_span_carries_aggregate_attributes",
+        "solutions/sre-harness/tests/test_sentinel_observability.py::TestSentinelNoOpDefault::test_scan_does_not_route_to_an_unwired_exporter",
+        "solutions/sre-harness/tests/test_sentinel_observability.py::TestSentinelNoOpDefault::test_scan_runs_unchanged_with_no_provider"
+      ]
+    },
+    {
+      "id": "P-B7CORE-7",
+      "tests": [
+        "solutions/sre-harness/tests/test_sentinel_cli.py::TestOutputShape::test_emits_advisory_tiers",
+        "solutions/sre-harness/tests/test_sentinel_scan.py::test_empty_state_produces_empty_report_with_advisory_tiers"
+      ]
+    },
+    {
+      "id": "P-B7CORE-8",
+      "tests": [
+        "solutions/sre-harness/tests/test_spec_catalog.py::test_b7_core_spec_is_discoverable_and_non_authorizing"
+      ]
+    }
+  ]
+}

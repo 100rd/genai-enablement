@@ -76,13 +76,19 @@ class LeadTimeResult:
 
 @dataclass(frozen=True)
 class SentinelEvalSummary:
-    """Aggregate view: pass rate + mean lead-time over the scenarios that fired."""
+    """Aggregate lead-time plus explicit incident/clean false-positive metrics."""
 
     results: tuple[LeadTimeResult, ...]
     total: int
     passed: int
     pass_rate: float
     mean_lead_time: float
+    incident_scenarios: int
+    early_detections: int
+    early_detection_rate: float
+    clean_scenarios: int
+    false_positives: int
+    false_positive_rate: float
 
 
 def run_sentinel_eval(
@@ -98,6 +104,12 @@ def run_sentinel_eval(
     total = len(results)
     leads = [result.lead for result in results if result.lead is not None and result.lead > 0]
     mean_lead = sum(leads) / len(leads) if leads else 0.0
+    incident_results = tuple(result for result in results if result.paged_at_index is not None)
+    clean_results = tuple(result for result in results if result.paged_at_index is None)
+    early_detections = sum(1 for result in incident_results if result.score.passed)
+    false_positives = sum(1 for result in clean_results if result.first_fire_index is not None)
+    early_detection_rate = early_detections / len(incident_results) if incident_results else 0.0
+    false_positive_rate = false_positives / len(clean_results) if clean_results else 0.0
 
     return SentinelEvalSummary(
         results=results,
@@ -105,6 +117,12 @@ def run_sentinel_eval(
         passed=passed,
         pass_rate=passed / total,
         mean_lead_time=mean_lead,
+        incident_scenarios=len(incident_results),
+        early_detections=early_detections,
+        early_detection_rate=early_detection_rate,
+        clean_scenarios=len(clean_results),
+        false_positives=false_positives,
+        false_positive_rate=false_positive_rate,
     )
 
 

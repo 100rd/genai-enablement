@@ -1,0 +1,126 @@
+{
+  "schemaVersion": "sre-harness.spec-portable-traceability/v1",
+  "specId": "SPEC-B5",
+  "specPath": "docs/specs/SPEC-B5-tier3-hitl-remediation.md",
+  "specSha256": "sha256:421574ae68100bf485a06021eddf9b74b1f15b34a3f498746dd9ef19dbda832d",
+  "evidenceScope": "local-portable-only",
+  "operationalState": "incomplete",
+  "authority": "non-authorizing",
+  "implementationPaths": [
+    "solutions/sre-harness/src/sre_harness/autonomy_tiers/action_table.py",
+    "solutions/sre-harness/src/sre_harness/autonomy_tiers/classify.py",
+    "solutions/sre-harness/src/sre_harness/hitl.py"
+  ],
+  "probes": [
+    {
+      "id": "P-B5-1",
+      "tests": [
+        "solutions/sre-harness/tests/test_hitl.py::TestClosedHitlProposal::test_checked_fixture_is_parseable_but_not_an_approval",
+        "solutions/sre-harness/tests/test_hitl.py::TestClosedHitlProposal::test_closed_non_authorizing_shape_rejects_drift",
+        "solutions/sre-harness/tests/test_hitl.py::TestClosedHitlProposal::test_exact_content_addressed_provider_unions_load",
+        "solutions/sre-harness/tests/test_hitl.py::TestClosedHitlProposal::test_file_loader_rejects_symlink_and_oversize",
+        "solutions/sre-harness/tests/test_hitl.py::TestClosedHitlProposal::test_malformed_duplicate_nonfinite_or_non_utf8_fails"
+      ]
+    },
+    {
+      "id": "P-B5-2",
+      "tests": [
+        "solutions/sre-harness/tests/test_hitl.py::TestTierAdmission::test_existing_classifier_is_the_only_tier_authority",
+        "solutions/sre-harness/tests/test_hitl.py::TestTierAdmission::test_future_or_expired_proposal_is_terminal_without_provider",
+        "solutions/sre-harness/tests/test_hitl.py::TestTierAdmission::test_maximum_precision_confidence_preserves_classifier_boundary",
+        "solutions/sre-harness/tests/test_hitl.py::TestTierAdmission::test_raw_or_mutated_proposal_cannot_open_case",
+        "solutions/sre-harness/tests/test_hitl.py::TestTierAdmission::test_table_revision_drift_denies_without_provider"
+      ]
+    },
+    {
+      "id": "P-B5-3",
+      "tests": [
+        "solutions/sre-harness/tests/test_hitl.py::TestClosedHitlProposal::test_aws_subject_must_be_exact_first_step_approval",
+        "solutions/sre-harness/tests/test_hitl.py::TestClosedHitlProposal::test_closed_non_authorizing_shape_rejects_drift",
+        "solutions/sre-harness/tests/test_hitl.py::TestClosedHitlProposal::test_exact_content_addressed_provider_unions_load",
+        "solutions/sre-harness/tests/test_hitl.py::TestClosedHitlProposal::test_gitlab_subject_must_pin_protected_review_identity"
+      ]
+    },
+    {
+      "id": "P-B5-4",
+      "tests": [
+        "solutions/sre-harness/tests/test_hitl.py::TestExternalHumanReceipt::test_checked_fixture_receipt_is_fixture_only",
+        "solutions/sre-harness/tests/test_hitl.py::TestExternalHumanReceipt::test_exact_boolean_verifier_issues_opaque_capability",
+        "solutions/sre-harness/tests/test_hitl.py::TestExternalHumanReceipt::test_exact_content_addressed_receipt_loads",
+        "solutions/sre-harness/tests/test_hitl.py::TestExternalHumanReceipt::test_false_or_truthy_nonboolean_verification_fails",
+        "solutions/sre-harness/tests/test_hitl.py::TestExternalHumanReceipt::test_future_or_expired_receipt_cannot_be_verified",
+        "solutions/sre-harness/tests/test_hitl.py::TestExternalHumanReceipt::test_malformed_duplicate_nonfinite_or_non_utf8_receipt_fails",
+        "solutions/sre-harness/tests/test_hitl.py::TestExternalHumanReceipt::test_receipt_file_loader_rejects_symlink_and_oversize",
+        "solutions/sre-harness/tests/test_hitl.py::TestExternalHumanReceipt::test_receipt_rejects_closed_shape_and_nonhuman_drift",
+        "solutions/sre-harness/tests/test_hitl.py::TestExternalHumanReceipt::test_untrusted_origin_verifier_or_callback_mutation_fails",
+        "solutions/sre-harness/tests/test_hitl.py::TestExternalHumanReceipt::test_verified_receipts_cannot_be_caller_constructed"
+      ]
+    },
+    {
+      "id": "P-B5-5",
+      "tests": [
+        "solutions/sre-harness/tests/test_hitl.py::TestExternalHumanReceipt::test_future_or_expired_receipt_cannot_be_verified",
+        "solutions/sre-harness/tests/test_hitl.py::TestReceiptRejoin::test_cross_proposal_or_subject_receipt_never_calls_provider",
+        "solutions/sre-harness/tests/test_hitl.py::TestReceiptRejoin::test_fixture_receipt_never_calls_provider",
+        "solutions/sre-harness/tests/test_hitl.py::TestReceiptRejoin::test_proposer_self_approval_never_calls_provider",
+        "solutions/sre-harness/tests/test_hitl.py::TestReceiptRejoin::test_receipt_use_after_verification_expiry_expires_without_provider"
+      ]
+    },
+    {
+      "id": "P-B5-6",
+      "tests": [
+        "solutions/sre-harness/tests/test_hitl.py::TestAwsApprovalFlow::test_audit_failure_returns_no_advanced_state_and_retry_reuses_keys",
+        "solutions/sre-harness/tests/test_hitl.py::TestAwsApprovalFlow::test_client_account_or_region_drift_fails_before_snapshot",
+        "solutions/sre-harness/tests/test_hitl.py::TestAwsApprovalFlow::test_conflicting_terminal_provider_state_escalates",
+        "solutions/sre-harness/tests/test_hitl.py::TestAwsApprovalFlow::test_document_input_or_step_drift_escalates_without_signal",
+        "solutions/sre-harness/tests/test_hitl.py::TestAwsApprovalFlow::test_exact_pending_snapshot_sends_one_bounded_signal",
+        "solutions/sre-harness/tests/test_hitl.py::TestAwsApprovalFlow::test_matching_terminal_snapshot_is_idempotent_without_signal",
+        "solutions/sre-harness/tests/test_hitl.py::TestAwsApprovalFlow::test_pending_provider_state_preserves_the_signalled_case",
+        "solutions/sre-harness/tests/test_hitl.py::TestAwsApprovalFlow::test_provider_failure_exposes_no_detail_and_retry_reuses_key",
+        "solutions/sre-harness/tests/test_hitl.py::TestAwsApprovalFlow::test_receipt_expiry_does_not_revoke_an_already_sent_approval",
+        "solutions/sre-harness/tests/test_hitl.py::TestAwsApprovalFlow::test_signal_reconciles_to_matching_terminal_state"
+      ]
+    },
+    {
+      "id": "P-B5-7",
+      "tests": [
+        "solutions/sre-harness/tests/test_hitl.py::TestGitlabApprovalFlow::test_exact_protected_rule_approval_is_read_only_and_terminal",
+        "solutions/sre-harness/tests/test_hitl.py::TestGitlabApprovalFlow::test_instance_binding_drift_escalates_before_observation",
+        "solutions/sre-harness/tests/test_hitl.py::TestGitlabApprovalFlow::test_rejected_receipt_is_terminal_without_gitlab_call",
+        "solutions/sre-harness/tests/test_hitl.py::TestGitlabApprovalFlow::test_stale_empty_overridden_or_self_approval_escalates"
+      ]
+    },
+    {
+      "id": "P-B5-8",
+      "tests": [
+        "solutions/sre-harness/tests/test_hitl.py::TestAwsApprovalFlow::test_matching_terminal_snapshot_is_idempotent_without_signal",
+        "solutions/sre-harness/tests/test_hitl.py::TestAwsApprovalFlow::test_pending_provider_state_preserves_the_signalled_case",
+        "solutions/sre-harness/tests/test_hitl.py::TestAwsApprovalFlow::test_receipt_expiry_does_not_revoke_an_already_sent_approval",
+        "solutions/sre-harness/tests/test_hitl.py::TestAwsApprovalFlow::test_signal_reconciles_to_matching_terminal_state",
+        "solutions/sre-harness/tests/test_hitl.py::TestFiniteStateAndAudit::test_mutated_case_fails_before_provider",
+        "solutions/sre-harness/tests/test_hitl.py::TestFiniteStateAndAudit::test_terminal_state_is_side_effect_free_and_reject_cannot_flip",
+        "solutions/sre-harness/tests/test_hitl.py::TestGitlabApprovalFlow::test_rejected_receipt_is_terminal_without_gitlab_call",
+        "solutions/sre-harness/tests/test_hitl.py::TestReceiptRejoin::test_receipt_use_after_verification_expiry_expires_without_provider"
+      ]
+    },
+    {
+      "id": "P-B5-9",
+      "tests": [
+        "solutions/sre-harness/tests/test_hitl.py::TestAwsApprovalFlow::test_audit_failure_returns_no_advanced_state_and_retry_reuses_keys",
+        "solutions/sre-harness/tests/test_hitl.py::TestAwsApprovalFlow::test_provider_failure_exposes_no_detail_and_retry_reuses_key",
+        "solutions/sre-harness/tests/test_hitl.py::TestFiniteStateAndAudit::test_audit_events_are_stable_and_nonsecret",
+        "solutions/sre-harness/tests/test_hitl.py::TestGitlabApprovalFlow::test_exact_protected_rule_approval_is_read_only_and_terminal",
+        "solutions/sre-harness/tests/test_hitl.py::TestGitlabApprovalFlow::test_rejected_receipt_is_terminal_without_gitlab_call",
+        "solutions/sre-harness/tests/test_hitl.py::TestTierAdmission::test_existing_classifier_is_the_only_tier_authority"
+      ]
+    },
+    {
+      "id": "P-B5-10",
+      "tests": [
+        "solutions/sre-harness/tests/test_hitl.py::TestClosedHitlProposal::test_checked_fixture_is_parseable_but_not_an_approval",
+        "solutions/sre-harness/tests/test_hitl.py::TestEvidenceBoundary::test_docs_retain_fixture_only_incomplete_boundary",
+        "solutions/sre-harness/tests/test_hitl.py::TestExternalHumanReceipt::test_checked_fixture_receipt_is_fixture_only"
+      ]
+    }
+  ]
+}

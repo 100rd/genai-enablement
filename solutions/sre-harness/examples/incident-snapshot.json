@@ -1,0 +1,27 @@
+{
+  "schemaVersion": "sre-harness.incident-snapshot/v1",
+  "alert": {
+    "incidentId": "inc-payments-001",
+    "service": "payments-api",
+    "startedAt": "2026-07-16T08:00:00Z",
+    "summary": "Elevated checkout errors"
+  },
+  "capturedAt": "2026-07-16T08:20:00Z",
+  "evidence": [
+    {
+      "evidenceId": "deploy-42",
+      "kind": "deployment",
+      "service": "payments-api",
+      "observedAt": "2026-07-16T07:56:00Z",
+      "statement": "payments-api revision 42 deployed"
+    },
+    {
+      "evidenceId": "errors",
+      "kind": "error_rate",
+      "service": "payments-api",
+      "observedAt": "2026-07-16T08:02:00Z",
+      "statement": "payments-api error rate reached 18%",
+      "value": 0.18
+    }
+  ]
+}

@@ -71,9 +71,85 @@ def test_seed_suite_all_passes() -> None:
 def test_seed_suite_mean_lead_time_matches_fired_scenarios() -> None:
     summary = run_sentinel_eval(load_lead_time_scenarios())
 
-    # Leads: disk-ramp=2, cert-countdown=2, new-signature=1; the clean scenario
-    # never fires and is excluded from the mean.
-    assert summary.mean_lead_time == pytest.approx((2 + 2 + 1) / 3)
+    # Leads: disk-ramp=2, cert-countdown=2, new-signature=1, error-rate=2,
+    # change-regression=2, config-state-drift=2;
+    # clean scenarios never fire and are excluded from the mean.
+    assert summary.mean_lead_time == pytest.approx((2 + 2 + 1 + 2 + 2 + 2) / 6)
+
+
+def test_seed_suite_reports_explicit_early_detection_and_false_positive_metrics() -> None:
+    summary = run_sentinel_eval(load_lead_time_scenarios())
+
+    assert summary.incident_scenarios == 6
+    assert summary.early_detections == 6
+    assert summary.early_detection_rate == 1.0
+    assert summary.clean_scenarios == 14
+    assert summary.false_positives == 0
+    assert summary.false_positive_rate == 0.0
+
+
+def test_b7_error_rate_corpus_has_lead_and_three_distinct_clean_controls() -> None:
+    scenarios = load_lead_time_scenarios()
+    by_id = {scenario.id: scenario for scenario in scenarios}
+
+    for scenario_id in (
+        "clean-error-rate-stable-high-baseline",
+        "clean-error-rate-low-volume-spike",
+        "clean-error-rate-inside-slo-budget",
+    ):
+        scenario = by_id[scenario_id]
+        assert scenario.paged_at_index is None
+        assert scenario.expected_detector_id is None
+
+    result_by_id = {result.scenario_id: result for result in run_sentinel_eval(scenarios).results}
+    regression = result_by_id["error-rate-regression-before-page"]
+    assert regression.first_fire_index == 2
+    assert regression.lead == 2
+    assert regression.score.passed
+
+
+def test_b7_change_regression_has_lead_and_five_distinct_clean_controls() -> None:
+    scenarios = load_lead_time_scenarios()
+    by_id = {scenario.id: scenario for scenario in scenarios}
+
+    for scenario_id in (
+        "clean-change-regression-stable-high-baseline",
+        "clean-change-regression-low-volume-spike",
+        "clean-change-regression-inside-slo-budget",
+        "clean-change-regression-expired-association",
+        "clean-change-regression-intervening-deploy",
+    ):
+        scenario = by_id[scenario_id]
+        assert scenario.paged_at_index is None
+        assert scenario.expected_detector_id is None
+
+    result_by_id = {result.scenario_id: result for result in run_sentinel_eval(scenarios).results}
+    regression = result_by_id["change-induced-regression-before-page"]
+    assert regression.first_fire_index == 2
+    assert regression.lead == 2
+    assert regression.score.passed
+
+
+def test_b7_drift_has_lead_and_five_distinct_clean_controls() -> None:
+    scenarios = load_lead_time_scenarios()
+    by_id = {scenario.id: scenario for scenario in scenarios}
+
+    for scenario_id in (
+        "clean-drift-converged",
+        "clean-drift-single-observation",
+        "clean-drift-inside-grace",
+        "clean-drift-missing-inside-grace",
+        "clean-drift-desired-revision-reset",
+    ):
+        scenario = by_id[scenario_id]
+        assert scenario.paged_at_index is None
+        assert scenario.expected_detector_id is None
+
+    result_by_id = {result.scenario_id: result for result in run_sentinel_eval(scenarios).results}
+    drift = result_by_id["config-state-drift-before-page"]
+    assert drift.first_fire_index == 2
+    assert drift.lead == 2
+    assert drift.score.passed
 
 
 def test_runner_finds_the_earliest_fire_index() -> None:
@@ -120,6 +196,9 @@ def test_clean_scenario_that_actually_fires_is_a_false_positive() -> None:
     summary = run_sentinel_eval([scenario])
 
     assert summary.passed == 0
+    assert summary.clean_scenarios == 1
+    assert summary.false_positives == 1
+    assert summary.false_positive_rate == 1.0
 
 
 def test_empty_scenarios_is_rejected() -> None:

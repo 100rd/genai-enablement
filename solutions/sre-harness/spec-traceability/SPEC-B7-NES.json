@@ -1,0 +1,79 @@
+{
+  "schemaVersion": "sre-harness.spec-portable-traceability/v1",
+  "specId": "SPEC-B7-NES",
+  "specPath": "docs/specs/SPEC-B7-new-error-signature-detector.md",
+  "specSha256": "sha256:df278d7a76d724af60848435b6138badfd952c4b471a4d25042716ba996f117b",
+  "evidenceScope": "local-portable-only",
+  "operationalState": "incomplete",
+  "authority": "non-authorizing",
+  "implementationPaths": [
+    "solutions/sre-harness/src/sre_harness/sentinel/detectors.py",
+    "solutions/sre-harness/src/sre_harness/sentinel/eval.py",
+    "solutions/sre-harness/src/sre_harness/sentinel/finding.py",
+    "solutions/sre-harness/src/sre_harness/sentinel/scan.py",
+    "solutions/sre-harness/src/sre_harness/sentinel/scenarios.py",
+    "solutions/sre-harness/src/sre_harness/sentinel/serialization.py",
+    "solutions/sre-harness/src/sre_harness/sentinel/state.py"
+  ],
+  "probes": [
+    {
+      "id": "P-B7N-1",
+      "tests": [
+        "solutions/sre-harness/tests/test_sentinel_state.py::test_error_window_holds_frozensets",
+        "solutions/sre-harness/tests/test_sentinel_state.py::test_records_are_frozen",
+        "solutions/sre-harness/tests/test_sentinel_state.py::test_state_defaults_to_empty_signals"
+      ]
+    },
+    {
+      "id": "P-B7N-2",
+      "tests": [
+        "solutions/sre-harness/tests/test_sentinel_serialization.py::TestStateFromDict::test_parses_error_windows",
+        "solutions/sre-harness/tests/test_sentinel_serialization.py::TestStateFromDictErrors::test_baseline_not_a_list_is_rejected",
+        "solutions/sre-harness/tests/test_sentinel_serialization.py::TestStateFromDictErrors::test_current_not_a_list_is_rejected",
+        "solutions/sre-harness/tests/test_sentinel_serialization.py::TestStateFromDictErrors::test_error_window_missing_field_is_rejected",
+        "solutions/sre-harness/tests/test_sentinel_serialization.py::TestStateFromDictErrors::test_error_window_null_field_is_rejected",
+        "solutions/sre-harness/tests/test_sentinel_serialization.py::TestStateFromDictErrors::test_error_windows_not_a_list_is_rejected"
+      ]
+    },
+    {
+      "id": "P-B7N-3",
+      "tests": [
+        "solutions/sre-harness/tests/test_sentinel_detectors.py::test_no_novel_signature_yields_no_finding",
+        "solutions/sre-harness/tests/test_sentinel_detectors.py::test_novel_signature_is_surfaced_as_high"
+      ]
+    },
+    {
+      "id": "P-B7N-4",
+      "tests": [
+        "solutions/sre-harness/tests/test_sentinel_detectors.py::test_multiple_novel_signatures_are_emitted_sorted",
+        "solutions/sre-harness/tests/test_sentinel_detectors.py::test_novelty_is_per_service"
+      ]
+    },
+    {
+      "id": "P-B7N-5",
+      "tests": [
+        "solutions/sre-harness/tests/test_sentinel_detectors.py::test_novel_signature_is_surfaced_as_high"
+      ]
+    },
+    {
+      "id": "P-B7N-6",
+      "tests": [
+        "solutions/sre-harness/tests/test_sentinel_detectors.py::test_default_registry_contains_all_five_detectors",
+        "solutions/sre-harness/tests/test_sentinel_finding.py::test_same_fingerprint_different_detector_do_not_collide"
+      ]
+    },
+    {
+      "id": "P-B7N-7",
+      "tests": [
+        "solutions/sre-harness/tests/test_sentinel_eval.py::test_seed_suite_all_passes",
+        "solutions/sre-harness/tests/test_sentinel_eval.py::test_seed_suite_reports_explicit_early_detection_and_false_positive_metrics"
+      ]
+    },
+    {
+      "id": "P-B7N-8",
+      "tests": [
+        "solutions/sre-harness/tests/test_spec_catalog.py::test_b7_new_signature_spec_is_discoverable_and_non_authorizing"
+      ]
+    }
+  ]
+}

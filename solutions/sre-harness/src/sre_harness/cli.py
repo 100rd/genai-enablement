@@ -32,6 +32,12 @@ syntax, so this is consistent.
 The verdict is **advisory (T2)**: the CLI never executes anything. A controller
 or a human acts on the exit code (e.g. an advisory, ``allow_failure`` CI stage,
 or an ArgoCD PreSync hook).
+
+``gate-integration`` is the strict SPEC-B2 surface. It accepts one closed,
+content-addressed v1 envelope, optionally writes one versioned result artifact,
+and uses distinct exits: 0 proceed, 10 block, 20 require-human, 64 invalid input
+or result sink. The older ``gate`` command and its 0/1/2 behavior remain for
+local compatibility.
 """
 
 from __future__ import annotations
@@ -42,6 +48,12 @@ import sys
 from pathlib import Path
 from typing import Any
 
+from sre_harness.advisory_integration import (
+    AdvisoryIntegrationError,
+    evaluate_change_advisory,
+    load_change_advisory_invocation,
+    write_change_advisory_result,
+)
 from sre_harness.autonomy_tiers import TierClassification, classify
 from sre_harness.change_checks import CheckResult
 from sre_harness.change_gate import (
@@ -59,6 +71,10 @@ EXIT_PROCEED = 0
 EXIT_BLOCK = 1
 EXIT_REQUIRE_HUMAN = 2
 EXIT_USAGE = 2
+EXIT_INTEGRATION_PROCEED = 0
+EXIT_INTEGRATION_BLOCK = 10
+EXIT_INTEGRATION_REQUIRE_HUMAN = 20
+EXIT_INTEGRATION_INVALID = 64
 
 # The action this gate emits a verdict for; mapped to T2 in the action-tier
 # table. Classified at full confidence — the gate's analysis is deterministic.
@@ -69,6 +85,12 @@ _VERDICT_EXIT = {
     Verdict.PROCEED: EXIT_PROCEED,
     Verdict.BLOCK: EXIT_BLOCK,
     Verdict.REQUIRE_HUMAN: EXIT_REQUIRE_HUMAN,
+}
+
+_INTEGRATION_VERDICT_EXIT = {
+    Verdict.PROCEED: EXIT_INTEGRATION_PROCEED,
+    Verdict.BLOCK: EXIT_INTEGRATION_BLOCK,
+    Verdict.REQUIRE_HUMAN: EXIT_INTEGRATION_REQUIRE_HUMAN,
 }
 
 
@@ -88,6 +110,8 @@ def main(argv: list[str] | None = None) -> int:
 
     if args.command == "gate":
         return _run_gate(args)
+    if args.command == "gate-integration":
+        return _run_gate_integration(args)
     if args.command == "sentinel":
         return sentinel_cli.dispatch(args)
 
@@ -107,6 +131,21 @@ def _run_gate(args: argparse.Namespace) -> int:
     tier = classify(_VERDICT_ACTION, _VERDICT_CONFIDENCE)
     print(json.dumps(_render(request, result, tier), indent=2, sort_keys=True))
     return _VERDICT_EXIT[result.verdict]
+
+
+def _run_gate_integration(args: argparse.Namespace) -> int:
+    """Evaluate one strict SPEC-B2 envelope and preserve its disposition."""
+    try:
+        invocation = load_change_advisory_invocation(Path(args.input))
+        result = evaluate_change_advisory(invocation)
+        if args.result is not None:
+            write_change_advisory_result(result, Path(args.result))
+    except AdvisoryIntegrationError as exc:
+        print(f"sre-harness: integration error: {exc}", file=sys.stderr)
+        return EXIT_INTEGRATION_INVALID
+
+    print(json.dumps(result.to_document(), indent=2, sort_keys=True))
+    return _INTEGRATION_VERDICT_EXIT[result.verdict]
 
 
 # --- loading ----------------------------------------------------------------
@@ -258,12 +297,31 @@ def _build_parser() -> argparse.ArgumentParser:
         "--service",
         help="Service name (required for --change-format pr-diff).",
     )
+    integration_help = "Run the strict SPEC-B2 advisory CI / PreSync envelope."
+    integration = sub.add_parser(
+        "gate-integration",
+        help=integration_help,
+        description=integration_help,
+    )
+    integration.add_argument(
+        "--input",
+        required=True,
+        help="Path to a closed sre-harness.change-advisory-request/v1 envelope.",
+    )
+    integration.add_argument(
+        "--result",
+        help="Optional local path for the versioned advisory result artifact.",
+    )
     sentinel_cli.add_subparser(sub)
     return parser
 
 
 __all__ = [
     "EXIT_BLOCK",
+    "EXIT_INTEGRATION_BLOCK",
+    "EXIT_INTEGRATION_INVALID",
+    "EXIT_INTEGRATION_PROCEED",
+    "EXIT_INTEGRATION_REQUIRE_HUMAN",
     "EXIT_PROCEED",
     "EXIT_REQUIRE_HUMAN",
     "EXIT_USAGE",

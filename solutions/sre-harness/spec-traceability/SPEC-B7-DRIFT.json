@@ -1,0 +1,118 @@
+{
+  "schemaVersion": "sre-harness.spec-portable-traceability/v1",
+  "specId": "SPEC-B7-DRIFT",
+  "specPath": "docs/specs/SPEC-B7-drift-detector.md",
+  "specSha256": "sha256:3e346640f6c34b36fb5438dbdccc134cf8303ac2fafea376cea322c19f7fb6dc",
+  "evidenceScope": "local-portable-only",
+  "operationalState": "incomplete",
+  "authority": "non-authorizing",
+  "implementationPaths": [
+    "solutions/sre-harness/src/sre_harness/sentinel/detectors.py",
+    "solutions/sre-harness/src/sre_harness/sentinel/eval.py",
+    "solutions/sre-harness/src/sre_harness/sentinel/scan.py",
+    "solutions/sre-harness/src/sre_harness/sentinel/scenarios.py",
+    "solutions/sre-harness/src/sre_harness/sentinel/serialization.py",
+    "solutions/sre-harness/src/sre_harness/sentinel/state.py"
+  ],
+  "probes": [
+    {
+      "id": "P-B7D-1",
+      "tests": [
+        "solutions/sre-harness/tests/test_sentinel_drift.py::TestExactDriftObservation::test_derives_only_mismatch_age_from_exact_normalized_fact",
+        "solutions/sre-harness/tests/test_sentinel_drift.py::TestExactDriftObservation::test_desired_observation_order_is_exact",
+        "solutions/sre-harness/tests/test_sentinel_drift.py::TestExactDriftObservation::test_invalid_or_coerced_signal_is_rejected",
+        "solutions/sre-harness/tests/test_sentinel_drift.py::TestExactDriftObservation::test_matching_and_missing_observations_are_representable_without_raw_content",
+        "solutions/sre-harness/tests/test_sentinel_drift.py::TestExactDriftObservation::test_matching_revision_rejects_mismatch_evidence",
+        "solutions/sre-harness/tests/test_sentinel_drift.py::TestExactDriftObservation::test_mismatch_requires_consistent_persistence_evidence",
+        "solutions/sre-harness/tests/test_sentinel_drift.py::TestExactDriftObservation::test_signal_and_state_are_frozen"
+      ]
+    },
+    {
+      "id": "P-B7D-2",
+      "tests": [
+        "solutions/sre-harness/tests/test_sentinel_drift.py::TestDriftSerialization::test_array_limit_is_checked_before_row_parsing",
+        "solutions/sre-harness/tests/test_sentinel_drift.py::TestDriftSerialization::test_array_must_be_a_list",
+        "solutions/sre-harness/tests/test_sentinel_drift.py::TestDriftSerialization::test_extra_field_is_rejected",
+        "solutions/sre-harness/tests/test_sentinel_drift.py::TestDriftSerialization::test_missing_key_is_rejected_including_nullable_fields",
+        "solutions/sre-harness/tests/test_sentinel_drift.py::TestDriftSerialization::test_non_mapping_row_is_rejected",
+        "solutions/sre-harness/tests/test_sentinel_drift.py::TestDriftSerialization::test_parses_exact_mismatch_and_nullable_matching_rows",
+        "solutions/sre-harness/tests/test_sentinel_drift.py::TestDriftSerialization::test_rejects_coercion_and_wrong_nullability",
+        "solutions/sre-harness/tests/test_sentinel_drift.py::TestDriftSerialization::test_unknown_top_level_field_rejects_the_complete_snapshot",
+        "solutions/sre-harness/tests/test_sentinel_serialization.py::TestReadJsonObject::test_deeply_nested_json_is_rejected_not_a_raw_recursion_error",
+        "solutions/sre-harness/tests/test_sentinel_serialization.py::TestReadJsonObject::test_directory_is_rejected",
+        "solutions/sre-harness/tests/test_sentinel_serialization.py::TestReadJsonObject::test_duplicate_keys_are_rejected",
+        "solutions/sre-harness/tests/test_sentinel_serialization.py::TestReadJsonObject::test_file_changed_while_reading_is_rejected",
+        "solutions/sre-harness/tests/test_sentinel_serialization.py::TestReadJsonObject::test_invalid_json_is_rejected",
+        "solutions/sre-harness/tests/test_sentinel_serialization.py::TestReadJsonObject::test_invalid_utf8_is_rejected",
+        "solutions/sre-harness/tests/test_sentinel_serialization.py::TestReadJsonObject::test_non_object_payload_is_rejected",
+        "solutions/sre-harness/tests/test_sentinel_serialization.py::TestReadJsonObject::test_nonfinite_json_numbers_are_rejected",
+        "solutions/sre-harness/tests/test_sentinel_serialization.py::TestReadJsonObject::test_open_is_nonblocking_so_special_files_cannot_stall_the_reader",
+        "solutions/sre-harness/tests/test_sentinel_serialization.py::TestReadJsonObject::test_oversized_file_is_rejected_before_decode",
+        "solutions/sre-harness/tests/test_sentinel_serialization.py::TestReadJsonObject::test_symlink_is_rejected"
+      ]
+    },
+    {
+      "id": "P-B7D-3",
+      "tests": [
+        "solutions/sre-harness/tests/test_sentinel_drift.py::TestDriftRule::test_299_second_mismatch_stays_silent",
+        "solutions/sre-harness/tests/test_sentinel_drift.py::TestDriftRule::test_exact_persistence_boundary_emits_bounded_medium_finding",
+        "solutions/sre-harness/tests/test_sentinel_drift.py::TestDriftRule::test_matching_revision_stays_silent",
+        "solutions/sre-harness/tests/test_sentinel_drift.py::TestDriftRule::test_one_observation_stays_silent",
+        "solutions/sre-harness/tests/test_sentinel_eval.py::test_b7_drift_has_lead_and_five_distinct_clean_controls"
+      ]
+    },
+    {
+      "id": "P-B7D-4",
+      "tests": [
+        "solutions/sre-harness/tests/test_sentinel_drift.py::TestDriftRule::test_exact_persistence_boundary_emits_bounded_medium_finding",
+        "solutions/sre-harness/tests/test_sentinel_drift.py::TestDriftRule::test_matching_revision_stays_silent",
+        "solutions/sre-harness/tests/test_sentinel_drift.py::TestDriftRule::test_persistent_missing_observation_is_high_and_honest"
+      ]
+    },
+    {
+      "id": "P-B7D-5",
+      "tests": [
+        "solutions/sre-harness/tests/test_sentinel_drift.py::TestDriftRule::test_exact_persistence_boundary_emits_bounded_medium_finding",
+        "solutions/sre-harness/tests/test_sentinel_drift.py::TestDriftRule::test_multiple_observations_preserve_input_order",
+        "solutions/sre-harness/tests/test_sentinel_drift.py::TestDriftRule::test_one_hour_persistent_digest_mismatch_is_high",
+        "solutions/sre-harness/tests/test_sentinel_drift.py::TestDriftRule::test_persistent_missing_observation_is_high_and_honest"
+      ]
+    },
+    {
+      "id": "P-B7D-6",
+      "tests": [
+        "solutions/sre-harness/tests/test_sentinel_drift.py::TestDriftDedup::test_different_resource_remains_fresh",
+        "solutions/sre-harness/tests/test_sentinel_drift.py::TestDriftDedup::test_higher_ranked_same_key_duplicate_wins_within_scan",
+        "solutions/sre-harness/tests/test_sentinel_drift.py::TestDriftDedup::test_open_condition_stays_suppressed_when_observed_digest_changes"
+      ]
+    },
+    {
+      "id": "P-B7D-7",
+      "tests": [
+        "solutions/sre-harness/tests/test_sentinel_detectors.py::test_default_registry_contains_all_five_detectors",
+        "solutions/sre-harness/tests/test_sentinel_drift.py::TestDriftRule::test_registry_contains_pure_action_free_detector"
+      ]
+    },
+    {
+      "id": "P-B7D-8",
+      "tests": [
+        "solutions/sre-harness/tests/test_sentinel_eval.py::test_b7_drift_has_lead_and_five_distinct_clean_controls",
+        "solutions/sre-harness/tests/test_sentinel_eval.py::test_seed_suite_all_passes"
+      ]
+    },
+    {
+      "id": "P-B7D-9",
+      "tests": [
+        "solutions/sre-harness/tests/test_sentinel_eval.py::test_b7_drift_has_lead_and_five_distinct_clean_controls",
+        "solutions/sre-harness/tests/test_sentinel_eval.py::test_seed_suite_all_passes",
+        "solutions/sre-harness/tests/test_sentinel_eval.py::test_seed_suite_reports_explicit_early_detection_and_false_positive_metrics"
+      ]
+    },
+    {
+      "id": "P-B7D-10",
+      "tests": [
+        "solutions/sre-harness/tests/test_sentinel_drift.py::TestEvidenceBoundary::test_docs_retain_fixture_only_incomplete_boundary"
+      ]
+    }
+  ]
+}

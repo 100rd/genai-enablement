@@ -1,0 +1,109 @@
+{
+  "policy": {
+    "approvalRevision": "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+    "approvedBy": "team:platform-sre",
+    "awsAccountId": "000000000000",
+    "confidenceThreshold": "0.9",
+    "entries": [
+      {
+        "action": "restart_stateless_pod",
+        "environment": "development",
+        "forward": {
+          "documentName": "Fixture-RestartStatelessPod",
+          "documentSha256": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "documentVersion": "1"
+        },
+        "parameterAllowlist": {
+          "AutomationAssumeRole": [
+            "arn:aws:iam::000000000000:role/fixture-sre-automation"
+          ],
+          "Cluster": [
+            "dev-eu-1"
+          ],
+          "Namespace": [
+            "payments"
+          ],
+          "Workload": [
+            "payments-api"
+          ]
+        },
+        "rollback": {
+          "documentName": "Fixture-RestartStatelessPod-Rollback",
+          "documentSha256": "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+          "documentVersion": "1"
+        },
+        "rollbackExecutionIdParameter": "ForwardExecutionId"
+      },
+      {
+        "action": "retrigger_argocd_sync",
+        "environment": "development",
+        "forward": {
+          "documentName": "Fixture-RetriggerArgoCdSync",
+          "documentSha256": "sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+          "documentVersion": "1"
+        },
+        "parameterAllowlist": {
+          "Application": [
+            "payments"
+          ],
+          "AutomationAssumeRole": [
+            "arn:aws:iam::000000000000:role/fixture-sre-automation"
+          ]
+        },
+        "rollback": {
+          "documentName": "Fixture-RetriggerArgoCdSync-Rollback",
+          "documentSha256": "sha256:dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+          "documentVersion": "1"
+        },
+        "rollbackExecutionIdParameter": "ForwardExecutionId"
+      },
+      {
+        "action": "scale_stateless_service",
+        "environment": "development",
+        "forward": {
+          "documentName": "Fixture-ScaleStatelessService",
+          "documentSha256": "sha256:eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+          "documentVersion": "1"
+        },
+        "parameterAllowlist": {
+          "AutomationAssumeRole": [
+            "arn:aws:iam::000000000000:role/fixture-sre-automation"
+          ],
+          "Cluster": [
+            "dev-eu-1"
+          ],
+          "DesiredReplicas": [
+            "2",
+            "3",
+            "4",
+            "5"
+          ],
+          "Namespace": [
+            "payments"
+          ],
+          "Workload": [
+            "payments-api"
+          ]
+        },
+        "rollback": {
+          "documentName": "Fixture-ScaleStatelessService-Rollback",
+          "documentSha256": "sha256:ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+          "documentVersion": "1"
+        },
+        "rollbackExecutionIdParameter": "ForwardExecutionId"
+      }
+    ],
+    "evidenceScope": "fixture",
+    "executionRoleArn": "arn:aws:iam::000000000000:role/fixture-sre-automation",
+    "expiresAt": "2026-07-17T10:00:00Z",
+    "maxRequestAgeSeconds": 300,
+    "notificationTopicArn": "arn:aws:sns:eu-west-1:000000000000:fixture-sre-remediation",
+    "origin": "test://remediation-policy",
+    "policyId": "sre-t4-development-v1",
+    "publishedAt": "2026-07-16T10:00:00Z",
+    "region": "eu-west-1",
+    "verifierRef": "test://verifier/exact-remediation-policy"
+  },
+  "publicationRevision": "sha256:0141c6e6033afeb716d164a498c6927e7622dea5e9069861128c03a6071348d4",
+  "schemaVersion": "sre-harness.remediation-policy-publication/v1"
+}

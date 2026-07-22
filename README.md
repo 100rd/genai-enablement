@@ -13,7 +13,7 @@ deterministic gates (L4, never L5).
 
 | Project | Role | Status |
 |---|---|---|
-| [**Omniscience**](https://github.com/100rd/Omniscience) | Knowledge hub — ingests platform sources (code, IaC, K8s, CI, alerts, chat) into a bitemporal graph; serves it to any client via MCP | v0.5 released; MCP v1 in progress |
+| [**Omniscience**](https://github.com/100rd/Omniscience) | Knowledge hub — ingests platform sources (code, IaC, K8s, CI, alerts, chat) into a bitemporal graph; serves it to any client via MCP | v0.5 released; [MCP v1 in progress](docs/portfolio/omniscience.md) |
 | [**multiqlti**](https://github.com/100rd/multiqlti) | Personal dark factory — multi-model SDLC pipelines for one engineer; the platform's proving ground | live |
 | [**omnius**](https://github.com/100rd/omnius) | Centralized dark factory — org-scale governed SDLC (deterministic core, untrusted agents, human-owned merges) | design + tested mockup |
 | [**Barbarossa**](https://github.com/100rd/Barbarossa) | Continuous Management Plane — shared evidence-driven loop kernel with isolated Reliability, Cost, assurance, risk and effectiveness domains | proposed; 29 planning-complete specs |
@@ -23,6 +23,10 @@ deterministic gates (L4, never L5).
 
 > Some component repositories are private — ask the platform owner for access if a link
 > returns 404.
+
+Machine-readable project facts and the ownership boundary live in the
+[`portfolio registry`](portfolio/projects.json) and [portfolio index](docs/portfolio/README.md).
+Component contracts and execution evidence remain canonical in their owning repositories.
 
 For synchronized work across `genai-enablement`, `Barbarossa`, `omnius`, `Omniscience`, and
 `platform-portal`, start at
@@ -59,6 +63,9 @@ Detailed as-is map with per-link status and contract risks:
 | Artifact | What it gives you |
 |---|---|
 | [`PLATFORM.md`](PLATFORM.md), [`docs/synchronized-platform/`](docs/synchronized-platform/) | Canonical synchronized-platform entry point, full ADR/SPEC inventory, dependency-ordered work packages, and component handoff contract |
+| [`portfolio/projects.json`](portfolio/projects.json), [`docs/portfolio/`](docs/portfolio/) | Machine-readable project registry and human portfolio views: status, owners, releases, initiatives, blockers, evidence links |
+| [`docs/specs/README.md`](docs/specs/README.md) | Complete machine-checked Track-B capability-SPEC catalog for `B0..B7`: uniform ownership/decision/readiness metadata, dependencies, REQ/probe counts, exact local traceability, and next external gate |
+| [`docs/portfolio/omnius.md`](docs/portfolio/omnius.md) | Omnius readiness snapshot: non-authorizing profile, local gate evidence, and activation blockers |
 | [`docs/platform-glossary.md`](docs/platform-glossary.md) | Canonical terms, component boundaries (what each project does and does NOT), term-collision rulings |
 | [`docs/decisions/`](docs/decisions/) | ADRs binding across repos, including accepted ADR-to-SPEC governance (ADR-0009) |
 | [`skills/`](skills/) | Shared skills registry — SKILL.md format, sha256 lock, PR-only changes ([rules](skills/REGISTRY.md)) |
@@ -103,5 +110,7 @@ engine (T1–T4 with degradation), action-tier table, change-validation gate
 (PROCEED / BLOCK / REQUIRE_HUMAN — no LLM inside), continuous-detection **Sentinel**
 (deterministic detectors → deduped, ranked advisory findings, scored on lead-time),
 platform-graph port with an Omniscience MCP adapter, offline eval harness, gate CLI with
-CI integrations. See the [plan](docs/autonomous-sre-harness-plan.md) and
+CI integrations, Tier-3/Tier-4 remediation construction seams, and a portable permanent-fix chase that
+can create one deduplicated issue and then only observe a factory-owned change through exact landing.
+See the [plan](docs/autonomous-sre-harness-plan.md) and
 [ADR-0001](docs/decisions/0001-continuous-detection-sentinel.md).

@@ -16,7 +16,7 @@ This is the canonical entry point for work spanning `genai-enablement`, `Barbaro
 
 | Component | Local entry point | Owned contracts |
 |---|---|---|
-| `genai-enablement` | this file | cross-repository ADRs, PII Wall governance, synchronized work order, and reusable evaluation patterns |
+| `genai-enablement` | this file | cross-repository ADRs, PII Wall governance, synchronized work order, and reusable Autonomous SRE harness SPECs |
 | `Barbarossa` | [`../Barbarossa/PLATFORM.md`](../Barbarossa/PLATFORM.md) in the sibling workspace; planned [repository link](https://github.com/100rd/Barbarossa/blob/main/PLATFORM.md) | Continuous Management kernel and independently assignable Reliability, Cost & Value, AI assurance, security, privacy, compliance, supply-chain, delivery, knowledge, capacity, toil, and product-outcome SPECs |
 | `omnius` | [`../omnius/PLATFORM.md`](../omnius/PLATFORM.md) in the sibling workspace; [repository link](https://github.com/100rd/omnius/blob/main/PLATFORM.md) | governed factory capability/task SPECs, context/egress PII enforcement, and readiness profiles |
 | `Omniscience` | [`../Omniscience/PLATFORM.md`](../Omniscience/PLATFORM.md) in the sibling workspace; [repository link](https://github.com/100rd/Omniscience/blob/main/PLATFORM.md) | knowledge-plane capability/task SPECs, ingestion/lifecycle PII enforcement, and execution evidence |

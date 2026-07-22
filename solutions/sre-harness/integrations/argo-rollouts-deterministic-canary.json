@@ -1,0 +1,242 @@
+{
+  "apiVersion": "v1",
+  "items": [
+    {
+      "apiVersion": "v1",
+      "kind": "Service",
+      "metadata": {
+        "annotations": {
+          "sre-harness.genai-enablement/controller-floor": "1.7.0",
+          "sre-harness.genai-enablement/evidence-scope": "fixture",
+          "sre-harness.genai-enablement/human-approval-required": "true",
+          "sre-harness.genai-enablement/policy-revision": "sha256:9df780d51c0ab19a58c1497b1dd56a8270fcd6be6a4c69ad4d4560e357f696c0"
+        },
+        "name": "payments-api",
+        "namespace": "payments-canary"
+      },
+      "spec": {
+        "ports": [
+          {
+            "name": "http",
+            "port": 80,
+            "protocol": "TCP",
+            "targetPort": "http"
+          }
+        ],
+        "selector": {
+          "app.kubernetes.io/name": "payments-api"
+        },
+        "type": "ClusterIP"
+      }
+    },
+    {
+      "apiVersion": "argoproj.io/v1alpha1",
+      "kind": "AnalysisTemplate",
+      "metadata": {
+        "annotations": {
+          "sre-harness.genai-enablement/controller-floor": "1.7.0",
+          "sre-harness.genai-enablement/evidence-scope": "fixture",
+          "sre-harness.genai-enablement/human-approval-required": "true",
+          "sre-harness.genai-enablement/policy-revision": "sha256:9df780d51c0ab19a58c1497b1dd56a8270fcd6be6a4c69ad4d4560e357f696c0"
+        },
+        "name": "payments-api-error-rate",
+        "namespace": "payments-canary"
+      },
+      "spec": {
+        "args": [
+          {
+            "name": "service-name"
+          },
+          {
+            "name": "canary-hash"
+          }
+        ],
+        "metrics": [
+          {
+            "consecutiveErrorLimit": 0,
+            "count": 5,
+            "failureCondition": "isNaN(default(result, 1)) || isInf(default(result, 1)) || default(result, 1) < 0 || default(result, 1) > 0.01",
+            "failureLimit": 0,
+            "inconclusiveLimit": 0,
+            "initialDelay": "60s",
+            "interval": "30s",
+            "name": "error-rate",
+            "provider": {
+              "datadog": {
+                "aggregator": "sum",
+                "apiVersion": "v2",
+                "formula": "errors / requests",
+                "interval": "300s",
+                "queries": {
+                  "errors": "sum:trace.http.request.errors{service:{{args.service-name}},rollouts_pod_template_hash:{{args.canary-hash}}}.as_count()",
+                  "requests": "sum:trace.http.request.hits{service:{{args.service-name}},rollouts_pod_template_hash:{{args.canary-hash}}}.as_count()"
+                },
+                "secretRef": {
+                  "name": "datadog-rollouts-readonly",
+                  "namespaced": true
+                }
+              }
+            },
+            "successCondition": "!isNaN(default(result, 1)) && !isInf(default(result, 1)) && default(result, 1) >= 0 && default(result, 1) <= 0.01"
+          }
+        ]
+      }
+    },
+    {
+      "apiVersion": "argoproj.io/v1alpha1",
+      "kind": "Rollout",
+      "metadata": {
+        "annotations": {
+          "sre-harness.genai-enablement/controller-floor": "1.7.0",
+          "sre-harness.genai-enablement/evidence-scope": "fixture",
+          "sre-harness.genai-enablement/human-approval-required": "true",
+          "sre-harness.genai-enablement/policy-revision": "sha256:9df780d51c0ab19a58c1497b1dd56a8270fcd6be6a4c69ad4d4560e357f696c0"
+        },
+        "name": "payments-api",
+        "namespace": "payments-canary"
+      },
+      "spec": {
+        "minReadySeconds": 10,
+        "progressDeadlineAbort": true,
+        "progressDeadlineSeconds": 900,
+        "replicas": 10,
+        "revisionHistoryLimit": 5,
+        "rollbackWindow": {
+          "revisions": 3
+        },
+        "selector": {
+          "matchLabels": {
+            "app.kubernetes.io/name": "payments-api"
+          }
+        },
+        "strategy": {
+          "canary": {
+            "maxSurge": 1,
+            "maxUnavailable": 0,
+            "steps": [
+              {
+                "setWeight": 10
+              },
+              {
+                "pause": {
+                  "duration": "120s"
+                }
+              },
+              {
+                "analysis": {
+                  "args": [
+                    {
+                      "name": "service-name",
+                      "value": "payments-api.payments-canary.svc.cluster.local"
+                    },
+                    {
+                      "name": "canary-hash",
+                      "valueFrom": {
+                        "podTemplateHashValue": "Latest"
+                      }
+                    }
+                  ],
+                  "templates": [
+                    {
+                      "templateName": "payments-api-error-rate"
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        },
+        "template": {
+          "metadata": {
+            "annotations": {
+              "sre-harness.genai-enablement/controller-floor": "1.7.0",
+              "sre-harness.genai-enablement/evidence-scope": "fixture",
+              "sre-harness.genai-enablement/human-approval-required": "true",
+              "sre-harness.genai-enablement/policy-revision": "sha256:9df780d51c0ab19a58c1497b1dd56a8270fcd6be6a4c69ad4d4560e357f696c0"
+            },
+            "labels": {
+              "app.kubernetes.io/managed-by": "sre-harness",
+              "app.kubernetes.io/name": "payments-api"
+            }
+          },
+          "spec": {
+            "automountServiceAccountToken": false,
+            "containers": [
+              {
+                "image": "registry.example.invalid/payments@sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "imagePullPolicy": "IfNotPresent",
+                "livenessProbe": {
+                  "failureThreshold": 3,
+                  "httpGet": {
+                    "path": "/healthz",
+                    "port": "http",
+                    "scheme": "HTTP"
+                  },
+                  "periodSeconds": 10,
+                  "timeoutSeconds": 1
+                },
+                "name": "payments-api",
+                "ports": [
+                  {
+                    "containerPort": 8080,
+                    "name": "http",
+                    "protocol": "TCP"
+                  }
+                ],
+                "readinessProbe": {
+                  "failureThreshold": 3,
+                  "httpGet": {
+                    "path": "/readyz",
+                    "port": "http",
+                    "scheme": "HTTP"
+                  },
+                  "periodSeconds": 5,
+                  "timeoutSeconds": 1
+                },
+                "resources": {
+                  "limits": {
+                    "cpu": "1000m",
+                    "memory": "512Mi"
+                  },
+                  "requests": {
+                    "cpu": "250m",
+                    "memory": "256Mi"
+                  }
+                },
+                "securityContext": {
+                  "allowPrivilegeEscalation": false,
+                  "capabilities": {
+                    "drop": [
+                      "ALL"
+                    ]
+                  },
+                  "readOnlyRootFilesystem": true,
+                  "runAsNonRoot": true
+                },
+                "startupProbe": {
+                  "failureThreshold": 30,
+                  "httpGet": {
+                    "path": "/startupz",
+                    "port": "http",
+                    "scheme": "HTTP"
+                  },
+                  "periodSeconds": 2,
+                  "timeoutSeconds": 1
+                }
+              }
+            ],
+            "enableServiceLinks": false,
+            "securityContext": {
+              "runAsNonRoot": true,
+              "seccompProfile": {
+                "type": "RuntimeDefault"
+              }
+            },
+            "terminationGracePeriodSeconds": 30
+          }
+        }
+      }
+    }
+  ],
+  "kind": "List"
+}
