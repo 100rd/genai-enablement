@@ -4,6 +4,9 @@ from __future__ import annotations
 
 from sre_harness.sentinel.detectors import (
     DEFAULT_DETECTORS,
+    detect_change_induced_regression,
+    detect_config_state_drift,
+    detect_error_rate_vs_baseline,
     detect_new_error_signature,
     detect_saturation_expiry,
 )
@@ -219,12 +222,21 @@ def test_novelty_is_per_service() -> None:
 # --- registry --------------------------------------------------------------
 
 
-def test_empty_state_yields_nothing_from_either_detector() -> None:
+def test_empty_state_yields_nothing_from_any_detector() -> None:
     state = SentinelState()
 
     assert detect_saturation_expiry(state) == []
     assert detect_new_error_signature(state) == []
+    assert detect_error_rate_vs_baseline(state) == []
+    assert detect_change_induced_regression(state) == []
+    assert detect_config_state_drift(state) == []
 
 
-def test_default_registry_contains_both_detectors() -> None:
-    assert DEFAULT_DETECTORS == (detect_saturation_expiry, detect_new_error_signature)
+def test_default_registry_contains_all_five_detectors() -> None:
+    assert DEFAULT_DETECTORS == (
+        detect_saturation_expiry,
+        detect_new_error_signature,
+        detect_error_rate_vs_baseline,
+        detect_change_induced_regression,
+        detect_config_state_drift,
+    )

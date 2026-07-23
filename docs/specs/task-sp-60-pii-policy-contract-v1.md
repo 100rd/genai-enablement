@@ -1,7 +1,7 @@
 ---
 id: task-sp-60-pii-policy-contract-v1
 title: Publish the portable PII policy and receipt contract v1
-status: implemented
+status: ready
 approvedBy: "@100rd"
 approvedAt: 2026-07-21
 governingAdrs: [genai-enablement/ADR-0018]

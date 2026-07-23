@@ -1,12 +1,12 @@
 # SPEC-PII-POLICY — Platform PII policy, profile, and receipt contract
 
-**Specification type:** Capability SPEC  
-**Status:** Ready  
-**Owner:** `genai-enablement` platform governance  
+**Specification type:** Capability SPEC
+**Status:** Ready
+**Owner:** `genai-enablement` platform governance
 **Governing decisions:** [ADR-0018](../decisions/0018-pii-wall-purpose-bound-data-boundary.md),
 [ADR-0009](../decisions/0009-organizational-dark-factory-sdd.md), and
-[ADR-0012](../decisions/0012-capability-readiness-profiles.md)  
-**Work package:** `SP-60`  
+[ADR-0012](../decisions/0012-capability-readiness-profiles.md)
+**Work package:** `SP-60`
 **Authority:** development and conformance only; no profile activation, permit issuance, provider use,
 deletion, export, or production policy publication
 
@@ -103,4 +103,3 @@ outside this SPEC's development authority.
 Exit requires the schema bundle, manifest, canonical positive/negative fixtures, deterministic validator,
 compatibility matrix, generated digest, and passing offline probes. Live policy publication, trust-key
 provisioning, component activation and privacy claims remain separately approved owner transitions.
-

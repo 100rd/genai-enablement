@@ -1,0 +1,102 @@
+{
+  "schemaVersion": "sre-harness.spec-portable-traceability/v1",
+  "specId": "SPEC-B7-SAT",
+  "specPath": "docs/specs/SPEC-B7-saturation-expiry-detector.md",
+  "specSha256": "sha256:77641aa8603ad24ed10c34c0d30ee4fca4154c111ed73788123bd02fef9ce59c",
+  "evidenceScope": "local-portable-only",
+  "operationalState": "incomplete",
+  "authority": "non-authorizing",
+  "implementationPaths": [
+    "solutions/sre-harness/src/sre_harness/sentinel/detectors.py",
+    "solutions/sre-harness/src/sre_harness/sentinel/eval.py",
+    "solutions/sre-harness/src/sre_harness/sentinel/finding.py",
+    "solutions/sre-harness/src/sre_harness/sentinel/scan.py",
+    "solutions/sre-harness/src/sre_harness/sentinel/scenarios.py",
+    "solutions/sre-harness/src/sre_harness/sentinel/serialization.py",
+    "solutions/sre-harness/src/sre_harness/sentinel/state.py"
+  ],
+  "probes": [
+    {
+      "id": "P-B7S-1",
+      "tests": [
+        "solutions/sre-harness/tests/test_sentinel_state.py::test_records_are_frozen",
+        "solutions/sre-harness/tests/test_sentinel_state.py::test_saturation_capacity_must_be_positive",
+        "solutions/sre-harness/tests/test_sentinel_state.py::test_saturation_utilization_is_used_over_capacity",
+        "solutions/sre-harness/tests/test_sentinel_state.py::test_state_defaults_to_empty_signals"
+      ]
+    },
+    {
+      "id": "P-B7S-2",
+      "tests": [
+        "solutions/sre-harness/tests/test_sentinel_serialization.py::TestStateFromDict::test_parses_expiry_items",
+        "solutions/sre-harness/tests/test_sentinel_serialization.py::TestStateFromDict::test_parses_saturation_samples",
+        "solutions/sre-harness/tests/test_sentinel_serialization.py::TestStateFromDict::test_saturation_sample_invalid_capacity_propagates",
+        "solutions/sre-harness/tests/test_sentinel_serialization.py::TestStateFromDictErrors::test_expiry_item_missing_field_is_rejected",
+        "solutions/sre-harness/tests/test_sentinel_serialization.py::TestStateFromDictErrors::test_expiry_item_non_integral_float_is_rejected",
+        "solutions/sre-harness/tests/test_sentinel_serialization.py::TestStateFromDictErrors::test_expiry_item_non_numeric_expires_in_days_is_rejected",
+        "solutions/sre-harness/tests/test_sentinel_serialization.py::TestStateFromDictErrors::test_expiry_item_null_field_is_rejected",
+        "solutions/sre-harness/tests/test_sentinel_serialization.py::TestStateFromDictErrors::test_expiry_items_not_a_list_is_rejected",
+        "solutions/sre-harness/tests/test_sentinel_serialization.py::TestStateFromDictErrors::test_saturation_sample_missing_field_is_rejected",
+        "solutions/sre-harness/tests/test_sentinel_serialization.py::TestStateFromDictErrors::test_saturation_sample_non_numeric_capacity_is_rejected",
+        "solutions/sre-harness/tests/test_sentinel_serialization.py::TestStateFromDictErrors::test_saturation_sample_non_numeric_growth_is_rejected",
+        "solutions/sre-harness/tests/test_sentinel_serialization.py::TestStateFromDictErrors::test_saturation_sample_non_numeric_used_is_rejected",
+        "solutions/sre-harness/tests/test_sentinel_serialization.py::TestStateFromDictErrors::test_saturation_sample_null_field_is_rejected",
+        "solutions/sre-harness/tests/test_sentinel_serialization.py::TestStateFromDictErrors::test_saturation_samples_not_a_list_is_rejected"
+      ]
+    },
+    {
+      "id": "P-B7S-3",
+      "tests": [
+        "solutions/sre-harness/tests/test_sentinel_detectors.py::test_healthy_resource_with_no_growth_yields_no_finding",
+        "solutions/sre-harness/tests/test_sentinel_detectors.py::test_observed_critical_saturation_is_critical_and_certain",
+        "solutions/sre-harness/tests/test_sentinel_detectors.py::test_warn_band_saturation_is_medium"
+      ]
+    },
+    {
+      "id": "P-B7S-4",
+      "tests": [
+        "solutions/sre-harness/tests/test_sentinel_detectors.py::test_projected_exhaustion_is_high_but_less_certain",
+        "solutions/sre-harness/tests/test_sentinel_detectors.py::test_slow_growth_that_does_not_reach_capacity_yields_no_finding"
+      ]
+    },
+    {
+      "id": "P-B7S-5",
+      "tests": [
+        "solutions/sre-harness/tests/test_sentinel_detectors.py::test_already_expired_item_is_critical",
+        "solutions/sre-harness/tests/test_sentinel_detectors.py::test_expiry_within_critical_window_is_high",
+        "solutions/sre-harness/tests/test_sentinel_detectors.py::test_expiry_within_warn_window_is_medium",
+        "solutions/sre-harness/tests/test_sentinel_detectors.py::test_far_future_expiry_yields_no_finding"
+      ]
+    },
+    {
+      "id": "P-B7S-6",
+      "tests": [
+        "solutions/sre-harness/tests/test_sentinel_detectors.py::test_already_expired_item_is_critical",
+        "solutions/sre-harness/tests/test_sentinel_detectors.py::test_cluster_qualifies_the_fingerprint",
+        "solutions/sre-harness/tests/test_sentinel_detectors.py::test_observed_critical_saturation_is_critical_and_certain"
+      ]
+    },
+    {
+      "id": "P-B7S-7",
+      "tests": [
+        "solutions/sre-harness/tests/test_sentinel_detectors.py::test_default_registry_contains_all_five_detectors",
+        "solutions/sre-harness/tests/test_sentinel_scan.py::test_open_finding_is_suppressed_not_re_alerted"
+      ]
+    },
+    {
+      "id": "P-B7S-8",
+      "tests": [
+        "solutions/sre-harness/tests/test_sentinel_eval.py::test_runner_finds_the_earliest_fire_index",
+        "solutions/sre-harness/tests/test_sentinel_eval.py::test_seed_suite_all_passes",
+        "solutions/sre-harness/tests/test_sentinel_eval.py::test_seed_suite_mean_lead_time_matches_fired_scenarios",
+        "solutions/sre-harness/tests/test_sentinel_eval.py::test_seed_suite_reports_explicit_early_detection_and_false_positive_metrics"
+      ]
+    },
+    {
+      "id": "P-B7S-9",
+      "tests": [
+        "solutions/sre-harness/tests/test_spec_catalog.py::test_b7_saturation_spec_is_discoverable_and_non_authorizing"
+      ]
+    }
+  ]
+}

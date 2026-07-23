@@ -1,11 +1,11 @@
 # Advisory change-validation gate for GitLab CI (Stage 2 of the SRE harness).
 #
 # This snippet adds a `change-validation` stage that runs the deterministic
-# `sre-harness gate` over the change in the MR and surfaces a verdict
+# `sre-harness gate-integration` over one closed SPEC-B2 envelope and surfaces a verdict
 # (proceed / block / require_human) BEFORE the deploy stage.
 #
-# It is ADVISORY by default: `allow_failure: true` means a `block` (exit 1) or
-# `require_human` (exit 2) verdict shows a warning on the pipeline but does NOT
+# It is ADVISORY by default: `allow_failure: true` means a `block` (exit 10) or
+# `require_human` (exit 20) verdict shows a warning on the pipeline but does NOT
 # stop the deploy. This matches the plan's Stage 2 ("Low risk — advisory"): a
 # controller or a human acts on the verdict (autonomy tier T2). See
 # `integrations/README.md`.
@@ -41,22 +41,19 @@ change-validation:
   # Remove the next line to make the gate blocking.
   allow_failure: true
   variables:
-    # Path to the platform-graph fixture. In production, point this at a file
-    # rendered from the live OmniscienceMcpPlatformGraph adapter (see the
-    # live-adapter TODO in integrations/README.md) instead of a static fixture.
-    HARNESS_GRAPH: "solutions/sre-harness/examples/platform-graph.json"
-    # Path to the change request. Swap for `--change-format k8s` against the
-    # rendered manifest, or `--change-format pr-diff` against the MR diff.
-    HARNESS_CHANGE: "solutions/sre-harness/examples/change-request.json"
+    # Portable fixture only. A real consumer must render this closed envelope
+    # from the exact MR change and an approved read-only platform snapshot.
+    HARNESS_INVOCATION: "solutions/sre-harness/examples/change-advisory-invocation.json"
   before_script:
     - pip install --quiet ./solutions/sre-harness
   script:
     - |
       echo "Running advisory change-validation gate..."
-      sre-harness gate \
-        --change "$HARNESS_CHANGE" \
-        --graph "$HARNESS_GRAPH" | tee gate-verdict.json
-      # Exit codes: 0=proceed, 1=block, 2=require_human.
+      sre-harness gate-integration \
+        --input "$HARNESS_INVOCATION" \
+        --result gate-verdict.json
+      # Exit codes: 0=proceed, 10=block, 20=require_human, 64=invalid integration.
+      # Do not pipe through `tee`: a pipeline would mask the gate's disposition.
   artifacts:
     when: always
     paths:

@@ -1,15 +1,15 @@
 # SPEC-B4 — Tier-4 allowlisted remediation
 
-**Specification type:** Capability SPEC  
-**Status:** Draft / construction  
-**Owner:** `genai-enablement` Autonomous SRE harness  
+**Specification type:** Capability SPEC
+**Status:** Draft / construction
+**Owner:** `genai-enablement` Autonomous SRE harness
 **Governing decisions:** [ADR-0009](../decisions/0009-organizational-dark-factory-sdd.md) and the
-[Autonomous SRE harness plan](../autonomous-sre-harness-plan.md)  
-**Roadmap gate:** `B4`  
-**Depends on:** —  
-**Evidence scope:** `local-portable-only`  
-**Operational state:** `incomplete`  
-**Next gate:** `human-allowlist-and-live-provider-drills`  
+[Autonomous SRE harness plan](../autonomous-sre-harness-plan.md)
+**Roadmap gate:** `B4`
+**Depends on:** —
+**Evidence scope:** `local-portable-only`
+**Operational state:** `incomplete`
+**Next gate:** `human-allowlist-and-live-provider-drills`
 **Authority:** `non-authorizing`; fixture policy cannot issue live Tier-4 execution authority
 
 ## User journey and boundary
@@ -31,9 +31,9 @@ start, supplies a UUID `ClientToken`, and fixes `MaxConcurrency=1` plus `MaxErro
 construction constraints, not evidence that any AWS account contains the documents.
 
 **Inputs:** one externally verifiable, time-bounded allowlist publication; one exact content-addressed
-remediation request; an exact UTC decision time; and explicit SSM/notification ports.  
+remediation request; an exact UTC decision time; and explicit SSM/notification ports.
 **Outputs:** a sealed `execute_t4` or `require_t3` decision and, only for `execute_t4`, a sealed finite
-execution state with idempotent start/compensation/notification calls.  
+execution state with idempotent start/compensation/notification calls.
 **Out:** credentials or SDK-global discovery, `$LATEST`/`$DEFAULT`, caller-authored approval flags,
 arbitrary parameter forwarding, public/AWS-owned runbooks, dynamic document/target selection, T3 approval,
 recursive remediation, Git/config changes, database/IAM/security-group/data-delete actions, and claims of

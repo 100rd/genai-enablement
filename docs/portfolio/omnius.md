@@ -1,6 +1,6 @@
 # Omnius portfolio view
 
-**As of:** 2026-07-21  
+**As of:** 2026-07-21
 **Portfolio status:** `control-plane-implementation`
 
 This is the program view of the current Omnius readiness slice. Capability/task contracts, readiness

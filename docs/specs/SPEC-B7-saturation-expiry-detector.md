@@ -1,16 +1,16 @@
 # SPEC-B7-SAT — Saturation and expiry Sentinel detector
 
-**Specification type:** Capability SPEC  
-**Status:** Draft / portable construction  
-**Owner:** `genai-enablement` Autonomous SRE harness  
+**Specification type:** Capability SPEC
+**Status:** Draft / portable construction
+**Owner:** `genai-enablement` Autonomous SRE harness
 **Governing decisions:** [ADR-0001](../decisions/0001-continuous-detection-sentinel.md),
 [ADR-0009](../decisions/0009-organizational-dark-factory-sdd.md), and the
-[Autonomous SRE harness plan](../autonomous-sre-harness-plan.md)  
-**Roadmap gate:** `B7`  
-**Depends on:** SPEC-B0 offline evaluation harness, SPEC-B7-CORE Sentinel portable core  
-**Evidence scope:** `local-portable-only`  
-**Operational state:** `incomplete`  
-**Next gate:** `human-policy-source-and-live-calibration`  
+[Autonomous SRE harness plan](../autonomous-sre-harness-plan.md)
+**Roadmap gate:** `B7`
+**Depends on:** SPEC-B0 offline evaluation harness, SPEC-B7-CORE Sentinel portable core
+**Evidence scope:** `local-portable-only`
+**Operational state:** `incomplete`
+**Next gate:** `human-policy-source-and-live-calibration`
 **Authority:** `non-authorizing`; detection T1 and findings T2 advisory, with no remediation authority
 
 ## Goal and boundary

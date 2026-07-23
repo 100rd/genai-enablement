@@ -1,0 +1,103 @@
+{
+  "schemaVersion": "sre-harness.spec-portable-traceability/v1",
+  "specId": "SPEC-B7",
+  "specPath": "docs/specs/SPEC-B7-error-rate-baseline-detector.md",
+  "specSha256": "sha256:bcd7a02b770ed8414a15893f34755bfb89c82b07fffc996858e6c69071e12857",
+  "evidenceScope": "local-portable-only",
+  "operationalState": "incomplete",
+  "authority": "non-authorizing",
+  "implementationPaths": [
+    "solutions/sre-harness/src/sre_harness/sentinel/detectors.py",
+    "solutions/sre-harness/src/sre_harness/sentinel/eval.py",
+    "solutions/sre-harness/src/sre_harness/sentinel/scenarios.py",
+    "solutions/sre-harness/src/sre_harness/sentinel/serialization.py",
+    "solutions/sre-harness/src/sre_harness/sentinel/state.py"
+  ],
+  "probes": [
+    {
+      "id": "P-B7-1",
+      "tests": [
+        "solutions/sre-harness/tests/test_sentinel_error_rate.py::TestExactErrorRateWindow::test_invalid_or_coerced_signal_is_rejected",
+        "solutions/sre-harness/tests/test_sentinel_error_rate.py::TestExactErrorRateWindow::test_rates_are_derived_from_exact_aggregate_counts",
+        "solutions/sre-harness/tests/test_sentinel_error_rate.py::TestExactErrorRateWindow::test_signal_and_state_are_frozen",
+        "solutions/sre-harness/tests/test_sentinel_state.py::test_state_defaults_to_empty_signals"
+      ]
+    },
+    {
+      "id": "P-B7-2",
+      "tests": [
+        "solutions/sre-harness/tests/test_sentinel_serialization.py::TestReadJsonObject::test_deeply_nested_json_is_rejected_not_a_raw_recursion_error",
+        "solutions/sre-harness/tests/test_sentinel_serialization.py::TestReadJsonObject::test_directory_is_rejected",
+        "solutions/sre-harness/tests/test_sentinel_serialization.py::TestReadJsonObject::test_duplicate_keys_are_rejected",
+        "solutions/sre-harness/tests/test_sentinel_serialization.py::TestReadJsonObject::test_invalid_json_is_rejected",
+        "solutions/sre-harness/tests/test_sentinel_serialization.py::TestReadJsonObject::test_invalid_utf8_is_rejected",
+        "solutions/sre-harness/tests/test_sentinel_serialization.py::TestReadJsonObject::test_non_object_payload_is_rejected",
+        "solutions/sre-harness/tests/test_sentinel_serialization.py::TestReadJsonObject::test_nonfinite_json_numbers_are_rejected",
+        "solutions/sre-harness/tests/test_sentinel_serialization.py::TestReadJsonObject::test_open_is_nonblocking_so_special_files_cannot_stall_the_reader",
+        "solutions/sre-harness/tests/test_sentinel_serialization.py::TestReadJsonObject::test_oversized_file_is_rejected_before_decode",
+        "solutions/sre-harness/tests/test_sentinel_serialization.py::TestReadJsonObject::test_symlink_is_rejected",
+        "solutions/sre-harness/tests/test_sentinel_serialization.py::TestStateFromDict::test_parses_exact_error_rate_windows",
+        "solutions/sre-harness/tests/test_sentinel_serialization.py::TestStateFromDictErrors::test_error_rate_window_missing_or_null_field_is_rejected",
+        "solutions/sre-harness/tests/test_sentinel_serialization.py::TestStateFromDictErrors::test_error_rate_window_non_mapping_row_is_rejected",
+        "solutions/sre-harness/tests/test_sentinel_serialization.py::TestStateFromDictErrors::test_error_rate_window_rejects_coercion_and_nonfinite_values",
+        "solutions/sre-harness/tests/test_sentinel_serialization.py::TestStateFromDictErrors::test_error_rate_windows_not_a_list_is_rejected",
+        "solutions/sre-harness/tests/test_sentinel_serialization.py::TestStateFromDictErrors::test_error_rate_windows_over_signal_limit_is_rejected_before_row_parsing"
+      ]
+    },
+    {
+      "id": "P-B7-3",
+      "tests": [
+        "solutions/sre-harness/tests/test_sentinel_error_rate.py::TestErrorRateRule::test_exact_minimum_sample_can_qualify",
+        "solutions/sre-harness/tests/test_sentinel_error_rate.py::TestErrorRateRule::test_insufficient_samples_stay_silent"
+      ]
+    },
+    {
+      "id": "P-B7-4",
+      "tests": [
+        "solutions/sre-harness/tests/test_sentinel_error_rate.py::TestErrorRateRule::test_current_rate_inside_declared_slo_budget_multiplier_stays_silent",
+        "solutions/sre-harness/tests/test_sentinel_error_rate.py::TestErrorRateRule::test_exact_candidate_threshold_fires_high",
+        "solutions/sre-harness/tests/test_sentinel_error_rate.py::TestErrorRateRule::test_just_below_complete_threshold_stays_silent",
+        "solutions/sre-harness/tests/test_sentinel_error_rate.py::TestErrorRateRule::test_rule_constants_match_the_spec_candidate",
+        "solutions/sre-harness/tests/test_sentinel_error_rate.py::TestErrorRateRule::test_stable_high_baseline_is_not_a_fixed_threshold_alert"
+      ]
+    },
+    {
+      "id": "P-B7-5",
+      "tests": [
+        "solutions/sre-harness/tests/test_sentinel_error_rate.py::TestErrorRateRule::test_critical_boundary_uses_stricter_relative_and_budget_rule",
+        "solutions/sre-harness/tests/test_sentinel_error_rate.py::TestErrorRateRule::test_exact_candidate_threshold_fires_high",
+        "solutions/sre-harness/tests/test_sentinel_error_rate.py::TestErrorRateRule::test_multiple_windows_preserve_input_order_and_silence_clean_service"
+      ]
+    },
+    {
+      "id": "P-B7-6",
+      "tests": [
+        "solutions/sre-harness/tests/test_sentinel_detectors.py::test_default_registry_contains_all_five_detectors",
+        "solutions/sre-harness/tests/test_sentinel_error_rate.py::TestErrorRateRule::test_default_registry_contains_the_detector_without_action_surface"
+      ]
+    },
+    {
+      "id": "P-B7-7",
+      "tests": [
+        "solutions/sre-harness/tests/test_sentinel_eval.py::test_b7_error_rate_corpus_has_lead_and_three_distinct_clean_controls",
+        "solutions/sre-harness/tests/test_sentinel_eval.py::test_runner_finds_the_earliest_fire_index",
+        "solutions/sre-harness/tests/test_sentinel_eval.py::test_seed_suite_all_passes"
+      ]
+    },
+    {
+      "id": "P-B7-8",
+      "tests": [
+        "solutions/sre-harness/tests/test_sentinel_eval.py::test_b7_error_rate_corpus_has_lead_and_three_distinct_clean_controls",
+        "solutions/sre-harness/tests/test_sentinel_eval.py::test_clean_scenario_that_actually_fires_is_a_false_positive",
+        "solutions/sre-harness/tests/test_sentinel_eval.py::test_seed_suite_all_passes",
+        "solutions/sre-harness/tests/test_sentinel_eval.py::test_seed_suite_reports_explicit_early_detection_and_false_positive_metrics"
+      ]
+    },
+    {
+      "id": "P-B7-9",
+      "tests": [
+        "solutions/sre-harness/tests/test_sentinel_error_rate.py::TestEvidenceBoundary::test_docs_retain_fixture_only_incomplete_boundary"
+      ]
+    }
+  ]
+}

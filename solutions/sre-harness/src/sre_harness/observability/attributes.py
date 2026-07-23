@@ -12,6 +12,7 @@ Grouped by surface:
 
 - ``gate.*``  — the change-validation gate (overall verdict + per-check).
 - ``eval.*``  — the offline eval harness (suite + per-scenario).
+- ``triage.*`` — B1 read-only gather/analyze/RCA provenance.
 - ``llm.*``   — token / cost scaffold for future LLM steps (triage / RCA). No
   LLM runs today, so these are defined but not yet emitted.
 """
@@ -60,6 +61,21 @@ EVAL_SCENARIO_KIND: Final = "sre_harness.eval.scenario_kind"
 EVAL_SCORE_PASSED: Final = "sre_harness.eval.passed"
 #: Numeric score value for the scenario (child span).
 EVAL_SCORE: Final = "sre_harness.eval.score"
+
+# --- read-only incident triage / RCA ---------------------------------------
+
+#: Stable incident identifier for one triage run.
+TRIAGE_INCIDENT_ID: Final = "sre_harness.triage.incident_id"
+#: Service whose incident snapshot is being analyzed.
+TRIAGE_SERVICE: Final = "sre_harness.triage.service"
+#: Number of evidence items admitted by the bounded gather node.
+TRIAGE_EVIDENCE_COUNT: Final = "sre_harness.triage.evidence_count"
+#: Root-cause class selected for the RCA draft.
+TRIAGE_ROOT_CAUSE: Final = "sre_harness.triage.root_cause"
+#: Confidence of the primary hypothesis.
+TRIAGE_CONFIDENCE: Final = "sre_harness.triage.confidence"
+#: Autonomy tier of the pipeline; always T1 for this surface.
+TRIAGE_ANALYSIS_TIER: Final = "sre_harness.triage.analysis_tier"
 
 # --- Sentinel (continuous detection) ---------------------------------------
 
@@ -129,4 +145,10 @@ __all__ = [
     "SENTINEL_RECOMMENDATION_TIER",
     "SENTINEL_SUPPRESSED_COUNT",
     "SERVICE",
+    "TRIAGE_ANALYSIS_TIER",
+    "TRIAGE_CONFIDENCE",
+    "TRIAGE_EVIDENCE_COUNT",
+    "TRIAGE_INCIDENT_ID",
+    "TRIAGE_ROOT_CAUSE",
+    "TRIAGE_SERVICE",
 ]

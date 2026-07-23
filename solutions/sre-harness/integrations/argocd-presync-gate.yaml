@@ -14,7 +14,8 @@
 # non-zero on block/require_human, and ArgoCD will treat the failed hook as a
 # failed sync. See integrations/README.md.
 #
-# Exit codes from `sre-harness gate`: 0=proceed, 1=block, 2=require_human.
+# Exit codes from `gate-integration`: 0=proceed, 10=block, 20=require_human,
+# 64=invalid integration input/output.
 #
 # HARDENING. Pod/container run as a fixed non-root UID with a read-only root
 # filesystem, no privilege escalation, all Linux capabilities dropped, and the
@@ -65,19 +66,12 @@ spec:
               export PYTHONPATH=/tmp/pip-packages
               pip install --quiet --target /tmp/pip-packages "sre-harness==0.1.0"
               echo "Running advisory change-validation gate (PreSync)..."
-              # `--change-format k8s` parses the rendered manifest mounted below;
-              # the graph fixture is mounted from a ConfigMap. In production the
-              # graph should come from the live OmniscienceMcpPlatformGraph
-              # adapter (see the live-adapter TODO in integrations/README.md).
-              python -m sre_harness.cli gate \
-                --change /work/change/manifest.json \
-                --change-format k8s \
-                --target-cluster "$TARGET_CLUSTER" \
-                --graph /work/graph/platform-graph.json || true
+              # The mounted v1 envelope binds the exact change and platform
+              # snapshot. The example is only a fixture; a real consumer must
+              # render it from the proposed sync and an approved read-only source.
+              python -m sre_harness.cli gate-integration \
+                --input /work/input/change-advisory-invocation.json || true
               # `|| true` keeps this advisory. Remove it to make the gate blocking.
-          env:
-            - name: TARGET_CLUSTER
-              value: "prod-eu-1"
           securityContext:
             allowPrivilegeEscalation: false
             readOnlyRootFilesystem: true
@@ -91,22 +85,16 @@ spec:
               cpu: 500m
               memory: 256Mi
           volumeMounts:
-            - name: change
-              mountPath: /work/change
-            - name: graph
-              mountPath: /work/graph
+            - name: input
+              mountPath: /work/input
             # Writable scratch space: pip cache + install target, since the
             # root filesystem is read-only.
             - name: tmp
               mountPath: /tmp
       volumes:
-        # The manifest to validate (e.g. rendered StatefulSet) as JSON.
-        - name: change
+        # Closed SPEC-B2 envelope. The repository example is a fixture only.
+        - name: input
           configMap:
-            name: sre-harness-change
-        # The platform-graph fixture as JSON.
-        - name: graph
-          configMap:
-            name: sre-harness-graph
+            name: sre-harness-change-advisory
         - name: tmp
           emptyDir: {}

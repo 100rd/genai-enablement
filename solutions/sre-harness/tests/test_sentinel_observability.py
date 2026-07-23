@@ -65,15 +65,15 @@ class TestSentinelInstrumentation:
         spans = exporter.get_finished_spans()
 
         assert len(_by_name(spans, "sentinel.scan")) == 1
-        # One child span per default detector (saturation_expiry, new_error_signature).
-        assert len(_by_name(spans, "sentinel.detector")) == 2
+        # One child span per registered detector, even when its signal is absent.
+        assert len(_by_name(spans, "sentinel.detector")) == 5
 
     def test_scan_span_carries_aggregate_attributes(self, exporter: InMemorySpanExporter) -> None:
         run_sentinel(_busy_state())
         (scan,) = _by_name(exporter.get_finished_spans(), "sentinel.scan")
         a = scan.attributes or {}
 
-        assert a[attrs.SENTINEL_DETECTOR_COUNT] == 2
+        assert a[attrs.SENTINEL_DETECTOR_COUNT] == 5
         assert a[attrs.SENTINEL_FINDING_COUNT] == 3
         assert a[attrs.SENTINEL_SUPPRESSED_COUNT] == 0
         assert a[attrs.SENTINEL_DETECTION_TIER] == "T1"
@@ -85,7 +85,13 @@ class TestSentinelInstrumentation:
         detectors = _by_name(exporter.get_finished_spans(), "sentinel.detector")
 
         ids = {(s.attributes or {})[attrs.SENTINEL_DETECTOR_ID] for s in detectors}
-        assert ids == {"detect_saturation_expiry", "detect_new_error_signature"}
+        assert ids == {
+            "detect_saturation_expiry",
+            "detect_new_error_signature",
+            "detect_error_rate_vs_baseline",
+            "detect_change_induced_regression",
+            "detect_config_state_drift",
+        }
         for s in detectors:
             assert attrs.SENTINEL_DETECTOR_FINDING_COUNT in (s.attributes or {})
 

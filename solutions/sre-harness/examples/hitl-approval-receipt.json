@@ -1,0 +1,22 @@
+{
+  "receipt": {
+    "authenticationEvidenceRevision": "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+    "decidedAt": "2026-07-16T10:20:00Z",
+    "decision": "approved",
+    "evidenceRef": "audit://human-approval/2048",
+    "evidenceRevision": "sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+    "evidenceScope": "fixture",
+    "expiresAt": "2026-07-16T11:00:00Z",
+    "mechanism": "aws_ssm",
+    "origin": "https://approvals.example.invalid/v1",
+    "proposalId": "bcd76f60-bec4-4caf-8eb1-80a6cdfc5ac4",
+    "proposalRevision": "sha256:6c18cbfd8e9f63baa367278a8e8949d66c35ff08a2c973675dd3eed509d65677",
+    "receiptId": "b3dc5287-393d-41dd-adb8-d46c192a674e",
+    "reviewerEligibilityRevision": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "reviewerPrincipal": "human:platform-sre/alice",
+    "subjectRevision": "sha256:a6d56428ad6950194f82e34faee2752ae7efd9bfd4a291df0e45c1e640c9e802",
+    "verifierRef": "verifier://human-approval/v1"
+  },
+  "receiptRevision": "sha256:127408641c6dbea0ae3159625a7508ae9110ab6d2c7551bf450175acbbba63d3",
+  "schemaVersion": "sre-harness.hitl-approval-receipt/v1"
+}

@@ -1,16 +1,16 @@
 # SPEC-B5 — Tier-3 HITL remediation
 
-**Specification type:** Capability SPEC  
-**Status:** Draft / construction  
-**Owner:** `genai-enablement` Autonomous SRE harness  
+**Specification type:** Capability SPEC
+**Status:** Draft / construction
+**Owner:** `genai-enablement` Autonomous SRE harness
 **Governing decisions:** [ADR-0009](../decisions/0009-organizational-dark-factory-sdd.md), the
 [Autonomous SRE harness plan](../autonomous-sre-harness-plan.md), and the canonical
-[`ACTION_TIER_TABLE`](../../solutions/sre-harness/src/sre_harness/autonomy_tiers/action_table.py)  
-**Roadmap gate:** `B5`  
-**Depends on:** —  
-**Evidence scope:** `local-portable-only`  
-**Operational state:** `incomplete`  
-**Next gate:** `human-authority-and-live-provider-drills`  
+[`ACTION_TIER_TABLE`](../../solutions/sre-harness/src/sre_harness/autonomy_tiers/action_table.py)
+**Roadmap gate:** `B5`
+**Depends on:** —
+**Evidence scope:** `local-portable-only`
+**Operational state:** `incomplete`
+**Next gate:** `human-authority-and-live-provider-drills`
 **Authority:** `non-authorizing`; fixture receipts cannot issue provider or human-approval authority
 
 ## User journey and boundary
@@ -33,9 +33,9 @@ not sufficient evidence because it may be true when no approval rules apply; the
 source SHA, non-overridden approval rules, eligible reviewer, and zero unsatisfied rules must rejoin.
 
 **Inputs:** one closed content-addressed Tier-3 proposal; the exact UTC evaluation time; one externally
-verifiable human decision receipt; and explicit provider/audit ports.  
+verifiable human decision receipt; and explicit provider/audit ports.
 **Outputs:** a sealed `awaiting_human`, `route_t4`, `require_t2`, or `deny` admission and, only for an exact
-Tier-3 proposal plus verified receipt, a sealed finite approval case.  
+Tier-3 proposal plus verified receipt, a sealed finite approval case.
 **Out:** caller booleans, raw tokens/comments, agent or proposer self-approval, wildcard subjects,
 arbitrary actions, mutable document versions or MR heads, approval-rule discovery as authority,
 `StartStep`/`Resume`/`Revoke`, automatic MR approval/merge, direct remediation calls, and live claims from

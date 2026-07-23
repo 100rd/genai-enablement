@@ -1,0 +1,126 @@
+{
+  "schemaVersion": "sre-harness.spec-portable-traceability/v1",
+  "specId": "SPEC-B6",
+  "specPath": "docs/specs/SPEC-B6-permanent-fix-chase.md",
+  "specSha256": "sha256:5b568ba38b1b1699ecfdbfafb30aa8cd0ad241dd6a1b89dff86a38899504bb16",
+  "evidenceScope": "local-portable-only",
+  "operationalState": "incomplete",
+  "authority": "non-authorizing",
+  "implementationPaths": [
+    "solutions/sre-harness/src/sre_harness/permanent_fix.py"
+  ],
+  "probes": [
+    {
+      "id": "P-B6-1",
+      "tests": [
+        "solutions/sre-harness/tests/test_permanent_fix.py::TestClosedRequest::test_canonical_request_loads_and_is_content_addressed",
+        "solutions/sre-harness/tests/test_permanent_fix.py::TestClosedRequest::test_checked_request_fixture_is_fixture_only",
+        "solutions/sre-harness/tests/test_permanent_fix.py::TestClosedRequest::test_loader_rejects_symlink_oversize_and_non_file",
+        "solutions/sre-harness/tests/test_permanent_fix.py::TestClosedRequest::test_malformed_duplicate_nonfinite_non_utf8_and_noncanonical_json_fail",
+        "solutions/sre-harness/tests/test_permanent_fix.py::TestClosedRequest::test_request_rejects_closed_shape_authority_and_invalid_values",
+        "solutions/sre-harness/tests/test_permanent_fix.py::TestClosedRequest::test_request_rejects_credential_bearing_or_malformed_evidence_refs"
+      ]
+    },
+    {
+      "id": "P-B6-2",
+      "tests": [
+        "solutions/sre-harness/tests/test_permanent_fix.py::TestIssueOpening::test_fixture_expired_or_policy_drift_never_binds_provider",
+        "solutions/sre-harness/tests/test_permanent_fix.py::TestIssueOpening::test_foreign_provider_binding_fails_before_search",
+        "solutions/sre-harness/tests/test_permanent_fix.py::TestPolicyCapability::test_exact_external_verifier_issues_opaque_capability",
+        "solutions/sre-harness/tests/test_permanent_fix.py::TestPolicyCapability::test_false_or_truthy_nonboolean_verification_fails",
+        "solutions/sre-harness/tests/test_permanent_fix.py::TestPolicyCapability::test_policy_document_rejects_malformed_duplicate_nonfinite_and_non_utf8",
+        "solutions/sre-harness/tests/test_permanent_fix.py::TestPolicyCapability::test_policy_is_closed_and_checked_fixture_is_inert",
+        "solutions/sre-harness/tests/test_permanent_fix.py::TestPolicyCapability::test_policy_requires_incident_and_permanent_fix_labels",
+        "solutions/sre-harness/tests/test_permanent_fix.py::TestPolicyCapability::test_untrusted_mutated_future_expired_or_fixture_policy_fails"
+      ]
+    },
+    {
+      "id": "P-B6-3",
+      "tests": [
+        "solutions/sre-harness/tests/test_permanent_fix.py::TestIssueOpening::test_absent_issue_creates_one_bounded_call_and_audits",
+        "solutions/sre-harness/tests/test_permanent_fix.py::TestIssueOpening::test_ambiguous_dedupe_search_fails_without_create",
+        "solutions/sre-harness/tests/test_permanent_fix.py::TestIssueOpening::test_existing_exact_issue_is_adopted_without_create",
+        "solutions/sre-harness/tests/test_permanent_fix.py::TestIssueOpening::test_foreign_pr_as_issue_or_closed_create_result_fails",
+        "solutions/sre-harness/tests/test_permanent_fix.py::TestIssueOpening::test_retry_after_audit_failure_adopts_provider_deduped_issue"
+      ]
+    },
+    {
+      "id": "P-B6-4",
+      "tests": [
+        "solutions/sre-harness/tests/test_permanent_fix.py::TestClosedRequest::test_request_rejects_closed_shape_authority_and_invalid_values",
+        "solutions/sre-harness/tests/test_permanent_fix.py::TestIssueOpening::test_absent_issue_creates_one_bounded_call_and_audits",
+        "solutions/sre-harness/tests/test_permanent_fix.py::TestNegativeAuthoritySurface::test_provider_protocol_and_call_surface_have_no_mutation_authority"
+      ]
+    },
+    {
+      "id": "P-B6-5",
+      "tests": [
+        "solutions/sre-harness/tests/test_permanent_fix.py::TestChaseLifecycle::test_ambiguous_or_foreign_change_escalates",
+        "solutions/sre-harness/tests/test_permanent_fix.py::TestChaseLifecycle::test_exact_open_change_advances_to_change_open",
+        "solutions/sre-harness/tests/test_permanent_fix.py::TestChaseLifecycle::test_no_change_remains_issue_open_without_audit_noise",
+        "solutions/sre-harness/tests/test_permanent_fix.py::TestNegativeAuthoritySurface::test_provider_protocol_and_call_surface_have_no_mutation_authority"
+      ]
+    },
+    {
+      "id": "P-B6-6",
+      "tests": [
+        "solutions/sre-harness/tests/test_permanent_fix.py::TestChaseLifecycle::test_foreign_failed_or_ungated_outcome_escalates",
+        "solutions/sre-harness/tests/test_permanent_fix.py::TestChaseLifecycle::test_lifecycle_regression_and_merged_head_mismatch_escalate",
+        "solutions/sre-harness/tests/test_permanent_fix.py::TestChaseLifecycle::test_policy_outcome_age_is_rechecked_at_reconciliation",
+        "solutions/sre-harness/tests/test_permanent_fix.py::TestChaseLifecycle::test_produced_verified_and_gated_outcomes_advance_monotonically",
+        "solutions/sre-harness/tests/test_permanent_fix.py::TestFactoryOutcomeAuthority::test_exact_boolean_verifier_issues_opaque_outcome",
+        "solutions/sre-harness/tests/test_permanent_fix.py::TestFactoryOutcomeAuthority::test_outcome_document_rejects_malformed_duplicate_nonfinite_and_non_utf8",
+        "solutions/sre-harness/tests/test_permanent_fix.py::TestFactoryOutcomeAuthority::test_outcome_rejects_credential_bearing_or_malformed_evidence_manifest",
+        "solutions/sre-harness/tests/test_permanent_fix.py::TestFactoryOutcomeAuthority::test_outcome_rejects_mutation_origin_fixture_future_and_staleness",
+        "solutions/sre-harness/tests/test_permanent_fix.py::TestFactoryOutcomeAuthority::test_outcome_schema_is_closed_and_exact",
+        "solutions/sre-harness/tests/test_permanent_fix.py::TestFactoryOutcomeAuthority::test_truthy_nonboolean_outcome_verification_fails",
+        "solutions/sre-harness/tests/test_permanent_fix.py::TestNegativeAuthoritySurface::test_cases_and_verified_capabilities_are_not_caller_constructible"
+      ]
+    },
+    {
+      "id": "P-B6-7",
+      "tests": [
+        "solutions/sre-harness/tests/test_permanent_fix.py::TestChaseLifecycle::test_landed_requires_merged_provider_and_exact_factory_head",
+        "solutions/sre-harness/tests/test_permanent_fix.py::TestChaseLifecycle::test_lifecycle_regression_and_merged_head_mismatch_escalate",
+        "solutions/sre-harness/tests/test_permanent_fix.py::TestChaseLifecycle::test_provider_merge_or_outcome_alone_never_lands"
+      ]
+    },
+    {
+      "id": "P-B6-8",
+      "tests": [
+        "solutions/sre-harness/tests/test_permanent_fix.py::TestChaseLifecycle::test_ambiguous_or_foreign_change_escalates",
+        "solutions/sre-harness/tests/test_permanent_fix.py::TestChaseLifecycle::test_closed_issue_before_landed_and_deadline_escalate",
+        "solutions/sre-harness/tests/test_permanent_fix.py::TestChaseLifecycle::test_foreign_failed_or_ungated_outcome_escalates",
+        "solutions/sre-harness/tests/test_permanent_fix.py::TestChaseLifecycle::test_lifecycle_regression_and_merged_head_mismatch_escalate",
+        "solutions/sre-harness/tests/test_permanent_fix.py::TestChaseLifecycle::test_missing_outcome_preserves_monotonic_state",
+        "solutions/sre-harness/tests/test_permanent_fix.py::TestChaseLifecycle::test_no_change_remains_issue_open_without_audit_noise",
+        "solutions/sre-harness/tests/test_permanent_fix.py::TestChaseLifecycle::test_prematurely_closed_issue_never_lands_with_exact_two_source_evidence",
+        "solutions/sre-harness/tests/test_permanent_fix.py::TestChaseLifecycle::test_produced_verified_and_gated_outcomes_advance_monotonically",
+        "solutions/sre-harness/tests/test_permanent_fix.py::TestChaseLifecycle::test_provider_merge_observation_is_sealed_and_cannot_regress",
+        "solutions/sre-harness/tests/test_permanent_fix.py::TestChaseLifecycle::test_terminal_states_are_stable_without_provider_calls",
+        "solutions/sre-harness/tests/test_permanent_fix.py::TestChaseLifecycle::test_tracked_change_disappearance_escalates",
+        "solutions/sre-harness/tests/test_permanent_fix.py::TestNegativeAuthoritySurface::test_provider_protocol_and_call_surface_have_no_mutation_authority"
+      ]
+    },
+    {
+      "id": "P-B6-9",
+      "tests": [
+        "solutions/sre-harness/tests/test_permanent_fix.py::TestChaseLifecycle::test_ambiguous_or_foreign_change_escalates",
+        "solutions/sre-harness/tests/test_permanent_fix.py::TestChaseLifecycle::test_audit_failure_does_not_return_transition",
+        "solutions/sre-harness/tests/test_permanent_fix.py::TestChaseLifecycle::test_no_change_remains_issue_open_without_audit_noise",
+        "solutions/sre-harness/tests/test_permanent_fix.py::TestIssueOpening::test_absent_issue_creates_one_bounded_call_and_audits",
+        "solutions/sre-harness/tests/test_permanent_fix.py::TestIssueOpening::test_retry_after_audit_failure_adopts_provider_deduped_issue",
+        "solutions/sre-harness/tests/test_permanent_fix.py::TestNegativeAuthoritySurface::test_audit_is_sanitized_and_has_stable_retry_key"
+      ]
+    },
+    {
+      "id": "P-B6-10",
+      "tests": [
+        "solutions/sre-harness/tests/test_permanent_fix.py::TestClosedRequest::test_checked_request_fixture_is_fixture_only",
+        "solutions/sre-harness/tests/test_permanent_fix.py::TestEvidenceBoundary::test_docs_retain_local_only_incomplete_boundary",
+        "solutions/sre-harness/tests/test_permanent_fix.py::TestFactoryOutcomeAuthority::test_outcome_rejects_mutation_origin_fixture_future_and_staleness",
+        "solutions/sre-harness/tests/test_permanent_fix.py::TestPolicyCapability::test_policy_is_closed_and_checked_fixture_is_inert"
+      ]
+    }
+  ]
+}

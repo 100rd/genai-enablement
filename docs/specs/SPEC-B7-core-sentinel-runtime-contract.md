@@ -1,16 +1,16 @@
 # SPEC-B7-CORE — Sentinel portable core
 
-**Specification type:** Capability SPEC  
-**Status:** Draft / portable construction  
-**Owner:** `genai-enablement` Autonomous SRE harness  
+**Specification type:** Capability SPEC
+**Status:** Draft / portable construction
+**Owner:** `genai-enablement` Autonomous SRE harness
 **Governing decisions:** [ADR-0001](../decisions/0001-continuous-detection-sentinel.md),
 [ADR-0009](../decisions/0009-organizational-dark-factory-sdd.md), and the
-[Autonomous SRE harness plan](../autonomous-sre-harness-plan.md)  
-**Roadmap gate:** `B7`  
-**Depends on:** SPEC-B0 offline evaluation harness  
-**Evidence scope:** `local-portable-only`  
-**Operational state:** `incomplete`  
-**Next gate:** `human-runtime-source-and-operations-policy`  
+[Autonomous SRE harness plan](../autonomous-sre-harness-plan.md)
+**Roadmap gate:** `B7`
+**Depends on:** SPEC-B0 offline evaluation harness
+**Evidence scope:** `local-portable-only`
+**Operational state:** `incomplete`
+**Next gate:** `human-runtime-source-and-operations-policy`
 **Authority:** `non-authorizing`; detection T1 and findings T2 advisory, with no execution authority
 
 ## Goal and boundary

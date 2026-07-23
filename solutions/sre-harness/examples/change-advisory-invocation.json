@@ -1,0 +1,52 @@
+{
+  "schemaVersion": "sre-harness.change-advisory-request/v1",
+  "invocationId": "fixture-gitlab-payments-1",
+  "source": "gitlab_ci",
+  "requestedAt": "2026-07-16T09:40:00Z",
+  "changeRevision": "sha256:1cb16b164ba0d0e0759cf4b6b529ca9342e5f9825a976580ccd8246dd82bf8ae",
+  "platformRevision": "sha256:430d47e8255f504ab63e6d378c0dfba8f6d35f4f7c19d93dc4473119bcdad25d",
+  "change": {
+    "actions": [],
+    "requiredNamespaces": [
+      "payments"
+    ],
+    "requiredStorageClasses": [
+      "gold"
+    ],
+    "service": "payments",
+    "targetClusterIds": [
+      "prod-eu-1",
+      "prod-us-1"
+    ]
+  },
+  "platformSnapshot": {
+    "asOf": "2026-07-16T09:38:00Z",
+    "entities": [
+      {
+        "cluster": "prod-eu-1",
+        "kind": "Namespace",
+        "name": "payments"
+      },
+      {
+        "cluster": "prod-us-1",
+        "kind": "Namespace",
+        "name": "payments"
+      },
+      {
+        "cluster": "prod-eu-1",
+        "kind": "StorageClass",
+        "name": "gold"
+      },
+      {
+        "cluster": "prod-eu-1",
+        "kind": "StorageClass",
+        "name": "silver"
+      },
+      {
+        "cluster": "prod-us-1",
+        "kind": "StorageClass",
+        "name": "silver"
+      }
+    ]
+  }
+}

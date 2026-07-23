@@ -1,15 +1,15 @@
 # SPEC-B3 — Deterministic canary rollback
 
-**Specification type:** Capability SPEC  
-**Status:** Draft / construction  
-**Owner:** `genai-enablement` Autonomous SRE harness  
+**Specification type:** Capability SPEC
+**Status:** Draft / construction
+**Owner:** `genai-enablement` Autonomous SRE harness
 **Governing decisions:** [ADR-0009](../decisions/0009-organizational-dark-factory-sdd.md) and the
-[Autonomous SRE harness plan](../autonomous-sre-harness-plan.md)  
-**Roadmap gate:** `B3`  
-**Depends on:** —  
-**Evidence scope:** `local-portable-only`  
-**Operational state:** `incomplete`  
-**Next gate:** `human-policy-and-live-canary-qualification`  
+[Autonomous SRE harness plan](../autonomous-sre-harness-plan.md)
+**Roadmap gate:** `B3`
+**Depends on:** —
+**Evidence scope:** `local-portable-only`
+**Operational state:** `incomplete`
+**Next gate:** `human-policy-and-live-canary-qualification`
 **Authority:** `non-authorizing`; deterministic rendering/oracle only, with no apply or deployment authority
 
 ## Intent and boundary
@@ -29,9 +29,9 @@ The generated resources are construction candidates and confer no deployment aut
 Admission mode, CNI, GitOps controller, and installed CRD revision are unbound until live acceptance.
 
 **Inputs:** one bounded, content-addressed, `fixture`-scoped candidate policy and zero or more offline
-metric observations.  
+metric observations.
 **Outputs:** one deterministic observation/continue/abort disposition and one Kubernetes JSON `List`
-containing a `Service`, `AnalysisTemplate`, and `Rollout`.  
+containing a `Service`, `AnalysisTemplate`, and `Rollout`.
 **Out:** cluster apply/sync, credential material, production threshold selection, LLM/model calls,
 traffic-router invention, manual promotion, rollback execution by the Python module, and claims of a
 live or tested rollback.

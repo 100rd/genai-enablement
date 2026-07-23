@@ -5,7 +5,8 @@ The continuous-detection counterpart to :func:`sre_harness.change_gate.evaluate_
 snapshot and:
 
 1. **collapses** duplicate findings within the scan (same ``dedup_key`` → keep the
-   higher-ranked),
+   higher-ranked) and prefers a same-service change regression over its generic
+   error-rate duplicate,
 2. **dedupes** against the caller's already-open findings (the ADR's "never
    re-alert a known/open finding"), and
 3. **ranks** the survivors most-urgent-first by ``severity × confidence``.
@@ -68,7 +69,7 @@ def run_sentinel(
         },
         service="sre-harness",
     ) as scan_span:
-        produced = _collapse_by_key(_run_all(detectors, state))
+        produced = _collapse_correlated(_collapse_by_key(_run_all(detectors, state)))
         fresh = [finding for finding in produced if finding.dedup_key not in open_keys]
         suppressed = [finding for finding in produced if finding.dedup_key in open_keys]
         ranked = _rank(fresh)
@@ -109,6 +110,27 @@ def _collapse_by_key(findings: Sequence[Finding]) -> list[Finding]:
         if incumbent is None or finding.rank > incumbent.rank:
             best[finding.dedup_key] = finding
     return list(best.values())
+
+
+def _collapse_correlated(findings: Sequence[Finding]) -> list[Finding]:
+    """Prefer a same-service change association over its generic error-rate duplicate."""
+    specific_services = {
+        finding.evidence.get("service")
+        for finding in findings
+        if finding.detector_id == "change_induced_regression"
+        and finding.kind == "change_induced_regression"
+        and type(finding.evidence.get("service")) is str
+    }
+    return [
+        finding
+        for finding in findings
+        if not (
+            finding.detector_id == "error_rate_vs_baseline"
+            and finding.kind == "error_rate_regression"
+            and type(finding.evidence.get("service")) is str
+            and finding.evidence.get("service") in specific_services
+        )
+    ]
 
 
 def _rank(findings: Sequence[Finding]) -> tuple[Finding, ...]:

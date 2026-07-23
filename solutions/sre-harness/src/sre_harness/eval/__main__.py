@@ -12,8 +12,15 @@ from __future__ import annotations
 import argparse
 import sys
 
+from sre_harness.change_gate import Verdict
 from sre_harness.eval.runner import EvalSummary, change_gate_target, run_eval
 from sre_harness.eval.scenarios import load_seed_scenarios
+
+
+def _verdict_value(value: object) -> str:
+    if not isinstance(value, Verdict):
+        raise TypeError("change-gate eval summary must contain Verdict outcomes")
+    return value.value
 
 
 def _format_summary(summary: EvalSummary, *, verbose: bool) -> str:
@@ -26,7 +33,8 @@ def _format_summary(summary: EvalSummary, *, verbose: bool) -> str:
             mark = "PASS" if result.score.passed else "FAIL"
             lines.append(
                 f"  [{mark}] {result.scenario_id}: "
-                f"expected={result.expected.value} actual={result.actual.value}"
+                f"expected={_verdict_value(result.expected)} "
+                f"actual={_verdict_value(result.actual)}"
             )
         lines.append("-" * 66)
     for kind, rate in sorted(summary.pass_rate_by_kind.items(), key=lambda kv: kv[0].value):

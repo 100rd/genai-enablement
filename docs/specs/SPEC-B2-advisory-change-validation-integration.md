@@ -1,15 +1,15 @@
 # SPEC-B2 — Advisory change-validation CI / PreSync integration
 
-**Specification type:** Capability SPEC  
-**Status:** Draft / construction  
-**Owner:** `genai-enablement` Autonomous SRE harness  
+**Specification type:** Capability SPEC
+**Status:** Draft / construction
+**Owner:** `genai-enablement` Autonomous SRE harness
 **Governing decisions:** [ADR-0009](../decisions/0009-organizational-dark-factory-sdd.md) and the
-[Autonomous SRE harness plan](../autonomous-sre-harness-plan.md)  
-**Roadmap gate:** `B2`  
-**Depends on:** SPEC-B0 offline evaluation harness  
-**Evidence scope:** `local-portable-only`  
-**Operational state:** `incomplete`  
-**Next gate:** `approved-consumer-and-observed-advisory-run`  
+[Autonomous SRE harness plan](../autonomous-sre-harness-plan.md)
+**Roadmap gate:** `B2`
+**Depends on:** SPEC-B0 offline evaluation harness
+**Evidence scope:** `local-portable-only`
+**Operational state:** `incomplete`
+**Next gate:** `approved-consumer-and-observed-advisory-run`
 **Authority:** `non-authorizing`; analysis `T1` and recommendation `T2`, with no delivery action authority
 
 ## Intent and boundary
@@ -24,8 +24,8 @@ platform-graph provider, deployment credentials, pipeline protection rules, prod
 override approval, or the deploy/sync action. Analysis is autonomy tier `T1`; the recommendation is `T2`.
 
 **Inputs:** one bounded content-addressed change plus platform snapshot from an explicit CI or PreSync
-source.  
-**Outputs:** one immutable JSON advisory result and a machine-distinct exit disposition.  
+source.
+**Outputs:** one immutable JSON advisory result and a machine-distinct exit disposition.
 **Out:** mutation tools, deploy/sync execution, model verdicts, implicit fixture promotion, production
 credentials, and changing a consumer pipeline from advisory to blocking.
 

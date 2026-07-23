@@ -1,10 +1,50 @@
 {
-  "_comment": "Example SentinelState fixture for `sre-harness sentinel scan`. The disk sample is at 97% (>= the 90% critical threshold), so this fixture always produces one saturation_expiry finding. In production this same shape is served by a live observability adapter (Datadog / Loki / CloudWatch), wired up separately (see integrations/README.md).",
+  "_comment": "Example SentinelState fixture for `sre-harness sentinel scan`. The disk sample is at 97% (>= the 90% critical threshold), so this fixture always produces one saturation_expiry finding. The error-rate and deploy-correlation rows stay below their complete baseline/SLO threshold, and the drift row is converged. This is portable fixture evidence only; live adapters, source contracts, desired-state policy, normalization, and production threshold publication are separate (see integrations/README.md).",
   "saturation_samples": [
     { "resource": "pvc-payments", "kind": "disk", "used": 97.0, "capacity": 100.0, "cluster": "prod-eu-1" }
   ],
   "expiry_items": [
     { "name": "api-tls", "kind": "cert", "expires_in_days": 45 }
   ],
-  "error_windows": []
+  "error_windows": [],
+  "error_rate_windows": [
+    {
+      "service": "payments",
+      "baseline_errors": 1,
+      "baseline_requests": 1000,
+      "current_errors": 2,
+      "current_requests": 1000,
+      "allowed_error_rate": 0.001
+    }
+  ],
+  "change_regression_windows": [
+    {
+      "service": "payments",
+      "previous_revision": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "deployed_revision": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "baseline_ended_at": 1000,
+      "deployed_at": 1100,
+      "current_started_at": 1100,
+      "observed_at": 1400,
+      "intervening_deployments": 0,
+      "baseline_errors": 1,
+      "baseline_requests": 1000,
+      "current_errors": 2,
+      "current_requests": 1000,
+      "allowed_error_rate": 0.001
+    }
+  ],
+  "drift_observations": [
+    {
+      "resource_kind": "deployment",
+      "resource_id": "prod-eu-1/payments",
+      "tracking_policy_revision": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+      "desired_revision": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+      "observed_revision": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+      "desired_recorded_at": 1000,
+      "mismatch_started_at": null,
+      "observed_at": 1400,
+      "consecutive_mismatches": 0
+    }
+  ]
 }

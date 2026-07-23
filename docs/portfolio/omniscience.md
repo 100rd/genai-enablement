@@ -1,6 +1,6 @@
 # Omniscience portfolio view
 
-**As of:** 2026-07-21  
+**As of:** 2026-07-21
 **Portfolio status:** `issue-350-all-slices-implemented` (verification human/cross-repo gated)
 
 This page is the program view for Omniscience. Capability and task contracts, schemas, runbooks, and

@@ -1,15 +1,15 @@
 # SPEC-B1 — Read-only incident triage and RCA drafting
 
-**Specification type:** Capability SPEC  
-**Status:** Draft / construction  
-**Owner:** `genai-enablement` Autonomous SRE harness  
+**Specification type:** Capability SPEC
+**Status:** Draft / construction
+**Owner:** `genai-enablement` Autonomous SRE harness
 **Governing decisions:** [ADR-0009](../decisions/0009-organizational-dark-factory-sdd.md) and the
-[Autonomous SRE harness plan](../autonomous-sre-harness-plan.md)  
-**Roadmap gate:** `B1`  
-**Depends on:** SPEC-B0 offline evaluation harness  
-**Evidence scope:** `local-portable-only`  
-**Operational state:** `incomplete`  
-**Next gate:** `approved-sources-analyzer-and-real-corpus`  
+[Autonomous SRE harness plan](../autonomous-sre-harness-plan.md)
+**Roadmap gate:** `B1`
+**Depends on:** SPEC-B0 offline evaluation harness
+**Evidence scope:** `local-portable-only`
+**Operational state:** `incomplete`
+**Next gate:** `approved-sources-analyzer-and-real-corpus`
 **Authority:** `non-authorizing`; maximum autonomy tier `T1`, with no action or mutation authority
 
 ## Intent and boundary
@@ -23,8 +23,8 @@ contracts. It does not own alert-provider administration, production credentials
 deployment, incident-command decisions, or approval. Its maximum authority is autonomy tier `T1`.
 
 **Inputs:** a bounded immutable incident snapshot from an explicitly configured read-only source; an
-approved analyzer implementing the one-method read-only port; curated offline ground truth.  
-**Outputs:** an action-free RCA draft and AgentOps/eval evidence.  
+approved analyzer implementing the one-method read-only port; curated offline ground truth.
+**Outputs:** an action-free RCA draft and AgentOps/eval evidence.
 **Out:** write/action tools, remediation recommendations/execution, mutation credentials, live provider
 selection, model approval, production thresholds, paging policy, and pilot acceptance.
 

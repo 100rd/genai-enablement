@@ -1,16 +1,16 @@
 # SPEC-B6 — Permanent-fix chase
 
-**Specification type:** Capability SPEC  
-**Status:** Draft / portable construction  
-**Owner:** `genai-enablement` Autonomous SRE harness  
+**Specification type:** Capability SPEC
+**Status:** Draft / portable construction
+**Owner:** `genai-enablement` Autonomous SRE harness
 **Governing decisions:** [ADR-0009](../decisions/0009-organizational-dark-factory-sdd.md) and the
-[Autonomous SRE harness plan](../autonomous-sre-harness-plan.md)  
-**Roadmap gate:** `B6`  
+[Autonomous SRE harness plan](../autonomous-sre-harness-plan.md)
+**Roadmap gate:** `B6`
 **Depends on:** SPEC-B1 RCA evidence, SPEC-B5 mitigation/HITL joins, ADR-0003 unified SDLC,
-factory-owned canonical OutcomeEvent  
-**Evidence scope:** `local-portable-only`  
-**Operational state:** `incomplete`  
-**Next gate:** `human-policy-and-live-provider-drills`  
+factory-owned canonical OutcomeEvent
+**Evidence scope:** `local-portable-only`
+**Operational state:** `incomplete`
+**Next gate:** `human-policy-and-live-provider-drills`
 **Authority:** `non-authorizing`; at most one bounded issue write, while change, verification, approval,
 merge, close, and incident-lifecycle authority remain external
 
@@ -35,8 +35,8 @@ be declared resolved from a ticket, draft, green-looking provider flag, or agent
 
 **Inputs:** one closed, content-addressed permanent-fix request; one closed, content-addressed and
 externally verified tracker-policy publication; exact UTC time; a provider port bound to one origin and
-repository; an externally verified canonical factory outcome when available; an audit sink.  
-**Outputs:** one sealed finite chase case plus sanitized idempotent audit events.  
+repository; an externally verified canonical factory outcome when available; an audit sink.
+**Outputs:** one sealed finite chase case plus sanitized idempotent audit events.
 **External side effect:** at most one idempotent `create issue` call. Every other provider/factory call is
 read-only.
 

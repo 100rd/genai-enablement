@@ -10,6 +10,7 @@ same calls emit no spans and raise nothing.
 from __future__ import annotations
 
 from collections.abc import Iterator
+from datetime import UTC, datetime, timedelta
 
 import pytest
 from opentelemetry import trace
@@ -22,6 +23,14 @@ from sre_harness.eval import change_gate_target, load_seed_scenarios, run_eval
 from sre_harness.observability import attributes as attrs
 from sre_harness.observability import configure_tracing, get_tracer, span, traced
 from sre_harness.platform_graph import Entity, InMemoryPlatformGraph
+from sre_harness.triage import (
+    EvidenceItem,
+    EvidenceKind,
+    IncidentAlert,
+    IncidentSnapshot,
+    RootCause,
+    run_triage,
+)
 
 
 @pytest.fixture
@@ -63,6 +72,36 @@ def _proceed_request() -> ChangeRequest:
         service="payments-api",
         target_cluster_ids=["prod-1"],
         required_storageclasses={"gp3"},
+    )
+
+
+def _triage_snapshot() -> IncidentSnapshot:
+    started_at = datetime(2026, 7, 16, 8, 0, tzinfo=UTC)
+    return IncidentSnapshot(
+        alert=IncidentAlert(
+            incident_id="inc-observed",
+            service="payments-api",
+            started_at=started_at,
+            summary="checkout errors",
+        ),
+        captured_at=started_at + timedelta(minutes=10),
+        evidence=(
+            EvidenceItem(
+                evidence_id="deploy-42",
+                kind=EvidenceKind.DEPLOYMENT,
+                service="payments-api",
+                observed_at=started_at - timedelta(minutes=2),
+                statement="revision 42 deployed",
+            ),
+            EvidenceItem(
+                evidence_id="errors",
+                kind=EvidenceKind.ERROR_RATE,
+                service="payments-api",
+                observed_at=started_at + timedelta(minutes=1),
+                statement="error rate reached 18%",
+                value=0.18,
+            ),
+        ),
     )
 
 
@@ -152,6 +191,45 @@ class TestEvalInstrumentation:
             assert attrs.EVAL_SCENARIO_KIND in a
             assert a[attrs.EVAL_SCORE_PASSED] is True  # the perfect seed target
             assert a[attrs.EVAL_SCORE] == 1.0
+
+
+@pytest.mark.unit
+class TestTriageInstrumentation:
+    def test_triage_emits_one_parent_and_three_node_spans(
+        self, exporter: InMemorySpanExporter
+    ) -> None:
+        run_triage(_triage_snapshot())
+        spans = exporter.get_finished_spans()
+
+        (parent,) = _by_name(spans, "triage.run")
+        children = [
+            *_by_name(spans, "triage.gather"),
+            *_by_name(spans, "triage.analyze"),
+            *_by_name(spans, "triage.draft"),
+        ]
+        assert len(children) == 3
+        assert all(child.parent is not None for child in children)
+        assert all(child.parent.span_id == parent.context.span_id for child in children)
+
+    def test_triage_parent_carries_provenance_and_read_only_result(
+        self, exporter: InMemorySpanExporter
+    ) -> None:
+        report = run_triage(_triage_snapshot())
+        (parent,) = _by_name(exporter.get_finished_spans(), "triage.run")
+        attributes = parent.attributes or {}
+
+        assert report.primary_cause is RootCause.DEPLOYMENT_REGRESSION
+        assert attributes[attrs.TRIAGE_INCIDENT_ID] == "inc-observed"
+        assert attributes[attrs.TRIAGE_SERVICE] == "payments-api"
+        assert attributes[attrs.TRIAGE_EVIDENCE_COUNT] == 2
+        assert attributes[attrs.TRIAGE_ROOT_CAUSE] == RootCause.DEPLOYMENT_REGRESSION.value
+        assert attributes[attrs.TRIAGE_CONFIDENCE] == report.overall_confidence
+        assert attributes[attrs.TRIAGE_ANALYSIS_TIER] == "T1"
+        assert attributes[attrs.SERVICE] == "sre-harness"
+        assert attrs.LLM_INPUT_TOKENS not in attributes
+        assert attrs.LLM_OUTPUT_TOKENS not in attributes
+        assert attrs.LLM_COST_USD not in attributes
+        assert attrs.LLM_MODEL not in attributes
 
 
 @pytest.mark.unit
