@@ -1,0 +1,42 @@
+name: Portfolio documentation drift
+
+on:
+  pull_request:
+    paths:
+      - "portfolio/**"
+      - "docs/portfolio/**"
+      - "docs/implementation-roadmap.md"
+      - "docs/decisions/0017-omniscience-mcp-v1-contract-and-severance.md"
+      - "scripts/check_portfolio_drift.py"
+      - "tests/test_portfolio_drift.py"
+      - "README.md"
+      - "PROJECT_STATUS.md"
+      - ".github/workflows/portfolio-drift.yml"
+  push:
+    branches: [main]
+    paths:
+      - "portfolio/**"
+      - "docs/portfolio/**"
+      - "docs/implementation-roadmap.md"
+      - "docs/decisions/0017-omniscience-mcp-v1-contract-and-severance.md"
+      - "scripts/check_portfolio_drift.py"
+      - "tests/test_portfolio_drift.py"
+      - "README.md"
+      - "PROJECT_STATUS.md"
+      - ".github/workflows/portfolio-drift.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  drift:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Check committed portfolio facts
+        run: python3 scripts/check_portfolio_drift.py
+      - name: Test drift failures
+        run: python3 -m unittest discover -s tests -p 'test_portfolio_drift.py'

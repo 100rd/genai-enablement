@@ -1,0 +1,29 @@
+{
+  "caseId": "lifecycle-collapse-partial-claimed-complete",
+  "kind": "negative",
+  "category": "lifecycle-collapse",
+  "requirement": "REQ-PII-POL-7",
+  "probe": "P-PII-POL-4",
+  "note": "One store is still 'failed' but the receipt claims aggregate disposition 'complete' -- aggregation must not collapse partial coverage into complete.",
+  "deletionReceipt": {
+    "request_id": "dev-fixture-deletion-request-906",
+    "tenant_id": "dev-fixture-tenant-a",
+    "subject_ref": "dev-fixture-subject-ref-906",
+    "policy_revision": "1.0.0",
+    "store_class": "knowledge-store",
+    "covered_artifacts": ["postgres-doc-906", "qdrant-vector-906"],
+    "excluded_or_pending": ["neo4j-graph-906"],
+    "disposition": "complete",
+    "store_states": [
+      { "store": "postgres-doc-906", "disposition": "complete" },
+      { "store": "qdrant-vector-906", "disposition": "complete" },
+      { "store": "neo4j-graph-906", "disposition": "failed" }
+    ],
+    "produced_at": "2026-06-02T00:00:00Z",
+    "producer": "dev-fixture-producer-omniscience-lifecycle",
+    "integrity": {
+      "algorithm": "sha256",
+      "digest": "8cb95d66f232652a64ebc5ea79632f7b423542446165c22c3059caf9214e5a97"
+    }
+  }
+}

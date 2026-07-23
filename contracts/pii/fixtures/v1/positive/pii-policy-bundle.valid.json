@@ -1,0 +1,59 @@
+{
+  "caseId": "pii-policy-bundle-valid",
+  "kind": "positive",
+  "category": "schema",
+  "requirement": "REQ-PII-POL-1",
+  "probe": "P-PII-POL-1",
+  "schema": "pii-policy-bundle.schema.json",
+  "instance": {
+    "bundle_id": "dev-fixture-bundle-sp60-v1",
+    "policy_revision": "1.0.0",
+    "taxonomy_version": "1.0.0",
+    "publication_status": "unpublished_development_fixture",
+    "profiles": {
+      "PW0": {
+        "admits_data_classes": ["public", "internal_non_personal"],
+        "requires_transform": ["redacted"],
+        "requires_permit": false
+      },
+      "PW1": {
+        "admits_data_classes": ["public", "internal_non_personal", "personal", "sensitive_personal"],
+        "requires_transform": ["pseudonymized", "redacted"],
+        "requires_permit": false
+      },
+      "PW2": {
+        "admits_data_classes": ["public", "internal_non_personal", "personal", "sensitive_personal"],
+        "requires_transform": ["raw", "pseudonymized", "redacted"],
+        "requires_permit": true
+      }
+    },
+    "detector_manifests": [
+      { "detector_id": "exact-match-taxonomy-v1", "revision": "1.0.0" },
+      { "detector_id": "structured-pii-pattern-v1", "revision": "1.0.0" }
+    ],
+    "transformations": ["raw", "redacted", "pseudonymized", "aggregated"],
+    "purposes": [
+      { "purpose_id": "dev-fixture-purpose-support" },
+      { "purpose_id": "dev-fixture-purpose-analytics" }
+    ],
+    "source_classes": ["ingest-upload", "connector-sync"],
+    "sink_classes": ["knowledge-store", "model-context", "portal-projection", "external-provider"],
+    "field_rules": [
+      { "field": "email", "min_data_class": "personal" },
+      { "field": "government_id", "min_data_class": "sensitive_personal" }
+    ],
+    "retention_rules": [
+      { "store_class": "knowledge-store", "max_retention_days": 365 },
+      { "store_class": "telemetry", "max_retention_days": 30 }
+    ],
+    "permit_constraints": { "max_lifetime_seconds": 3600 },
+    "compatibility": { "schema_major": 1, "min_supported_major": 1, "max_supported_major": 1 },
+    "issued_at": "2026-01-01T00:00:00Z",
+    "expires_at": "2027-01-01T00:00:00Z",
+    "signer": { "key_id": "dev-fixture-signer-v1", "algorithm": "ed25519-dev-fixture-only" },
+    "integrity": {
+      "algorithm": "sha256",
+      "digest": "0d7c82376cbbc2e2f2445c4620628f3e872817fd6d86ede50147d4132021dd3e"
+    }
+  }
+}

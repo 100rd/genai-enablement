@@ -1,0 +1,48 @@
+{
+  "caseId": "downgrade-violation-permit-widen",
+  "kind": "negative",
+  "category": "downgrade-violation",
+  "mode": "permit-issuance",
+  "requirement": "REQ-PII-POL-5",
+  "probe": "P-PII-POL-2",
+  "note": "Permit requests a field, a sink, and an expiry beyond what its source envelope allows -- must be rejected as widening.",
+  "envelope": {
+    "envelope_id": "dev-fixture-envelope-pw2-903",
+    "tenant_id": "dev-fixture-tenant-a",
+    "source_ref": "dev-fixture-source-record-903",
+    "purpose_id": "dev-fixture-purpose-support",
+    "data_class": "sensitive_personal",
+    "transform_state": "raw",
+    "field_manifest": ["government_id"],
+    "allowed_fields": ["government_id"],
+    "allowed_sinks": ["model-context"],
+    "policy_revision": "1.0.0",
+    "produced_at": "2026-06-01T00:00:00Z",
+    "expires_at": "2026-06-01T01:00:00Z",
+    "integrity": {
+      "algorithm": "sha256",
+      "digest": "af4ef4580c5ead376ab0194a5df449afc8b6ad102c4736456ff78b59bc96eb84"
+    }
+  },
+  "permit": {
+    "permit_id": "dev-fixture-permit-904",
+    "issuer": "dev-fixture-issuer-registry-not-active",
+    "tenant_id": "dev-fixture-tenant-a",
+    "purpose_id": "dev-fixture-purpose-support",
+    "actor_or_workload": "dev-fixture-workload-triage-agent",
+    "source_constraints": ["dev-fixture-source-record-903"],
+    "allowed_fields": ["government_id", "full_name"],
+    "allowed_sinks": ["model-context", "external-provider"],
+    "provider_constraints": ["dev-fixture-provider-sandbox"],
+    "transform_requirements": ["raw"],
+    "retention_deadline": "2026-06-01T02:00:00Z",
+    "issued_at": "2026-06-01T00:00:00Z",
+    "expires_at": "2026-06-01T02:00:00Z",
+    "policy_revision": "1.0.0",
+    "nonce": "sp60-nonce-permit-904",
+    "integrity": {
+      "algorithm": "sha256",
+      "digest": "12e745a2b744350c174f07ea03415a3a6f57be312427c0ff0901ccb503f4dbae"
+    }
+  }
+}

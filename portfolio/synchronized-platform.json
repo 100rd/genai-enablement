@@ -7,26 +7,106 @@
     "url": "https://github.com/100rd/genai-enablement/blob/main/docs/synchronized-platform/README.md"
   },
   "cross_repo_adrs": [
-    {"id": "ADR-0001", "path": "docs/decisions/0001-continuous-detection-sentinel.md", "status": "accepted"},
-    {"id": "ADR-0002", "path": "docs/decisions/0002-platform-skills-registry.md", "status": "proposed"},
-    {"id": "ADR-0003", "path": "docs/decisions/0003-unified-sdlc-standard.md", "status": "proposed"},
-    {"id": "ADR-0004", "path": "docs/decisions/0004-experience-plane.md", "status": "accepted"},
-    {"id": "ADR-0005", "path": "docs/decisions/0005-autonomous-factory-intake.md", "status": "accepted"},
-    {"id": "ADR-0006", "path": "docs/decisions/0006-unified-loop-decision-model.md", "status": "proposed"},
-    {"id": "ADR-0007", "path": "docs/decisions/0007-platform-portal-federated-surface.md", "status": "accepted"},
-    {"id": "ADR-0008", "path": "docs/decisions/0008-ai-security-domain.md", "status": "proposed"},
-    {"id": "ADR-0009", "path": "docs/decisions/0009-organizational-dark-factory-sdd.md", "status": "accepted"},
-    {"id": "ADR-0010", "path": "docs/decisions/0010-goal-oriented-organizational-dark-factory.md", "status": "accepted"},
-    {"id": "ADR-0011", "path": "docs/decisions/0011-platform-products-and-executable-paths.md", "status": "accepted"},
-    {"id": "ADR-0012", "path": "docs/decisions/0012-capability-readiness-profiles.md", "status": "accepted"},
-    {"id": "ADR-0013", "path": "docs/decisions/0013-platform-owned-observer-access.md", "status": "accepted"},
-    {"id": "ADR-0014", "path": "docs/decisions/0014-precommitted-http-condition-evidence.md", "status": "proposed"},
-    {"id": "ADR-0015", "path": "docs/decisions/0015-independent-observer-authority-attestor.md", "status": "proposed"},
-    {"id": "ADR-0016", "path": "docs/decisions/0016-independent-safe-to-reclaim-decision-issuer.md", "status": "proposed"},
-    {"id": "ADR-0017", "path": "docs/decisions/0017-omniscience-mcp-v1-contract-and-severance.md", "status": "accepted"},
-    {"id": "ADR-0018", "path": "docs/decisions/0018-pii-wall-purpose-bound-data-boundary.md", "status": "accepted"},
-    {"id": "ADR-0019", "path": "docs/decisions/0019-barbarossa-independent-reliability-plane.md", "status": "superseded"},
-    {"id": "ADR-0020", "path": "docs/decisions/0020-barbarossa-continuous-management-plane.md", "status": "accepted"}
+    {
+      "id": "ADR-0001",
+      "path": "docs/decisions/0001-continuous-detection-sentinel.md",
+      "status": "accepted"
+    },
+    {
+      "id": "ADR-0002",
+      "path": "docs/decisions/0002-platform-skills-registry.md",
+      "status": "proposed"
+    },
+    {
+      "id": "ADR-0003",
+      "path": "docs/decisions/0003-unified-sdlc-standard.md",
+      "status": "proposed"
+    },
+    {
+      "id": "ADR-0004",
+      "path": "docs/decisions/0004-experience-plane.md",
+      "status": "accepted"
+    },
+    {
+      "id": "ADR-0005",
+      "path": "docs/decisions/0005-autonomous-factory-intake.md",
+      "status": "accepted"
+    },
+    {
+      "id": "ADR-0006",
+      "path": "docs/decisions/0006-unified-loop-decision-model.md",
+      "status": "proposed"
+    },
+    {
+      "id": "ADR-0007",
+      "path": "docs/decisions/0007-platform-portal-federated-surface.md",
+      "status": "accepted"
+    },
+    {
+      "id": "ADR-0008",
+      "path": "docs/decisions/0008-ai-security-domain.md",
+      "status": "proposed"
+    },
+    {
+      "id": "ADR-0009",
+      "path": "docs/decisions/0009-organizational-dark-factory-sdd.md",
+      "status": "accepted"
+    },
+    {
+      "id": "ADR-0010",
+      "path": "docs/decisions/0010-goal-oriented-organizational-dark-factory.md",
+      "status": "accepted"
+    },
+    {
+      "id": "ADR-0011",
+      "path": "docs/decisions/0011-platform-products-and-executable-paths.md",
+      "status": "accepted"
+    },
+    {
+      "id": "ADR-0012",
+      "path": "docs/decisions/0012-capability-readiness-profiles.md",
+      "status": "accepted"
+    },
+    {
+      "id": "ADR-0013",
+      "path": "docs/decisions/0013-platform-owned-observer-access.md",
+      "status": "accepted"
+    },
+    {
+      "id": "ADR-0014",
+      "path": "docs/decisions/0014-precommitted-http-condition-evidence.md",
+      "status": "proposed"
+    },
+    {
+      "id": "ADR-0015",
+      "path": "docs/decisions/0015-independent-observer-authority-attestor.md",
+      "status": "proposed"
+    },
+    {
+      "id": "ADR-0016",
+      "path": "docs/decisions/0016-independent-safe-to-reclaim-decision-issuer.md",
+      "status": "proposed"
+    },
+    {
+      "id": "ADR-0017",
+      "path": "docs/decisions/0017-omniscience-mcp-v1-contract-and-severance.md",
+      "status": "accepted"
+    },
+    {
+      "id": "ADR-0018",
+      "path": "docs/decisions/0018-pii-wall-purpose-bound-data-boundary.md",
+      "status": "accepted"
+    },
+    {
+      "id": "ADR-0019",
+      "path": "docs/decisions/0019-barbarossa-independent-reliability-plane.md",
+      "status": "superseded"
+    },
+    {
+      "id": "ADR-0020",
+      "path": "docs/decisions/0020-barbarossa-continuous-management-plane.md",
+      "status": "accepted"
+    }
   ],
   "components": [
     {
@@ -38,24 +118,88 @@
       "readme": "README.md",
       "capability_index": "docs/specs/README.md",
       "capability_specs": [
-        {"id": "SPEC-B0", "path": "docs/specs/SPEC-B0-offline-eval-harness.md", "status": "draft"},
-        {"id": "SPEC-B1", "path": "docs/specs/SPEC-B1-read-only-triage-rca.md", "status": "draft"},
-        {"id": "SPEC-B2", "path": "docs/specs/SPEC-B2-advisory-change-validation-integration.md", "status": "draft"},
-        {"id": "SPEC-B3", "path": "docs/specs/SPEC-B3-deterministic-canary-rollback.md", "status": "draft"},
-        {"id": "SPEC-B4", "path": "docs/specs/SPEC-B4-tier4-allowlisted-remediation.md", "status": "draft"},
-        {"id": "SPEC-B5", "path": "docs/specs/SPEC-B5-tier3-hitl-remediation.md", "status": "draft"},
-        {"id": "SPEC-B6", "path": "docs/specs/SPEC-B6-permanent-fix-chase.md", "status": "draft"},
-        {"id": "SPEC-B7", "path": "docs/specs/SPEC-B7-error-rate-baseline-detector.md", "status": "draft"},
-        {"id": "SPEC-B7-CORE", "path": "docs/specs/SPEC-B7-core-sentinel-runtime-contract.md", "status": "draft"},
-        {"id": "SPEC-B7-NES", "path": "docs/specs/SPEC-B7-new-error-signature-detector.md", "status": "draft"},
-        {"id": "SPEC-B7-CIR", "path": "docs/specs/SPEC-B7-change-induced-regression-detector.md", "status": "draft"},
-        {"id": "SPEC-B7-DRIFT", "path": "docs/specs/SPEC-B7-drift-detector.md", "status": "draft"},
-        {"id": "SPEC-B7-SAT", "path": "docs/specs/SPEC-B7-saturation-expiry-detector.md", "status": "draft"},
-        {"id": "SPEC-PII-POLICY", "path": "docs/specs/SPEC-PII-POLICY-platform-policy-contract.md", "status": "ready"}
+        {
+          "id": "SPEC-B0",
+          "path": "docs/specs/SPEC-B0-offline-eval-harness.md",
+          "status": "draft"
+        },
+        {
+          "id": "SPEC-B1",
+          "path": "docs/specs/SPEC-B1-read-only-triage-rca.md",
+          "status": "draft"
+        },
+        {
+          "id": "SPEC-B2",
+          "path": "docs/specs/SPEC-B2-advisory-change-validation-integration.md",
+          "status": "draft"
+        },
+        {
+          "id": "SPEC-B3",
+          "path": "docs/specs/SPEC-B3-deterministic-canary-rollback.md",
+          "status": "draft"
+        },
+        {
+          "id": "SPEC-B4",
+          "path": "docs/specs/SPEC-B4-tier4-allowlisted-remediation.md",
+          "status": "draft"
+        },
+        {
+          "id": "SPEC-B5",
+          "path": "docs/specs/SPEC-B5-tier3-hitl-remediation.md",
+          "status": "draft"
+        },
+        {
+          "id": "SPEC-B6",
+          "path": "docs/specs/SPEC-B6-permanent-fix-chase.md",
+          "status": "draft"
+        },
+        {
+          "id": "SPEC-B7",
+          "path": "docs/specs/SPEC-B7-error-rate-baseline-detector.md",
+          "status": "draft"
+        },
+        {
+          "id": "SPEC-B7-CORE",
+          "path": "docs/specs/SPEC-B7-core-sentinel-runtime-contract.md",
+          "status": "draft"
+        },
+        {
+          "id": "SPEC-B7-NES",
+          "path": "docs/specs/SPEC-B7-new-error-signature-detector.md",
+          "status": "draft"
+        },
+        {
+          "id": "SPEC-B7-CIR",
+          "path": "docs/specs/SPEC-B7-change-induced-regression-detector.md",
+          "status": "draft"
+        },
+        {
+          "id": "SPEC-B7-DRIFT",
+          "path": "docs/specs/SPEC-B7-drift-detector.md",
+          "status": "draft"
+        },
+        {
+          "id": "SPEC-B7-SAT",
+          "path": "docs/specs/SPEC-B7-saturation-expiry-detector.md",
+          "status": "draft"
+        },
+        {
+          "id": "SPEC-PII-POLICY",
+          "path": "docs/specs/SPEC-PII-POLICY-platform-policy-contract.md",
+          "status": "ready"
+        }
       ],
       "task_specs": [
-        {"id": "task-sp-60-pii-policy-contract-v1", "path": "docs/specs/task-sp-60-pii-policy-contract-v1.md", "status": "ready"},
-        {"id": "task-sp-70-continuous-management-contract-release", "path": "docs/specs/task-sp-70-continuous-management-contract-release.md", "status": "ready"}
+        {
+          "id": "task-sp-60-pii-policy-contract-v1",
+          "path": "docs/specs/task-sp-60-pii-policy-contract-v1.md",
+          "status": "implemented"
+        },
+        {
+          "id": "task-sp-70-continuous-management-contract-release",
+          "path": "docs/specs/task-sp-70-continuous-management-contract-release.md",
+          "status": "implemented"
+        }
       ],
       "readiness_profiles": []
     },
@@ -69,48 +213,208 @@
       "capability_index": "specs/SPEC-INDEX.md",
       "task_index": "docs/specs/README.md",
       "capability_specs": [
-        {"id": "SPEC-LOOP", "path": "specs/SPEC-LOOP-management-loop-lifecycle.md", "status": "complete-for-planning"},
-        {"id": "SPEC-DOM", "path": "specs/SPEC-DOM-domain-pack-registry-isolation.md", "status": "complete-for-planning"},
-        {"id": "SPEC-OBS", "path": "specs/SPEC-OBS-management-evidence-ledger.md", "status": "complete-for-planning"},
-        {"id": "SPEC-EVAL", "path": "specs/SPEC-EVAL-deterministic-domain-evaluation.md", "status": "complete-for-planning"},
-        {"id": "SPEC-CASE", "path": "specs/SPEC-CASE-management-case-ledger.md", "status": "complete-for-planning"},
-        {"id": "SPEC-FED", "path": "specs/SPEC-FED-management-agent-federation.md", "status": "complete-for-planning"},
-        {"id": "SPEC-CTX", "path": "specs/SPEC-CTX-omniscience-management-context.md", "status": "complete-for-planning"},
-        {"id": "SPEC-CFL", "path": "specs/SPEC-CFL-cross-loop-constraint-resolution.md", "status": "complete-for-planning"},
-        {"id": "SPEC-ACT", "path": "specs/SPEC-ACT-governed-management-actions.md", "status": "complete-for-planning"},
-        {"id": "SPEC-VRF", "path": "specs/SPEC-VRF-independent-outcome-verification.md", "status": "complete-for-planning"},
-        {"id": "SPEC-VIEW", "path": "specs/SPEC-VIEW-management-projection-cockpit.md", "status": "complete-for-planning"},
-        {"id": "SPEC-AUT", "path": "specs/SPEC-AUT-progressive-domain-autonomy.md", "status": "complete-for-planning-blocked"},
-        {"id": "SPEC-JR", "path": "specs/SPEC-JR-critical-journey-policy.md", "status": "complete-for-planning"},
-        {"id": "SPEC-AVL", "path": "specs/SPEC-AVL-deterministic-availability-evaluation.md", "status": "complete-for-planning"},
-        {"id": "SPEC-INC", "path": "specs/SPEC-INC-incident-ledger-command.md", "status": "complete-for-planning"},
-        {"id": "SPEC-ALT", "path": "specs/SPEC-ALT-alerting-meta-monitoring.md", "status": "complete-for-planning"},
-        {"id": "SPEC-COST-POL", "path": "specs/SPEC-COST-POL-value-unit-economics-policy.md", "status": "complete-for-planning"},
-        {"id": "SPEC-COST-EVAL", "path": "specs/SPEC-COST-EVAL-forecast-opportunity-evaluation.md", "status": "complete-for-planning"},
-        {"id": "SPEC-COST-ACT", "path": "specs/SPEC-COST-ACT-optimization-realized-value.md", "status": "complete-for-planning"},
-        {"id": "SPEC-AIE", "path": "specs/SPEC-AIE-agent-system-assurance.md", "status": "complete-for-planning"},
-        {"id": "SPEC-SEC", "path": "specs/SPEC-SEC-security-exposure-control-assurance.md", "status": "complete-for-planning"},
-        {"id": "SPEC-PRV", "path": "specs/SPEC-PRV-purpose-data-use-assurance.md", "status": "complete-for-planning"},
-        {"id": "SPEC-CMP", "path": "specs/SPEC-CMP-continuous-compliance-assurance.md", "status": "complete-for-planning"},
-        {"id": "SPEC-SCI", "path": "specs/SPEC-SCI-supply-chain-integrity.md", "status": "complete-for-planning"},
-        {"id": "SPEC-DEL", "path": "specs/SPEC-DEL-delivery-effectiveness.md", "status": "complete-for-planning"},
-        {"id": "SPEC-KNW", "path": "specs/SPEC-KNW-knowledge-quality-assurance.md", "status": "complete-for-planning"},
-        {"id": "SPEC-CAP", "path": "specs/SPEC-CAP-capacity-performance-sustainability.md", "status": "complete-for-planning"},
-        {"id": "SPEC-TOIL", "path": "specs/SPEC-TOIL-toil-reduction.md", "status": "complete-for-planning"},
-        {"id": "SPEC-PROD", "path": "specs/SPEC-PROD-product-outcome-assurance.md", "status": "complete-for-planning"}
+        {
+          "id": "SPEC-LOOP",
+          "path": "specs/SPEC-LOOP-management-loop-lifecycle.md",
+          "status": "complete-for-planning"
+        },
+        {
+          "id": "SPEC-DOM",
+          "path": "specs/SPEC-DOM-domain-pack-registry-isolation.md",
+          "status": "complete-for-planning"
+        },
+        {
+          "id": "SPEC-OBS",
+          "path": "specs/SPEC-OBS-management-evidence-ledger.md",
+          "status": "complete-for-planning"
+        },
+        {
+          "id": "SPEC-EVAL",
+          "path": "specs/SPEC-EVAL-deterministic-domain-evaluation.md",
+          "status": "complete-for-planning"
+        },
+        {
+          "id": "SPEC-CASE",
+          "path": "specs/SPEC-CASE-management-case-ledger.md",
+          "status": "complete-for-planning"
+        },
+        {
+          "id": "SPEC-FED",
+          "path": "specs/SPEC-FED-management-agent-federation.md",
+          "status": "complete-for-planning"
+        },
+        {
+          "id": "SPEC-CTX",
+          "path": "specs/SPEC-CTX-omniscience-management-context.md",
+          "status": "complete-for-planning"
+        },
+        {
+          "id": "SPEC-CFL",
+          "path": "specs/SPEC-CFL-cross-loop-constraint-resolution.md",
+          "status": "complete-for-planning"
+        },
+        {
+          "id": "SPEC-ACT",
+          "path": "specs/SPEC-ACT-governed-management-actions.md",
+          "status": "complete-for-planning"
+        },
+        {
+          "id": "SPEC-VRF",
+          "path": "specs/SPEC-VRF-independent-outcome-verification.md",
+          "status": "complete-for-planning"
+        },
+        {
+          "id": "SPEC-VIEW",
+          "path": "specs/SPEC-VIEW-management-projection-cockpit.md",
+          "status": "complete-for-planning"
+        },
+        {
+          "id": "SPEC-AUT",
+          "path": "specs/SPEC-AUT-progressive-domain-autonomy.md",
+          "status": "complete-for-planning-blocked"
+        },
+        {
+          "id": "SPEC-JR",
+          "path": "specs/SPEC-JR-critical-journey-policy.md",
+          "status": "complete-for-planning"
+        },
+        {
+          "id": "SPEC-AVL",
+          "path": "specs/SPEC-AVL-deterministic-availability-evaluation.md",
+          "status": "complete-for-planning"
+        },
+        {
+          "id": "SPEC-INC",
+          "path": "specs/SPEC-INC-incident-ledger-command.md",
+          "status": "complete-for-planning"
+        },
+        {
+          "id": "SPEC-ALT",
+          "path": "specs/SPEC-ALT-alerting-meta-monitoring.md",
+          "status": "complete-for-planning"
+        },
+        {
+          "id": "SPEC-COST-POL",
+          "path": "specs/SPEC-COST-POL-value-unit-economics-policy.md",
+          "status": "complete-for-planning"
+        },
+        {
+          "id": "SPEC-COST-EVAL",
+          "path": "specs/SPEC-COST-EVAL-forecast-opportunity-evaluation.md",
+          "status": "complete-for-planning"
+        },
+        {
+          "id": "SPEC-COST-ACT",
+          "path": "specs/SPEC-COST-ACT-optimization-realized-value.md",
+          "status": "complete-for-planning"
+        },
+        {
+          "id": "SPEC-AIE",
+          "path": "specs/SPEC-AIE-agent-system-assurance.md",
+          "status": "complete-for-planning"
+        },
+        {
+          "id": "SPEC-SEC",
+          "path": "specs/SPEC-SEC-security-exposure-control-assurance.md",
+          "status": "complete-for-planning"
+        },
+        {
+          "id": "SPEC-PRV",
+          "path": "specs/SPEC-PRV-purpose-data-use-assurance.md",
+          "status": "complete-for-planning"
+        },
+        {
+          "id": "SPEC-CMP",
+          "path": "specs/SPEC-CMP-continuous-compliance-assurance.md",
+          "status": "complete-for-planning"
+        },
+        {
+          "id": "SPEC-SCI",
+          "path": "specs/SPEC-SCI-supply-chain-integrity.md",
+          "status": "complete-for-planning"
+        },
+        {
+          "id": "SPEC-DEL",
+          "path": "specs/SPEC-DEL-delivery-effectiveness.md",
+          "status": "complete-for-planning"
+        },
+        {
+          "id": "SPEC-KNW",
+          "path": "specs/SPEC-KNW-knowledge-quality-assurance.md",
+          "status": "complete-for-planning"
+        },
+        {
+          "id": "SPEC-CAP",
+          "path": "specs/SPEC-CAP-capacity-performance-sustainability.md",
+          "status": "complete-for-planning"
+        },
+        {
+          "id": "SPEC-TOIL",
+          "path": "specs/SPEC-TOIL-toil-reduction.md",
+          "status": "complete-for-planning"
+        },
+        {
+          "id": "SPEC-PROD",
+          "path": "specs/SPEC-PROD-product-outcome-assurance.md",
+          "status": "complete-for-planning"
+        }
       ],
       "task_specs": [
-        {"id": "task-sp-71-kernel-runtime", "path": "docs/specs/task-sp-71-kernel-runtime.md", "status": "ready"},
-        {"id": "task-sp-72-federation-constraints", "path": "docs/specs/task-sp-72-federation-constraints.md", "status": "ready"},
-        {"id": "task-sp-73-actions-verification", "path": "docs/specs/task-sp-73-actions-verification.md", "status": "ready"},
-        {"id": "task-sp-74-projection-cockpit", "path": "docs/specs/task-sp-74-projection-cockpit.md", "status": "ready"},
-        {"id": "task-sp-75-reliability-readonly", "path": "docs/specs/task-sp-75-reliability-readonly.md", "status": "ready"},
-        {"id": "task-sp-76-cost-value-readonly", "path": "docs/specs/task-sp-76-cost-value-readonly.md", "status": "ready"},
-        {"id": "task-sp-77-ai-effectiveness-readonly", "path": "docs/specs/task-sp-77-ai-effectiveness-readonly.md", "status": "ready"},
-        {"id": "task-sp-78-assurance-packs-readonly", "path": "docs/specs/task-sp-78-assurance-packs-readonly.md", "status": "ready"},
-        {"id": "task-sp-79-delivery-knowledge-readonly", "path": "docs/specs/task-sp-79-delivery-knowledge-readonly.md", "status": "ready"},
-        {"id": "task-sp-80-capacity-toil-product-readonly", "path": "docs/specs/task-sp-80-capacity-toil-product-readonly.md", "status": "ready"},
-        {"id": "task-sp-83-context-consumer", "path": "docs/specs/task-sp-83-context-consumer.md", "status": "ready"}
+        {
+          "id": "task-sp-71-kernel-runtime",
+          "path": "docs/specs/task-sp-71-kernel-runtime.md",
+          "status": "implemented"
+        },
+        {
+          "id": "task-sp-72-federation-constraints",
+          "path": "docs/specs/task-sp-72-federation-constraints.md",
+          "status": "implemented"
+        },
+        {
+          "id": "task-sp-73-actions-verification",
+          "path": "docs/specs/task-sp-73-actions-verification.md",
+          "status": "implemented"
+        },
+        {
+          "id": "task-sp-74-projection-cockpit",
+          "path": "docs/specs/task-sp-74-projection-cockpit.md",
+          "status": "implemented"
+        },
+        {
+          "id": "task-sp-75-reliability-readonly",
+          "path": "docs/specs/task-sp-75-reliability-readonly.md",
+          "status": "implemented"
+        },
+        {
+          "id": "task-sp-76-cost-value-readonly",
+          "path": "docs/specs/task-sp-76-cost-value-readonly.md",
+          "status": "implemented"
+        },
+        {
+          "id": "task-sp-77-ai-effectiveness-readonly",
+          "path": "docs/specs/task-sp-77-ai-effectiveness-readonly.md",
+          "status": "implemented"
+        },
+        {
+          "id": "task-sp-78-assurance-packs-readonly",
+          "path": "docs/specs/task-sp-78-assurance-packs-readonly.md",
+          "status": "implemented"
+        },
+        {
+          "id": "task-sp-79-delivery-knowledge-readonly",
+          "path": "docs/specs/task-sp-79-delivery-knowledge-readonly.md",
+          "status": "implemented"
+        },
+        {
+          "id": "task-sp-80-capacity-toil-product-readonly",
+          "path": "docs/specs/task-sp-80-capacity-toil-product-readonly.md",
+          "status": "implemented"
+        },
+        {
+          "id": "task-sp-83-context-consumer",
+          "path": "docs/specs/task-sp-83-context-consumer.md",
+          "status": "implemented"
+        }
       ],
       "readiness_profiles": []
     },
@@ -124,45 +428,193 @@
       "capability_index": "specs/SPEC-INDEX.md",
       "task_index": "docs/specs/README.md",
       "capability_specs": [
-        {"id": "SPEC-BM", "path": "specs/SPEC-BM-industry-alignment.md", "status": "draft"},
-        {"id": "SPEC-CC", "path": "specs/SPEC-CC-constitution.md", "status": "draft"},
-        {"id": "SPEC-CD", "path": "specs/SPEC-CD-conductor.md", "status": "draft"},
-        {"id": "SPEC-DO", "path": "specs/SPEC-DO-delivery-observation.md", "status": "draft"},
-        {"id": "SPEC-EF", "path": "specs/SPEC-EF-execution-fabric.md", "status": "draft"},
-        {"id": "SPEC-EI", "path": "specs/SPEC-EI-evaluator-integrity.md", "status": "draft"},
-        {"id": "SPEC-EXP", "path": "specs/SPEC-EXP-experience-plane.md", "status": "draft"},
-        {"id": "SPEC-FO", "path": "specs/SPEC-FO-factory-observability.md", "status": "draft"},
-        {"id": "SPEC-HB", "path": "specs/SPEC-HB-human-boundary.md", "status": "draft"},
-        {"id": "SPEC-IN", "path": "specs/SPEC-IN-spec-driven-intake.md", "status": "draft"},
-        {"id": "SPEC-IP", "path": "specs/SPEC-IP-identity-policy.md", "status": "draft"},
-        {"id": "SPEC-KP", "path": "specs/SPEC-KP-knowledge-plane.md", "status": "draft"},
-        {"id": "SPEC-MEM", "path": "specs/SPEC-MEM-memory-hierarchy.md", "status": "draft"},
-        {"id": "SPEC-MR", "path": "specs/SPEC-MR-model-routing.md", "status": "draft"},
-        {"id": "SPEC-OS", "path": "specs/SPEC-OS-correctness-curation.md", "status": "draft"},
-        {"id": "SPEC-OT", "path": "specs/SPEC-OT-outcome-telemetry.md", "status": "draft"},
-        {"id": "SPEC-PII", "path": "specs/SPEC-PII-pii-wall-context-egress.md", "status": "ready"},
-        {"id": "SPEC-MACT", "path": "specs/SPEC-MACT-management-action-producer.md", "status": "ready"},
-        {"id": "SPEC-PP", "path": "specs/SPEC-PP-platform-products-paths.md", "status": "draft"},
-        {"id": "SPEC-PRB", "path": "specs/SPEC-PRB-probe-reliability.md", "status": "draft"},
-        {"id": "SPEC-REG", "path": "specs/SPEC-REG-platform-skills-registry-adapter.md", "status": "draft"},
-        {"id": "SPEC-RLM", "path": "specs/SPEC-RLM-realms-entity-policy.md", "status": "draft"},
-        {"id": "SPEC-ROLE", "path": "specs/SPEC-ROLE-standing-roles.md", "status": "draft"},
-        {"id": "SPEC-RP", "path": "specs/SPEC-RP-reasoning-pool.md", "status": "draft"},
-        {"id": "SPEC-SE", "path": "specs/SPEC-SE-secrets.md", "status": "draft"},
-        {"id": "SPEC-SK", "path": "specs/SPEC-SK-skill-lifecycle.md", "status": "draft"},
-        {"id": "SPEC-TM", "path": "specs/SPEC-TM-threat-model-assurance-profiles.md", "status": "draft"},
-        {"id": "SPEC-TX", "path": "specs/SPEC-TX-transactional-execution.md", "status": "draft"},
-        {"id": "SPEC-UI", "path": "specs/SPEC-UI-human-interface.md", "status": "draft"},
-        {"id": "SPEC-VC", "path": "specs/SPEC-VC-verification-core.md", "status": "draft"},
-        {"id": "SPEC-WO", "path": "specs/SPEC-WO-goal-oriented-workorders.md", "status": "draft"}
+        {
+          "id": "SPEC-BM",
+          "path": "specs/SPEC-BM-industry-alignment.md",
+          "status": "draft"
+        },
+        {
+          "id": "SPEC-CC",
+          "path": "specs/SPEC-CC-constitution.md",
+          "status": "draft"
+        },
+        {
+          "id": "SPEC-CD",
+          "path": "specs/SPEC-CD-conductor.md",
+          "status": "draft"
+        },
+        {
+          "id": "SPEC-DO",
+          "path": "specs/SPEC-DO-delivery-observation.md",
+          "status": "draft"
+        },
+        {
+          "id": "SPEC-EF",
+          "path": "specs/SPEC-EF-execution-fabric.md",
+          "status": "draft"
+        },
+        {
+          "id": "SPEC-EI",
+          "path": "specs/SPEC-EI-evaluator-integrity.md",
+          "status": "draft"
+        },
+        {
+          "id": "SPEC-EXP",
+          "path": "specs/SPEC-EXP-experience-plane.md",
+          "status": "draft"
+        },
+        {
+          "id": "SPEC-FO",
+          "path": "specs/SPEC-FO-factory-observability.md",
+          "status": "draft"
+        },
+        {
+          "id": "SPEC-HB",
+          "path": "specs/SPEC-HB-human-boundary.md",
+          "status": "draft"
+        },
+        {
+          "id": "SPEC-IN",
+          "path": "specs/SPEC-IN-spec-driven-intake.md",
+          "status": "draft"
+        },
+        {
+          "id": "SPEC-IP",
+          "path": "specs/SPEC-IP-identity-policy.md",
+          "status": "draft"
+        },
+        {
+          "id": "SPEC-KP",
+          "path": "specs/SPEC-KP-knowledge-plane.md",
+          "status": "draft"
+        },
+        {
+          "id": "SPEC-MEM",
+          "path": "specs/SPEC-MEM-memory-hierarchy.md",
+          "status": "draft"
+        },
+        {
+          "id": "SPEC-MR",
+          "path": "specs/SPEC-MR-model-routing.md",
+          "status": "draft"
+        },
+        {
+          "id": "SPEC-OS",
+          "path": "specs/SPEC-OS-correctness-curation.md",
+          "status": "draft"
+        },
+        {
+          "id": "SPEC-OT",
+          "path": "specs/SPEC-OT-outcome-telemetry.md",
+          "status": "draft"
+        },
+        {
+          "id": "SPEC-PII",
+          "path": "specs/SPEC-PII-pii-wall-context-egress.md",
+          "status": "ready"
+        },
+        {
+          "id": "SPEC-MACT",
+          "path": "specs/SPEC-MACT-management-action-producer.md",
+          "status": "ready"
+        },
+        {
+          "id": "SPEC-PP",
+          "path": "specs/SPEC-PP-platform-products-paths.md",
+          "status": "draft"
+        },
+        {
+          "id": "SPEC-PRB",
+          "path": "specs/SPEC-PRB-probe-reliability.md",
+          "status": "draft"
+        },
+        {
+          "id": "SPEC-REG",
+          "path": "specs/SPEC-REG-platform-skills-registry-adapter.md",
+          "status": "draft"
+        },
+        {
+          "id": "SPEC-RLM",
+          "path": "specs/SPEC-RLM-realms-entity-policy.md",
+          "status": "draft"
+        },
+        {
+          "id": "SPEC-ROLE",
+          "path": "specs/SPEC-ROLE-standing-roles.md",
+          "status": "draft"
+        },
+        {
+          "id": "SPEC-RP",
+          "path": "specs/SPEC-RP-reasoning-pool.md",
+          "status": "draft"
+        },
+        {
+          "id": "SPEC-SE",
+          "path": "specs/SPEC-SE-secrets.md",
+          "status": "draft"
+        },
+        {
+          "id": "SPEC-SK",
+          "path": "specs/SPEC-SK-skill-lifecycle.md",
+          "status": "draft"
+        },
+        {
+          "id": "SPEC-TM",
+          "path": "specs/SPEC-TM-threat-model-assurance-profiles.md",
+          "status": "draft"
+        },
+        {
+          "id": "SPEC-TX",
+          "path": "specs/SPEC-TX-transactional-execution.md",
+          "status": "draft"
+        },
+        {
+          "id": "SPEC-UI",
+          "path": "specs/SPEC-UI-human-interface.md",
+          "status": "draft"
+        },
+        {
+          "id": "SPEC-VC",
+          "path": "specs/SPEC-VC-verification-core.md",
+          "status": "draft"
+        },
+        {
+          "id": "SPEC-WO",
+          "path": "specs/SPEC-WO-goal-oriented-workorders.md",
+          "status": "draft"
+        }
       ],
       "task_specs": [
-        {"id": "task-sp-11-mcp-consumer-pin", "path": "docs/specs/task-sp-11-mcp-consumer-pin.md", "status": "ready"},
-        {"id": "task-sp-20-p0-vertical-readiness", "path": "docs/specs/task-sp-20-p0-vertical-readiness.md", "status": "ready"},
-        {"id": "task-sp-30-experience-placement", "path": "docs/specs/task-sp-30-experience-placement.md", "status": "ready"},
-        {"id": "task-sp-40-governance-publications", "path": "docs/specs/task-sp-40-governance-publications.md", "status": "ready"},
-        {"id": "task-sp-62-pii-wall-pw0", "path": "docs/specs/task-sp-62-pii-wall-pw0.md", "status": "ready"},
-        {"id": "task-sp-82-management-action-v1", "path": "docs/specs/task-sp-82-management-action-v1.md", "status": "ready"}
+        {
+          "id": "task-sp-11-mcp-consumer-pin",
+          "path": "docs/specs/task-sp-11-mcp-consumer-pin.md",
+          "status": "ready"
+        },
+        {
+          "id": "task-sp-20-p0-vertical-readiness",
+          "path": "docs/specs/task-sp-20-p0-vertical-readiness.md",
+          "status": "ready"
+        },
+        {
+          "id": "task-sp-30-experience-placement",
+          "path": "docs/specs/task-sp-30-experience-placement.md",
+          "status": "implemented"
+        },
+        {
+          "id": "task-sp-40-governance-publications",
+          "path": "docs/specs/task-sp-40-governance-publications.md",
+          "status": "implemented"
+        },
+        {
+          "id": "task-sp-62-pii-wall-pw0",
+          "path": "docs/specs/task-sp-62-pii-wall-pw0.md",
+          "status": "implemented"
+        },
+        {
+          "id": "task-sp-82-management-action-v1",
+          "path": "docs/specs/task-sp-82-management-action-v1.md",
+          "status": "implemented"
+        }
       ],
       "readiness_profiles": [
         {
@@ -199,25 +651,93 @@
       "capability_index": "specs/SPEC-INDEX.md",
       "task_index": "docs/specs/README.md",
       "capability_specs": [
-        {"id": "SPEC-ACL", "path": "specs/SPEC-ACL-workspace-isolation.md", "status": "ready"},
-        {"id": "SPEC-EV", "path": "specs/SPEC-EV-retrieval-evidence-contract.md", "status": "ready"},
-        {"id": "SPEC-IN", "path": "specs/SPEC-IN-task-spec-intake.md", "status": "ready"},
-        {"id": "SPEC-KP", "path": "specs/SPEC-KP-dark-factory-knowledge-plane.md", "status": "ready"},
-        {"id": "SPEC-MCP", "path": "specs/SPEC-MCP-stable-contract-v1.md", "status": "ready"},
-        {"id": "SPEC-OPS", "path": "specs/SPEC-OPS-operational-evidence.md", "status": "ready"},
-        {"id": "SPEC-PII", "path": "specs/SPEC-PII-pii-wall-ingestion-lifecycle.md", "status": "ready"},
-        {"id": "SPEC-MCTX", "path": "specs/SPEC-MCTX-management-context-producer.md", "status": "ready"},
-        {"id": "SPEC-SOT", "path": "specs/SPEC-SOT-ledger-and-projections.md", "status": "ready"}
+        {
+          "id": "SPEC-ACL",
+          "path": "specs/SPEC-ACL-workspace-isolation.md",
+          "status": "ready"
+        },
+        {
+          "id": "SPEC-EV",
+          "path": "specs/SPEC-EV-retrieval-evidence-contract.md",
+          "status": "ready"
+        },
+        {
+          "id": "SPEC-IN",
+          "path": "specs/SPEC-IN-task-spec-intake.md",
+          "status": "ready"
+        },
+        {
+          "id": "SPEC-KP",
+          "path": "specs/SPEC-KP-dark-factory-knowledge-plane.md",
+          "status": "ready"
+        },
+        {
+          "id": "SPEC-MCP",
+          "path": "specs/SPEC-MCP-stable-contract-v1.md",
+          "status": "ready"
+        },
+        {
+          "id": "SPEC-OPS",
+          "path": "specs/SPEC-OPS-operational-evidence.md",
+          "status": "ready"
+        },
+        {
+          "id": "SPEC-PII",
+          "path": "specs/SPEC-PII-pii-wall-ingestion-lifecycle.md",
+          "status": "ready"
+        },
+        {
+          "id": "SPEC-MCTX",
+          "path": "specs/SPEC-MCTX-management-context-producer.md",
+          "status": "ready"
+        },
+        {
+          "id": "SPEC-SOT",
+          "path": "specs/SPEC-SOT-ledger-and-projections.md",
+          "status": "ready"
+        }
       ],
       "task_specs": [
-        {"id": "gh-issue-350-mcp-v1", "path": "docs/specs/gh-issue-350-mcp-contract-v1.md", "status": "ready"},
-        {"id": "gh-issue-350-consumer-severance", "path": "docs/specs/gh-issue-350-consumer-severance.md", "status": "ready"},
-        {"id": "gh-issue-350-production-ha", "path": "docs/specs/gh-issue-350-production-ha.md", "status": "ready"},
-        {"id": "gh-issue-350-backup-restore", "path": "docs/specs/gh-issue-350-backup-restore.md", "status": "ready"},
-        {"id": "gh-issue-350-read-scaling-priority", "path": "docs/specs/gh-issue-350-read-scaling-priority.md", "status": "ready"},
-        {"id": "gh-issue-355", "path": "docs/specs/gh-issue-355-set-sources-tenant-id-from-the-token-workspace-on-create.md", "status": "ready"},
-        {"id": "task-sp-61-pii-wall-pw0", "path": "docs/specs/task-sp-61-pii-wall-pw0.md", "status": "ready"},
-        {"id": "task-sp-81-management-context-v1", "path": "docs/specs/task-sp-81-management-context-v1.md", "status": "ready"}
+        {
+          "id": "gh-issue-350-mcp-v1",
+          "path": "docs/specs/gh-issue-350-mcp-contract-v1.md",
+          "status": "ready"
+        },
+        {
+          "id": "gh-issue-350-consumer-severance",
+          "path": "docs/specs/gh-issue-350-consumer-severance.md",
+          "status": "ready"
+        },
+        {
+          "id": "gh-issue-350-production-ha",
+          "path": "docs/specs/gh-issue-350-production-ha.md",
+          "status": "ready"
+        },
+        {
+          "id": "gh-issue-350-backup-restore",
+          "path": "docs/specs/gh-issue-350-backup-restore.md",
+          "status": "ready"
+        },
+        {
+          "id": "gh-issue-350-read-scaling-priority",
+          "path": "docs/specs/gh-issue-350-read-scaling-priority.md",
+          "status": "ready"
+        },
+        {
+          "id": "gh-issue-355",
+          "path": "docs/specs/gh-issue-355-set-sources-tenant-id-from-the-token-workspace-on-create.md",
+          "status": "ready"
+        },
+        {
+          "id": "task-sp-61-pii-wall-pw0",
+          "path": "docs/specs/task-sp-61-pii-wall-pw0.md",
+          "status": "implemented"
+        },
+        {
+          "id": "task-sp-81-management-context-v1",
+          "path": "docs/specs/task-sp-81-management-context-v1.md",
+          "status": "implemented"
+        }
       ],
       "readiness_profiles": []
     },
@@ -231,26 +751,98 @@
       "capability_index": "specs/SPEC-INDEX.md",
       "task_index": "docs/specs/README.md",
       "capability_specs": [
-        {"id": "SPEC-IT", "path": "specs/SPEC-IT-identity-tenancy.md", "status": "built"},
-        {"id": "SPEC-PS", "path": "specs/SPEC-PS-portal-shell.md", "status": "built"},
-        {"id": "SPEC-PM", "path": "specs/SPEC-PM-platform-map.md", "status": "built"},
-        {"id": "SPEC-PII", "path": "specs/SPEC-PII-privacy-center.md", "status": "ready"},
-        {"id": "SPEC-CV", "path": "specs/SPEC-CV-component-views.md", "status": "built"},
-        {"id": "SPEC-KV", "path": "specs/SPEC-KV-knowledge-view.md", "status": "built"},
-        {"id": "SPEC-CP", "path": "specs/SPEC-CP-control-plane.md", "status": "built"},
-        {"id": "SPEC-CN", "path": "specs/SPEC-CN-connectors.md", "status": "built"},
-        {"id": "SPEC-AU", "path": "specs/SPEC-AU-audit-metrics.md", "status": "built"},
-        {"id": "SPEC-BL", "path": "specs/SPEC-BL-billing.md", "status": "built"},
-        {"id": "SPEC-CMC", "path": "specs/SPEC-CMC-continuous-management-center.md", "status": "ready"}
+        {
+          "id": "SPEC-IT",
+          "path": "specs/SPEC-IT-identity-tenancy.md",
+          "status": "built"
+        },
+        {
+          "id": "SPEC-PS",
+          "path": "specs/SPEC-PS-portal-shell.md",
+          "status": "built"
+        },
+        {
+          "id": "SPEC-PM",
+          "path": "specs/SPEC-PM-platform-map.md",
+          "status": "built"
+        },
+        {
+          "id": "SPEC-PII",
+          "path": "specs/SPEC-PII-privacy-center.md",
+          "status": "ready"
+        },
+        {
+          "id": "SPEC-CV",
+          "path": "specs/SPEC-CV-component-views.md",
+          "status": "built"
+        },
+        {
+          "id": "SPEC-KV",
+          "path": "specs/SPEC-KV-knowledge-view.md",
+          "status": "built"
+        },
+        {
+          "id": "SPEC-CP",
+          "path": "specs/SPEC-CP-control-plane.md",
+          "status": "built"
+        },
+        {
+          "id": "SPEC-CN",
+          "path": "specs/SPEC-CN-connectors.md",
+          "status": "built"
+        },
+        {
+          "id": "SPEC-AU",
+          "path": "specs/SPEC-AU-audit-metrics.md",
+          "status": "built"
+        },
+        {
+          "id": "SPEC-BL",
+          "path": "specs/SPEC-BL-billing.md",
+          "status": "built"
+        },
+        {
+          "id": "SPEC-CMC",
+          "path": "specs/SPEC-CMC-continuous-management-center.md",
+          "status": "ready"
+        }
       ],
       "task_specs": [
-        {"id": "task-sp-50-adoption-alignment", "path": "docs/specs/task-sp-50-adoption-alignment.md", "status": "ready"},
-        {"id": "task-sp-51-registry-live-read", "path": "docs/specs/task-sp-51-registry-live-read.md", "status": "ready"},
-        {"id": "task-sp-51-omniscience-read-adapter", "path": "docs/specs/task-sp-51-omniscience-read-adapter.md", "status": "ready"},
-        {"id": "task-sp-51-omnius-read-adapter", "path": "docs/specs/task-sp-51-omnius-read-adapter.md", "status": "ready"},
-        {"id": "task-sp-52-delegated-control", "path": "docs/specs/task-sp-52-delegated-control.md", "status": "ready"},
-        {"id": "task-sp-63-privacy-center", "path": "docs/specs/task-sp-63-privacy-center.md", "status": "ready"},
-        {"id": "task-sp-84-continuous-management-center", "path": "docs/specs/task-sp-84-continuous-management-center.md", "status": "ready"}
+        {
+          "id": "task-sp-50-adoption-alignment",
+          "path": "docs/specs/task-sp-50-adoption-alignment.md",
+          "status": "implemented"
+        },
+        {
+          "id": "task-sp-51-registry-live-read",
+          "path": "docs/specs/task-sp-51-registry-live-read.md",
+          "status": "implemented"
+        },
+        {
+          "id": "task-sp-51-omniscience-read-adapter",
+          "path": "docs/specs/task-sp-51-omniscience-read-adapter.md",
+          "status": "implemented"
+        },
+        {
+          "id": "task-sp-51-omnius-read-adapter",
+          "path": "docs/specs/task-sp-51-omnius-read-adapter.md",
+          "status": "implemented"
+        },
+        {
+          "id": "task-sp-52-delegated-control",
+          "path": "docs/specs/task-sp-52-delegated-control.md",
+          "status": "implemented"
+        },
+        {
+          "id": "task-sp-63-privacy-center",
+          "path": "docs/specs/task-sp-63-privacy-center.md",
+          "status": "implemented"
+        },
+        {
+          "id": "task-sp-84-continuous-management-center",
+          "path": "docs/specs/task-sp-84-continuous-management-center.md",
+          "status": "implemented"
+        }
       ],
       "readiness_profiles": []
     }
@@ -261,94 +853,258 @@
       "owner": "genai-enablement",
       "status": "maintained",
       "depends_on": [],
-      "governing_adrs": ["ADR-0009", "ADR-0012"],
+      "governing_adrs": [
+        "ADR-0009",
+        "ADR-0012"
+      ],
       "contracts": []
     },
     {
       "id": "SP-10",
       "owner": "omniscience",
       "status": "implemented-verification-pending",
-      "depends_on": ["SP-00"],
-      "governing_adrs": ["ADR-0017"],
+      "depends_on": [
+        "SP-00"
+      ],
+      "governing_adrs": [
+        "ADR-0017"
+      ],
       "contracts": [
-        {"project": "omniscience", "kind": "capability", "id": "SPEC-MCP"},
-        {"project": "omniscience", "kind": "task", "id": "gh-issue-350-mcp-v1"},
-        {"project": "omniscience", "kind": "task", "id": "gh-issue-355"}
+        {
+          "project": "omniscience",
+          "kind": "capability",
+          "id": "SPEC-MCP"
+        },
+        {
+          "project": "omniscience",
+          "kind": "task",
+          "id": "gh-issue-350-mcp-v1"
+        },
+        {
+          "project": "omniscience",
+          "kind": "task",
+          "id": "gh-issue-355"
+        }
       ]
     },
     {
       "id": "SP-11",
       "owner": "omnius",
       "status": "ready-for-development-producer-pin-gated",
-      "depends_on": ["SP-10"],
-      "governing_adrs": ["ADR-0017"],
+      "depends_on": [
+        "SP-10"
+      ],
+      "governing_adrs": [
+        "ADR-0017"
+      ],
       "contracts": [
-        {"project": "omnius", "kind": "capability", "id": "SPEC-KP"},
-        {"project": "omnius", "kind": "task", "id": "task-sp-11-mcp-consumer-pin"}
+        {
+          "project": "omnius",
+          "kind": "capability",
+          "id": "SPEC-KP"
+        },
+        {
+          "project": "omnius",
+          "kind": "task",
+          "id": "task-sp-11-mcp-consumer-pin"
+        }
       ]
     },
     {
       "id": "SP-12",
       "owner": "omniscience",
       "status": "implemented-evidence-pending",
-      "depends_on": ["SP-10", "SP-11"],
-      "governing_adrs": ["ADR-0017"],
+      "depends_on": [
+        "SP-10",
+        "SP-11"
+      ],
+      "governing_adrs": [
+        "ADR-0017"
+      ],
       "contracts": [
-        {"project": "omniscience", "kind": "task", "id": "gh-issue-350-consumer-severance"},
-        {"project": "omnius", "kind": "capability", "id": "SPEC-KP"}
+        {
+          "project": "omniscience",
+          "kind": "task",
+          "id": "gh-issue-350-consumer-severance"
+        },
+        {
+          "project": "omnius",
+          "kind": "capability",
+          "id": "SPEC-KP"
+        }
       ]
     },
     {
       "id": "SP-20",
       "owner": "omnius",
       "status": "ready-for-development-external-gated",
-      "depends_on": ["SP-12"],
-      "governing_adrs": ["ADR-0009", "ADR-0010", "ADR-0011", "ADR-0012", "ADR-0013", "ADR-0014", "ADR-0015", "ADR-0016"],
+      "depends_on": [
+        "SP-12"
+      ],
+      "governing_adrs": [
+        "ADR-0009",
+        "ADR-0010",
+        "ADR-0011",
+        "ADR-0012",
+        "ADR-0013",
+        "ADR-0014",
+        "ADR-0015",
+        "ADR-0016"
+      ],
       "contracts": [
-        {"project": "omnius", "kind": "readiness", "id": "p0-standard-http-service-v3"},
-        {"project": "omnius", "kind": "capability", "id": "SPEC-CC"},
-        {"project": "omnius", "kind": "capability", "id": "SPEC-TM"},
-        {"project": "omnius", "kind": "capability", "id": "SPEC-RLM"},
-        {"project": "omnius", "kind": "capability", "id": "SPEC-OS"},
-        {"project": "omnius", "kind": "capability", "id": "SPEC-EF"},
-        {"project": "omnius", "kind": "capability", "id": "SPEC-VC"},
-        {"project": "omnius", "kind": "capability", "id": "SPEC-PRB"},
-        {"project": "omnius", "kind": "capability", "id": "SPEC-PP"},
-        {"project": "omnius", "kind": "capability", "id": "SPEC-WO"},
-        {"project": "omnius", "kind": "capability", "id": "SPEC-IN"},
-        {"project": "omnius", "kind": "capability", "id": "SPEC-TX"},
-        {"project": "omnius", "kind": "capability", "id": "SPEC-CD"},
-        {"project": "omnius", "kind": "capability", "id": "SPEC-OT"},
-        {"project": "omnius", "kind": "capability", "id": "SPEC-IP"},
-        {"project": "omnius", "kind": "capability", "id": "SPEC-DO"},
-        {"project": "omnius", "kind": "task", "id": "task-sp-20-p0-vertical-readiness"}
+        {
+          "project": "omnius",
+          "kind": "readiness",
+          "id": "p0-standard-http-service-v3"
+        },
+        {
+          "project": "omnius",
+          "kind": "capability",
+          "id": "SPEC-CC"
+        },
+        {
+          "project": "omnius",
+          "kind": "capability",
+          "id": "SPEC-TM"
+        },
+        {
+          "project": "omnius",
+          "kind": "capability",
+          "id": "SPEC-RLM"
+        },
+        {
+          "project": "omnius",
+          "kind": "capability",
+          "id": "SPEC-OS"
+        },
+        {
+          "project": "omnius",
+          "kind": "capability",
+          "id": "SPEC-EF"
+        },
+        {
+          "project": "omnius",
+          "kind": "capability",
+          "id": "SPEC-VC"
+        },
+        {
+          "project": "omnius",
+          "kind": "capability",
+          "id": "SPEC-PRB"
+        },
+        {
+          "project": "omnius",
+          "kind": "capability",
+          "id": "SPEC-PP"
+        },
+        {
+          "project": "omnius",
+          "kind": "capability",
+          "id": "SPEC-WO"
+        },
+        {
+          "project": "omnius",
+          "kind": "capability",
+          "id": "SPEC-IN"
+        },
+        {
+          "project": "omnius",
+          "kind": "capability",
+          "id": "SPEC-TX"
+        },
+        {
+          "project": "omnius",
+          "kind": "capability",
+          "id": "SPEC-CD"
+        },
+        {
+          "project": "omnius",
+          "kind": "capability",
+          "id": "SPEC-OT"
+        },
+        {
+          "project": "omnius",
+          "kind": "capability",
+          "id": "SPEC-IP"
+        },
+        {
+          "project": "omnius",
+          "kind": "capability",
+          "id": "SPEC-DO"
+        },
+        {
+          "project": "omnius",
+          "kind": "task",
+          "id": "task-sp-20-p0-vertical-readiness"
+        }
       ]
     },
     {
       "id": "SP-30",
       "owner": "omnius",
-      "status": "ready-for-development",
+      "status": "implemented-local",
       "depends_on": [],
-      "governing_adrs": ["ADR-0004"],
+      "governing_adrs": [
+        "ADR-0004"
+      ],
       "contracts": [
-        {"project": "omnius", "kind": "capability", "id": "SPEC-EXP"},
-        {"project": "omnius", "kind": "capability", "id": "SPEC-OT"},
-        {"project": "omnius", "kind": "capability", "id": "SPEC-KP"},
-        {"project": "omnius", "kind": "task", "id": "task-sp-30-experience-placement"}
+        {
+          "project": "omnius",
+          "kind": "capability",
+          "id": "SPEC-EXP"
+        },
+        {
+          "project": "omnius",
+          "kind": "capability",
+          "id": "SPEC-OT"
+        },
+        {
+          "project": "omnius",
+          "kind": "capability",
+          "id": "SPEC-KP"
+        },
+        {
+          "project": "omnius",
+          "kind": "task",
+          "id": "task-sp-30-experience-placement"
+        }
       ]
     },
     {
       "id": "SP-40",
       "owner": "omnius",
-      "status": "ready-for-development",
+      "status": "implemented-local",
       "depends_on": [],
-      "governing_adrs": ["ADR-0002", "ADR-0005"],
+      "governing_adrs": [
+        "ADR-0002",
+        "ADR-0005"
+      ],
       "contracts": [
-        {"project": "omnius", "kind": "capability", "id": "SPEC-REG"},
-        {"project": "omnius", "kind": "capability", "id": "SPEC-ROLE"},
-        {"project": "omnius", "kind": "capability", "id": "SPEC-HB"},
-        {"project": "omnius", "kind": "capability", "id": "SPEC-SK"},
-        {"project": "omnius", "kind": "task", "id": "task-sp-40-governance-publications"}
+        {
+          "project": "omnius",
+          "kind": "capability",
+          "id": "SPEC-REG"
+        },
+        {
+          "project": "omnius",
+          "kind": "capability",
+          "id": "SPEC-ROLE"
+        },
+        {
+          "project": "omnius",
+          "kind": "capability",
+          "id": "SPEC-HB"
+        },
+        {
+          "project": "omnius",
+          "kind": "capability",
+          "id": "SPEC-SK"
+        },
+        {
+          "project": "omnius",
+          "kind": "task",
+          "id": "task-sp-40-governance-publications"
+        }
       ]
     },
     {
@@ -356,296 +1112,772 @@
       "owner": "genai-enablement",
       "status": "portable-construction",
       "depends_on": [],
-      "governing_adrs": ["ADR-0001", "ADR-0009"],
+      "governing_adrs": [
+        "ADR-0001",
+        "ADR-0009"
+      ],
       "contracts": [
-        {"project": "genai-enablement", "kind": "capability", "id": "SPEC-B0"},
-        {"project": "genai-enablement", "kind": "capability", "id": "SPEC-B1"},
-        {"project": "genai-enablement", "kind": "capability", "id": "SPEC-B2"},
-        {"project": "genai-enablement", "kind": "capability", "id": "SPEC-B3"},
-        {"project": "genai-enablement", "kind": "capability", "id": "SPEC-B4"},
-        {"project": "genai-enablement", "kind": "capability", "id": "SPEC-B5"},
-        {"project": "genai-enablement", "kind": "capability", "id": "SPEC-B6"},
-        {"project": "genai-enablement", "kind": "capability", "id": "SPEC-B7"},
-        {"project": "genai-enablement", "kind": "capability", "id": "SPEC-B7-CORE"},
-        {"project": "genai-enablement", "kind": "capability", "id": "SPEC-B7-NES"},
-        {"project": "genai-enablement", "kind": "capability", "id": "SPEC-B7-CIR"},
-        {"project": "genai-enablement", "kind": "capability", "id": "SPEC-B7-DRIFT"},
-        {"project": "genai-enablement", "kind": "capability", "id": "SPEC-B7-SAT"}
+        {
+          "project": "genai-enablement",
+          "kind": "capability",
+          "id": "SPEC-B0"
+        },
+        {
+          "project": "genai-enablement",
+          "kind": "capability",
+          "id": "SPEC-B1"
+        },
+        {
+          "project": "genai-enablement",
+          "kind": "capability",
+          "id": "SPEC-B2"
+        },
+        {
+          "project": "genai-enablement",
+          "kind": "capability",
+          "id": "SPEC-B3"
+        },
+        {
+          "project": "genai-enablement",
+          "kind": "capability",
+          "id": "SPEC-B4"
+        },
+        {
+          "project": "genai-enablement",
+          "kind": "capability",
+          "id": "SPEC-B5"
+        },
+        {
+          "project": "genai-enablement",
+          "kind": "capability",
+          "id": "SPEC-B6"
+        },
+        {
+          "project": "genai-enablement",
+          "kind": "capability",
+          "id": "SPEC-B7"
+        },
+        {
+          "project": "genai-enablement",
+          "kind": "capability",
+          "id": "SPEC-B7-CORE"
+        },
+        {
+          "project": "genai-enablement",
+          "kind": "capability",
+          "id": "SPEC-B7-NES"
+        },
+        {
+          "project": "genai-enablement",
+          "kind": "capability",
+          "id": "SPEC-B7-CIR"
+        },
+        {
+          "project": "genai-enablement",
+          "kind": "capability",
+          "id": "SPEC-B7-DRIFT"
+        },
+        {
+          "project": "genai-enablement",
+          "kind": "capability",
+          "id": "SPEC-B7-SAT"
+        }
       ]
     },
     {
       "id": "SP-50",
       "owner": "platform-portal",
-      "status": "ready-for-development-mock-backed",
-      "depends_on": ["SP-00"],
-      "governing_adrs": ["ADR-0007", "ADR-0011"],
+      "status": "implemented-local-mock-backed",
+      "depends_on": [
+        "SP-00"
+      ],
+      "governing_adrs": [
+        "ADR-0007",
+        "ADR-0011"
+      ],
       "contracts": [
-        {"project": "platform-portal", "kind": "capability", "id": "SPEC-IT"},
-        {"project": "platform-portal", "kind": "capability", "id": "SPEC-PS"},
-        {"project": "platform-portal", "kind": "task", "id": "task-sp-50-adoption-alignment"}
+        {
+          "project": "platform-portal",
+          "kind": "capability",
+          "id": "SPEC-IT"
+        },
+        {
+          "project": "platform-portal",
+          "kind": "capability",
+          "id": "SPEC-PS"
+        },
+        {
+          "project": "platform-portal",
+          "kind": "task",
+          "id": "task-sp-50-adoption-alignment"
+        }
       ]
     },
     {
       "id": "SP-51",
       "owner": "platform-portal",
-      "status": "ready-for-development-source-gated",
-      "depends_on": ["SP-50"],
-      "governing_adrs": ["ADR-0007", "ADR-0011", "ADR-0017"],
+      "status": "implemented-local-source-gated",
+      "depends_on": [
+        "SP-50"
+      ],
+      "governing_adrs": [
+        "ADR-0007",
+        "ADR-0011",
+        "ADR-0017"
+      ],
       "contracts": [
-        {"project": "platform-portal", "kind": "capability", "id": "SPEC-PM"},
-        {"project": "platform-portal", "kind": "capability", "id": "SPEC-CV"},
-        {"project": "platform-portal", "kind": "capability", "id": "SPEC-KV"},
-        {"project": "platform-portal", "kind": "capability", "id": "SPEC-AU"},
-        {"project": "platform-portal", "kind": "task", "id": "task-sp-51-registry-live-read"},
-        {"project": "platform-portal", "kind": "task", "id": "task-sp-51-omniscience-read-adapter"},
-        {"project": "platform-portal", "kind": "task", "id": "task-sp-51-omnius-read-adapter"}
+        {
+          "project": "platform-portal",
+          "kind": "capability",
+          "id": "SPEC-PM"
+        },
+        {
+          "project": "platform-portal",
+          "kind": "capability",
+          "id": "SPEC-CV"
+        },
+        {
+          "project": "platform-portal",
+          "kind": "capability",
+          "id": "SPEC-KV"
+        },
+        {
+          "project": "platform-portal",
+          "kind": "capability",
+          "id": "SPEC-AU"
+        },
+        {
+          "project": "platform-portal",
+          "kind": "task",
+          "id": "task-sp-51-registry-live-read"
+        },
+        {
+          "project": "platform-portal",
+          "kind": "task",
+          "id": "task-sp-51-omniscience-read-adapter"
+        },
+        {
+          "project": "platform-portal",
+          "kind": "task",
+          "id": "task-sp-51-omnius-read-adapter"
+        }
       ]
     },
     {
       "id": "SP-52",
       "owner": "platform-portal",
-      "status": "ready-for-development-no-effect",
-      "depends_on": ["SP-50"],
-      "governing_adrs": ["ADR-0007", "ADR-0011"],
+      "status": "implemented-local-no-effect",
+      "depends_on": [
+        "SP-50"
+      ],
+      "governing_adrs": [
+        "ADR-0007",
+        "ADR-0011"
+      ],
       "contracts": [
-        {"project": "platform-portal", "kind": "capability", "id": "SPEC-CP"},
-        {"project": "platform-portal", "kind": "capability", "id": "SPEC-CN"},
-        {"project": "platform-portal", "kind": "task", "id": "task-sp-52-delegated-control"}
+        {
+          "project": "platform-portal",
+          "kind": "capability",
+          "id": "SPEC-CP"
+        },
+        {
+          "project": "platform-portal",
+          "kind": "capability",
+          "id": "SPEC-CN"
+        },
+        {
+          "project": "platform-portal",
+          "kind": "task",
+          "id": "task-sp-52-delegated-control"
+        }
       ]
     },
     {
       "id": "SP-60",
       "owner": "genai-enablement",
-      "status": "ready-for-development-non-active",
-      "depends_on": ["SP-00"],
-      "governing_adrs": ["ADR-0018"],
+      "status": "implemented-local-non-active",
+      "depends_on": [
+        "SP-00"
+      ],
+      "governing_adrs": [
+        "ADR-0018"
+      ],
       "contracts": [
-        {"project": "genai-enablement", "kind": "capability", "id": "SPEC-PII-POLICY"},
-        {"project": "genai-enablement", "kind": "task", "id": "task-sp-60-pii-policy-contract-v1"}
+        {
+          "project": "genai-enablement",
+          "kind": "capability",
+          "id": "SPEC-PII-POLICY"
+        },
+        {
+          "project": "genai-enablement",
+          "kind": "task",
+          "id": "task-sp-60-pii-policy-contract-v1"
+        }
       ]
     },
     {
       "id": "SP-61",
       "owner": "omniscience",
-      "status": "ready-for-development-non-active",
-      "depends_on": ["SP-60"],
-      "governing_adrs": ["ADR-0012", "ADR-0018"],
+      "status": "implemented-local-non-active",
+      "depends_on": [
+        "SP-60"
+      ],
+      "governing_adrs": [
+        "ADR-0012",
+        "ADR-0018"
+      ],
       "contracts": [
-        {"project": "omniscience", "kind": "capability", "id": "SPEC-PII"},
-        {"project": "omniscience", "kind": "task", "id": "task-sp-61-pii-wall-pw0"}
+        {
+          "project": "omniscience",
+          "kind": "capability",
+          "id": "SPEC-PII"
+        },
+        {
+          "project": "omniscience",
+          "kind": "task",
+          "id": "task-sp-61-pii-wall-pw0"
+        }
       ]
     },
     {
       "id": "SP-62",
       "owner": "omnius",
-      "status": "ready-for-development-non-active",
-      "depends_on": ["SP-60"],
-      "governing_adrs": ["ADR-0012", "ADR-0018"],
+      "status": "implemented-local-non-active",
+      "depends_on": [
+        "SP-60"
+      ],
+      "governing_adrs": [
+        "ADR-0012",
+        "ADR-0018"
+      ],
       "contracts": [
-        {"project": "omnius", "kind": "capability", "id": "SPEC-PII"},
-        {"project": "omnius", "kind": "task", "id": "task-sp-62-pii-wall-pw0"}
+        {
+          "project": "omnius",
+          "kind": "capability",
+          "id": "SPEC-PII"
+        },
+        {
+          "project": "omnius",
+          "kind": "task",
+          "id": "task-sp-62-pii-wall-pw0"
+        }
       ]
     },
     {
       "id": "SP-63",
       "owner": "platform-portal",
-      "status": "ready-for-development-source-gated",
-      "depends_on": ["SP-50", "SP-61", "SP-62"],
-      "governing_adrs": ["ADR-0007", "ADR-0011", "ADR-0018"],
+      "status": "implemented-local-source-gated",
+      "depends_on": [
+        "SP-50",
+        "SP-61",
+        "SP-62"
+      ],
+      "governing_adrs": [
+        "ADR-0007",
+        "ADR-0011",
+        "ADR-0018"
+      ],
       "contracts": [
-        {"project": "platform-portal", "kind": "capability", "id": "SPEC-PII"},
-        {"project": "platform-portal", "kind": "task", "id": "task-sp-63-privacy-center"}
+        {
+          "project": "platform-portal",
+          "kind": "capability",
+          "id": "SPEC-PII"
+        },
+        {
+          "project": "platform-portal",
+          "kind": "task",
+          "id": "task-sp-63-privacy-center"
+        }
       ]
     },
     {
       "id": "SP-70",
       "owner": "genai-enablement",
-      "status": "ready-for-development-non-authorizing",
-      "depends_on": ["SP-00"],
-      "governing_adrs": ["ADR-0020"],
+      "status": "implemented-local-non-authorizing",
+      "depends_on": [
+        "SP-00"
+      ],
+      "governing_adrs": [
+        "ADR-0020"
+      ],
       "contracts": [
-        {"project": "genai-enablement", "kind": "task", "id": "task-sp-70-continuous-management-contract-release"}
+        {
+          "project": "genai-enablement",
+          "kind": "task",
+          "id": "task-sp-70-continuous-management-contract-release"
+        }
       ]
     },
     {
       "id": "SP-71",
       "owner": "barbarossa",
-      "status": "ready-for-development-non-live",
-      "depends_on": ["SP-60", "SP-70"],
-      "governing_adrs": ["ADR-0012", "ADR-0013", "ADR-0018", "ADR-0020"],
+      "status": "implemented-local-non-live",
+      "depends_on": [
+        "SP-60",
+        "SP-70"
+      ],
+      "governing_adrs": [
+        "ADR-0012",
+        "ADR-0013",
+        "ADR-0018",
+        "ADR-0020"
+      ],
       "contracts": [
-        {"project": "barbarossa", "kind": "capability", "id": "SPEC-LOOP"},
-        {"project": "barbarossa", "kind": "capability", "id": "SPEC-DOM"},
-        {"project": "barbarossa", "kind": "capability", "id": "SPEC-OBS"},
-        {"project": "barbarossa", "kind": "capability", "id": "SPEC-EVAL"},
-        {"project": "barbarossa", "kind": "capability", "id": "SPEC-CASE"},
-        {"project": "barbarossa", "kind": "task", "id": "task-sp-71-kernel-runtime"}
+        {
+          "project": "barbarossa",
+          "kind": "capability",
+          "id": "SPEC-LOOP"
+        },
+        {
+          "project": "barbarossa",
+          "kind": "capability",
+          "id": "SPEC-DOM"
+        },
+        {
+          "project": "barbarossa",
+          "kind": "capability",
+          "id": "SPEC-OBS"
+        },
+        {
+          "project": "barbarossa",
+          "kind": "capability",
+          "id": "SPEC-EVAL"
+        },
+        {
+          "project": "barbarossa",
+          "kind": "capability",
+          "id": "SPEC-CASE"
+        },
+        {
+          "project": "barbarossa",
+          "kind": "task",
+          "id": "task-sp-71-kernel-runtime"
+        }
       ]
     },
     {
       "id": "SP-72",
       "owner": "barbarossa",
-      "status": "ready-for-development-non-live",
-      "depends_on": ["SP-71"],
-      "governing_adrs": ["ADR-0009", "ADR-0012", "ADR-0020"],
+      "status": "implemented-local-non-live",
+      "depends_on": [
+        "SP-71"
+      ],
+      "governing_adrs": [
+        "ADR-0009",
+        "ADR-0012",
+        "ADR-0020"
+      ],
       "contracts": [
-        {"project": "barbarossa", "kind": "capability", "id": "SPEC-FED"},
-        {"project": "barbarossa", "kind": "capability", "id": "SPEC-CFL"},
-        {"project": "barbarossa", "kind": "task", "id": "task-sp-72-federation-constraints"}
+        {
+          "project": "barbarossa",
+          "kind": "capability",
+          "id": "SPEC-FED"
+        },
+        {
+          "project": "barbarossa",
+          "kind": "capability",
+          "id": "SPEC-CFL"
+        },
+        {
+          "project": "barbarossa",
+          "kind": "task",
+          "id": "task-sp-72-federation-constraints"
+        }
       ]
     },
     {
       "id": "SP-73",
       "owner": "barbarossa",
-      "status": "ready-for-development-non-live",
-      "depends_on": ["SP-72"],
-      "governing_adrs": ["ADR-0009", "ADR-0010", "ADR-0012", "ADR-0020"],
+      "status": "implemented-local-non-live",
+      "depends_on": [
+        "SP-72"
+      ],
+      "governing_adrs": [
+        "ADR-0009",
+        "ADR-0010",
+        "ADR-0012",
+        "ADR-0020"
+      ],
       "contracts": [
-        {"project": "barbarossa", "kind": "capability", "id": "SPEC-ACT"},
-        {"project": "barbarossa", "kind": "capability", "id": "SPEC-VRF"},
-        {"project": "barbarossa", "kind": "task", "id": "task-sp-73-actions-verification"}
+        {
+          "project": "barbarossa",
+          "kind": "capability",
+          "id": "SPEC-ACT"
+        },
+        {
+          "project": "barbarossa",
+          "kind": "capability",
+          "id": "SPEC-VRF"
+        },
+        {
+          "project": "barbarossa",
+          "kind": "task",
+          "id": "task-sp-73-actions-verification"
+        }
       ]
     },
     {
       "id": "SP-74",
       "owner": "barbarossa",
-      "status": "ready-for-development-non-live",
-      "depends_on": ["SP-71"],
-      "governing_adrs": ["ADR-0007", "ADR-0011", "ADR-0020"],
+      "status": "implemented-local-non-live",
+      "depends_on": [
+        "SP-71"
+      ],
+      "governing_adrs": [
+        "ADR-0007",
+        "ADR-0011",
+        "ADR-0020"
+      ],
       "contracts": [
-        {"project": "barbarossa", "kind": "capability", "id": "SPEC-VIEW"},
-        {"project": "barbarossa", "kind": "task", "id": "task-sp-74-projection-cockpit"}
+        {
+          "project": "barbarossa",
+          "kind": "capability",
+          "id": "SPEC-VIEW"
+        },
+        {
+          "project": "barbarossa",
+          "kind": "task",
+          "id": "task-sp-74-projection-cockpit"
+        }
       ]
     },
     {
       "id": "SP-75",
       "owner": "barbarossa",
-      "status": "ready-for-development-non-live",
-      "depends_on": ["SP-71"],
-      "governing_adrs": ["ADR-0001", "ADR-0012", "ADR-0019", "ADR-0020"],
+      "status": "implemented-local-non-live",
+      "depends_on": [
+        "SP-71"
+      ],
+      "governing_adrs": [
+        "ADR-0001",
+        "ADR-0012",
+        "ADR-0019",
+        "ADR-0020"
+      ],
       "contracts": [
-        {"project": "barbarossa", "kind": "capability", "id": "SPEC-JR"},
-        {"project": "barbarossa", "kind": "capability", "id": "SPEC-AVL"},
-        {"project": "barbarossa", "kind": "capability", "id": "SPEC-INC"},
-        {"project": "barbarossa", "kind": "capability", "id": "SPEC-ALT"},
-        {"project": "barbarossa", "kind": "task", "id": "task-sp-75-reliability-readonly"}
+        {
+          "project": "barbarossa",
+          "kind": "capability",
+          "id": "SPEC-JR"
+        },
+        {
+          "project": "barbarossa",
+          "kind": "capability",
+          "id": "SPEC-AVL"
+        },
+        {
+          "project": "barbarossa",
+          "kind": "capability",
+          "id": "SPEC-INC"
+        },
+        {
+          "project": "barbarossa",
+          "kind": "capability",
+          "id": "SPEC-ALT"
+        },
+        {
+          "project": "barbarossa",
+          "kind": "task",
+          "id": "task-sp-75-reliability-readonly"
+        }
       ]
     },
     {
       "id": "SP-76",
       "owner": "barbarossa",
-      "status": "ready-for-development-non-live",
-      "depends_on": ["SP-71", "SP-73"],
-      "governing_adrs": ["ADR-0012", "ADR-0020"],
+      "status": "implemented-local-non-live",
+      "depends_on": [
+        "SP-71",
+        "SP-73"
+      ],
+      "governing_adrs": [
+        "ADR-0012",
+        "ADR-0020"
+      ],
       "contracts": [
-        {"project": "barbarossa", "kind": "capability", "id": "SPEC-COST-POL"},
-        {"project": "barbarossa", "kind": "capability", "id": "SPEC-COST-EVAL"},
-        {"project": "barbarossa", "kind": "capability", "id": "SPEC-COST-ACT"},
-        {"project": "barbarossa", "kind": "task", "id": "task-sp-76-cost-value-readonly"}
+        {
+          "project": "barbarossa",
+          "kind": "capability",
+          "id": "SPEC-COST-POL"
+        },
+        {
+          "project": "barbarossa",
+          "kind": "capability",
+          "id": "SPEC-COST-EVAL"
+        },
+        {
+          "project": "barbarossa",
+          "kind": "capability",
+          "id": "SPEC-COST-ACT"
+        },
+        {
+          "project": "barbarossa",
+          "kind": "task",
+          "id": "task-sp-76-cost-value-readonly"
+        }
       ]
     },
     {
       "id": "SP-77",
       "owner": "barbarossa",
-      "status": "ready-for-development-non-live",
-      "depends_on": ["SP-71", "SP-73"],
-      "governing_adrs": ["ADR-0012", "ADR-0020"],
+      "status": "implemented-local-non-live",
+      "depends_on": [
+        "SP-71",
+        "SP-73"
+      ],
+      "governing_adrs": [
+        "ADR-0012",
+        "ADR-0020"
+      ],
       "contracts": [
-        {"project": "barbarossa", "kind": "capability", "id": "SPEC-AIE"},
-        {"project": "barbarossa", "kind": "task", "id": "task-sp-77-ai-effectiveness-readonly"}
+        {
+          "project": "barbarossa",
+          "kind": "capability",
+          "id": "SPEC-AIE"
+        },
+        {
+          "project": "barbarossa",
+          "kind": "task",
+          "id": "task-sp-77-ai-effectiveness-readonly"
+        }
       ]
     },
     {
       "id": "SP-78",
       "owner": "barbarossa",
-      "status": "ready-for-development-non-live",
-      "depends_on": ["SP-71", "SP-73"],
-      "governing_adrs": ["ADR-0008", "ADR-0012", "ADR-0018", "ADR-0020"],
+      "status": "implemented-local-non-live",
+      "depends_on": [
+        "SP-71",
+        "SP-73"
+      ],
+      "governing_adrs": [
+        "ADR-0008",
+        "ADR-0012",
+        "ADR-0018",
+        "ADR-0020"
+      ],
       "contracts": [
-        {"project": "barbarossa", "kind": "capability", "id": "SPEC-SEC"},
-        {"project": "barbarossa", "kind": "capability", "id": "SPEC-PRV"},
-        {"project": "barbarossa", "kind": "capability", "id": "SPEC-CMP"},
-        {"project": "barbarossa", "kind": "capability", "id": "SPEC-SCI"},
-        {"project": "barbarossa", "kind": "task", "id": "task-sp-78-assurance-packs-readonly"}
+        {
+          "project": "barbarossa",
+          "kind": "capability",
+          "id": "SPEC-SEC"
+        },
+        {
+          "project": "barbarossa",
+          "kind": "capability",
+          "id": "SPEC-PRV"
+        },
+        {
+          "project": "barbarossa",
+          "kind": "capability",
+          "id": "SPEC-CMP"
+        },
+        {
+          "project": "barbarossa",
+          "kind": "capability",
+          "id": "SPEC-SCI"
+        },
+        {
+          "project": "barbarossa",
+          "kind": "task",
+          "id": "task-sp-78-assurance-packs-readonly"
+        }
       ]
     },
     {
       "id": "SP-79",
       "owner": "barbarossa",
-      "status": "ready-for-development-non-live",
-      "depends_on": ["SP-71", "SP-73", "SP-83"],
-      "governing_adrs": ["ADR-0017", "ADR-0020"],
+      "status": "implemented-local-non-live",
+      "depends_on": [
+        "SP-71",
+        "SP-73",
+        "SP-83"
+      ],
+      "governing_adrs": [
+        "ADR-0017",
+        "ADR-0020"
+      ],
       "contracts": [
-        {"project": "barbarossa", "kind": "capability", "id": "SPEC-DEL"},
-        {"project": "barbarossa", "kind": "capability", "id": "SPEC-KNW"},
-        {"project": "barbarossa", "kind": "task", "id": "task-sp-79-delivery-knowledge-readonly"}
+        {
+          "project": "barbarossa",
+          "kind": "capability",
+          "id": "SPEC-DEL"
+        },
+        {
+          "project": "barbarossa",
+          "kind": "capability",
+          "id": "SPEC-KNW"
+        },
+        {
+          "project": "barbarossa",
+          "kind": "task",
+          "id": "task-sp-79-delivery-knowledge-readonly"
+        }
       ]
     },
     {
       "id": "SP-80",
       "owner": "barbarossa",
-      "status": "ready-for-development-non-live",
-      "depends_on": ["SP-71", "SP-72", "SP-73"],
-      "governing_adrs": ["ADR-0012", "ADR-0020"],
+      "status": "implemented-local-non-live",
+      "depends_on": [
+        "SP-71",
+        "SP-72",
+        "SP-73"
+      ],
+      "governing_adrs": [
+        "ADR-0012",
+        "ADR-0020"
+      ],
       "contracts": [
-        {"project": "barbarossa", "kind": "capability", "id": "SPEC-CAP"},
-        {"project": "barbarossa", "kind": "capability", "id": "SPEC-TOIL"},
-        {"project": "barbarossa", "kind": "capability", "id": "SPEC-PROD"},
-        {"project": "barbarossa", "kind": "task", "id": "task-sp-80-capacity-toil-product-readonly"}
+        {
+          "project": "barbarossa",
+          "kind": "capability",
+          "id": "SPEC-CAP"
+        },
+        {
+          "project": "barbarossa",
+          "kind": "capability",
+          "id": "SPEC-TOIL"
+        },
+        {
+          "project": "barbarossa",
+          "kind": "capability",
+          "id": "SPEC-PROD"
+        },
+        {
+          "project": "barbarossa",
+          "kind": "task",
+          "id": "task-sp-80-capacity-toil-product-readonly"
+        }
       ]
     },
     {
       "id": "SP-81",
       "owner": "omniscience",
-      "status": "ready-for-development",
-      "depends_on": ["SP-70"],
-      "governing_adrs": ["ADR-0017", "ADR-0020"],
+      "status": "implemented-local-release-gated",
+      "depends_on": [
+        "SP-70"
+      ],
+      "governing_adrs": [
+        "ADR-0017",
+        "ADR-0020"
+      ],
       "contracts": [
-        {"project": "omniscience", "kind": "capability", "id": "SPEC-MCTX"},
-        {"project": "omniscience", "kind": "task", "id": "task-sp-81-management-context-v1"}
+        {
+          "project": "omniscience",
+          "kind": "capability",
+          "id": "SPEC-MCTX"
+        },
+        {
+          "project": "omniscience",
+          "kind": "task",
+          "id": "task-sp-81-management-context-v1"
+        }
       ]
     },
     {
       "id": "SP-82",
       "owner": "omnius",
-      "status": "ready-for-development-no-effect",
-      "depends_on": ["SP-70"],
-      "governing_adrs": ["ADR-0009", "ADR-0010", "ADR-0012", "ADR-0020"],
+      "status": "implemented-local-no-effect",
+      "depends_on": [
+        "SP-70"
+      ],
+      "governing_adrs": [
+        "ADR-0009",
+        "ADR-0010",
+        "ADR-0012",
+        "ADR-0020"
+      ],
       "contracts": [
-        {"project": "omnius", "kind": "capability", "id": "SPEC-MACT"},
-        {"project": "omnius", "kind": "task", "id": "task-sp-82-management-action-v1"}
+        {
+          "project": "omnius",
+          "kind": "capability",
+          "id": "SPEC-MACT"
+        },
+        {
+          "project": "omnius",
+          "kind": "task",
+          "id": "task-sp-82-management-action-v1"
+        }
       ]
     },
     {
       "id": "SP-83",
       "owner": "barbarossa",
-      "status": "ready-for-development-producer-gated",
-      "depends_on": ["SP-72", "SP-81"],
-      "governing_adrs": ["ADR-0017", "ADR-0020"],
+      "status": "implemented-local-producer-gated",
+      "depends_on": [
+        "SP-72",
+        "SP-81"
+      ],
+      "governing_adrs": [
+        "ADR-0017",
+        "ADR-0020"
+      ],
       "contracts": [
-        {"project": "barbarossa", "kind": "capability", "id": "SPEC-CTX"},
-        {"project": "barbarossa", "kind": "task", "id": "task-sp-83-context-consumer"}
+        {
+          "project": "barbarossa",
+          "kind": "capability",
+          "id": "SPEC-CTX"
+        },
+        {
+          "project": "barbarossa",
+          "kind": "task",
+          "id": "task-sp-83-context-consumer"
+        }
       ]
     },
     {
       "id": "SP-84",
       "owner": "platform-portal",
-      "status": "ready-for-development-source-gated",
-      "depends_on": ["SP-50", "SP-74", "SP-75", "SP-76", "SP-77", "SP-78", "SP-79", "SP-80"],
-      "governing_adrs": ["ADR-0007", "ADR-0011", "ADR-0020"],
+      "status": "implemented-local-source-gated",
+      "depends_on": [
+        "SP-50",
+        "SP-74",
+        "SP-75",
+        "SP-76",
+        "SP-77",
+        "SP-78",
+        "SP-79",
+        "SP-80"
+      ],
+      "governing_adrs": [
+        "ADR-0007",
+        "ADR-0011",
+        "ADR-0020"
+      ],
       "contracts": [
-        {"project": "platform-portal", "kind": "capability", "id": "SPEC-CMC"},
-        {"project": "platform-portal", "kind": "task", "id": "task-sp-84-continuous-management-center"}
+        {
+          "project": "platform-portal",
+          "kind": "capability",
+          "id": "SPEC-CMC"
+        },
+        {
+          "project": "platform-portal",
+          "kind": "task",
+          "id": "task-sp-84-continuous-management-center"
+        }
       ]
     },
     {
       "id": "SP-85",
       "owner": "barbarossa",
       "status": "blocked-on-live-evidence",
-      "depends_on": ["SP-B0-B7", "SP-73", "SP-82"],
-      "governing_adrs": ["ADR-0009", "ADR-0012", "ADR-0020"],
+      "depends_on": [
+        "SP-B0-B7",
+        "SP-73",
+        "SP-82"
+      ],
+      "governing_adrs": [
+        "ADR-0009",
+        "ADR-0012",
+        "ADR-0020"
+      ],
       "contracts": [
-        {"project": "barbarossa", "kind": "capability", "id": "SPEC-AUT"}
+        {
+          "project": "barbarossa",
+          "kind": "capability",
+          "id": "SPEC-AUT"
+        }
       ]
     }
   ]

@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "boundary-decision-receipt.schema.json",
+  "title": "BoundaryDecisionReceipt",
+  "description": "SPEC-PII-POLICY REQ-PII-POL-6 / ADR-0018 D4. Non-identifying record of an admit/block/quarantine decision at one of the eight ADR-0018 D4 enforcement gates. Never contains a raw value.",
+  "type": "object",
+  "required": [
+    "receipt_id",
+    "boundary_id",
+    "tenant_id",
+    "policy_revision",
+    "profile",
+    "decision",
+    "disposition",
+    "coverage",
+    "produced_at",
+    "producer",
+    "integrity"
+  ],
+  "additionalProperties": true,
+  "properties": {
+    "receipt_id": { "type": "string", "minLength": 1 },
+    "boundary_id": { "type": "string", "minLength": 1 },
+    "tenant_id": { "type": "string", "minLength": 1 },
+    "workspace_id": { "type": "string", "minLength": 1 },
+    "policy_revision": { "type": "string", "minLength": 1 },
+    "profile": { "$ref": "profile.schema.json" },
+    "decision": { "type": "string", "enum": ["admit", "block", "quarantine"] },
+    "disposition": { "$ref": "disposition.schema.json" },
+    "coverage": { "type": "string", "minLength": 1 },
+    "produced_at": { "type": "string", "minLength": 1 },
+    "producer": { "type": "string", "minLength": 1 },
+    "integrity": { "$ref": "integrity.schema.json" }
+  }
+}

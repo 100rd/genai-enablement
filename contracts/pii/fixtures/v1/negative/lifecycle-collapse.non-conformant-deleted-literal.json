@@ -1,0 +1,27 @@
+{
+  "caseId": "lifecycle-collapse-non-conformant-deleted-literal",
+  "kind": "negative",
+  "category": "lifecycle-collapse",
+  "requirement": "REQ-PII-POL-7",
+  "probe": "P-PII-POL-4",
+  "note": "The disposition field uses the non-conformant literal 'deleted' instead of a closed REQ-PII-POL-7 value, even though every store_states entry is genuinely complete.",
+  "deletionReceipt": {
+    "request_id": "dev-fixture-deletion-request-907",
+    "tenant_id": "dev-fixture-tenant-a",
+    "subject_ref": "dev-fixture-subject-ref-907",
+    "policy_revision": "1.0.0",
+    "store_class": "knowledge-store",
+    "covered_artifacts": ["postgres-doc-907"],
+    "excluded_or_pending": [],
+    "disposition": "deleted",
+    "store_states": [
+      { "store": "postgres-doc-907", "disposition": "complete" }
+    ],
+    "produced_at": "2026-06-02T00:00:00Z",
+    "producer": "dev-fixture-producer-omniscience-lifecycle",
+    "integrity": {
+      "algorithm": "sha256",
+      "digest": "8cb95d66f232652a64ebc5ea79632f7b423542446165c22c3059caf9214e5a97"
+    }
+  }
+}

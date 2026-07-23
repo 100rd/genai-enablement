@@ -1,0 +1,10 @@
+{
+  "caseId": "profile-downgrade-consumer-stricter-valid",
+  "kind": "positive",
+  "category": "profile-downgrade-allowed",
+  "requirement": "REQ-PII-POL-3",
+  "probe": "P-PII-POL-2",
+  "note": "A consumer choosing to enforce PW0 (stricter) when the owner policy admits PW1 is an ALLOWED downgrade in enforcement strictness, not a policy downgrade.",
+  "policyMinimumProfile": "PW1",
+  "consumerRequestedProfile": "PW0"
+}

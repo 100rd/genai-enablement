@@ -1,0 +1,25 @@
+{
+  "caseId": "boundary-decision-receipt-valid",
+  "kind": "positive",
+  "category": "schema",
+  "requirement": "REQ-PII-POL-6",
+  "probe": "P-PII-POL-3",
+  "schema": "boundary-decision-receipt.schema.json",
+  "instance": {
+    "receipt_id": "dev-fixture-boundary-decision-receipt-001",
+    "boundary_id": "gate-5-prompt-context-assembly",
+    "tenant_id": "dev-fixture-tenant-a",
+    "workspace_id": "dev-fixture-workspace-a1",
+    "policy_revision": "1.0.0",
+    "profile": "PW0",
+    "decision": "quarantine",
+    "disposition": "pending",
+    "coverage": "full",
+    "produced_at": "2026-06-01T00:00:00Z",
+    "producer": "dev-fixture-producer-omnius-intake",
+    "integrity": {
+      "algorithm": "sha256",
+      "digest": "71a326ed2fa249c65f7d941f413ae6ee5572c0a76e916f805adb28f3901a675a"
+    }
+  }
+}
