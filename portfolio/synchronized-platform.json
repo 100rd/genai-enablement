@@ -54,8 +54,8 @@
         {"id": "SPEC-PII-POLICY", "path": "docs/specs/SPEC-PII-POLICY-platform-policy-contract.md", "status": "ready"}
       ],
       "task_specs": [
-        {"id": "task-sp-60-pii-policy-contract-v1", "path": "docs/specs/task-sp-60-pii-policy-contract-v1.md", "status": "ready"},
-        {"id": "task-sp-70-continuous-management-contract-release", "path": "docs/specs/task-sp-70-continuous-management-contract-release.md", "status": "ready"}
+        {"id": "task-sp-60-pii-policy-contract-v1", "path": "docs/specs/task-sp-60-pii-policy-contract-v1.md", "status": "implemented"},
+        {"id": "task-sp-70-continuous-management-contract-release", "path": "docs/specs/task-sp-70-continuous-management-contract-release.md", "status": "implemented"}
       ],
       "readiness_profiles": []
     },
@@ -100,17 +100,17 @@
         {"id": "SPEC-PROD", "path": "specs/SPEC-PROD-product-outcome-assurance.md", "status": "complete-for-planning"}
       ],
       "task_specs": [
-        {"id": "task-sp-71-kernel-runtime", "path": "docs/specs/task-sp-71-kernel-runtime.md", "status": "ready"},
-        {"id": "task-sp-72-federation-constraints", "path": "docs/specs/task-sp-72-federation-constraints.md", "status": "ready"},
-        {"id": "task-sp-73-actions-verification", "path": "docs/specs/task-sp-73-actions-verification.md", "status": "ready"},
-        {"id": "task-sp-74-projection-cockpit", "path": "docs/specs/task-sp-74-projection-cockpit.md", "status": "ready"},
-        {"id": "task-sp-75-reliability-readonly", "path": "docs/specs/task-sp-75-reliability-readonly.md", "status": "ready"},
-        {"id": "task-sp-76-cost-value-readonly", "path": "docs/specs/task-sp-76-cost-value-readonly.md", "status": "ready"},
-        {"id": "task-sp-77-ai-effectiveness-readonly", "path": "docs/specs/task-sp-77-ai-effectiveness-readonly.md", "status": "ready"},
-        {"id": "task-sp-78-assurance-packs-readonly", "path": "docs/specs/task-sp-78-assurance-packs-readonly.md", "status": "ready"},
-        {"id": "task-sp-79-delivery-knowledge-readonly", "path": "docs/specs/task-sp-79-delivery-knowledge-readonly.md", "status": "ready"},
-        {"id": "task-sp-80-capacity-toil-product-readonly", "path": "docs/specs/task-sp-80-capacity-toil-product-readonly.md", "status": "ready"},
-        {"id": "task-sp-83-context-consumer", "path": "docs/specs/task-sp-83-context-consumer.md", "status": "ready"}
+        {"id": "task-sp-71-kernel-runtime", "path": "docs/specs/task-sp-71-kernel-runtime.md", "status": "implemented"},
+        {"id": "task-sp-72-federation-constraints", "path": "docs/specs/task-sp-72-federation-constraints.md", "status": "implemented"},
+        {"id": "task-sp-73-actions-verification", "path": "docs/specs/task-sp-73-actions-verification.md", "status": "implemented"},
+        {"id": "task-sp-74-projection-cockpit", "path": "docs/specs/task-sp-74-projection-cockpit.md", "status": "implemented"},
+        {"id": "task-sp-75-reliability-readonly", "path": "docs/specs/task-sp-75-reliability-readonly.md", "status": "implemented"},
+        {"id": "task-sp-76-cost-value-readonly", "path": "docs/specs/task-sp-76-cost-value-readonly.md", "status": "implemented"},
+        {"id": "task-sp-77-ai-effectiveness-readonly", "path": "docs/specs/task-sp-77-ai-effectiveness-readonly.md", "status": "implemented"},
+        {"id": "task-sp-78-assurance-packs-readonly", "path": "docs/specs/task-sp-78-assurance-packs-readonly.md", "status": "implemented"},
+        {"id": "task-sp-79-delivery-knowledge-readonly", "path": "docs/specs/task-sp-79-delivery-knowledge-readonly.md", "status": "implemented"},
+        {"id": "task-sp-80-capacity-toil-product-readonly", "path": "docs/specs/task-sp-80-capacity-toil-product-readonly.md", "status": "implemented"},
+        {"id": "task-sp-83-context-consumer", "path": "docs/specs/task-sp-83-context-consumer.md", "status": "implemented"}
       ],
       "readiness_profiles": []
     },
@@ -159,10 +159,10 @@
       "task_specs": [
         {"id": "task-sp-11-mcp-consumer-pin", "path": "docs/specs/task-sp-11-mcp-consumer-pin.md", "status": "ready"},
         {"id": "task-sp-20-p0-vertical-readiness", "path": "docs/specs/task-sp-20-p0-vertical-readiness.md", "status": "ready"},
-        {"id": "task-sp-30-experience-placement", "path": "docs/specs/task-sp-30-experience-placement.md", "status": "ready"},
-        {"id": "task-sp-40-governance-publications", "path": "docs/specs/task-sp-40-governance-publications.md", "status": "ready"},
-        {"id": "task-sp-62-pii-wall-pw0", "path": "docs/specs/task-sp-62-pii-wall-pw0.md", "status": "ready"},
-        {"id": "task-sp-82-management-action-v1", "path": "docs/specs/task-sp-82-management-action-v1.md", "status": "ready"}
+        {"id": "task-sp-30-experience-placement", "path": "docs/specs/task-sp-30-experience-placement.md", "status": "implemented"},
+        {"id": "task-sp-40-governance-publications", "path": "docs/specs/task-sp-40-governance-publications.md", "status": "implemented"},
+        {"id": "task-sp-62-pii-wall-pw0", "path": "docs/specs/task-sp-62-pii-wall-pw0.md", "status": "implemented"},
+        {"id": "task-sp-82-management-action-v1", "path": "docs/specs/task-sp-82-management-action-v1.md", "status": "implemented"}
       ],
       "readiness_profiles": [
         {
@@ -216,8 +216,8 @@
         {"id": "gh-issue-350-backup-restore", "path": "docs/specs/gh-issue-350-backup-restore.md", "status": "ready"},
         {"id": "gh-issue-350-read-scaling-priority", "path": "docs/specs/gh-issue-350-read-scaling-priority.md", "status": "ready"},
         {"id": "gh-issue-355", "path": "docs/specs/gh-issue-355-set-sources-tenant-id-from-the-token-workspace-on-create.md", "status": "ready"},
-        {"id": "task-sp-61-pii-wall-pw0", "path": "docs/specs/task-sp-61-pii-wall-pw0.md", "status": "ready"},
-        {"id": "task-sp-81-management-context-v1", "path": "docs/specs/task-sp-81-management-context-v1.md", "status": "ready"}
+        {"id": "task-sp-61-pii-wall-pw0", "path": "docs/specs/task-sp-61-pii-wall-pw0.md", "status": "implemented"},
+        {"id": "task-sp-81-management-context-v1", "path": "docs/specs/task-sp-81-management-context-v1.md", "status": "implemented"}
       ],
       "readiness_profiles": []
     },
@@ -244,13 +244,13 @@
         {"id": "SPEC-CMC", "path": "specs/SPEC-CMC-continuous-management-center.md", "status": "ready"}
       ],
       "task_specs": [
-        {"id": "task-sp-50-adoption-alignment", "path": "docs/specs/task-sp-50-adoption-alignment.md", "status": "ready"},
-        {"id": "task-sp-51-registry-live-read", "path": "docs/specs/task-sp-51-registry-live-read.md", "status": "ready"},
-        {"id": "task-sp-51-omniscience-read-adapter", "path": "docs/specs/task-sp-51-omniscience-read-adapter.md", "status": "ready"},
-        {"id": "task-sp-51-omnius-read-adapter", "path": "docs/specs/task-sp-51-omnius-read-adapter.md", "status": "ready"},
-        {"id": "task-sp-52-delegated-control", "path": "docs/specs/task-sp-52-delegated-control.md", "status": "ready"},
-        {"id": "task-sp-63-privacy-center", "path": "docs/specs/task-sp-63-privacy-center.md", "status": "ready"},
-        {"id": "task-sp-84-continuous-management-center", "path": "docs/specs/task-sp-84-continuous-management-center.md", "status": "ready"}
+        {"id": "task-sp-50-adoption-alignment", "path": "docs/specs/task-sp-50-adoption-alignment.md", "status": "implemented"},
+        {"id": "task-sp-51-registry-live-read", "path": "docs/specs/task-sp-51-registry-live-read.md", "status": "implemented"},
+        {"id": "task-sp-51-omniscience-read-adapter", "path": "docs/specs/task-sp-51-omniscience-read-adapter.md", "status": "implemented"},
+        {"id": "task-sp-51-omnius-read-adapter", "path": "docs/specs/task-sp-51-omnius-read-adapter.md", "status": "implemented"},
+        {"id": "task-sp-52-delegated-control", "path": "docs/specs/task-sp-52-delegated-control.md", "status": "implemented"},
+        {"id": "task-sp-63-privacy-center", "path": "docs/specs/task-sp-63-privacy-center.md", "status": "implemented"},
+        {"id": "task-sp-84-continuous-management-center", "path": "docs/specs/task-sp-84-continuous-management-center.md", "status": "implemented"}
       ],
       "readiness_profiles": []
     }

@@ -1,7 +1,7 @@
 ---
 id: task-sp-70-continuous-management-contract-release
 title: Publish the Continuous Management compatibility and package manifest
-status: ready
+status: implemented
 approvedBy: "@100rd"
 approvedAt: 2026-07-21
 governingAdrs: [genai-enablement/ADR-0020]
