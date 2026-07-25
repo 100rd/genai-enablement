@@ -2,7 +2,10 @@
 
 **Canonical owner:** `genai-enablement`
 
-**Component scope:** `genai-enablement`, `Barbarossa`, `omnius`, `Omniscience`, `platform-portal`
+**Target component scope:** `genai-enablement`, `Barbarossa`, `omnius`, `Omniscience`, `platform-portal`
+
+**Initial runtime profile:** [`management-readonly-v1`](profiles/management-readonly-v1.md) selects
+`Omniscience`, `Barbarossa`, and `platform-portal`; `omnius` is retained but deferred from this profile.
 
 **Machine-readable source:** [`portfolio/synchronized-platform.json`](../../portfolio/synchronized-platform.json)
 
@@ -43,13 +46,34 @@ Every synchronized-platform repository uses the same discovery convention:
 For a cross-repository result, create or claim separate task SPECs in dependency order. One task SPEC has
 one owning repository and cannot grant write authority in a sibling.
 
+## Initial deployment profile
+
+[ADR-0021](../decisions/0021-management-readonly-initial-runtime-profile.md) accepts
+`management-readonly-v1` as the first deployment/qualification target. It is a selection over the full
+architecture, not a redefinition of component ownership:
+
+```text
+Omniscience -> optional cited context -> Barbarossa Reliability -> source-bound Platform Portal views
+      |                                      |                              |
+      +-- PW0 gate                           +-- durable owner state         +-- no write/action routes
+
+Omnius: target component retained; explicit not_deployed; no workload, credential, route or mock
+```
+
+The profile is read-only relative to managed systems and owner/component management controls. Selected
+owners still persist their own admitted knowledge, observations, snapshots, cases, projections,
+sessions and append-only audit records. ADR-0022 fixes Go as the only Barbarossa production runtime;
+the TypeScript baseline is a non-deployable conformance oracle. SP-90 is the Go prerequisite and
+SP-86 through SP-89 are the release chain; exact membership, negative space, evidence and handoff order are in the
+[profile contract](profiles/management-readonly-v1.md).
+
 ## Component ownership
 
 | Component | Owns | Does not own | Local plan |
 |---|---|---|---|
 | `genai-enablement` | cross-repository ADRs, synchronized work-package order, portfolio facts, PII Wall taxonomy/profile contracts, reusable Autonomous SRE harness and eval SPECs | component implementation details, live availability/incident truth, component schemas, runtime evidence | [`PLATFORM.md`](../../PLATFORM.md) |
 | `Barbarossa` | shared continuous-management kernel, isolated domain packs, independent evidence/evaluation, cases, agent federation, cross-loop constraints, governed action requests, outcome verification, and source-bound projections | human objectives/policy/risk acceptance, component source truth, Omniscience semantic truth, Omnius execution, Portal composition, or PII policy | [local workspace](../../../Barbarossa/PLATFORM.md) · planned [repository](https://github.com/100rd/Barbarossa/blob/main/PLATFORM.md) |
-| `omnius` | governed factory execution, readiness compilation, context/model/tool/egress PII enforcement, capability/task contracts, deterministic probes and evidence admission | Omniscience internals or cross-repository decision authority | [local workspace](../../../omnius/PLATFORM.md) · [repository](https://github.com/100rd/omnius/blob/main/PLATFORM.md) |
+| `omnius` | governed factory execution, readiness compilation, context/model/tool/egress PII enforcement, capability/task contracts, deterministic probes and evidence admission; target action-profile owner | Omniscience internals or cross-repository decision authority | [local workspace](../../../omnius/PLATFORM.md) · [repository](https://github.com/100rd/omnius/blob/main/PLATFORM.md) |
 | `Omniscience` | knowledge-plane ledger/projections, pre-storage/pre-embedding PII enforcement, MCP producer contract, tenant boundary, release/canary and task evidence | Omnius planning/execution authority or the portfolio roadmap | [local workspace](../../../Omniscience/PLATFORM.md) · [repository](https://github.com/100rd/Omniscience/blob/main/PLATFORM.md) |
 | `platform-portal` | cross-component visualization, component detail, Privacy Center composition, portal identity/tenancy/audit, and owner-delegated intent submission | component truth, privacy classification/compliance, gates, readiness, lifecycle, maintenance, or effect authority | [local workspace](../../../platform-portal/PLATFORM.md) · [repository](https://github.com/100rd/platform-portal/blob/main/PLATFORM.md) |
 
@@ -67,6 +91,11 @@ cases, assessments, actions/receipts, independently verified outcomes, component
 owner-authorized controls. It may render deep released projections, but every field remains
 source-bound and every action is re-authorized and receipted by its component owner. Portal loss cannot
 block component operation; component loss becomes an explicit unavailable projection.
+
+For `management-readonly-v1`, Omnius is `not_deployed`, all Portal write/action routes are absent or
+fail closed, and only released Omniscience and Barbarossa owner panels may be live. A deferred owner is
+not an unavailable, empty, zero or healthy owner. Local/component control remains out of the selected
+profile even when contract mocks exist.
 
 ## Barbarossa Continuous Management boundary
 
@@ -94,6 +123,9 @@ and verification remain orthogonal. Missing/stale/incompatible coverage is typed
 Hard reliability/security/privacy/compliance constraints cannot be offset by cost, speed or product
 gain. Omniscience, Omnius and Portal remain severable; every domain boundary follows the PII Wall.
 
+The first profile selects only Reliability plus the shared kernel/context/projection path. SP-73,
+SP-76 through SP-80, SP-82 and SP-85 are not release prerequisites for that profile.
+
 ## PII Wall boundary
 
 [ADR-0018](../decisions/0018-pii-wall-purpose-bound-data-boundary.md) accepts a distributed PII Wall,
@@ -117,6 +149,10 @@ sibling clean/deleted. Barbarossa independently applies the same boundary before
 evidence persistence, agent/model context, alert/case, action adapter, local view, or Portal projection;
 telemetry, billing, security, audit, delivery, workforce and experiment data are not presumed
 non-personal.
+
+`management-readonly-v1` selects SP-60/SP-61 PW0 plus independent Barbarossa and Portal enforcement.
+SP-62 is not a gate because the profile contains no Omnius data path. Portal releases privacy panels per
+owner and renders the Omnius panel `not_deployed`; it does not infer platform-wide PII-free status.
 
 ## Cross-repository ADR inventory
 
@@ -144,6 +180,8 @@ Statuses below are decision states, not implementation states.
 | [ADR-0018](../decisions/0018-pii-wall-purpose-bound-data-boundary.md) | Accepted | distributed PII Wall and PW0/PW1/PW2 data boundary |
 | [ADR-0019](../decisions/0019-barbarossa-independent-reliability-plane.md) | Superseded | historical Reliability domain architecture retained by Barbarossa |
 | [ADR-0020](../decisions/0020-barbarossa-continuous-management-plane.md) | Accepted | shared Continuous Management kernel, isolated domain packs and cross-loop governance |
+| [ADR-0021](../decisions/0021-management-readonly-initial-runtime-profile.md) | Accepted | first Omniscience/Barbarossa/Portal runtime profile with Omnius deferred and effects disabled |
+| [ADR-0022](../decisions/0022-barbarossa-go-production-runtime.md) | Accepted | Go-only Barbarossa production runtime, TypeScript conformance-oracle boundary and SP-90 migration gate |
 
 ## Component SPEC inventory
 
@@ -164,8 +202,11 @@ The Autonomous SRE catalog remains a separate, non-authorizing construction trac
 The thirteen Track-B contracts remain `draft` and operationally incomplete. `SPEC-PII-POLICY` is
 `ready` for a versioned non-active policy publication. The independently claimable governance tasks are
 `task-sp-60-pii-policy-contract-v1` and
-`task-sp-70-continuous-management-contract-release`. None authorizes a live provider, credential,
-deployment, remediation, PII activation, management action or production claim.
+`task-sp-70-continuous-management-contract-release`. The separately ready
+`task-sp-89-management-readonly-profile-qualification` joins exact SP-86/SP-87/SP-88 releases in one
+named non-production environment; it cannot mint missing owner evidence. None authorizes a live
+provider, credential, production deployment, remediation, PII activation, management action or
+production claim.
 
 ### `Barbarossa`
 
@@ -210,6 +251,8 @@ permit these bounded, ready, non-live tasks from the
 | `task-sp-79-delivery-knowledge-readonly` | SP-79 |
 | `task-sp-80-capacity-toil-product-readonly` | SP-80 |
 | `task-sp-83-context-consumer` | SP-83 |
+| `task-sp-90-golang-runtime-migration` | SP-90 |
+| `task-sp-87-management-readonly-reliability-release` | SP-87 |
 
 They authorize fixture-backed contract/runtime construction only: no live source, credential,
 deployment, alert route, domain activation, model/provider call, owner effect, autonomy promotion,
@@ -264,7 +307,7 @@ SPEC-ACL + SPEC-SOT + SPEC-EV + SPEC-OPS --> SPEC-PII
 SPEC-SOT + SPEC-EV + SPEC-KP + SPEC-ACL + SPEC-OPS --> SPEC-MCTX
 ```
 
-The [task queue](https://github.com/100rd/Omniscience/blob/main/docs/specs/README.md) has eight
+The [task queue](https://github.com/100rd/Omniscience/blob/main/docs/specs/README.md) has nine
 independent ready slices:
 
 | Task SPEC | Dependency position |
@@ -277,6 +320,7 @@ independent ready slices:
 | `gh-issue-355` | independently fixes token-derived source tenancy |
 | `task-sp-61-pii-wall-pw0` | after SP-60 policy publication |
 | `task-sp-81-management-context-v1` | after SP-70 contract release |
+| `task-sp-86-management-readonly-release` | after exact SP-10/SP-60/SP-61/SP-70/SP-81 inputs; publishes the selected runtime release |
 
 Ready authorizes only the bounded repository-local work and disposable qualification written in each task.
 It is not production/deployment/destructive authority.
@@ -312,6 +356,7 @@ bounded non-live development. The independently claimable
 | `task-sp-52-delegated-control` | SP-52 |
 | `task-sp-63-privacy-center` | SP-63 |
 | `task-sp-84-continuous-management-center` | SP-84 |
+| `task-sp-88-management-readonly-portal-release` | SP-88 |
 
 No portal task authorizes a live integration, uncited component truth, component effect, deployment,
 billing event or production claim; source release gates remain explicit.
@@ -354,6 +399,11 @@ registry. External and human inputs remain prose in `Current gate` and are not f
 | `SP-83` Barbarossa context consumer | `barbarossa` | ADR-0017, ADR-0020 | `SPEC-CTX` + `task-sp-83-context-consumer` | `SP-72`, `SP-81` | `implemented-local-producer-gated` | build severable adapter against fixture; live use waits for SP-81 release |
 | `SP-84` Portal Continuous Management Center | `platform-portal` | ADR-0007, ADR-0011, ADR-0020 | `SPEC-CMC` + `task-sp-84-continuous-management-center` | `SP-50`, `SP-74`, `SP-75`, `SP-76`, `SP-77`, `SP-78`, `SP-79`, `SP-80` | `implemented-local-source-gated` | mock vertical ready; released Barbarossa/SP-81/SP-82 sources absent |
 | `SP-85` progressive domain autonomy | `barbarossa` | ADR-0009, ADR-0012, ADR-0020 | `SPEC-AUT` | `SP-B0-B7`, `SP-73`, `SP-82` | `blocked-on-live-evidence` | no selected domain/action live qualification, identities, constraints, rollback or forced-negative drills |
+| `SP-86` Omniscience management-readonly release | `omniscience` | ADR-0012, ADR-0017, ADR-0018, ADR-0020, ADR-0021, ADR-0022 | `SPEC-MCP`, `SPEC-PII`, `SPEC-MCTX` + `task-sp-86-management-readonly-release` | `SP-10`, `SP-61`, `SP-81` | `ready-for-development-input-release-gated` | publish an exact language-neutral image/chart/contract/PW0 release and producer evidence independently of SP-90; no deployment activation |
+| `SP-87` Barbarossa management-readonly Reliability release | `barbarossa` | ADR-0012, ADR-0017, ADR-0018, ADR-0020, ADR-0021, ADR-0022 | selected kernel/Reliability/context/view capabilities + `task-sp-87-management-readonly-reliability-release` | `SP-86`, `SP-90` | `ready-for-development-producer-gated` | package exact Go baseline and SP-86 consumer/severance receipt; no Node or action/effect route |
+| `SP-88` Portal management-readonly release | `platform-portal` | ADR-0007, ADR-0011, ADR-0018, ADR-0020, ADR-0021, ADR-0022 | `SPEC-IT`, `SPEC-PS`, `SPEC-PM`, `SPEC-CV`, `SPEC-PII`, `SPEC-CMC` + `task-sp-88-management-readonly-portal-release` | `SP-50`, `SP-86`, `SP-87` | `ready-for-development-owner-release-gated` | exact live reads and Go provenance display, owner-scoped panels, Omnius not_deployed and all write/action routes disabled |
+| `SP-89` integrated management-readonly qualification | `genai-enablement` | ADR-0012, ADR-0018, ADR-0020, ADR-0021, ADR-0022 | `task-sp-89-management-readonly-profile-qualification` | `SP-86`, `SP-87`, `SP-88` | `ready-for-development-component-release-gated` | independently join exact releases and transitive SP-90 Go evidence in one authorized non-production target; no activation or infra mutation |
+| `SP-90` Barbarossa Go runtime migration | `barbarossa` | ADR-0018, ADR-0020, ADR-0021, ADR-0022 | selected kernel/Reliability/context/view capabilities + `task-sp-90-golang-runtime-migration` | `SP-71`, `SP-72`, `SP-74`, `SP-75`, `SP-83` | `ready-for-development-contract-migration-gated` | immutable Go baseline with parity, durability, PW0, no-effect and no-Node evidence; not a component release |
 
 `SP-10`, `SP-11`, and `SP-12` deliberately remain three tasks. No producer task may edit the consumer,
 and no consumer receipt may rewrite the producer contract.
@@ -372,10 +422,37 @@ after each owner has separately qualified its projection/action contract.
 Barbarossa truth without copying authority. `SP-85` remains blocked even if kernel and portable harness
 tests pass; promotion is per exact domain/action profile.
 
+`SP-90` is the required Barbarossa Go baseline but is not a component release. `SP-86` through `SP-89`
+are the only release packages selected by `management-readonly-v1`. SP-86 and SP-90 may execute
+independently; SP-87 requires both, SP-88 returns its own pinned consumer evidence, and SP-89 only joins
+exact receipts and verifies the transitive Go binding. Existing Omnius packages retain their global
+status but are not in this profile's required closure. Existing broad mock/construction packages remain
+evidence inputs, not automatic live gates.
+
 ## Development handoff queue
 
 The unit of dispatch is one ready task SPEC in its owning repository. A wave expresses dependency order,
 not shared write access; tasks inside a wave can be claimed independently when their own inputs exist.
+
+The current deployment-focused queue is:
+
+1. **SP-90 — Barbarossa Go baseline:** assign `task-sp-90-golang-runtime-migration` and obtain one
+   immutable compiler/module/binary/image/SBOM/parity/no-Node receipt.
+2. **SP-86 — Omniscience:** independently assign `task-sp-86-management-readonly-release` and obtain
+   one immutable producer/image/chart/PW0 receipt; it may run concurrently with SP-90.
+3. **SP-87 — Barbarossa release:** after exact SP-90 and SP-86 receipts, assign
+   `task-sp-87-management-readonly-reliability-release`; obtain the Go-only durable Reliability,
+   context-severance, projection and no-effect evidence.
+4. **SP-88 — Platform Portal:** after exact SP-86/SP-87 releases, assign
+   `task-sp-88-management-readonly-portal-release`; obtain live-read, tenant/PW0, owner-severance,
+   Omnius-`not_deployed` and no-write evidence.
+5. **SP-89 — integration:** after all three owner receipts and a separately authorized named
+   non-production environment exist, assign `task-sp-89-management-readonly-profile-qualification`.
+6. **Do not dispatch Omnius or SP-85 for this profile:** their contracts remain discoverable future
+   work and cannot be replaced by a mock or partial receipt.
+
+The earlier construction queue remains historical dependency context for capabilities outside the
+selected deployment profile:
 
 1. **Publish the two shared contracts and close local adoption choices:**
    `task-sp-60-pii-policy-contract-v1`,

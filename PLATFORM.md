@@ -9,6 +9,12 @@ This is the canonical entry point for work spanning `genai-enablement`, `Barbaro
   <https://github.com/100rd/genai-enablement/blob/main/docs/synchronized-platform/README.md>.
 - Read [the machine-readable registry](portfolio/synchronized-platform.json) when tooling needs the
   exact ADR, capability-SPEC, and task-SPEC inventory.
+- The first accepted deployment selection is
+  [`management-readonly-v1`](docs/synchronized-platform/profiles/management-readonly-v1.md):
+  Omniscience, Barbarossa Reliability, and Platform Portal; Omnius remains a target component but is
+  deferred from the runtime and all effects are disabled. Barbarossa production execution is Go under
+  [ADR-0022](docs/decisions/0022-barbarossa-go-production-runtime.md); TypeScript is migration-only
+  conformance evidence.
 - Execute work from the owning component's local capability or task SPEC. This repository coordinates
   the plan; it does not replace component requirements, probes, or evidence.
 
@@ -24,3 +30,8 @@ This is the canonical entry point for work spanning `genai-enablement`, `Barbaro
 
 An agent assigned one component must stay in that component's writable scope. Cross-repository outcomes
 are split into the independently claimable work packages defined by the full plan.
+
+For the initial deployment handoff, dispatch SP-90 in Barbarossa and SP-86 in Omniscience independently;
+after both receipts exist, dispatch SP-87 in Barbarossa, SP-88 in Platform Portal, and finally SP-89
+here for independent non-production qualification. None of those
+tasks authorizes infrastructure mutation or production activation.
