@@ -128,6 +128,114 @@ class SynchronizedPlatformContractTests(unittest.TestCase):
             )
         )
 
+    def test_runtime_profile_membership_and_dependency_closure(self) -> None:
+        registry = checker.load_registry()
+        profile = registry["runtime_profiles"][0]
+        self.assertEqual("management-readonly-v1", profile["id"])
+        self.assertEqual(
+            {"omniscience", "barbarossa", "platform-portal"},
+            set(profile["runtime_components"]),
+        )
+        self.assertEqual({"omnius"}, set(profile["deferred_runtime_components"]))
+        self.assertEqual("forbidden", profile["effect_posture"])
+        self.assertEqual("go", profile["barbarossa_runtime"])
+        self.assertEqual(
+            "conformance-oracle-only", profile["barbarossa_typescript_role"]
+        )
+        self.assertIn("SP-90", profile["required_work_packages"])
+        self.assertNotIn("SP-90", profile["release_work_packages"])
+        self.assertIn("SP-73", profile["non_gating_work_packages"])
+        self.assertEqual([], checker.validate_registry(registry, ROOT.parent))
+
+    def test_runtime_profile_rejects_barbarossa_runtime_drift(self) -> None:
+        registry = copy.deepcopy(checker.load_registry())
+        registry["runtime_profiles"][0]["barbarossa_runtime"] = "typescript"
+        errors = checker.validate_registry(registry)
+        self.assertTrue(any("barbarossa_runtime must match" in error for error in errors))
+
+    def test_runtime_profile_rejects_typescript_role_drift(self) -> None:
+        registry = copy.deepcopy(checker.load_registry())
+        registry["runtime_profiles"][0]["barbarossa_typescript_role"] = "production"
+        errors = checker.validate_registry(registry)
+        self.assertTrue(
+            any("barbarossa_typescript_role must match" in error for error in errors)
+        )
+
+    def test_sp87_requires_go_baseline_dependency(self) -> None:
+        registry = copy.deepcopy(checker.load_registry())
+        sp87 = next(item for item in registry["work_packages"] if item["id"] == "SP-87")
+        sp87["depends_on"].remove("SP-90")
+        errors = checker.validate_registry(registry)
+        self.assertTrue(any("accepted dependency edges" in error for error in errors))
+
+    def test_sp86_requires_go_decision_for_language_neutral_handoff(self) -> None:
+        registry = copy.deepcopy(checker.load_registry())
+        sp86 = next(item for item in registry["work_packages"] if item["id"] == "SP-86")
+        sp86["governing_adrs"].remove("ADR-0022")
+        errors = checker.validate_registry(registry)
+        self.assertTrue(any("accepted governing ADRs" in error for error in errors))
+
+    def test_sp87_requires_domain_registry_contract(self) -> None:
+        registry = copy.deepcopy(checker.load_registry())
+        sp87 = next(item for item in registry["work_packages"] if item["id"] == "SP-87")
+        sp87["contracts"] = [
+            item for item in sp87["contracts"] if item.get("id") != "SPEC-DOM"
+        ]
+        errors = checker.validate_registry(registry)
+        self.assertTrue(any("accepted contract closure" in error for error in errors))
+
+    def test_runtime_profile_missing_dependency_fails(self) -> None:
+        registry = copy.deepcopy(checker.load_registry())
+        registry["runtime_profiles"][0]["required_work_packages"].remove("SP-60")
+        errors = checker.validate_registry(registry)
+        self.assertTrue(any("closure is missing dependencies" in error for error in errors))
+
+    def test_runtime_profile_required_deferred_overlap_fails(self) -> None:
+        registry = copy.deepcopy(checker.load_registry())
+        registry["runtime_profiles"][0]["deferred_work_packages"].append("SP-86")
+        errors = checker.validate_registry(registry)
+        self.assertTrue(any("both required and deferred" in error for error in errors))
+
+    def test_runtime_profile_unclassified_package_fails(self) -> None:
+        registry = copy.deepcopy(checker.load_registry())
+        registry["runtime_profiles"][0]["non_gating_work_packages"].remove("SP-12")
+        errors = checker.validate_registry(registry)
+        self.assertTrue(any("classification must cover" in error for error in errors))
+
+    def test_runtime_profile_rejects_required_package_from_deferred_owner(self) -> None:
+        registry = copy.deepcopy(checker.load_registry())
+        profile = registry["runtime_profiles"][0]
+        profile["deferred_work_packages"].remove("SP-11")
+        profile["required_work_packages"].append("SP-11")
+        errors = checker.validate_registry(registry)
+        self.assertTrue(any("unselected owners" in error for error in errors))
+
+    def test_runtime_profile_rejects_domain_pin_drift(self) -> None:
+        registry = copy.deepcopy(checker.load_registry())
+        registry["runtime_profiles"][0]["selected_domain_packs"] = ["cost-value"]
+        errors = checker.validate_registry(registry)
+        self.assertTrue(any("selected_domain_packs must match" in error for error in errors))
+
+    def test_runtime_profile_rejects_pii_pin_drift(self) -> None:
+        registry = copy.deepcopy(checker.load_registry())
+        registry["runtime_profiles"][0]["pii_profile"] = "PW2"
+        errors = checker.validate_registry(registry)
+        self.assertTrue(any("pii_profile must match" in error for error in errors))
+
+    def test_runtime_profile_rejects_release_chain_drift(self) -> None:
+        registry = copy.deepcopy(checker.load_registry())
+        registry["runtime_profiles"][0]["release_work_packages"].remove("SP-87")
+        errors = checker.validate_registry(registry)
+        self.assertTrue(any("release_work_packages must match" in error for error in errors))
+
+    def test_runtime_profile_rejects_non_gating_scope_expansion(self) -> None:
+        registry = copy.deepcopy(checker.load_registry())
+        profile = registry["runtime_profiles"][0]
+        profile["non_gating_work_packages"].remove("SP-73")
+        profile["required_work_packages"].append("SP-73")
+        errors = checker.validate_registry(registry)
+        self.assertTrue(any("required_work_packages must match" in error for error in errors))
+
     def test_task_handoff_requires_evidence_and_per_ac_ground_truth(self) -> None:
         task = """---
 id: task-sp-test

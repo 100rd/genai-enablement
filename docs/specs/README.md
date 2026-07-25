@@ -12,6 +12,7 @@ to a sibling repository.
 | [SPEC-PII-POLICY](SPEC-PII-POLICY-platform-policy-contract.md) | `ready` | `SP-60` | portable schemas, fixtures, validator and compatibility only |
 | [task-sp-60-pii-policy-contract-v1](task-sp-60-pii-policy-contract-v1.md) | `ready` | `SP-60` | materialize the non-active PII contract bundle |
 | [task-sp-70-continuous-management-contract-release](task-sp-70-continuous-management-contract-release.md) | `ready` | `SP-70` | close owner-contract discovery and registry compatibility |
+| [task-sp-89-management-readonly-profile-qualification](task-sp-89-management-readonly-profile-qualification.md) | `ready` | `SP-89` | join exact SP-86/SP-87/SP-88 releases, verify transitive SP-90 Go provenance, and qualify one named non-production profile without activation |
 
 `ready` here authorizes only the exact repository-local development scope written in the task. It does
 not publish a live policy, activate a management loop, provision trust, call a provider, mutate a sibling

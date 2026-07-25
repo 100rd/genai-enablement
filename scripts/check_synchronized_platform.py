@@ -25,6 +25,70 @@ COMPONENT_PLAN_HEADINGS = {
     "omniscience": "Omniscience",
     "platform-portal": "platform-portal",
 }
+RUNTIME_PROFILE_PINS = {
+    "management-readonly-v1": {
+        "governance_components": ["genai-enablement"],
+        "runtime_components": ["omniscience", "barbarossa", "platform-portal"],
+        "deferred_runtime_components": ["omnius"],
+        "selected_domain_packs": ["reliability"],
+        "pii_profile": "PW0",
+        "effect_posture": "forbidden",
+        "barbarossa_runtime": "go",
+        "barbarossa_typescript_role": "conformance-oracle-only",
+        "required_work_packages": [
+            "SP-00",
+            "SP-10",
+            "SP-50",
+            "SP-60",
+            "SP-61",
+            "SP-70",
+            "SP-71",
+            "SP-72",
+            "SP-74",
+            "SP-75",
+            "SP-81",
+            "SP-83",
+            "SP-86",
+            "SP-90",
+            "SP-87",
+            "SP-88",
+            "SP-89",
+        ],
+        "release_work_packages": ["SP-86", "SP-87", "SP-88", "SP-89"],
+        "deferred_work_packages": [
+            "SP-11",
+            "SP-20",
+            "SP-30",
+            "SP-40",
+            "SP-62",
+            "SP-82",
+            "SP-85",
+        ],
+        "non_gating_work_packages": [
+            "SP-12",
+            "SP-B0-B7",
+            "SP-51",
+            "SP-52",
+            "SP-63",
+            "SP-73",
+            "SP-76",
+            "SP-77",
+            "SP-78",
+            "SP-79",
+            "SP-80",
+            "SP-84",
+        ],
+    }
+}
+REQUIRED_DEPENDENCY_EDGES = {
+    "SP-87": {"SP-86", "SP-90"},
+}
+REQUIRED_PACKAGE_ADRS = {
+    "SP-86": {"ADR-0022"},
+}
+REQUIRED_PACKAGE_CONTRACTS = {
+    "SP-87": {("barbarossa", "capability", "SPEC-DOM")},
+}
 ADR_ID_PATTERN = re.compile(r"\bADR-\d{4}\b")
 CAPABILITY_ID_PATTERN = re.compile(r"\bSPEC-[A-Z0-9]+(?:-[A-Z0-9]+)*\b")
 TASK_ID_PATTERN = re.compile(
@@ -499,6 +563,7 @@ def validate_registry(
             f"extra={sorted(set(package_plan_rows) - known_packages)})"
         )
     dependency_graph: dict[str, set[str]] = {}
+    package_owners: dict[str, str] = {}
     for package in packages:
         if not isinstance(package, dict):
             errors.append("work-package entries must be objects")
@@ -511,6 +576,8 @@ def validate_registry(
         owner = package.get("owner")
         if owner not in EXPECTED_COMPONENTS:
             errors.append(f"{package_id}: unknown owner {owner!r}")
+        elif isinstance(owner, str):
+            package_owners[package_id] = owner
         status = package.get("status")
         if not _non_empty_string(status):
             errors.append(f"{package_id}: status must be a non-empty string")
@@ -622,6 +689,203 @@ def validate_registry(
             )
             break
         pending -= ready
+
+    for package_id, required_dependencies in REQUIRED_DEPENDENCY_EDGES.items():
+        missing = required_dependencies - dependency_graph.get(package_id, set())
+        if missing:
+            errors.append(
+                f"{package_id}: accepted dependency edges are missing: {sorted(missing)}"
+            )
+
+    packages_by_id = {
+        package.get("id"): package
+        for package in packages
+        if isinstance(package, dict) and _non_empty_string(package.get("id"))
+    }
+    for package_id, required_adrs in REQUIRED_PACKAGE_ADRS.items():
+        package = packages_by_id.get(package_id, {})
+        actual_adrs = {
+            value
+            for value in package.get("governing_adrs", [])
+            if _non_empty_string(value)
+        }
+        missing = required_adrs - actual_adrs
+        if missing:
+            errors.append(
+                f"{package_id}: accepted governing ADRs are missing: {sorted(missing)}"
+            )
+
+    for package_id, required_contracts in REQUIRED_PACKAGE_CONTRACTS.items():
+        package = packages_by_id.get(package_id, {})
+        actual_contracts = {
+            (item.get("project"), item.get("kind"), item.get("id"))
+            for item in package.get("contracts", [])
+            if isinstance(item, dict)
+        }
+        missing = required_contracts - actual_contracts
+        if missing:
+            errors.append(
+                f"{package_id}: accepted contract closure is missing: {sorted(missing)}"
+            )
+
+    profiles = registry.get("runtime_profiles")
+    if not isinstance(profiles, list):
+        errors.append("runtime_profiles must be a list")
+        profiles = []
+    profile_ids = [item.get("id") for item in profiles if isinstance(item, dict)]
+    if any(not _non_empty_string(profile_id) for profile_id in profile_ids):
+        errors.append("every runtime profile requires a non-empty id")
+    duplicate_profiles = _duplicates(
+        [profile_id for profile_id in profile_ids if _non_empty_string(profile_id)]
+    )
+    if duplicate_profiles:
+        errors.append(f"duplicate runtime-profile ids: {sorted(duplicate_profiles)}")
+
+    known_components = set(EXPECTED_COMPONENTS)
+    for profile in profiles:
+        if not isinstance(profile, dict):
+            errors.append("runtime-profile entries must be objects")
+            continue
+        profile_id = profile.get("id")
+        status = profile.get("status")
+        source_path = _safe_file(ROOT, profile.get("path"))
+        if source_path is None:
+            errors.append(f"{profile_id}: runtime-profile path is missing")
+        else:
+            source_text = source_path.read_text(encoding="utf-8")
+            if not _non_empty_string(profile_id) or profile_id not in source_text[:2400]:
+                errors.append(f"{profile_id}: runtime-profile id does not match source")
+            if not _non_empty_string(status) or _source_status(source_text) != status:
+                errors.append(f"{profile_id}: runtime-profile status does not match source")
+        if _non_empty_string(profile_id) and profile_id not in plan_text:
+            errors.append(f"{profile_id}: runtime profile is missing from canonical plan")
+
+        governing_adr = profile.get("governing_adr")
+        if governing_adr not in known_adrs:
+            errors.append(f"{profile_id}: unknown governing ADR {governing_adr!r}")
+
+        component_sets: dict[str, set[str]] = {}
+        for key in (
+            "governance_components",
+            "runtime_components",
+            "deferred_runtime_components",
+        ):
+            values = profile.get(key)
+            if not isinstance(values, list) or any(
+                not _non_empty_string(value) for value in values
+            ):
+                errors.append(f"{profile_id}: {key} must be a list of non-empty ids")
+                values = []
+            value_set = {value for value in values if _non_empty_string(value)}
+            unknown = value_set - known_components
+            if unknown:
+                errors.append(f"{profile_id}: unknown {key}: {sorted(unknown)}")
+            component_sets[key] = value_set
+        component_memberships = list(component_sets.items())
+        for index, (left_key, left) in enumerate(component_memberships):
+            for right_key, right in component_memberships[index + 1 :]:
+                overlap = left & right
+                if overlap:
+                    errors.append(
+                        f"{profile_id}: component overlap between {left_key} and "
+                        f"{right_key}: {sorted(overlap)}"
+                    )
+
+        package_sets: dict[str, set[str]] = {}
+        for key in (
+            "required_work_packages",
+            "release_work_packages",
+            "deferred_work_packages",
+            "non_gating_work_packages",
+        ):
+            values = profile.get(key)
+            if not isinstance(values, list) or any(
+                not _non_empty_string(value) for value in values
+            ):
+                errors.append(f"{profile_id}: {key} must be a list of non-empty ids")
+                values = []
+            value_set = {value for value in values if _non_empty_string(value)}
+            unknown = value_set - known_packages
+            if unknown:
+                errors.append(f"{profile_id}: unknown {key}: {sorted(unknown)}")
+            package_sets[key] = value_set
+
+        required = package_sets["required_work_packages"]
+        releases = package_sets["release_work_packages"]
+        deferred = package_sets["deferred_work_packages"]
+        non_gating = package_sets["non_gating_work_packages"]
+        if not releases <= required:
+            errors.append(
+                f"{profile_id}: release_work_packages must be selected as required"
+            )
+        classification_sets = {
+            "required": required,
+            "deferred": deferred,
+            "non-gating": non_gating,
+        }
+        classification_items = list(classification_sets.items())
+        for index, (left_key, left) in enumerate(classification_items):
+            for right_key, right in classification_items[index + 1 :]:
+                overlap = left & right
+                if overlap:
+                    errors.append(
+                        f"{profile_id}: packages cannot be both {left_key} and "
+                        f"{right_key}: {sorted(overlap)}"
+                    )
+        classified = required | deferred | non_gating
+        if classified != known_packages:
+            errors.append(
+                f"{profile_id}: work-package classification must cover the registry "
+                f"(missing={sorted(known_packages - classified)}, "
+                f"extra={sorted(classified - known_packages)})"
+            )
+        selected_owner_ids = (
+            component_sets["governance_components"]
+            | component_sets["runtime_components"]
+        )
+        unexpected_required_owners = {
+            package_id: package_owners.get(package_id)
+            for package_id in required
+            if package_owners.get(package_id) not in selected_owner_ids
+        }
+        if unexpected_required_owners:
+            errors.append(
+                f"{profile_id}: required packages have unselected owners: "
+                f"{unexpected_required_owners}"
+            )
+        missing_dependencies = {
+            dependency
+            for package_id in required
+            for dependency in dependency_graph.get(package_id, set())
+            if dependency not in required
+        }
+        if missing_dependencies:
+            errors.append(
+                f"{profile_id}: required work-package closure is missing dependencies: "
+                f"{sorted(missing_dependencies)}"
+            )
+
+        selected_domains = profile.get("selected_domain_packs")
+        if not isinstance(selected_domains, list) or not all(
+            _non_empty_string(value) for value in selected_domains
+        ):
+            errors.append(
+                f"{profile_id}: selected_domain_packs must be a list of non-empty ids"
+            )
+        if not _non_empty_string(profile.get("pii_profile")):
+            errors.append(f"{profile_id}: pii_profile must be a non-empty string")
+        if not _non_empty_string(profile.get("effect_posture")):
+            errors.append(f"{profile_id}: effect_posture must be a non-empty string")
+
+        pinned_contract = RUNTIME_PROFILE_PINS.get(profile_id)
+        if pinned_contract is not None:
+            for key, expected in pinned_contract.items():
+                actual = profile.get(key)
+                if actual != expected:
+                    errors.append(
+                        f"{profile_id}: {key} must match the accepted runtime-profile "
+                        f"pin (expected={expected!r}, actual={actual!r})"
+                    )
     return errors
 
 
