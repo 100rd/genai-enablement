@@ -48,25 +48,27 @@ permission to reinterpret a SPEC. Migration work cannot edit the TypeScript orac
 parity pass. Any intentional contract change starts in the governing ADR/SPEC and updates both
 implementations from that accepted revision.
 
-### D3 — Add a prerequisite Go-baseline package before SP-87
+### D3 — Complete the whole implemented Go surface before SP-87
 
-`SP-90` is the owner-local Barbarossa Go migration package for the exact
-`management-readonly-v1` slice. It ports and qualifies:
+`SP-90` is the owner-local Barbarossa Go migration package for the complete implemented contract
+surface, not only the `management-readonly-v1` slice. It ports and qualifies:
 
 - shared fail-closed, identity, integrity, clock, tenant and PW0 primitives;
-- kernel loop, domain registry, observation, evaluation, case, federation, context and view modules;
-- the Reliability journey, availability, incident-ledger and alert/meta-monitoring modules; and
-- durable runtime, package, health, telemetry, backup/restore and rollback seams needed by SP-87.
+- every implemented kernel module, including cross-loop constraints, governed-action contracts and
+  independent verification;
+- every implemented domain pack in the accepted Barbarossa capability inventory; and
+- runtime, package, health, telemetry, durability, backup/restore and rollback seams.
 
-SP-90 excludes action submission, effect verification, progressive autonomy, Omnius integration and
-all non-Reliability domain packs. Those capabilities remain language-neutral target contracts and
-receive separate Go migration packages when a later runtime profile selects them.
+SP-90 excludes progressive autonomy because `SPEC-AUT` has no accepted implementation, live owner
+adapters, Omnius integration, credentials, deployment activation and managed effects. Ported code does
+not become selected code: each runtime profile still declares an exact domain and authority allowlist.
+`management-readonly-v1` continues to activate Reliability only and forbids effects.
 
 SP-86 remains an independent Omniscience producer task and may run in parallel with SP-90. SP-87 cannot
 start release qualification until exact SP-90 and SP-86 receipts exist:
 
 ```text
-SP-71/72/74/75/83 -> SP-90 (Barbarossa Go baseline)
+SP-71..80 + SP-83  -> SP-90 (complete implemented Barbarossa Go baseline)
 SP-10/61/81       -> SP-86 (Omniscience release)
 SP-90 + SP-86     -> SP-87 -> SP-88 -> SP-89
 ```
@@ -90,8 +92,8 @@ oracle is explicitly non-deployable and excluded from release artifacts.
 
 ## Cross-repository invariants
 
-- **GO-1:** every Barbarossa production workload in `management-readonly-v1` resolves to an exact SP-90
-  Go baseline and SP-87 Go release.
+- **GO-1:** every implemented Barbarossa capability except blocked `SPEC-AUT` resolves to the exact
+  full-surface SP-90 Go baseline; each workload activates only its profile-selected closure.
 - **GO-2:** SP-86 is language-independent and has no dependency on SP-90.
 - **GO-3:** SP-87 is RED when the SP-90 receipt, compiler pin, module graph, SBOM, parity manifest or
   no-Node evidence is absent or mutable.
@@ -109,11 +111,11 @@ oracle is explicitly non-deployable and excluded from release artifacts.
 - The intended production language is explicit and cannot be inferred from a prototype.
 - The first deployed Barbarossa slice validates the production runtime rather than a disposable mock.
 - Contract parity preserves existing test investment without shipping Node.js.
-- Later domain packs can migrate independently under the same language and authority decision.
+- Later runtime profiles can select already ported domain packs without reopening the language move.
 
 ### Costs and trade-offs
 
-- SP-87 now waits for a distinct Go migration receipt.
+- SP-87 now waits for a complete Go migration receipt rather than a Reliability-only subset.
 - The repository temporarily carries two implementations of part of the contract surface.
 - CI must keep oracle and Go evidence separate until retirement.
 - A direct translation is insufficient; durable/restart and production packaging evidence are required.

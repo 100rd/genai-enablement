@@ -15,6 +15,15 @@ This is the canonical entry point for work spanning `genai-enablement`, `Barbaro
   deferred from the runtime and all effects are disabled. Barbarossa production execution is Go under
   [ADR-0022](docs/decisions/0022-barbarossa-go-production-runtime.md); TypeScript is migration-only
   conformance evidence.
+- The next accepted preparation layer is
+  [`barbarossa-ha-v1`](docs/synchronized-platform/profiles/barbarossa-ha-v1.md) under
+  [ADR-0023](docs/decisions/0023-barbarossa-full-go-distributed-ha-runtime.md): complete Go migration,
+  fenced distributed work, Barbarossa HA, read-only Portal detail and independent failure qualification.
+- The accepted developer launch profile is
+  [`management-readonly-local-v1`](docs/synchronized-platform/profiles/management-readonly-local-v1.md)
+  under [ADR-0024](docs/decisions/0024-management-readonly-local-compose-profile.md): real owner
+  services composed from independently runnable fragments, selected-owner mocks absent, and functional
+  smoke explicitly separated from HA/deployment qualification.
 - Execute work from the owning component's local capability or task SPEC. This repository coordinates
   the plan; it does not replace component requirements, probes, or evidence.
 
@@ -35,3 +44,13 @@ For the initial deployment handoff, dispatch SP-90 in Barbarossa and SP-86 in Om
 after both receipts exist, dispatch SP-87 in Barbarossa, SP-88 in Platform Portal, and finally SP-89
 here for independent non-production qualification. None of those
 tasks authorizes infrastructure mutation or production activation.
+
+For the HA follow-on, dispatch SP-91 after exact SP-87 binding full-Go SP-90; dispatch SP-92 after SP-91;
+dispatch SP-93 after SP-88/SP-92; and dispatch SP-94 after SP-89/SP-92/SP-93 plus a named
+non-production authority receipt. The queue distributes at-least-once work; Barbarossa's durable store
+and fencing protocol remain authoritative. Portal has no broker/store credentials or queue controls.
+
+For local launch, dispatch SP-95 in Omniscience and SP-96 in Barbarossa concurrently after their exact
+owner inputs; dispatch SP-97 in Platform Portal after both local receipts plus SP-88/SP-93; then
+dispatch SP-98 here to assemble and qualify the disposable Compose application. A local receipt is
+`development-single-host`, never SP-89/SP-92/SP-94 evidence or activation authority.

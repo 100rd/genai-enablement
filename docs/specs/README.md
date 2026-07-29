@@ -13,6 +13,8 @@ to a sibling repository.
 | [task-sp-60-pii-policy-contract-v1](task-sp-60-pii-policy-contract-v1.md) | `ready` | `SP-60` | materialize the non-active PII contract bundle |
 | [task-sp-70-continuous-management-contract-release](task-sp-70-continuous-management-contract-release.md) | `ready` | `SP-70` | close owner-contract discovery and registry compatibility |
 | [task-sp-89-management-readonly-profile-qualification](task-sp-89-management-readonly-profile-qualification.md) | `ready` | `SP-89` | join exact SP-86/SP-87/SP-88 releases, verify transitive SP-90 Go provenance, and qualify one named non-production profile without activation |
+| [task-sp-94-barbarossa-ha-profile-qualification](task-sp-94-barbarossa-ha-profile-qualification.md) | `ready` | `SP-94` | independently qualify exact SP-89/SP-92/SP-93 receipts under load, failure, tenant/PW0 and no-effect probes without activation |
+| [task-sp-98-management-readonly-local-qualification](task-sp-98-management-readonly-local-qualification.md) | `ready` | `SP-98` | assemble exact SP-95/SP-96/SP-97 owner fragments and qualify real-owner local startup, tenancy/PW0, no-effect, severance, persistence and resource bounds without HA/deployment claims |
 
 `ready` here authorizes only the exact repository-local development scope written in the task. It does
 not publish a live policy, activate a management loop, provision trust, call a provider, mutate a sibling
