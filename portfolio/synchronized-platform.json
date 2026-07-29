@@ -116,6 +116,16 @@
       "id": "ADR-0022",
       "path": "docs/decisions/0022-barbarossa-go-production-runtime.md",
       "status": "accepted"
+    },
+    {
+      "id": "ADR-0023",
+      "path": "docs/decisions/0023-barbarossa-full-go-distributed-ha-runtime.md",
+      "status": "accepted"
+    },
+    {
+      "id": "ADR-0024",
+      "path": "docs/decisions/0024-management-readonly-local-compose-profile.md",
+      "status": "accepted"
     }
   ],
   "components": [
@@ -213,6 +223,16 @@
         {
           "id": "task-sp-89-management-readonly-profile-qualification",
           "path": "docs/specs/task-sp-89-management-readonly-profile-qualification.md",
+          "status": "ready"
+        },
+        {
+          "id": "task-sp-94-barbarossa-ha-profile-qualification",
+          "path": "docs/specs/task-sp-94-barbarossa-ha-profile-qualification.md",
+          "status": "ready"
+        },
+        {
+          "id": "task-sp-98-management-readonly-local-qualification",
+          "path": "docs/specs/task-sp-98-management-readonly-local-qualification.md",
           "status": "ready"
         }
       ],
@@ -433,11 +453,31 @@
         {
           "id": "task-sp-87-management-readonly-reliability-release",
           "path": "docs/specs/task-sp-87-management-readonly-reliability-release.md",
-          "status": "ready"
+          "status": "implemented"
         },
         {
           "id": "task-sp-90-golang-runtime-migration",
           "path": "docs/specs/task-sp-90-golang-runtime-migration.md",
+          "status": "implemented"
+        },
+        {
+          "id": "task-sp-91-distributed-work-substrate",
+          "path": "docs/specs/task-sp-91-distributed-work-substrate.md",
+          "status": "implemented"
+        },
+        {
+          "id": "task-sp-92-high-availability-runtime-release",
+          "path": "docs/specs/task-sp-92-high-availability-runtime-release.md",
+          "status": "implemented"
+        },
+        {
+          "id": "task-sp-93-typescript-oracle-retirement",
+          "path": "docs/specs/task-sp-93-typescript-oracle-retirement.md",
+          "status": "implemented"
+        },
+        {
+          "id": "task-sp-96-management-readonly-local-runtime",
+          "path": "docs/specs/task-sp-96-management-readonly-local-runtime.md",
           "status": "ready"
         }
       ],
@@ -767,6 +807,11 @@
           "id": "task-sp-86-management-readonly-release",
           "path": "docs/specs/task-sp-86-management-readonly-release.md",
           "status": "ready"
+        },
+        {
+          "id": "task-sp-95-management-readonly-local-runtime",
+          "path": "docs/specs/task-sp-95-management-readonly-local-runtime.md",
+          "status": "ready"
         }
       ],
       "readiness_profiles": []
@@ -877,6 +922,16 @@
           "id": "task-sp-88-management-readonly-portal-release",
           "path": "docs/specs/task-sp-88-management-readonly-portal-release.md",
           "status": "ready"
+        },
+        {
+          "id": "task-sp-93-barbarossa-ha-observability",
+          "path": "docs/specs/task-sp-93-barbarossa-ha-observability.md",
+          "status": "ready"
+        },
+        {
+          "id": "task-sp-97-management-readonly-local-portal",
+          "path": "docs/specs/task-sp-97-management-readonly-local-portal.md",
+          "status": "ready"
         }
       ],
       "readiness_profiles": []
@@ -905,6 +960,7 @@
       "pii_profile": "PW0",
       "effect_posture": "forbidden",
       "barbarossa_runtime": "go",
+      "barbarossa_go_scope": "complete-implemented-capability-surface",
       "barbarossa_typescript_role": "conformance-oracle-only",
       "required_work_packages": [
         "SP-00",
@@ -915,8 +971,14 @@
         "SP-70",
         "SP-71",
         "SP-72",
+        "SP-73",
         "SP-74",
         "SP-75",
+        "SP-76",
+        "SP-77",
+        "SP-78",
+        "SP-79",
+        "SP-80",
         "SP-81",
         "SP-83",
         "SP-86",
@@ -946,13 +1008,204 @@
         "SP-51",
         "SP-52",
         "SP-63",
+        "SP-84",
+        "SP-91",
+        "SP-92",
+        "SP-93",
+        "SP-94",
+        "SP-95",
+        "SP-96",
+        "SP-97",
+        "SP-98"
+      ]
+    },
+    {
+      "id": "barbarossa-ha-v1",
+      "status": "accepted-for-development",
+      "path": "docs/synchronized-platform/profiles/barbarossa-ha-v1.md",
+      "governing_adr": "ADR-0023",
+      "governance_components": [
+        "genai-enablement"
+      ],
+      "runtime_components": [
+        "omniscience",
+        "barbarossa",
+        "platform-portal"
+      ],
+      "deferred_runtime_components": [
+        "omnius"
+      ],
+      "selected_domain_packs": [
+        "reliability"
+      ],
+      "pii_profile": "PW0",
+      "effect_posture": "forbidden",
+      "barbarossa_runtime": "go",
+      "barbarossa_go_scope": "complete-implemented-capability-surface",
+      "barbarossa_typescript_role": "conformance-oracle-only",
+      "barbarossa_work_transport": "nats-jetstream",
+      "barbarossa_stream_replicas": 3,
+      "barbarossa_state_store": "postgresql-ha",
+      "delivery_semantics": "at-least-once",
+      "portal_ha_controls": "forbidden",
+      "required_work_packages": [
+        "SP-00",
+        "SP-10",
+        "SP-50",
+        "SP-60",
+        "SP-61",
+        "SP-70",
+        "SP-71",
+        "SP-72",
         "SP-73",
+        "SP-74",
+        "SP-75",
         "SP-76",
         "SP-77",
         "SP-78",
         "SP-79",
         "SP-80",
-        "SP-84"
+        "SP-81",
+        "SP-83",
+        "SP-86",
+        "SP-90",
+        "SP-87",
+        "SP-88",
+        "SP-89",
+        "SP-91",
+        "SP-92",
+        "SP-93",
+        "SP-94"
+      ],
+      "release_work_packages": [
+        "SP-86",
+        "SP-87",
+        "SP-88",
+        "SP-89",
+        "SP-91",
+        "SP-92",
+        "SP-93",
+        "SP-94"
+      ],
+      "deferred_work_packages": [
+        "SP-11",
+        "SP-20",
+        "SP-30",
+        "SP-40",
+        "SP-62",
+        "SP-82",
+        "SP-85"
+      ],
+      "non_gating_work_packages": [
+        "SP-12",
+        "SP-B0-B7",
+        "SP-51",
+        "SP-52",
+        "SP-63",
+        "SP-84",
+        "SP-95",
+        "SP-96",
+        "SP-97",
+        "SP-98"
+      ]
+    },
+    {
+      "id": "management-readonly-local-v1",
+      "status": "accepted-for-local-development",
+      "path": "docs/synchronized-platform/profiles/management-readonly-local-v1.md",
+      "governing_adr": "ADR-0024",
+      "governance_components": [
+        "genai-enablement"
+      ],
+      "runtime_components": [
+        "omniscience",
+        "barbarossa",
+        "platform-portal"
+      ],
+      "deferred_runtime_components": [
+        "omnius"
+      ],
+      "selected_domain_packs": [
+        "reliability"
+      ],
+      "pii_profile": "PW0",
+      "effect_posture": "forbidden",
+      "barbarossa_runtime": "go",
+      "barbarossa_go_scope": "complete-implemented-capability-surface",
+      "barbarossa_typescript_role": "retired-golden-vectors",
+      "orchestrator": "docker-compose",
+      "minimum_compose_version": "2.24.4",
+      "qualification_class": "functional-smoke-only",
+      "availability_class": "development-single-host",
+      "barbarossa_work_transport": "nats-jetstream",
+      "barbarossa_stream_replicas": 1,
+      "barbarossa_state_store": "postgresql-single-node",
+      "delivery_semantics": "at-least-once",
+      "ha_qualified": false,
+      "selected_owner_mocks": "forbidden",
+      "host_binding_posture": "loopback-only",
+      "minimum_image_mode_host": {
+        "vcpu": 4,
+        "memory_bytes": 8000000000,
+        "free_disk_bytes": 25000000000
+      },
+      "recommended_source_build_memory_bytes": 12884901888,
+      "source_build_parallelism_at_minimum": "sequential",
+      "required_work_packages": [
+        "SP-00",
+        "SP-10",
+        "SP-50",
+        "SP-60",
+        "SP-61",
+        "SP-70",
+        "SP-71",
+        "SP-72",
+        "SP-73",
+        "SP-74",
+        "SP-75",
+        "SP-76",
+        "SP-77",
+        "SP-78",
+        "SP-79",
+        "SP-80",
+        "SP-81",
+        "SP-83",
+        "SP-86",
+        "SP-87",
+        "SP-88",
+        "SP-90",
+        "SP-91",
+        "SP-92",
+        "SP-93",
+        "SP-95",
+        "SP-96",
+        "SP-97",
+        "SP-98"
+      ],
+      "release_work_packages": [
+        "SP-95",
+        "SP-96",
+        "SP-97",
+        "SP-98"
+      ],
+      "deferred_work_packages": [
+        "SP-11",
+        "SP-20",
+        "SP-30",
+        "SP-40",
+        "SP-62",
+        "SP-82",
+        "SP-85"
+      ],
+      "non_gating_work_packages": [
+        "SP-12",
+        "SP-B0-B7",
+        "SP-51",
+        "SP-52",
+        "SP-63",
+        "SP-84",
+        "SP-89",
+        "SP-94"
       ]
     }
   ],
@@ -2199,8 +2452,14 @@
       "depends_on": [
         "SP-71",
         "SP-72",
+        "SP-73",
         "SP-74",
         "SP-75",
+        "SP-76",
+        "SP-77",
+        "SP-78",
+        "SP-79",
+        "SP-80",
         "SP-83"
       ],
       "governing_adrs": [
@@ -2248,6 +2507,21 @@
         {
           "project": "barbarossa",
           "kind": "capability",
+          "id": "SPEC-CFL"
+        },
+        {
+          "project": "barbarossa",
+          "kind": "capability",
+          "id": "SPEC-ACT"
+        },
+        {
+          "project": "barbarossa",
+          "kind": "capability",
+          "id": "SPEC-VRF"
+        },
+        {
+          "project": "barbarossa",
+          "kind": "capability",
           "id": "SPEC-VIEW"
         },
         {
@@ -2272,9 +2546,220 @@
         },
         {
           "project": "barbarossa",
+          "kind": "capability",
+          "id": "SPEC-COST-POL"
+        },
+        {
+          "project": "barbarossa",
+          "kind": "capability",
+          "id": "SPEC-COST-EVAL"
+        },
+        {
+          "project": "barbarossa",
+          "kind": "capability",
+          "id": "SPEC-COST-ACT"
+        },
+        {
+          "project": "barbarossa",
+          "kind": "capability",
+          "id": "SPEC-AIE"
+        },
+        {
+          "project": "barbarossa",
+          "kind": "capability",
+          "id": "SPEC-SEC"
+        },
+        {
+          "project": "barbarossa",
+          "kind": "capability",
+          "id": "SPEC-PRV"
+        },
+        {
+          "project": "barbarossa",
+          "kind": "capability",
+          "id": "SPEC-CMP"
+        },
+        {
+          "project": "barbarossa",
+          "kind": "capability",
+          "id": "SPEC-SCI"
+        },
+        {
+          "project": "barbarossa",
+          "kind": "capability",
+          "id": "SPEC-DEL"
+        },
+        {
+          "project": "barbarossa",
+          "kind": "capability",
+          "id": "SPEC-KNW"
+        },
+        {
+          "project": "barbarossa",
+          "kind": "capability",
+          "id": "SPEC-CAP"
+        },
+        {
+          "project": "barbarossa",
+          "kind": "capability",
+          "id": "SPEC-TOIL"
+        },
+        {
+          "project": "barbarossa",
+          "kind": "capability",
+          "id": "SPEC-PROD"
+        },
+        {
+          "project": "barbarossa",
           "kind": "task",
           "id": "task-sp-90-golang-runtime-migration"
         }
+      ]
+    },
+    {
+      "id": "SP-91",
+      "owner": "barbarossa",
+      "status": "ready-for-development-full-go-gated",
+      "depends_on": [
+        "SP-90",
+        "SP-87"
+      ],
+      "governing_adrs": [
+        "ADR-0018",
+        "ADR-0020",
+        "ADR-0022",
+        "ADR-0023"
+      ],
+      "contracts": [
+        { "project": "barbarossa", "kind": "capability", "id": "SPEC-LOOP" },
+        { "project": "barbarossa", "kind": "capability", "id": "SPEC-DOM" },
+        { "project": "barbarossa", "kind": "capability", "id": "SPEC-OBS" },
+        { "project": "barbarossa", "kind": "capability", "id": "SPEC-EVAL" },
+        { "project": "barbarossa", "kind": "capability", "id": "SPEC-CASE" },
+        { "project": "barbarossa", "kind": "capability", "id": "SPEC-FED" },
+        { "project": "barbarossa", "kind": "capability", "id": "SPEC-CFL" },
+        { "project": "barbarossa", "kind": "capability", "id": "SPEC-VIEW" },
+        { "project": "barbarossa", "kind": "task", "id": "task-sp-91-distributed-work-substrate" }
+      ]
+    },
+    {
+      "id": "SP-92",
+      "owner": "barbarossa",
+      "status": "ready-for-development-runtime-substrate-gated",
+      "depends_on": [
+        "SP-87",
+        "SP-91"
+      ],
+      "governing_adrs": [
+        "ADR-0018",
+        "ADR-0020",
+        "ADR-0022",
+        "ADR-0023"
+      ],
+      "contracts": [
+        { "project": "barbarossa", "kind": "capability", "id": "SPEC-LOOP" },
+        { "project": "barbarossa", "kind": "capability", "id": "SPEC-DOM" },
+        { "project": "barbarossa", "kind": "capability", "id": "SPEC-OBS" },
+        { "project": "barbarossa", "kind": "capability", "id": "SPEC-EVAL" },
+        { "project": "barbarossa", "kind": "capability", "id": "SPEC-CASE" },
+        { "project": "barbarossa", "kind": "capability", "id": "SPEC-FED" },
+        { "project": "barbarossa", "kind": "capability", "id": "SPEC-CTX" },
+        { "project": "barbarossa", "kind": "capability", "id": "SPEC-CFL" },
+        { "project": "barbarossa", "kind": "capability", "id": "SPEC-VIEW" },
+        { "project": "barbarossa", "kind": "task", "id": "task-sp-92-high-availability-runtime-release" }
+      ]
+    },
+    {
+      "id": "SP-93",
+      "owner": "platform-portal",
+      "status": "ready-for-development-owner-ha-release-gated",
+      "depends_on": [
+        "SP-88",
+        "SP-92"
+      ],
+      "governing_adrs": [
+        "ADR-0007",
+        "ADR-0018",
+        "ADR-0020",
+        "ADR-0023"
+      ],
+      "contracts": [
+        { "project": "platform-portal", "kind": "capability", "id": "SPEC-IT" },
+        { "project": "platform-portal", "kind": "capability", "id": "SPEC-PS" },
+        { "project": "platform-portal", "kind": "capability", "id": "SPEC-PM" },
+        { "project": "platform-portal", "kind": "capability", "id": "SPEC-CV" },
+        { "project": "platform-portal", "kind": "capability", "id": "SPEC-AU" },
+        { "project": "platform-portal", "kind": "capability", "id": "SPEC-CMC" },
+        { "project": "platform-portal", "kind": "task", "id": "task-sp-93-barbarossa-ha-observability" }
+      ]
+    },
+    {
+      "id": "SP-94",
+      "owner": "genai-enablement",
+      "status": "ready-for-development-ha-release-gated",
+      "depends_on": [
+        "SP-89",
+        "SP-92",
+        "SP-93"
+      ],
+      "governing_adrs": [
+        "ADR-0012",
+        "ADR-0018",
+        "ADR-0020",
+        "ADR-0022",
+        "ADR-0023"
+      ],
+      "contracts": [
+        { "project": "genai-enablement", "kind": "task", "id": "task-sp-94-barbarossa-ha-profile-qualification" }
+      ]
+    },
+    {
+      "id": "SP-95",
+      "owner": "omniscience",
+      "status": "ready-for-development-owner-local-gated",
+      "depends_on": ["SP-86"],
+      "governing_adrs": ["ADR-0018", "ADR-0021", "ADR-0024"],
+      "contracts": [
+        { "project": "omniscience", "kind": "capability", "id": "SPEC-MCP" },
+        { "project": "omniscience", "kind": "capability", "id": "SPEC-PII" },
+        { "project": "omniscience", "kind": "capability", "id": "SPEC-MCTX" },
+        { "project": "omniscience", "kind": "task", "id": "task-sp-95-management-readonly-local-runtime" }
+      ]
+    },
+    {
+      "id": "SP-96",
+      "owner": "barbarossa",
+      "status": "ready-for-development-owner-local-gated",
+      "depends_on": ["SP-90", "SP-91", "SP-92"],
+      "governing_adrs": ["ADR-0018", "ADR-0020", "ADR-0022", "ADR-0023", "ADR-0024"],
+      "contracts": [
+        { "project": "barbarossa", "kind": "capability", "id": "SPEC-FED" },
+        { "project": "barbarossa", "kind": "capability", "id": "SPEC-VIEW" },
+        { "project": "barbarossa", "kind": "task", "id": "task-sp-96-management-readonly-local-runtime" }
+      ]
+    },
+    {
+      "id": "SP-97",
+      "owner": "platform-portal",
+      "status": "ready-for-development-local-owner-release-gated",
+      "depends_on": ["SP-88", "SP-93", "SP-95", "SP-96"],
+      "governing_adrs": ["ADR-0007", "ADR-0018", "ADR-0021", "ADR-0023", "ADR-0024"],
+      "contracts": [
+        { "project": "platform-portal", "kind": "capability", "id": "SPEC-IT" },
+        { "project": "platform-portal", "kind": "capability", "id": "SPEC-CV" },
+        { "project": "platform-portal", "kind": "capability", "id": "SPEC-PII" },
+        { "project": "platform-portal", "kind": "capability", "id": "SPEC-CMC" },
+        { "project": "platform-portal", "kind": "task", "id": "task-sp-97-management-readonly-local-portal" }
+      ]
+    },
+    {
+      "id": "SP-98",
+      "owner": "genai-enablement",
+      "status": "ready-for-development-local-receipt-gated",
+      "depends_on": ["SP-95", "SP-96", "SP-97"],
+      "governing_adrs": ["ADR-0012", "ADR-0018", "ADR-0021", "ADR-0022", "ADR-0023", "ADR-0024"],
+      "contracts": [
+        { "project": "genai-enablement", "kind": "task", "id": "task-sp-98-management-readonly-local-qualification" }
       ]
     }
   ]

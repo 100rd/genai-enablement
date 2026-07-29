@@ -7,6 +7,14 @@
 **Initial runtime profile:** [`management-readonly-v1`](profiles/management-readonly-v1.md) selects
 `Omniscience`, `Barbarossa`, and `platform-portal`; `omnius` is retained but deferred from this profile.
 
+**HA qualification profile:** [`barbarossa-ha-v1`](profiles/barbarossa-ha-v1.md) layers full-Go
+Barbarossa, fenced distributed work, component HA and detailed Portal observability over the initial
+selection without enabling Omnius, additional domains or managed effects.
+
+**Local launch profile:** [`management-readonly-local-v1`](profiles/management-readonly-local-v1.md)
+composes real Omniscience, Barbarossa and Portal owner fragments on one developer host. It excludes
+selected-owner mocks and Omnius and produces functional-smoke evidence only, never HA or activation.
+
 **Machine-readable source:** [`portfolio/synchronized-platform.json`](../../portfolio/synchronized-platform.json)
 
 This is the complete navigation and dependency plan for the synchronized platform. It answers two
@@ -67,6 +75,33 @@ the TypeScript baseline is a non-deployable conformance oracle. SP-90 is the Go 
 SP-86 through SP-89 are the release chain; exact membership, negative space, evidence and handoff order are in the
 [profile contract](profiles/management-readonly-v1.md).
 
+## Barbarossa HA qualification profile
+
+[ADR-0023](../decisions/0023-barbarossa-full-go-distributed-ha-runtime.md) accepts the next bounded
+deployment-preparation layer. SP-90 now covers the complete implemented Go surface, while exact runtime
+selection remains Reliability-only. Barbarossa distributes asynchronous work through owner-scoped NATS
+JetStream R3 durable pull consumers and owns authoritative idempotency, result/outbox state and
+monotonic fencing in its HA store.
+
+SP-91 implements that substrate; SP-92 proves the multi-replica service against declared capacity and
+SLOs; SP-93 adds a read-only Portal projection; SP-94 independently qualifies failures, load, tenancy
+and no-effect boundaries. Exact topology, negative space and handoff order are in the
+[`barbarossa-ha-v1` profile](profiles/barbarossa-ha-v1.md).
+
+## Local launch profile
+
+[ADR-0024](../decisions/0024-management-readonly-local-compose-profile.md) accepts
+`management-readonly-local-v1` as a disposable developer realization of the same selected runtime
+membership. Each component owns an independently runnable, namespaced Compose fragment and local
+receipt. `genai-enablement` includes exact fragments and qualifies their joins without copying owner
+migrations, policy, readiness or service truth.
+
+SP-95 packages Omniscience; SP-96 packages the real Go Barbarossa API/worker with a visibly non-HA
+R1/single-store substrate; SP-97 runs selected Portal routes against both real owners with mocks
+structurally excluded; SP-98 validates startup, real-owner reads, tenant/PW0/no-effect boundaries,
+severance, persistence, resource bounds and reset separation. The order is
+`SP-95 || SP-96 -> SP-97 -> SP-98`.
+
 ## Component ownership
 
 | Component | Owns | Does not own | Local plan |
@@ -123,8 +158,10 @@ and verification remain orthogonal. Missing/stale/incompatible coverage is typed
 Hard reliability/security/privacy/compliance constraints cannot be offset by cost, speed or product
 gain. Omniscience, Omnius and Portal remain severable; every domain boundary follows the PII Wall.
 
-The first profile selects only Reliability plus the shared kernel/context/projection path. SP-73,
-SP-76 through SP-80, SP-82 and SP-85 are not release prerequisites for that profile.
+The first profile activates only Reliability plus the shared kernel/context/projection path. Full-Go
+SP-90 now consumes the already implemented SP-73 and SP-76 through SP-80 surfaces for migration parity,
+but they are not selected runtime releases and grant no action/domain authority. SP-82 and SP-85 remain
+outside the profile.
 
 ## PII Wall boundary
 
@@ -182,6 +219,8 @@ Statuses below are decision states, not implementation states.
 | [ADR-0020](../decisions/0020-barbarossa-continuous-management-plane.md) | Accepted | shared Continuous Management kernel, isolated domain packs and cross-loop governance |
 | [ADR-0021](../decisions/0021-management-readonly-initial-runtime-profile.md) | Accepted | first Omniscience/Barbarossa/Portal runtime profile with Omnius deferred and effects disabled |
 | [ADR-0022](../decisions/0022-barbarossa-go-production-runtime.md) | Accepted | Go-only Barbarossa production runtime, TypeScript conformance-oracle boundary and SP-90 migration gate |
+| [ADR-0023](../decisions/0023-barbarossa-full-go-distributed-ha-runtime.md) | Accepted | full-Go closure, fenced JetStream work, Barbarossa HA, Portal observability and integrated qualification |
+| [ADR-0024](../decisions/0024-management-readonly-local-compose-profile.md) | Accepted | owner-fragment Compose, real local owner wiring, selected-owner mock exclusion and functional-smoke/HA separation |
 
 ## Component SPEC inventory
 
@@ -204,7 +243,11 @@ The thirteen Track-B contracts remain `draft` and operationally incomplete. `SPE
 `task-sp-60-pii-policy-contract-v1` and
 `task-sp-70-continuous-management-contract-release`. The separately ready
 `task-sp-89-management-readonly-profile-qualification` joins exact SP-86/SP-87/SP-88 releases in one
-named non-production environment; it cannot mint missing owner evidence. None authorizes a live
+named non-production environment. `task-sp-94-barbarossa-ha-profile-qualification` later joins exact
+SP-89/SP-92/SP-93 receipts and independently challenges HA.
+`task-sp-98-management-readonly-local-qualification` separately joins exact SP-95/SP-96/SP-97 local
+owner receipts and proves only a single-host functional smoke profile. None can mint missing owner
+evidence. None authorizes a live
 provider, credential, production deployment, remediation, PII activation, management action or
 production claim.
 
@@ -253,6 +296,10 @@ permit these bounded, ready, non-live tasks from the
 | `task-sp-83-context-consumer` | SP-83 |
 | `task-sp-90-golang-runtime-migration` | SP-90 |
 | `task-sp-87-management-readonly-reliability-release` | SP-87 |
+| `task-sp-91-distributed-work-substrate` | SP-91 |
+| `task-sp-92-high-availability-runtime-release` | SP-92 |
+| `task-sp-93-typescript-oracle-retirement` | Barbarossa-local oracle retirement; not synchronized SP-93 |
+| `task-sp-96-management-readonly-local-runtime` | SP-96 |
 
 They authorize fixture-backed contract/runtime construction only: no live source, credential,
 deployment, alert route, domain activation, model/provider call, owner effect, autonomy promotion,
@@ -307,7 +354,7 @@ SPEC-ACL + SPEC-SOT + SPEC-EV + SPEC-OPS --> SPEC-PII
 SPEC-SOT + SPEC-EV + SPEC-KP + SPEC-ACL + SPEC-OPS --> SPEC-MCTX
 ```
 
-The [task queue](https://github.com/100rd/Omniscience/blob/main/docs/specs/README.md) has nine
+The [task queue](https://github.com/100rd/Omniscience/blob/main/docs/specs/README.md) has ten
 independent ready slices:
 
 | Task SPEC | Dependency position |
@@ -321,6 +368,7 @@ independent ready slices:
 | `task-sp-61-pii-wall-pw0` | after SP-60 policy publication |
 | `task-sp-81-management-context-v1` | after SP-70 contract release |
 | `task-sp-86-management-readonly-release` | after exact SP-10/SP-60/SP-61/SP-70/SP-81 inputs; publishes the selected runtime release |
+| `task-sp-95-management-readonly-local-runtime` | after exact SP-86; publishes the namespaced local fragment and owner receipt |
 
 Ready authorizes only the bounded repository-local work and disposable qualification written in each task.
 It is not production/deployment/destructive authority.
@@ -357,6 +405,8 @@ bounded non-live development. The independently claimable
 | `task-sp-63-privacy-center` | SP-63 |
 | `task-sp-84-continuous-management-center` | SP-84 |
 | `task-sp-88-management-readonly-portal-release` | SP-88 |
+| `task-sp-93-barbarossa-ha-observability` | SP-93 |
+| `task-sp-97-management-readonly-local-portal` | SP-97 |
 
 No portal task authorizes a live integration, uncited component truth, component effect, deployment,
 billing event or production claim; source release gates remain explicit.
@@ -403,7 +453,15 @@ registry. External and human inputs remain prose in `Current gate` and are not f
 | `SP-87` Barbarossa management-readonly Reliability release | `barbarossa` | ADR-0012, ADR-0017, ADR-0018, ADR-0020, ADR-0021, ADR-0022 | selected kernel/Reliability/context/view capabilities + `task-sp-87-management-readonly-reliability-release` | `SP-86`, `SP-90` | `ready-for-development-producer-gated` | package exact Go baseline and SP-86 consumer/severance receipt; no Node or action/effect route |
 | `SP-88` Portal management-readonly release | `platform-portal` | ADR-0007, ADR-0011, ADR-0018, ADR-0020, ADR-0021, ADR-0022 | `SPEC-IT`, `SPEC-PS`, `SPEC-PM`, `SPEC-CV`, `SPEC-PII`, `SPEC-CMC` + `task-sp-88-management-readonly-portal-release` | `SP-50`, `SP-86`, `SP-87` | `ready-for-development-owner-release-gated` | exact live reads and Go provenance display, owner-scoped panels, Omnius not_deployed and all write/action routes disabled |
 | `SP-89` integrated management-readonly qualification | `genai-enablement` | ADR-0012, ADR-0018, ADR-0020, ADR-0021, ADR-0022 | `task-sp-89-management-readonly-profile-qualification` | `SP-86`, `SP-87`, `SP-88` | `ready-for-development-component-release-gated` | independently join exact releases and transitive SP-90 Go evidence in one authorized non-production target; no activation or infra mutation |
-| `SP-90` Barbarossa Go runtime migration | `barbarossa` | ADR-0018, ADR-0020, ADR-0021, ADR-0022 | selected kernel/Reliability/context/view capabilities + `task-sp-90-golang-runtime-migration` | `SP-71`, `SP-72`, `SP-74`, `SP-75`, `SP-83` | `ready-for-development-contract-migration-gated` | immutable Go baseline with parity, durability, PW0, no-effect and no-Node evidence; not a component release |
+| `SP-90` Barbarossa Go runtime migration | `barbarossa` | ADR-0018, ADR-0020, ADR-0021, ADR-0022 | complete implemented capability inventory except blocked `SPEC-AUT` + `task-sp-90-golang-runtime-migration` | `SP-71`, `SP-72`, `SP-73`, `SP-74`, `SP-75`, `SP-76`, `SP-77`, `SP-78`, `SP-79`, `SP-80`, `SP-83` | `ready-for-development-contract-migration-gated` | immutable full-Go baseline with all-capability parity, isolation, no-implicit-activation and no-Node evidence; not a component release |
+| `SP-91` Barbarossa distributed work | `barbarossa` | ADR-0018, ADR-0020, ADR-0022, ADR-0023 | `SPEC-LOOP`, `SPEC-DOM`, `SPEC-OBS`, `SPEC-EVAL`, `SPEC-CASE`, `SPEC-FED`, `SPEC-CFL`, `SPEC-VIEW` + `task-sp-91-distributed-work-substrate` | `SP-90`, `SP-87` | `ready-for-development-full-go-gated` | serialized after SP-87 to avoid runtime-path overlap; R3 JetStream plus HA-store idempotency, fencing, ordering, bounded retry/DLQ and PW0 evidence |
+| `SP-92` Barbarossa HA owner release | `barbarossa` | ADR-0018, ADR-0020, ADR-0022, ADR-0023 | selected kernel/runtime capabilities + `task-sp-92-high-availability-runtime-release` | `SP-87`, `SP-91` | `ready-for-development-runtime-substrate-gated` | multi-role topology, capacity/SLO, load/soak/failover/drain/upgrade evidence and owner HA projection |
+| `SP-93` Portal Barbarossa HA observability | `platform-portal` | ADR-0007, ADR-0018, ADR-0020, ADR-0023 | `SPEC-IT`, `SPEC-PS`, `SPEC-PM`, `SPEC-CV`, `SPEC-AU`, `SPEC-CMC` + `task-sp-93-barbarossa-ha-observability` | `SP-88`, `SP-92` | `ready-for-development-owner-ha-release-gated` | read-only queue/worker/dependency/capacity/SLO detail; no direct infrastructure access or controls |
+| `SP-94` integrated Barbarossa HA qualification | `genai-enablement` | ADR-0012, ADR-0018, ADR-0020, ADR-0022, ADR-0023 | `task-sp-94-barbarossa-ha-profile-qualification` | `SP-89`, `SP-92`, `SP-93` | `ready-for-development-ha-release-gated` | independently qualify duplicates, fencing, failures, capacity, lifecycle, Portal truth, tenancy and no effects |
+| `SP-95` Omniscience local owner runtime | `omniscience` | ADR-0018, ADR-0021, ADR-0024 | complete selected Omniscience capability closure + `task-sp-95-management-readonly-local-runtime` | `SP-86` | `ready-for-development-owner-local-gated` | namespaced independently runnable lite fragment, real read contract, dependency readiness, local embeddings and PW0/provider severance |
+| `SP-96` Barbarossa local owner runtime | `barbarossa` | ADR-0018, ADR-0020, ADR-0022, ADR-0023, ADR-0024 | selected kernel/work/read capabilities + `task-sp-96-management-readonly-local-runtime` | `SP-90`, `SP-91`, `SP-92` | `ready-for-development-owner-local-gated` | Go API/worker images, R1 JetStream/single PostgreSQL, real owner projection and explicit non-HA semantics |
+| `SP-97` Portal local real-owner runtime | `platform-portal` | ADR-0007, ADR-0018, ADR-0021, ADR-0023, ADR-0024 | selected Portal read capabilities + `task-sp-97-management-readonly-local-portal` | `SP-88`, `SP-93`, `SP-95`, `SP-96` | `ready-for-development-local-owner-release-gated` | selected-route Portal fragment, real owner reads, structural selected-owner mock exclusion and truthful single-host UX |
+| `SP-98` integrated local qualification | `genai-enablement` | ADR-0012, ADR-0018, ADR-0021, ADR-0022, ADR-0023, ADR-0024 | `task-sp-98-management-readonly-local-qualification` | `SP-95`, `SP-96`, `SP-97` | `ready-for-development-local-receipt-gated` | compose exact owner fragments and qualify functional startup, tenancy/PW0, no effects, severance, persistence and resource envelope |
 
 `SP-10`, `SP-11`, and `SP-12` deliberately remain three tasks. No producer task may edit the consumer,
 and no consumer receipt may rewrite the producer contract.
@@ -429,6 +487,14 @@ exact receipts and verifies the transitive Go binding. Existing Omnius packages 
 status but are not in this profile's required closure. Existing broad mock/construction packages remain
 evidence inputs, not automatic live gates.
 
+`barbarossa-ha-v1` then adds SP-91 through SP-94. SP-91 starts after full-Go SP-90 and the exact SP-87
+functional release so the tasks cannot overlap runtime paths; SP-92 consumes SP-91; SP-93 joins SP-92 with Portal SP-88; SP-94 joins SP-92/SP-93 with
+the exact SP-89 base-profile qualification. Queue and Portal operations remain owner-gated and absent.
+
+`management-readonly-local-v1` then uses SP-95 through SP-98 as a separate development branch of the
+handoff graph. It consumes owner release artifacts but neither requires nor produces SP-89/SP-94 live
+qualification. Local R1/single-store facts remain visibly non-HA and cannot be promoted by a receipt.
+
 ## Development handoff queue
 
 The unit of dispatch is one ready task SPEC in its owning repository. A wave expresses dependency order,
@@ -450,6 +516,27 @@ The current deployment-focused queue is:
    non-production environment exist, assign `task-sp-89-management-readonly-profile-qualification`.
 6. **Do not dispatch Omnius or SP-85 for this profile:** their contracts remain discoverable future
    work and cannot be replaced by a mock or partial receipt.
+
+The HA follow-on queue is:
+
+1. **SP-91 — distributed work:** after exact SP-87 (binding full SP-90), publish the immutable R3
+   JetStream/store/idempotency/fencing receipt.
+2. **SP-92 — Barbarossa HA:** after SP-87 and SP-91, publish quantitative capacity/SLO and
+   load/soak/failover/drain/upgrade evidence.
+3. **SP-93 — Portal HA view:** after SP-88 and SP-92, publish the read-only owner-pinned HA experience.
+4. **SP-94 — integration:** after SP-89, SP-92 and SP-93 plus a named non-production authority receipt,
+   run the independent HA qualification. Production activation remains a separate human decision.
+
+The local-launch queue is:
+
+1. **SP-95 — Omniscience local owner fragment:** after exact SP-86, publish the namespaced image/source
+   fragment, service contract and `OmniscienceLocalRuntimeReceipt`.
+2. **SP-96 — Barbarossa local owner runtime:** in parallel after exact SP-90/SP-91/SP-92, publish real
+   Go API/worker images, local R1/single-store fragment and `BarbarossaLocalRuntimeReceipt`.
+3. **SP-97 — Portal real-owner local runtime:** after exact SP-88/SP-93/SP-95/SP-96, publish the selected
+   Portal fragment and prove selected-owner mocks are absent.
+4. **SP-98 — integration:** include the three exact fragments and run functional-smoke qualification on
+   the declared reference host. Do not report HA, deployment or activation.
 
 The earlier construction queue remains historical dependency context for capabilities outside the
 selected deployment profile:

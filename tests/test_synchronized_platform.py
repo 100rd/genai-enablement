@@ -142,10 +142,95 @@ class SynchronizedPlatformContractTests(unittest.TestCase):
         self.assertEqual(
             "conformance-oracle-only", profile["barbarossa_typescript_role"]
         )
+        self.assertEqual(
+            "complete-implemented-capability-surface",
+            profile["barbarossa_go_scope"],
+        )
         self.assertIn("SP-90", profile["required_work_packages"])
         self.assertNotIn("SP-90", profile["release_work_packages"])
-        self.assertIn("SP-73", profile["non_gating_work_packages"])
+        self.assertIn("SP-73", profile["required_work_packages"])
+        self.assertNotIn("SP-73", profile["release_work_packages"])
         self.assertEqual([], checker.validate_registry(registry, ROOT.parent))
+
+    def test_barbarossa_ha_profile_pins_transport_state_and_release_chain(self) -> None:
+        registry = checker.load_registry()
+        profile = next(
+            item
+            for item in registry["runtime_profiles"]
+            if item["id"] == "barbarossa-ha-v1"
+        )
+        self.assertEqual("nats-jetstream", profile["barbarossa_work_transport"])
+        self.assertEqual(3, profile["barbarossa_stream_replicas"])
+        self.assertEqual("postgresql-ha", profile["barbarossa_state_store"])
+        self.assertEqual("at-least-once", profile["delivery_semantics"])
+        self.assertEqual("forbidden", profile["portal_ha_controls"])
+        self.assertTrue(
+            {"SP-91", "SP-92", "SP-93", "SP-94"}.issubset(
+                profile["required_work_packages"]
+            )
+        )
+        self.assertEqual([], checker.validate_registry(registry, ROOT.parent))
+
+    def test_local_profile_pins_real_owner_functional_smoke_without_ha(self) -> None:
+        registry = checker.load_registry()
+        profile = next(
+            item
+            for item in registry["runtime_profiles"]
+            if item["id"] == "management-readonly-local-v1"
+        )
+        self.assertEqual("docker-compose", profile["orchestrator"])
+        self.assertEqual("2.24.4", profile["minimum_compose_version"])
+        self.assertEqual("functional-smoke-only", profile["qualification_class"])
+        self.assertEqual("development-single-host", profile["availability_class"])
+        self.assertEqual("nats-jetstream", profile["barbarossa_work_transport"])
+        self.assertEqual(1, profile["barbarossa_stream_replicas"])
+        self.assertEqual("postgresql-single-node", profile["barbarossa_state_store"])
+        self.assertFalse(profile["ha_qualified"])
+        self.assertEqual("forbidden", profile["selected_owner_mocks"])
+        self.assertEqual("loopback-only", profile["host_binding_posture"])
+        self.assertEqual(
+            {
+                "vcpu": 4,
+                "memory_bytes": 8_000_000_000,
+                "free_disk_bytes": 25_000_000_000,
+            },
+            profile["minimum_image_mode_host"],
+        )
+        self.assertEqual(12 * 1024**3, profile["recommended_source_build_memory_bytes"])
+        self.assertEqual("sequential", profile["source_build_parallelism_at_minimum"])
+        self.assertEqual(
+            {"SP-95", "SP-96", "SP-97", "SP-98"},
+            set(profile["release_work_packages"]),
+        )
+        self.assertTrue(
+            {"SP-86", "SP-88", "SP-90", "SP-91", "SP-92", "SP-93"}.issubset(
+                profile["required_work_packages"]
+            )
+        )
+        self.assertNotIn("SP-89", profile["required_work_packages"])
+        self.assertNotIn("SP-94", profile["required_work_packages"])
+        self.assertEqual([], checker.validate_registry(registry, ROOT.parent))
+
+    def test_local_handoff_dependency_chain_is_guarded(self) -> None:
+        registry = copy.deepcopy(checker.load_registry())
+        self._package(registry, "SP-97")["depends_on"].remove("SP-96")
+        self._package(registry, "SP-98")["depends_on"].remove("SP-97")
+        errors = checker.validate_registry(registry)
+        self.assertTrue(any("SP-97" in error and "dependency" in error for error in errors))
+        self.assertTrue(any("SP-98" in error and "dependency" in error for error in errors))
+
+    def test_local_profile_rejects_ha_or_mock_promotion(self) -> None:
+        registry = copy.deepcopy(checker.load_registry())
+        profile = next(
+            item
+            for item in registry["runtime_profiles"]
+            if item["id"] == "management-readonly-local-v1"
+        )
+        profile["ha_qualified"] = True
+        profile["selected_owner_mocks"] = "allowed"
+        errors = checker.validate_registry(registry)
+        self.assertTrue(any("ha_qualified must match" in error for error in errors))
+        self.assertTrue(any("selected_owner_mocks must match" in error for error in errors))
 
     def test_runtime_profile_rejects_barbarossa_runtime_drift(self) -> None:
         registry = copy.deepcopy(checker.load_registry())
@@ -183,6 +268,71 @@ class SynchronizedPlatformContractTests(unittest.TestCase):
         ]
         errors = checker.validate_registry(registry)
         self.assertTrue(any("accepted contract closure" in error for error in errors))
+
+    def test_sp90_requires_complete_go_input_closure(self) -> None:
+        registry = copy.deepcopy(checker.load_registry())
+        sp90 = next(item for item in registry["work_packages"] if item["id"] == "SP-90")
+        sp90["depends_on"].remove("SP-76")
+        errors = checker.validate_registry(registry)
+        self.assertTrue(any("accepted dependency edges" in error for error in errors))
+
+    def test_sp90_requires_action_and_non_reliability_contracts(self) -> None:
+        registry = copy.deepcopy(checker.load_registry())
+        barbarossa = self._component(registry, "barbarossa")
+        expected_full_go = {
+            item["id"]
+            for item in barbarossa["capability_specs"]
+            if item["id"] != "SPEC-AUT"
+        }
+        self.assertEqual(expected_full_go, set(checker.BARBAROSSA_FULL_GO_CAPABILITY_IDS))
+        sp90 = next(item for item in registry["work_packages"] if item["id"] == "SP-90")
+        sp90["contracts"] = [
+            item for item in sp90["contracts"] if item.get("id") != "SPEC-COST-EVAL"
+        ]
+        errors = checker.validate_registry(registry)
+        self.assertTrue(any("accepted contract closure" in error for error in errors))
+
+    def test_ha_dependency_chain_is_guarded(self) -> None:
+        registry = copy.deepcopy(checker.load_registry())
+        sp91 = next(item for item in registry["work_packages"] if item["id"] == "SP-91")
+        sp91["depends_on"].remove("SP-87")
+        errors = checker.validate_registry(registry)
+        self.assertTrue(any("accepted dependency edges" in error for error in errors))
+
+    def test_ha_substrate_to_runtime_dependency_is_guarded(self) -> None:
+        registry = copy.deepcopy(checker.load_registry())
+        sp92 = next(item for item in registry["work_packages"] if item["id"] == "SP-92")
+        sp92["depends_on"].remove("SP-91")
+        errors = checker.validate_registry(registry)
+        self.assertTrue(any("accepted dependency edges" in error for error in errors))
+
+    @unittest.skipUnless(ROOT.parent.joinpath("Barbarossa").is_dir(), "sibling workspace required")
+    def test_ha_task_scopes_include_required_integration_seams(self) -> None:
+        barbarossa_task = ROOT.parent / "Barbarossa/docs/specs/task-sp-91-distributed-work-substrate.md"
+        portal_task = ROOT.parent / "platform-portal/docs/specs/task-sp-93-barbarossa-ha-observability.md"
+        barbarossa_text = barbarossa_task.read_text(encoding="utf-8")
+        portal_text = portal_task.read_text(encoding="utf-8")
+        self.assertIn("    - go.mod\n", barbarossa_text)
+        self.assertIn("    - go.sum\n", barbarossa_text)
+        self.assertIn("    - deploy/jetstream/**\n", barbarossa_text)
+        self.assertIn("    - backend/app/cmc/router.py\n", portal_text)
+        self.assertIn("    - backend/app/main.py\n", portal_text)
+        self.assertIn(
+            "    - frontend/app/(shell)/manage/continuous/page.tsx\n", portal_text
+        )
+
+    def test_ha_profile_rejects_single_replica_stream(self) -> None:
+        registry = copy.deepcopy(checker.load_registry())
+        profile = next(
+            item
+            for item in registry["runtime_profiles"]
+            if item["id"] == "barbarossa-ha-v1"
+        )
+        profile["barbarossa_stream_replicas"] = 1
+        errors = checker.validate_registry(registry)
+        self.assertTrue(
+            any("barbarossa_stream_replicas must match" in error for error in errors)
+        )
 
     def test_runtime_profile_missing_dependency_fails(self) -> None:
         registry = copy.deepcopy(checker.load_registry())
@@ -231,8 +381,8 @@ class SynchronizedPlatformContractTests(unittest.TestCase):
     def test_runtime_profile_rejects_non_gating_scope_expansion(self) -> None:
         registry = copy.deepcopy(checker.load_registry())
         profile = registry["runtime_profiles"][0]
-        profile["non_gating_work_packages"].remove("SP-73")
-        profile["required_work_packages"].append("SP-73")
+        profile["non_gating_work_packages"].remove("SP-84")
+        profile["required_work_packages"].append("SP-84")
         errors = checker.validate_registry(registry)
         self.assertTrue(any("required_work_packages must match" in error for error in errors))
 

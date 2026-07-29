@@ -7,7 +7,7 @@
 - **Governance owner:** `genai-enablement`
 - **Deferred runtime owner:** `omnius`
 - **Selected domain:** Reliability
-- **Barbarossa runtime:** Go; TypeScript is a non-deployable conformance oracle
+- **Barbarossa runtime:** complete implemented Go capability surface; TypeScript is a non-deployable conformance oracle
 - **PII Wall:** `PW0 PII-free`
 - **Effect posture:** no operator, agent, Omnius, or managed-system effect path
 
@@ -25,8 +25,12 @@ SP-60 -> SP-61
 SP-70 -> SP-81
 SP-60 + SP-70 -> SP-71
 SP-71 -> SP-72, SP-74, SP-75
+SP-72 -> SP-73
+SP-71 + SP-73 -> SP-76, SP-77, SP-78
+SP-71 + SP-73 + SP-83 -> SP-79
+SP-71 + SP-72 + SP-73 -> SP-80
 SP-72 + SP-81 -> SP-83
-SP-71 + SP-72 + SP-74 + SP-75 + SP-83 -> SP-90
+SP-71 through SP-80 registry implementation inputs + SP-83 -> SP-90 full Go
 SP-10 + SP-61 + SP-81 -> SP-86
 SP-90 + SP-86 -> SP-87
 SP-50 + SP-86 + SP-87 -> SP-88
@@ -40,7 +44,7 @@ the diagram and registry differ.
 
 | Package | Owner | Input pins | Required output |
 |---|---|---|---|
-| `SP-90` | Barbarossa | SP-71/72 kernel, SP-74 projection, SP-75 Reliability, SP-83 context adapter, accepted ADR-0022 | immutable `BarbarossaGoRuntimeBaseline` with compiler/module/SBOM, contract-parity, durability, no-Node and rollback evidence |
+| `SP-90` | Barbarossa | SP-71 through SP-80 implemented capability inputs, SP-83 context adapter, accepted ADR-0022 | immutable `BarbarossaGoRuntimeBaseline` with complete capability parity, isolation, no-implicit-activation, compiler/module/SBOM, durability, no-Node and rollback evidence |
 | `SP-86` | Omniscience | SP-10 contract, SP-60 policy, SP-61 PW0, SP-81 context | immutable `OmniscienceManagementReadOnlyRelease` with Git/image/chart/schema/policy digests and producer evidence |
 | `SP-87` | Barbarossa | exact SP-90 Go baseline and SP-86 release | immutable `BarbarossaManagementReadOnlyRelease` with Go provenance, durable-runtime, Reliability, severance, no-effect and rollback evidence |
 | `SP-88` | Platform Portal | exact SP-86 and SP-87 releases plus SP-50 identity/shell | immutable `PortalManagementReadOnlyRelease` with live-read, tenant/PII, owner-severance, Omnius-not-deployed and no-write evidence |
@@ -56,10 +60,14 @@ the diagram and registry differ.
 | Omnius | target-architecture metadata and `not_deployed` explanation only | runtime workload, credential, network dependency, privacy/action receipt, readiness contribution |
 
 Global package status is retained. SP-11, SP-20, SP-30, SP-40, SP-62, SP-82 and SP-85 are explicitly
-deferred. SP-12, SP-B0-B7, SP-51, SP-52, SP-63, SP-73, SP-76 through SP-80 and SP-84 are
+deferred. SP-12, SP-B0-B7, SP-51, SP-52, SP-63, SP-84 and SP-91 through SP-94 are
 `non_gating_work_packages`: their historical/full-architecture construction or conformance may remain
 useful, but none can close or widen this profile. The registry requires every package to be classified
 as required, deferred or non-gating.
+
+SP-73 and SP-76 through SP-80 are full-Go migration inputs through SP-90. They are not selected runtime
+releases and grant no action or domain activation; their presence in required closure proves only that
+the approved language move is complete.
 
 ## Configuration invariants
 
