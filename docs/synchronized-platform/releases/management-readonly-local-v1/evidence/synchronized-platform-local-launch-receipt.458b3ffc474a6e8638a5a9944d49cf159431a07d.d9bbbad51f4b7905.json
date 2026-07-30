@@ -19,7 +19,7 @@
           "worker_image_tag": "barbarossa-worker:mrl-v1"
         },
         "sp97_portal": {
-          "fragment_compose_digest": "sha256:e563c43502c3d2f3bd825adb836c9d0c4543f9687388d6dce16383ca413f3eac",
+          "fragment_compose_digest": "sha256:c7b97fdc9d71e8bc2bd550431fafb4d2157c7941817a3bd0f666ba00f07071ad",
           "pending": {
             "sp97_runtime_receipt_digest": "Portal's PortalLocalRuntimeReceipt is computed at runtime (backend/app/runtime_profiles/local/receipt.py); no committed receipt JSON exists to content-address. Its committed service contract is pinned."
           },
@@ -165,58 +165,80 @@
     "AC-SP98-3": {
       "class": "live",
       "evidence": {
-        "gap": "portal-frontend never healthy because portal-backend /readyz 404s on the prebuilt owner image (owner defect, not repaired)",
-        "health_gated_up": "migrations completed once, then dependency-aware health for 13/14 steady services",
+        "fresh_env_first_init": "fresh .env DB/store passwords initialized cleanly against reset volumes",
+        "health_gated_up": "docker compose up -d --wait --wait-timeout 600 exit 0; 14/14 steady healthy, 3 one-shot migrations completed once",
         "normal_down_preserves_volumes": true,
-        "reset_is_separate_explicit": "docker compose down -v / scoped volume rm"
+        "readyz_200": "portal-backend GET /readyz -> 200 {\"status\":\"ready\"}",
+        "reset_is_separate_explicit": "docker compose down -v (unchanged; AC-9 deterministic)",
+        "volumes_preserved_after_down": [
+          "barbarossa-nats-data",
+          "barbarossa-postgres-data",
+          "omniscience-natsdata",
+          "omniscience-neo4jdata",
+          "omniscience-neo4jlogs",
+          "omniscience-pgdata",
+          "omniscience-qdrantdata",
+          "portal-mrl-pgdata"
+        ],
+        "warm_restart_recovery": "omniscience-api and barbarossa-api each stopped then started -> returned to healthy with data intact"
       },
       "id": "AC-SP98-3",
+      "note": "Health-gated up 14/14 on a CLEAN slate (fresh volumes + fresh generated .env), migrations once, warm-restart recovery, normal down preserves all 8 volumes; reset stays the separate explicit down -v.",
       "probe": "synchronized-local-lifecycle",
-      "reason": "owner_artifact_skew_portal_backend_readyz_404",
       "requirement": "config/migration/bootstrap/health-gated up/warm restart/down + explicit reset separation; normal down preserves volumes",
-      "status": "partial"
+      "status": "PASS"
     },
     "AC-SP98-4": {
       "class": "live",
       "evidence": {
-        "barbarossa_availability_200_development_single_host": true,
-        "browser_panel_not_driven": "portal-frontend blocked by AC-3 owner skew",
+        "barbarossa_live_exact_development_single_host_not_qualified_axes": true,
+        "console_errors": 0,
         "mocks_absent_from_running_model": true,
-        "omniscience_ready_200_full_closure": true
+        "oidc_login_on_shipped_default_no_override": true,
+        "omniscience_live_exact_full_dep_closure": true,
+        "omniscience_pin_matches_receipt_sp95": true,
+        "panel_unavailable_count": 0
       },
       "id": "AC-SP98-4",
+      "note": "OIDC login completes on the SHIPPED default (no override) and the Local Owners page renders REAL SP-95/SP-96 owner truth verbatim, no mock. The prior owner secret skew is fixed (PR #17) and the genai .env.example counterpart applied.",
       "probe": "synchronized-local-real-owner-experience",
-      "reason": "real_owner_reads_live_browser_blocked_by_owner_image_skew",
       "requirement": "Portal renders exact real Omniscience/Barbarossa owner revisions/freshness/development-single-host; selected-owner mocks absent",
-      "status": "partial"
+      "status": "PASS"
     },
     "AC-SP98-5": {
       "class": "live",
       "evidence": {
-        "full_two_tenant_seeded_pii_ui_corpus": "not driven (frontend blocked)",
+        "foreign_workspace_denied_without_retrieval": true,
+        "full_two_tenant_seeded_pii_ui_corpus": "not exercisable (no seeded Omniscience workspace content in the shipped fixtures)",
         "no_omnius_or_mock_running": true,
         "no_owner_write_credential": true,
         "omniscience_pw0_privacy_contract_healthy": true,
-        "portal_cannot_reach_owner_private_store_live": true
+        "portal_cannot_reach_owner_private_store_live": true,
+        "positive_read_blocked_by_absent_omniscience_content": true,
+        "unsafe_privacy_payload_not_echoed": true
       },
       "id": "AC-SP98-5",
+      "note": "Fail-closed negatives and boundary negatives hold LIVE on the shipped default (foreign-workspace denied without retrieval, no-owned-workspace fails closed, unsafe payload not echoed, PW0 overview honest-unavailable, omniscience pw0_privacy_contract healthy). But the shipped fixtures seed a single tenant and NO Omniscience workspace CONTENT: seeding a portal-side workspace row advanced the read only to 503 'unavailable' (Omniscience had no content), so a positive tenant-scoped read -- and therefore a two-distinct-tenant cross-scope content-disclosure corpus -- cannot be exercised. Not forced green; documented reason.",
       "probe": "synchronized-local-tenant-pw0-no-effect",
-      "reason": "boundary_negatives_live_full_tenant_corpus_needs_portal_ui",
+      "reason": "two_tenant_seeded_pii_corpus_out_of_reach_no_omniscience_workspace_content_in_shipped_fixtures",
       "requirement": "two-scope reads + seeded PII/token/active-content show no cross-scope disclosure, sink residue, owner write, or Omnius effect",
       "status": "partial"
     },
     "AC-SP98-6": {
       "class": "live",
       "evidence": {
-        "both_owners_up_independent_lifecycles": true,
-        "omniscience_absent_stage1_barbarossa_read_unaffected": true,
-        "panel_level_toggling_via_ui": "not driven (frontend blocked)"
+        "barbarossa_restart_fresh_recovery_no_cached_current": true,
+        "barbarossa_stop_only_its_panel_unavailable_sibling_intact": true,
+        "console_errors": 0,
+        "omniscience_restart_fresh_recovery_no_cached_current": true,
+        "omniscience_stop_only_its_panel_unavailable_sibling_intact": true,
+        "portal_readiness_preserved": true
       },
       "id": "AC-SP98-6",
+      "note": "Panel-level severance driven end-to-end on the SHIPPED default (no override): stopping either owner marks ONLY its panel unavailable, the sibling stays live_exact, and restart restores fresh truth with no cached_current.",
       "probe": "synchronized-local-severance-recovery",
-      "reason": "severance_direction_observed_api_level",
       "requirement": "stopping either owner marks only its own panel unavailable/stale and recovery restores fresh truth",
-      "status": "partial"
+      "status": "PASS"
     },
     "AC-SP98-7": {
       "class": "live",
@@ -227,8 +249,8 @@
         "host_capacity_sufficient": true,
         "omniscience_api_cold_to_healthy_seconds_approx": 45,
         "per_service_memory_limits_declared": true,
-        "portal_frontend_absent": "owner backend /readyz skew, not a capacity limit; declared 512m limit keeps total within envelope",
-        "steady_stack_gib_approx": 2.1,
+        "steady_services_healthy": "14/14",
+        "steady_stack_gib_approx": 2.2,
         "torch_omniscience_api_healthy": true
       },
       "id": "AC-SP98-7",
@@ -271,7 +293,7 @@
           "compose.source.yaml",
           ".env.example"
         ],
-        "env_example_digest": "sha256:19f0f9581c6ee1436ff7412200014e19f69f42c1fec371f03589ed5f1414d3ad",
+        "env_example_digest": "sha256:d10f60adfb069df96024106520798f206f82c6ca64adce9f631d553dcbc00e61",
         "example_variable_count": 26,
         "generator": {
           "confirm_token": "--i-am-resetting-local-secrets",
@@ -301,7 +323,7 @@
   "assembled_compose": {
     "base": "deploy/local/management-readonly-v1/compose.yaml",
     "base_digest": "sha256:0de28fc02880b14ccefa15b6e05e4cb34060ae628fbdf93b30310819e05bc419",
-    "rendered_compose_digest": "sha256:067c86297e0344ed99dd467db5a4a2574976598f9c19c5af021dd4d8d184a7e0",
+    "rendered_compose_digest": "sha256:9d5c5bf571ff2074279fc9f767287ef1c948eecab753d5e917ce05480ed9b380",
     "source_overlay": "deploy/local/management-readonly-v1/compose.source.yaml",
     "source_overlay_digest": "sha256:2d050759f864afe173e7037b710e794b2f92771bcdf97666e958a0f8a23544ee"
   },
@@ -316,7 +338,7 @@
     "AC-SP98-9"
   ],
   "deterministic_status": "GREEN",
-  "genai_enablement_git_commit": "2c103c785c23b6446358fe688553ddb426b1e174",
+  "genai_enablement_git_commit": "458b3ffc474a6e8638a5a9944d49cf159431a07d",
   "governing_adr": "ADR-0024",
   "ha_qualified": false,
   "inventory_digests": {
@@ -392,7 +414,7 @@
       "contract_availability_class": "development-single-host",
       "contract_ha_qualified": false,
       "contract_revision": "task-sp-97-management-readonly-local-portal",
-      "fragment_compose_digest": "sha256:e563c43502c3d2f3bd825adb836c9d0c4543f9687388d6dce16383ca413f3eac",
+      "fragment_compose_digest": "sha256:c7b97fdc9d71e8bc2bd550431fafb4d2157c7941817a3bd0f666ba00f07071ad",
       "fragment_dir": "platform-portal/infra/compose/management-readonly-local",
       "fragment_source_override_digest": "sha256:d48fde7de00ac5b76b58396fa9c103da6060b881002348b154398013a41a7d6a",
       "fragment_worktree_dirty": false,
@@ -406,7 +428,7 @@
       "pinned_sp95_service_contract_digest": "sha256:f5807a51020e2d5ed4e442ebb9c9c72afb01887ea1c9c139e08764efcd423f6a",
       "pinned_sp96_api_image_tag": "barbarossa-api:mrl-v1",
       "pinned_sp96_worker_image_tag": "barbarossa-worker:mrl-v1",
-      "repo_head": "dfedd49d3f2ff475078bb7adf71fa491e98f5980",
+      "repo_head": "029d69020efad3e78ec15315a7b006fd62eaf3d7",
       "runtime_receipt_committed": false,
       "service_contract_digest": "sha256:27a74d9eb3079b1d6c45d37b7eaed2e2da8e3e135e4675b8106a15060439e6fe"
     }
@@ -421,7 +443,7 @@
     "sp96 barbarossa runtime receipt is not a committed content-addressable artifact",
     "sp97 portal runtime receipt is not a committed content-addressable artifact"
   ],
-  "receipt_digest": "sha256:c3c33c3daf102af3d5fd28c9d49946092d8bc28d40b3ea594984404f78b7c1a5",
+  "receipt_digest": "sha256:d9bbbad51f4b7905aca4740946cb1a5d40bf7975ee6978962924afd138647f1e",
   "receipt_type": "SynchronizedPlatformLocalLaunchReceipt",
   "reference_host": {
     "arch": "arm64",
