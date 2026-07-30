@@ -1,0 +1,68 @@
+# ===========================================================================
+# Synchronized platform — management-readonly-local-v1  (task-sp-98, ADR-0024)
+# ---------------------------------------------------------------------------
+# THE one assembled Compose application. It does not define a single owner
+# service, image, migration or health semantic itself: per ADR-0024 D2 it uses
+# the Compose `include` mechanism to assemble the EXACT, owner-published local
+# fragments of the three runtime owners and adds only the cross-component
+# integration wiring (the shared owner-read networks + the project identity).
+#
+#   SP-95  Omniscience  -> ../../../../Omniscience/deploy/compose/management-readonly-local/
+#   SP-96  Barbarossa   -> ../../../../barbarossa/deploy/compose/management-readonly-local/
+#   SP-97  Platform Portal -> ../../../../platform-portal/infra/compose/management-readonly-local/
+#
+# This file is the IMAGE-mode / canonical model: it renders (`docker compose
+# config`) the full 14-service steady inventory + one-shot migrations with every
+# key owner-prefixed and no mock/omnius/collision. Omniscience's own image-mode
+# base pins the SP-86 owner image by @sha256 digest; until SP-86 publishes a
+# real registry digest that base carries an all-zero sentinel that fails to pull
+# LOUDLY (never a silent mutable-tag substitution — ADR-0024 MLC-9). To RUN the
+# stack from the already-built local owner images, layer the source overlay:
+#
+#     docker compose \
+#       -f deploy/local/management-readonly-v1/compose.yaml \
+#       -f deploy/local/management-readonly-v1/compose.source.yaml \
+#       --env-file deploy/local/management-readonly-v1/.env \
+#       up -d --wait
+#
+# Bring-up is ONE health-gated project. Normal `down` preserves every owner
+# named volume; a destructive reset is the separate, explicit `down -v` (never
+# part of ordinary stop/rollback — ADR-0024 D6/MLC-10).
+# ===========================================================================
+
+name: management-readonly-local-v1
+
+include:
+  # SP-95 — Omniscience owner fragment (api/admin/postgres/nats/neo4j/qdrant +
+  # one-shot migrate). Owns omniscience-readnet (read edge) + omniscience-private
+  # (internal stores/broker). Publishes only the admin UI on 127.0.0.1:3001.
+  - path: ../../../../Omniscience/deploy/compose/management-readonly-local/compose.yaml
+
+  # SP-96 — Barbarossa owner fragment (api/worker/postgres/nats + one-shot
+  # migrate). Owns barbarossa-edge (the ONLY network Portal joins for read) +
+  # barbarossa-private (internal). No default host binding.
+  - path: ../../../../barbarossa/deploy/compose/management-readonly-local/compose.yaml
+
+  # SP-97 — Platform Portal owner fragment (frontend/backend/postgres/keycloak +
+  # one-shot migrate). Reads the REAL owners over their read networks; joins no
+  # owner-private network and holds no owner-write credential. Publishes only
+  # frontend on 127.0.0.1:3000 and Keycloak on 127.0.0.1:8081.
+  - path: ../../../../platform-portal/infra/compose/management-readonly-local/compose.yaml
+
+# ---------------------------------------------------------------------------
+# Cross-component network reconciliation (the integration-only wiring this
+# repository owns). Standalone, the Portal fragment declares the two owner-read
+# networks `external: true` (it expects the owners to be up first). Assembled
+# into this SINGLE project the owner fragments themselves create those networks,
+# so we pin them `external: false` here — the including file's declaration takes
+# precedence over the merged fragment declarations. Portal's backend still joins
+# ONLY these two read edges; it never joins omniscience-private / barbarossa-
+# private (those stay `internal: true` exactly as their owners declared them).
+# ---------------------------------------------------------------------------
+networks:
+  omniscience-readnet:
+    name: omniscience-readnet
+    external: false
+  barbarossa-edge:
+    name: barbarossa-edge
+    external: false

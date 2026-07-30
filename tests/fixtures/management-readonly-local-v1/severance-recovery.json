@@ -1,0 +1,52 @@
+{
+  "note": "Ground-truth severance / skew / recovery matrix for the assembled management-readonly-local-v1 stack (task-sp-98, ADR-0024). AC-SP98-6 (synchronized-local-severance-recovery) expects that stopping/skewing exactly one owner marks ONLY that owner's Portal panel unavailable/stale, preserves the sibling panel and Portal readiness, and that recovery restores fresh truth with no duplicate authoritative transition. Joins Portal service-contract.json#fail_closed_matrix and each owner's own severance evidence; a live capture folds observed outcomes on.",
+  "profile_id": "management-readonly-local-v1",
+  "invariants": [
+    "one_owner_failure_never_blanks_the_other",
+    "unavailable_panel_never_carries_owner_content",
+    "recovery_restores_fresh_projection_without_duplicate_authoritative_transition"
+  ],
+  "forbidden_outcomes": ["healthy", "empty", "cached_current", "sibling_blanked", "duplicate_authoritative_transition"],
+  "scenarios": [
+    {
+      "id": "omniscience-stop",
+      "owner": "omniscience",
+      "action": "docker compose stop omniscience-api",
+      "expected_panel_outcome": "omniscience_panel_unavailable",
+      "unrelated_owner_preserved": "barbarossa_panel_unchanged",
+      "portal_readiness_preserved": true,
+      "recovery": "restart omniscience-api -> fresh omniscience projection restored",
+      "source_ref": "Portal service-contract.json#fail_closed_matrix[owner_unreachable]"
+    },
+    {
+      "id": "barbarossa-stop",
+      "owner": "barbarossa",
+      "action": "docker compose stop barbarossa-api",
+      "expected_panel_outcome": "barbarossa_panel_unavailable",
+      "unrelated_owner_preserved": "omniscience_panel_unchanged",
+      "portal_readiness_preserved": true,
+      "recovery": "restart barbarossa-api -> fresh barbarossa availability restored",
+      "source_ref": "Portal service-contract.json#fail_closed_matrix[owner_unreachable]"
+    },
+    {
+      "id": "owner-identity-skew",
+      "owner": "barbarossa",
+      "action": "present an unexpected owner identity/revision",
+      "expected_panel_outcome": "live_tampered_on_owning_panel_only",
+      "unrelated_owner_preserved": "omniscience_panel_unchanged",
+      "portal_readiness_preserved": true,
+      "recovery": "restore expected owner revision -> panel returns to live",
+      "source_ref": "Portal service-contract.json#fail_closed_matrix[tampered_owner_identity]"
+    },
+    {
+      "id": "normal-restart-persistence",
+      "owner": "all",
+      "action": "docker compose restart (normal; volumes preserved)",
+      "expected_panel_outcome": "owner_state_survives_restart",
+      "unrelated_owner_preserved": "all_panels_converge",
+      "portal_readiness_preserved": true,
+      "recovery": "projections converge without duplicate authoritative transition",
+      "source_ref": "profile management-readonly-local-v1.md#functional-smoke-matrix[Persistence]"
+    }
+  ]
+}

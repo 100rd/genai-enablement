@@ -1,0 +1,52 @@
+{
+  "note": "Ground-truth tenant / PW0 / no-effect matrix for the assembled management-readonly-local-v1 stack (task-sp-98, ADR-0024). It joins each owner's already-published fail-closed matrix (Omniscience service-contract.json fail_closed_matrix, Barbarossa read-only edge, Portal service-contract.json fail_closed_matrix) into the integrated AC-SP98-5 (synchronized-local-tenant-pw0-no-effect) expectations. A live capture folds observed outcomes onto these expectations; a forbidden favorable outcome is never a PASS.",
+  "profile_id": "management-readonly-local-v1",
+  "tenants": [
+    {"id": "dev-fixture-tenant-a", "workspace": "dev-fixture-workspace-a", "role": "positive-scope reader"},
+    {"id": "dev-fixture-tenant-b", "workspace": "dev-fixture-workspace-b", "role": "negative-scope reader (must never receive tenant-a fields)"}
+  ],
+  "forbidden_outcomes": ["healthy", "empty", "cached_current", "compatible", "field_donation", "cross_scope_disclosure", "sink_residue", "owner_write", "omnius_effect", "favorable_fallback"],
+  "sinks_checked_before_disclosure": ["durable_store", "projection", "ui", "log", "trace", "metric", "archive", "backup"],
+  "cases": [
+    {
+      "id": "tenant-a-positive-read",
+      "family": "tenant",
+      "scope": "dev-fixture-tenant-a/dev-fixture-workspace-a",
+      "expected_outcome": "authorized_read_of_own_scope_only",
+      "must_not_validate_as": ["field_donation", "cross_scope_disclosure"],
+      "source_ref": "Omniscience/contracts/releases/management-readonly-local-v1/service-contract.json#consumer_binding.reference_authorized_consumer"
+    },
+    {
+      "id": "tenant-b-negative-read",
+      "family": "tenant",
+      "scope": "dev-fixture-tenant-b/dev-fixture-workspace-b",
+      "expected_outcome": "denied_without_retrieval",
+      "reason": "workspace_missing_or_foreign",
+      "must_not_validate_as": ["field_donation", "cross_scope_disclosure", "cached_current", "timing_disclosure"],
+      "source_ref": "Omniscience service-contract.json#fail_closed_matrix[foreign_workspace]"
+    },
+    {
+      "id": "pw0-seeded-pii-rejected",
+      "family": "pw0",
+      "scope": "dev-fixture-tenant-a/dev-fixture-workspace-a",
+      "expected_outcome": "no_pii_reaches_any_sink",
+      "seeded": ["raw_pii", "reversible_token", "active_content"],
+      "must_not_validate_as": ["sink_residue", "echo", "cached_current"],
+      "source_ref": "ADR-0018 PW0 wall; Omniscience service-contract.json#negative_space[external_model_or_provider_call]"
+    },
+    {
+      "id": "no-owner-write-route",
+      "family": "no_effect",
+      "expected_outcome": "no_owner_write_or_action_or_effect_route_reachable",
+      "must_not_validate_as": ["owner_write", "action_or_control_or_effect_route", "omnius_route"],
+      "source_ref": "Portal service-contract.json#negative_space[owner_write_route,action_or_control_or_effect_route,omnius_runtime_or_mock_route]"
+    },
+    {
+      "id": "no-omnius-runtime-or-mock",
+      "family": "no_effect",
+      "expected_outcome": "omnius_absent_from_rendered_and_running_model",
+      "must_not_validate_as": ["omnius_effect", "mock_owner_as_live"],
+      "source_ref": "profile management-readonly-local-v1.md#negative-space; ADR-0024 D1"
+    }
+  ]
+}

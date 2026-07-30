@@ -1,0 +1,94 @@
+name: management-readonly-local-v1 integrator
+
+# SP-98 integrator gate. It references ONLY the SP-98 in-PR files (never the
+# pre-existing SP-89 management-readonly-v1 qualifier/tests, and never a sibling
+# owner repository). The three owner fragments live in separate repositories and
+# are NOT checked out here, so the cross-repo `include:` in the assembled
+# compose cannot be resolved in CI — the deterministic Python + static-YAML gate
+# below is what CI enforces; the full `docker compose config` render and live
+# smoke are exercised locally where the owner fragments exist.
+
+on:
+  pull_request:
+    paths:
+      - "deploy/local/management-readonly-v1/**"
+      - "scripts/generate_management_readonly_local_env.py"
+      - "scripts/qualify_management_readonly_local.py"
+      - "tests/test_management_readonly_local.py"
+      - "tests/fixtures/management-readonly-local-v1/**"
+      - "docs/synchronized-platform/releases/management-readonly-local-v1/**"
+      - ".github/workflows/management-readonly-local.yml"
+  push:
+    branches: [main]
+    paths:
+      - "deploy/local/management-readonly-v1/**"
+      - "scripts/generate_management_readonly_local_env.py"
+      - "scripts/qualify_management_readonly_local.py"
+      - "tests/test_management_readonly_local.py"
+      - "tests/fixtures/management-readonly-local-v1/**"
+      - "docs/synchronized-platform/releases/management-readonly-local-v1/**"
+      - ".github/workflows/management-readonly-local.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  integrator:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
+
+      # Lint + format only the SP-98 in-PR Python files.
+      - name: ruff check
+        run: >-
+          uvx ruff check
+          scripts/generate_management_readonly_local_env.py
+          scripts/qualify_management_readonly_local.py
+          tests/test_management_readonly_local.py
+      - name: ruff format --check
+        run: >-
+          uvx ruff format --check
+          scripts/generate_management_readonly_local_env.py
+          scripts/qualify_management_readonly_local.py
+          tests/test_management_readonly_local.py
+
+      # Validate the assembled Compose files. The owner fragments are separate
+      # repos absent in CI, so `docker compose config` (which resolves the
+      # cross-repo include) is run only when they happen to be present; otherwise
+      # the YAML syntax + include-only shape is validated deterministically.
+      - name: Validate assembled compose
+        run: |
+          uv run --no-project --with pyyaml python - <<'PY'
+          import yaml
+          from pathlib import Path
+          base = Path("deploy/local/management-readonly-v1/compose.yaml")
+          src = Path("deploy/local/management-readonly-v1/compose.source.yaml")
+          model = yaml.safe_load(base.read_text())
+          assert "services" not in model, "assembled compose must be include-only (no owner service)"
+          assert len(model.get("include", [])) == 3, "must include exactly the three owner fragments"
+          nets = model["networks"]
+          assert nets["omniscience-readnet"]["external"] is False
+          assert nets["barbarossa-edge"]["external"] is False
+          yaml.safe_load(src.read_text())
+          print("assembled compose YAML + include-only shape OK")
+          PY
+
+      - name: Optional full compose render (only if owner fragments are present)
+        run: |
+          if [ -f ../Omniscience/deploy/compose/management-readonly-local/compose.yaml ]; then
+            docker compose -f deploy/local/management-readonly-v1/compose.yaml config -q \
+              && echo "full render OK"
+          else
+            echo "owner fragments absent in CI (separate repos) — full render validated locally"
+          fi
+
+      # Deterministic tests (env-generator safety, .env coverage, fixtures,
+      # qualifier pure functions). Docker+sibling tests self-skip when the owner
+      # fragments are absent.
+      - name: pytest (SP-98 integrator, deterministic tier)
+        run: uvx --with pytest --with pyyaml pytest tests/test_management_readonly_local.py -v

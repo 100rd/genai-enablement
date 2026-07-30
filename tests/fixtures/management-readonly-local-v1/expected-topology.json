@@ -1,0 +1,51 @@
+{
+  "note": "Ground-truth rendered topology for the assembled management-readonly-local-v1 stack (task-sp-98, ADR-0024). AC-SP98-2 (synchronized-local-topology-containment) checks the `docker compose config` render of deploy/local/management-readonly-v1/compose.yaml against this exact owner-prefixed inventory. No mock/omnius/generic resource may appear; only three loopback host bindings are published; the Portal backend joins only the two owner-read edges plus its own private network.",
+  "profile_id": "management-readonly-local-v1",
+  "base_profile_id": "management-readonly-v1",
+  "steady_services": [
+    "omniscience-api",
+    "omniscience-admin",
+    "omniscience-postgres",
+    "omniscience-nats",
+    "omniscience-neo4j",
+    "omniscience-qdrant",
+    "barbarossa-api",
+    "barbarossa-worker",
+    "barbarossa-postgres",
+    "barbarossa-nats",
+    "portal-frontend",
+    "portal-backend",
+    "portal-postgres",
+    "portal-keycloak"
+  ],
+  "oneshot_services": [
+    "omniscience-migrate",
+    "barbarossa-migrate",
+    "portal-migrate"
+  ],
+  "networks": {
+    "omniscience-readnet": {"internal": false, "role": "omniscience read edge (owner-created, managed in the assembled project)"},
+    "omniscience-private": {"internal": true, "role": "omniscience-private stores/broker"},
+    "barbarossa-edge": {"internal": false, "role": "barbarossa read edge; the ONLY network Portal joins for barbarossa"},
+    "barbarossa-private": {"internal": true, "role": "barbarossa-private store/broker/worker/migration"},
+    "portal-private": {"internal": false, "role": "portal-owned stores/identity", "rendered_name": "portal-mrl-private"}
+  },
+  "volumes": [
+    "omniscience-pgdata",
+    "omniscience-natsdata",
+    "omniscience-neo4jdata",
+    "omniscience-neo4jlogs",
+    "omniscience-qdrantdata",
+    "barbarossa-postgres-data",
+    "barbarossa-nats-data",
+    "portal-pgdata"
+  ],
+  "host_bindings": [
+    {"service": "portal-frontend", "host_ip": "127.0.0.1", "host_port": 3000, "container_port": 3000},
+    {"service": "portal-keycloak", "host_ip": "127.0.0.1", "host_port": 8081, "container_port": 8081},
+    {"service": "omniscience-admin", "host_ip": "127.0.0.1", "host_port": 3001, "container_port": 80}
+  ],
+  "portal_backend_networks": ["omniscience-readnet", "barbarossa-edge", "portal-private"],
+  "owner_private_networks_never_joined_by_portal": ["omniscience-private", "barbarossa-private"],
+  "forbidden_resources": ["mock-*", "omnius-*", "generic app", "generic postgres", "shared broker/store"]
+}

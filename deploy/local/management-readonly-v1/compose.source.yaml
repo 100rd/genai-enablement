@@ -1,0 +1,40 @@
+# ===========================================================================
+# Synchronized platform — source overlay  (task-sp-98, ADR-0024)
+# ---------------------------------------------------------------------------
+# Layer ON TOP of compose.yaml to make the assembled stack RUNNABLE from the
+# owners' locally-built images instead of the (not-yet-published) SP-86 OCI
+# digest. It adds only the owners' OWN source-build overrides via `include`; it
+# copies no owner build step, migration or health semantic (ADR-0024 D2 / MLC-4).
+#
+#     docker compose \
+#       -f deploy/local/management-readonly-v1/compose.yaml \
+#       -f deploy/local/management-readonly-v1/compose.source.yaml \
+#       --env-file deploy/local/management-readonly-v1/.env \
+#       up -d --wait
+#
+# REUSE, don't rebuild: run WITHOUT `--build` and Compose reuses the already-
+# built owner images (omniscience-local/omniscience-server:source,
+# barbarossa-{api,worker}:mrl-v1). Pass `--build` only for a true from-worktree
+# rebuild — that recompiles the heavy Omniscience image. Source mode records the
+# owner git commit + dirty flag and can never claim reproducible=true (MLC-9);
+# the qualifier pins mode=source / reproducible=false accordingly.
+#
+# Portal is intentionally NOT overridden here: its base already references the
+# runnable local `platform-portal-{backend,frontend}:latest` tags, so the
+# assembled stack reuses them with no rebuild. A full Portal source build is the
+# explicit extra layer `-f ../../../../platform-portal/infra/compose/management-\
+# readonly-local/compose.source.yaml` (it resets the image and rebuilds).
+# ===========================================================================
+
+name: management-readonly-local-v1
+
+include:
+  # SP-95 — Omniscience source build override. Points api/migrate/admin at the
+  # locally-built owner images (pull_policy: never); the only owner whose
+  # image-mode base is not runnable until SP-86 publishes an OCI digest.
+  - path: ../../../../Omniscience/deploy/compose/management-readonly-local/compose.source.yaml
+
+  # SP-96 — Barbarossa source build override. Binds api/worker/migrate to the
+  # Go-only role images built from the Barbarossa worktree (same barbarossa-*
+  # tags the base already resolves, so reused without `--build`).
+  - path: ../../../../barbarossa/deploy/compose/management-readonly-local/compose.source.yaml
