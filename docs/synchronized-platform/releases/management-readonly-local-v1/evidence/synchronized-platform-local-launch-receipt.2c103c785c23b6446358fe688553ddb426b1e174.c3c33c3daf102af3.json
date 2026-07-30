@@ -1,0 +1,456 @@
+{
+  "acceptance_criteria": {
+    "AC-SP98-1": {
+      "bound_owner_identities": {
+        "sp95_omniscience": {
+          "fragment_compose_digest": "sha256:fd8b65eb111d04c75f25384c55535bc86b077e1a1f291b3e43041155f4edcc39",
+          "local_runtime_receipt_digest": "sha256:e7ec690a046276b0165f3cfbc57634b4bad17ef0e8d022196b7911a571de6b67",
+          "receipt_git_commit": "a7caefd08d0f5d59198e7c49cb8fd8df5623e391",
+          "receipt_status": "RED",
+          "service_contract_digest": "sha256:f5807a51020e2d5ed4e442ebb9c9c72afb01887ea1c9c139e08764efcd423f6a"
+        },
+        "sp96_barbarossa": {
+          "api_image_tag": "barbarossa-api:mrl-v1",
+          "fragment_compose_digest": "sha256:8d112c84798dea8a65a422aa4160bfb71dedfbb661805e1a44bad7c792339f29",
+          "pending": {
+            "sp96_runtime_receipt_digest": "Barbarossa's BarbarossaLocalRuntimeReceipt is computed at runtime (internal/kernel/act/receipt.go); no committed receipt JSON exists to content-address. Its committed service contract is pinned instead."
+          },
+          "service_contract_digest": "sha256:ad418b077c98ed89e692445101d4b8ab2f9301b05327769960b7ac8f1cdb153c",
+          "worker_image_tag": "barbarossa-worker:mrl-v1"
+        },
+        "sp97_portal": {
+          "fragment_compose_digest": "sha256:e563c43502c3d2f3bd825adb836c9d0c4543f9687388d6dce16383ca413f3eac",
+          "pending": {
+            "sp97_runtime_receipt_digest": "Portal's PortalLocalRuntimeReceipt is computed at runtime (backend/app/runtime_profiles/local/receipt.py); no committed receipt JSON exists to content-address. Its committed service contract is pinned."
+          },
+          "service_contract_digest": "sha256:27a74d9eb3079b1d6c45d37b7eaed2e2da8e3e135e4675b8106a15060439e6fe"
+        }
+      },
+      "class": "deterministic",
+      "cross_checks": [
+        {
+          "actual": true,
+          "expected": true,
+          "name": "omniscience fragment compose digest re-derives (non-empty sha256)",
+          "pass": true
+        },
+        {
+          "actual": true,
+          "expected": true,
+          "name": "omniscience service_contract digest re-derives",
+          "pass": true
+        },
+        {
+          "actual": true,
+          "expected": true,
+          "name": "barbarossa fragment compose digest re-derives (non-empty sha256)",
+          "pass": true
+        },
+        {
+          "actual": true,
+          "expected": true,
+          "name": "barbarossa service_contract digest re-derives",
+          "pass": true
+        },
+        {
+          "actual": true,
+          "expected": true,
+          "name": "platform-portal fragment compose digest re-derives (non-empty sha256)",
+          "pass": true
+        },
+        {
+          "actual": true,
+          "expected": true,
+          "name": "platform-portal service_contract digest re-derives",
+          "pass": true
+        },
+        {
+          "actual": "sha256:f5807a51020e2d5ed4e442ebb9c9c72afb01887ea1c9c139e08764efcd423f6a",
+          "expected": "sha256:f5807a51020e2d5ed4e442ebb9c9c72afb01887ea1c9c139e08764efcd423f6a",
+          "name": "omniscience service_contract digest == owner receipt.declared_service_contract_digest",
+          "pass": true
+        },
+        {
+          "actual": "sha256:f5807a51020e2d5ed4e442ebb9c9c72afb01887ea1c9c139e08764efcd423f6a",
+          "expected": "sha256:f5807a51020e2d5ed4e442ebb9c9c72afb01887ea1c9c139e08764efcd423f6a",
+          "name": "portal pinned sp95 service_contract_digest == independently-derived omniscience digest",
+          "pass": true
+        },
+        {
+          "actual": "a7caefd08d0f5d59198e7c49cb8fd8df5623e391",
+          "expected": "a7caefd08d0f5d59198e7c49cb8fd8df5623e391",
+          "name": "portal pinned sp95 git_commit == omniscience receipt git_commit",
+          "pass": true
+        },
+        {
+          "actual": "barbarossa-api:mrl-v1",
+          "expected": "barbarossa-api:mrl-v1",
+          "name": "portal pinned sp96 api_image_tag == barbarossa member api_image_tag",
+          "pass": true
+        },
+        {
+          "actual": "barbarossa-api:mrl-v1",
+          "expected": "barbarossa-api:mrl-v1",
+          "name": "barbarossa-api rendered image == pinned barbarossa-api:mrl-v1",
+          "pass": true
+        },
+        {
+          "actual": true,
+          "expected": true,
+          "name": "omniscience image-mode base carries the unpublished @sha256 zero sentinel (fails loudly, no mutable substitution)",
+          "pass": true
+        },
+        {
+          "actual": false,
+          "expected": false,
+          "name": "assembled compose.yaml declares no owner service itself (include-only composition, MLC-4)",
+          "pass": true
+        },
+        {
+          "actual": [],
+          "expected": [],
+          "name": "no mock/omnius service in the rendered model",
+          "pass": true
+        }
+      ],
+      "id": "AC-SP98-1",
+      "note": "PASS means the assembled model includes ONLY exact owner-published fragments/receipts by content-addressed digest and renders with no mock/omnius/copied-owner-config. reproducible=false is honest here (source mode, an owner receipt is itself RED/dirty, and no SP-86 OCI digest is published) and never upgraded to a reproducible PASS.",
+      "probe": "synchronized-local-compose-lock",
+      "reproducible": false,
+      "status": "PASS"
+    },
+    "AC-SP98-2": {
+      "class": "deterministic",
+      "evidence": {
+        "active_owner_write_credential_keys": [],
+        "expected_topology_fixture_digest": "sha256:9e0be71b397ec3d299f9696b980af68333aace16a9aa72172c89fe08797e3c49",
+        "host_bindings": [
+          "omniscience-admin:127.0.0.1:3001",
+          "portal-frontend:127.0.0.1:3000",
+          "portal-keycloak:127.0.0.1:8081"
+        ],
+        "networks": [
+          "barbarossa-edge",
+          "barbarossa-private",
+          "omniscience-private",
+          "omniscience-readnet",
+          "portal-private"
+        ],
+        "neutralized_owner_credential_keys": [
+          "OMNISCIENCE_BROKER_ADMIN_CREDENTIAL"
+        ],
+        "oneshot_service_count": 3,
+        "portal_backend_networks": [
+          "barbarossa-edge",
+          "omniscience-readnet",
+          "portal-private"
+        ],
+        "steady_service_count": 14,
+        "volumes": [
+          "barbarossa-nats-data",
+          "barbarossa-postgres-data",
+          "omniscience-natsdata",
+          "omniscience-neo4jdata",
+          "omniscience-neo4jlogs",
+          "omniscience-pgdata",
+          "omniscience-qdrantdata",
+          "portal-pgdata"
+        ]
+      },
+      "id": "AC-SP98-2",
+      "issues": [],
+      "probe": "synchronized-local-topology-containment",
+      "status": "PASS"
+    },
+    "AC-SP98-3": {
+      "class": "live",
+      "evidence": {
+        "gap": "portal-frontend never healthy because portal-backend /readyz 404s on the prebuilt owner image (owner defect, not repaired)",
+        "health_gated_up": "migrations completed once, then dependency-aware health for 13/14 steady services",
+        "normal_down_preserves_volumes": true,
+        "reset_is_separate_explicit": "docker compose down -v / scoped volume rm"
+      },
+      "id": "AC-SP98-3",
+      "probe": "synchronized-local-lifecycle",
+      "reason": "owner_artifact_skew_portal_backend_readyz_404",
+      "requirement": "config/migration/bootstrap/health-gated up/warm restart/down + explicit reset separation; normal down preserves volumes",
+      "status": "partial"
+    },
+    "AC-SP98-4": {
+      "class": "live",
+      "evidence": {
+        "barbarossa_availability_200_development_single_host": true,
+        "browser_panel_not_driven": "portal-frontend blocked by AC-3 owner skew",
+        "mocks_absent_from_running_model": true,
+        "omniscience_ready_200_full_closure": true
+      },
+      "id": "AC-SP98-4",
+      "probe": "synchronized-local-real-owner-experience",
+      "reason": "real_owner_reads_live_browser_blocked_by_owner_image_skew",
+      "requirement": "Portal renders exact real Omniscience/Barbarossa owner revisions/freshness/development-single-host; selected-owner mocks absent",
+      "status": "partial"
+    },
+    "AC-SP98-5": {
+      "class": "live",
+      "evidence": {
+        "full_two_tenant_seeded_pii_ui_corpus": "not driven (frontend blocked)",
+        "no_omnius_or_mock_running": true,
+        "no_owner_write_credential": true,
+        "omniscience_pw0_privacy_contract_healthy": true,
+        "portal_cannot_reach_owner_private_store_live": true
+      },
+      "id": "AC-SP98-5",
+      "probe": "synchronized-local-tenant-pw0-no-effect",
+      "reason": "boundary_negatives_live_full_tenant_corpus_needs_portal_ui",
+      "requirement": "two-scope reads + seeded PII/token/active-content show no cross-scope disclosure, sink residue, owner write, or Omnius effect",
+      "status": "partial"
+    },
+    "AC-SP98-6": {
+      "class": "live",
+      "evidence": {
+        "both_owners_up_independent_lifecycles": true,
+        "omniscience_absent_stage1_barbarossa_read_unaffected": true,
+        "panel_level_toggling_via_ui": "not driven (frontend blocked)"
+      },
+      "id": "AC-SP98-6",
+      "probe": "synchronized-local-severance-recovery",
+      "reason": "severance_direction_observed_api_level",
+      "requirement": "stopping either owner marks only its own panel unavailable/stale and recovery restores fresh truth",
+      "status": "partial"
+    },
+    "AC-SP98-7": {
+      "class": "live",
+      "evidence": {
+        "amd64": "pending (single arm64 host; cannot run both arches on one host)",
+        "arch": "arm64",
+        "envelope_gib": 8,
+        "host_capacity_sufficient": true,
+        "omniscience_api_cold_to_healthy_seconds_approx": 45,
+        "per_service_memory_limits_declared": true,
+        "portal_frontend_absent": "owner backend /readyz skew, not a capacity limit; declared 512m limit keeps total within envelope",
+        "steady_stack_gib_approx": 2.1,
+        "torch_omniscience_api_healthy": true
+      },
+      "id": "AC-SP98-7",
+      "note": "Measured within envelope on the run arch, but AC-SP98-7 requires both amd64 and arm64; amd64 is not measured on this single-arch host, so this is partial (not host_capacity_insufficient \u2014 capacity was sufficient on the measured arch).",
+      "pending_axes": [
+        "amd64"
+      ],
+      "probe": "synchronized-local-resource-envelope",
+      "reason": "reference_arch_axis_unmeasured",
+      "requirement": "measured image sizes/per-service limits/peak+steady CPU/mem/disk/startup within the declared 4-vCPU/8-GB/25-GB envelope, or typed host_capacity_insufficient",
+      "status": "partial"
+    },
+    "AC-SP98-8": {
+      "class": "deterministic",
+      "evidence": {
+        "activation_authority": "none",
+        "availability_class": "development-single-host",
+        "cannot_satisfy": [
+          "SP-89",
+          "SP-92",
+          "SP-94",
+          "production-activation"
+        ],
+        "ha_qualified": false,
+        "qualification_class": "functional-smoke-only",
+        "qualification_status": "development-only",
+        "reproducible": false
+      },
+      "id": "AC-SP98-8",
+      "issues": [],
+      "note": "The receipt is content-addressed and reproducible-as-a-function-of-inputs; source dirtiness/absent OCI digests force reproducible=false and qualification_status=development-only, and the fixed development-single-host / ha_qualified=false / activation_authority=none axes cannot be promoted into HA (SP-92/SP-94) or SP-89 deployment evidence.",
+      "probe": "synchronized-local-receipt-integrity",
+      "status": "PASS"
+    },
+    "AC-SP98-9": {
+      "class": "deterministic",
+      "evidence": {
+        "committed_files_scanned": [
+          "compose.yaml",
+          "compose.source.yaml",
+          ".env.example"
+        ],
+        "env_example_digest": "sha256:19f0f9581c6ee1436ff7412200014e19f69f42c1fec371f03589ed5f1414d3ad",
+        "example_variable_count": 26,
+        "generator": {
+          "confirm_token": "--i-am-resetting-local-secrets",
+          "entropy_bits_per_secret": 256,
+          "secrets_randomized": 7,
+          "secrets_unique_across_runs": true
+        },
+        "generator_secret_vars": [
+          "OMNISCIENCE_POSTGRES_PASSWORD",
+          "OMNISCIENCE_NEO4J_PASSWORD",
+          "OMNISCIENCE_QDRANT_API_KEY",
+          "POSTGRES_PASSWORD",
+          "PORTAL_DB_PASSWORD",
+          "PORTAL_APP_DB_PASSWORD",
+          "PORTAL_KEYCLOAK_ADMIN_PASSWORD"
+        ],
+        "required_variable_count": 26
+      },
+      "id": "AC-SP98-9",
+      "issues": [],
+      "note": "Reset stays an explicit, confirmed operator action: `docker compose ... down` preserves every named volume; only `down -v` (a separate command) deletes them, and the env generator refuses to overwrite an existing .env without the explicit confirmation token.",
+      "probe": "synchronized-local-secret-reset-safety",
+      "status": "PASS"
+    }
+  },
+  "activation_authority": "none",
+  "assembled_compose": {
+    "base": "deploy/local/management-readonly-v1/compose.yaml",
+    "base_digest": "sha256:0de28fc02880b14ccefa15b6e05e4cb34060ae628fbdf93b30310819e05bc419",
+    "rendered_compose_digest": "sha256:067c86297e0344ed99dd467db5a4a2574976598f9c19c5af021dd4d8d184a7e0",
+    "source_overlay": "deploy/local/management-readonly-v1/compose.source.yaml",
+    "source_overlay_digest": "sha256:2d050759f864afe173e7037b710e794b2f92771bcdf97666e958a0f8a23544ee"
+  },
+  "availability_class": "development-single-host",
+  "base_profile_id": "management-readonly-v1",
+  "base_profile_revision": "1.0.0",
+  "compose_version_required": "2.24.4+",
+  "deterministic_acceptance_criteria": [
+    "AC-SP98-1",
+    "AC-SP98-2",
+    "AC-SP98-8",
+    "AC-SP98-9"
+  ],
+  "deterministic_status": "GREEN",
+  "genai_enablement_git_commit": "2c103c785c23b6446358fe688553ddb426b1e174",
+  "governing_adr": "ADR-0024",
+  "ha_qualified": false,
+  "inventory_digests": {
+    "host_binding_inventory_digest": "sha256:3642ea95d27177fb213f087c590898260defa92cb2f72f2a95392ac6acae0d41",
+    "network_inventory_digest": "sha256:e38f07815d6904af7acab697e9c8642aaeffb2a59874fb46fe29ccc0e0200a35",
+    "service_inventory_digest": "sha256:2f668ab2066f15d239618693b7666723e3503597a329dbe5cc9914c245e3e7fb",
+    "volume_inventory_digest": "sha256:0dff8b8e075f6dbd4435e1b102597355b243f528758f52fd062884f1bd111a4f"
+  },
+  "live_acceptance_criteria": [
+    "AC-SP98-3",
+    "AC-SP98-4",
+    "AC-SP98-5",
+    "AC-SP98-6",
+    "AC-SP98-7"
+  ],
+  "mode": "source",
+  "negative_space": [
+    "no Omnius runtime/mock, no shared owner store/broker, no external model/provider",
+    "no public datastore/broker port, no Portal owner-write credential",
+    "no queue admin/redrive/scale/failover/rollback control",
+    "no infrastructure apply, no DNS mutation, no HA claim, no production activation",
+    "cannot satisfy or replace SP-89, SP-92 or SP-94 live evidence"
+  ],
+  "overall_note": "deterministic_status=GREEN means the compose-lock, topology-containment, receipt-integrity and secret/reset-safety ACs passed against the rendered model and committed owner artifacts. It does NOT mean the profile is deployed, HA-qualified, or activatable. Live ACs (3-7) are only GREEN with folded live evidence, else pending/host_capacity_insufficient \u2014 honestly.",
+  "owner_members": {
+    "sp95_omniscience": {
+      "contract_activation_authority": "none",
+      "contract_availability_class": "development-single-host",
+      "contract_ha_qualified": false,
+      "declared_service_contract_digest": "sha256:f5807a51020e2d5ed4e442ebb9c9c72afb01887ea1c9c139e08764efcd423f6a",
+      "fragment_compose_digest": "sha256:fd8b65eb111d04c75f25384c55535bc86b077e1a1f291b3e43041155f4edcc39",
+      "fragment_dir": "Omniscience/deploy/compose/management-readonly-local",
+      "fragment_source_override_digest": "sha256:e46e6a746616a29269e7d5ab02d89234bceac632fff34337ad66ad6e2a8cb022",
+      "fragment_worktree_dirty": false,
+      "local_runtime_receipt_digest": "sha256:e7ec690a046276b0165f3cfbc57634b4bad17ef0e8d022196b7911a571de6b67",
+      "owner": "omniscience",
+      "package": "SP-95",
+      "receipt_activation_authority": "none",
+      "receipt_availability_class": "development-single-host",
+      "receipt_git_commit": "a7caefd08d0f5d59198e7c49cb8fd8df5623e391",
+      "receipt_ha_qualified": false,
+      "receipt_mode": "source",
+      "receipt_qualification_status": "development-only",
+      "receipt_reproducible": false,
+      "receipt_status": "RED",
+      "repo_head": "c1c4f65abe4f2a8dec6143f29d2b143042c2975a",
+      "service_contract_digest": "sha256:f5807a51020e2d5ed4e442ebb9c9c72afb01887ea1c9c139e08764efcd423f6a"
+    },
+    "sp96_barbarossa": {
+      "api_image_tag": "barbarossa-api:mrl-v1",
+      "contract_activation_authority": "none",
+      "contract_availability_class": "development-single-host",
+      "contract_ha_qualified": false,
+      "contract_revision": "task-sp-96-management-readonly-local-runtime",
+      "fragment_compose_digest": "sha256:8d112c84798dea8a65a422aa4160bfb71dedfbb661805e1a44bad7c792339f29",
+      "fragment_dir": "barbarossa/deploy/compose/management-readonly-local",
+      "fragment_image_override_digest": "sha256:b823ba9decb9a6e510abaf7be612cf780349e5e58d697e19132e6e5186bc203e",
+      "fragment_source_override_digest": "sha256:18ee1f852ad9c9e5280851e99c446623a8638be5956e86ddb3fe752549158fba",
+      "fragment_worktree_dirty": false,
+      "owner": "barbarossa",
+      "package": "SP-96",
+      "pending": {
+        "sp96_runtime_receipt_digest": "Barbarossa's BarbarossaLocalRuntimeReceipt is computed at runtime (internal/kernel/act/receipt.go); no committed receipt JSON exists to content-address. Its committed service contract is pinned instead."
+      },
+      "repo_head": "13876489cc2d9dfa778df76df5cf742aa22fc866",
+      "runtime_receipt_committed": false,
+      "service_contract_digest": "sha256:ad418b077c98ed89e692445101d4b8ab2f9301b05327769960b7ac8f1cdb153c",
+      "worker_image_tag": "barbarossa-worker:mrl-v1"
+    },
+    "sp97_portal": {
+      "backend_image_tag": "platform-portal-backend:latest",
+      "contract_activation_authority": "none",
+      "contract_availability_class": "development-single-host",
+      "contract_ha_qualified": false,
+      "contract_revision": "task-sp-97-management-readonly-local-portal",
+      "fragment_compose_digest": "sha256:e563c43502c3d2f3bd825adb836c9d0c4543f9687388d6dce16383ca413f3eac",
+      "fragment_dir": "platform-portal/infra/compose/management-readonly-local",
+      "fragment_source_override_digest": "sha256:d48fde7de00ac5b76b58396fa9c103da6060b881002348b154398013a41a7d6a",
+      "fragment_worktree_dirty": false,
+      "frontend_image_tag": "platform-portal-frontend:latest",
+      "owner": "platform-portal",
+      "package": "SP-97",
+      "pending": {
+        "sp97_runtime_receipt_digest": "Portal's PortalLocalRuntimeReceipt is computed at runtime (backend/app/runtime_profiles/local/receipt.py); no committed receipt JSON exists to content-address. Its committed service contract is pinned."
+      },
+      "pinned_sp95_git_commit": "a7caefd08d0f5d59198e7c49cb8fd8df5623e391",
+      "pinned_sp95_service_contract_digest": "sha256:f5807a51020e2d5ed4e442ebb9c9c72afb01887ea1c9c139e08764efcd423f6a",
+      "pinned_sp96_api_image_tag": "barbarossa-api:mrl-v1",
+      "pinned_sp96_worker_image_tag": "barbarossa-worker:mrl-v1",
+      "repo_head": "dfedd49d3f2ff475078bb7adf71fa491e98f5980",
+      "runtime_receipt_committed": false,
+      "service_contract_digest": "sha256:27a74d9eb3079b1d6c45d37b7eaed2e2da8e3e135e4675b8106a15060439e6fe"
+    }
+  },
+  "profile_id": "management-readonly-local-v1",
+  "profile_revision": "1.0.0",
+  "qualification_class": "functional-smoke-only",
+  "qualification_status": "development-only",
+  "reasons": [
+    "reproducible=false: source mode with mutable owner tags / no published SP-86 OCI digest",
+    "sp95 omniscience owner receipt is self-declared RED (scoped_worktree_dirty, sp86 image digest pending)",
+    "sp96 barbarossa runtime receipt is not a committed content-addressable artifact",
+    "sp97 portal runtime receipt is not a committed content-addressable artifact"
+  ],
+  "receipt_digest": "sha256:c3c33c3daf102af3d5fd28c9d49946092d8bc28d40b3ea594984404f78b7c1a5",
+  "receipt_type": "SynchronizedPlatformLocalLaunchReceipt",
+  "reference_host": {
+    "arch": "arm64",
+    "compose_version": "v5.0.2",
+    "docker_mem_total_bytes": 8217059328,
+    "docker_mem_total_gib": 7.653,
+    "docker_ncpu": 10,
+    "docker_version": "29.2.1",
+    "os": "darwin (macOS Docker Desktop)",
+    "shared_host_note": "unrelated pre-existing stacks were resident (~2.3 GiB omnius kind control-planes + multiqlti); the assembled stack still fit"
+  },
+  "reproducible": false,
+  "reset_performed": false,
+  "schema": "synchronized-platform-local-launch-receipt-v1",
+  "uncommitted_prior_wave_dependencies": [
+    {
+      "artifact": "Barbarossa BarbarossaLocalRuntimeReceipt",
+      "handling": "pinned by committed service contract + image tags; sp96_runtime_receipt_digest flagged pending",
+      "state": "runtime-computed; no committed JSON to content-address"
+    },
+    {
+      "artifact": "Portal PortalLocalRuntimeReceipt",
+      "handling": "pinned by committed service contract; sp97_runtime_receipt_digest flagged pending",
+      "state": "runtime-computed; no committed JSON to content-address"
+    },
+    {
+      "artifact": "Omniscience OmniscienceLocalRuntimeReceipt",
+      "handling": "pinned by content-addressed digest; its honest RED status is surfaced, never upgraded",
+      "state": "committed but self-declared RED (scoped_worktree_dirty, sp86_image_registry_digest_pending)"
+    }
+  ]
+}

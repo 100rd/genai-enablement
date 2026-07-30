@@ -1,0 +1,5 @@
+# The generated environment holds high-entropy disposable secrets and MUST NEVER
+# be committed (AC-SP98-9). Only the committed .env.example template is tracked.
+.env
+.env.*
+!.env.example
