@@ -63,7 +63,7 @@ jobs:
       # the YAML syntax + include-only shape is validated deterministically.
       - name: Validate assembled compose
         run: |
-          python3 - <<'PY'
+          uv run --no-project --with pyyaml python - <<'PY'
           import yaml
           from pathlib import Path
           base = Path("deploy/local/management-readonly-v1/compose.yaml")
