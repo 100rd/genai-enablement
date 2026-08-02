@@ -1,0 +1,373 @@
+{
+  "acceptance_criteria": {
+    "AC-SP89-1": {
+      "completeness_gaps": [],
+      "cross_checks": [
+        {
+          "actual": "sha256:bdd2368427f7f4f7ccdcc8a1302cb3dcedd06a474f6281f393706030423bc7ee",
+          "expected": "sha256:bdd2368427f7f4f7ccdcc8a1302cb3dcedd06a474f6281f393706030423bc7ee",
+          "name": "sp87.sp86_release_digest == independently-derived sp86 digest",
+          "pass": true
+        },
+        {
+          "actual": "sha256:bdd2368427f7f4f7ccdcc8a1302cb3dcedd06a474f6281f393706030423bc7ee",
+          "expected": "sha256:bdd2368427f7f4f7ccdcc8a1302cb3dcedd06a474f6281f393706030423bc7ee",
+          "name": "sp88.sp86_pin_copy.release_lock_digest == independently-derived sp86 digest",
+          "pass": true
+        },
+        {
+          "actual": "sha256:bdd2368427f7f4f7ccdcc8a1302cb3dcedd06a474f6281f393706030423bc7ee",
+          "expected": "sha256:bdd2368427f7f4f7ccdcc8a1302cb3dcedd06a474f6281f393706030423bc7ee",
+          "name": "sp88.sp87_pin_copy.sp86_release_digest == independently-derived sp86 digest",
+          "pass": true
+        },
+        {
+          "actual": "sha256:e72da6880f5c79ef88039eae0ccf5d818f73f71e57e6958d97beefae030f7307",
+          "expected": "sha256:e72da6880f5c79ef88039eae0ccf5d818f73f71e57e6958d97beefae030f7307",
+          "name": "sp88.sp87_pin_copy.sp90_baseline_digest == sp87.sp90_baseline_digest",
+          "pass": true
+        },
+        {
+          "actual": "sha256:e72da6880f5c79ef88039eae0ccf5d818f73f71e57e6958d97beefae030f7307",
+          "expected": "sha256:e72da6880f5c79ef88039eae0ccf5d818f73f71e57e6958d97beefae030f7307",
+          "name": "sp88.sp90_baseline_digest_copy == sp87.sp90_baseline_digest",
+          "pass": true
+        },
+        {
+          "actual": "41d86000d8b2316c81a52a400a7f950d9799349b",
+          "expected": "41d86000d8b2316c81a52a400a7f950d9799349b",
+          "name": "sp87.git_commit == sp90.git_commit (SP-90 baseline is transitively bound by SP-87 at the same Go tree commit)",
+          "pass": true
+        },
+        {
+          "actual": "sha256:fa312387e5fa4b3980b085e20033fc8d947474c62c15dd9e3836372dea01f038",
+          "expected": "sha256:fa312387e5fa4b3980b085e20033fc8d947474c62c15dd9e3836372dea01f038",
+          "name": "sp86.pii_policy_digest == SP60 PW0 policy digest",
+          "pass": true
+        },
+        {
+          "actual": "sha256:fa312387e5fa4b3980b085e20033fc8d947474c62c15dd9e3836372dea01f038",
+          "expected": "sha256:fa312387e5fa4b3980b085e20033fc8d947474c62c15dd9e3836372dea01f038",
+          "name": "sp87.pii_policy_digest == SP60 PW0 policy digest",
+          "pass": true
+        },
+        {
+          "actual": "sha256:fa312387e5fa4b3980b085e20033fc8d947474c62c15dd9e3836372dea01f038",
+          "expected": "sha256:fa312387e5fa4b3980b085e20033fc8d947474c62c15dd9e3836372dea01f038",
+          "name": "sp88.sp86_pin_copy.pii_policy_digest == SP60 PW0 policy digest",
+          "pass": true
+        },
+        {
+          "actual": "sha256:fa312387e5fa4b3980b085e20033fc8d947474c62c15dd9e3836372dea01f038",
+          "expected": "sha256:fa312387e5fa4b3980b085e20033fc8d947474c62c15dd9e3836372dea01f038",
+          "name": "sp88.sp87_pin_copy.pii_policy_digest == SP60 PW0 policy digest",
+          "pass": true
+        },
+        {
+          "actual": "not_deployed",
+          "expected": "not_deployed",
+          "name": "sp86.omnius_status == not_deployed",
+          "pass": true
+        }
+      ],
+      "id": "AC-SP89-1",
+      "note": "PASS here means the three owner receipts join exactly, immutably, and compatibly by content-addressed digest -- it does NOT mean SP-86/SP-87's own upstream release status is GREEN (both are honestly RED, reason scoped_worktree_dirty, in the receipts they themselves published). Exact-pin verification checks identity/exactness, not the upstream task's own qualification status -- the same rule SP-87's and SP-88's own runbooks already apply to each other.",
+      "pending_external_gates": {
+        "sp86": {
+          "image_registry_digest": "ci-artifact://synchronized-platform/task-sp-86-management-readonly-release/ (pending real docker build + push; see release README 'External / pending gates')"
+        },
+        "sp87": {
+          "live_deployment_activation": "ci-artifact://synchronized-platform/task-sp-87-management-readonly-reliability-release/ (packaging only)",
+          "live_image_registry_digest": "ci-artifact://synchronized-platform/task-sp-87-management-readonly-reliability-release/ (external CI gate; no docker push performed)"
+        },
+        "sp87_placeholder_fields": [
+          "binary_digest",
+          "image_digest",
+          "sbom_digest"
+        ],
+        "sp90_binary_image_sbom_digest": {
+          "binary_digest": null,
+          "image_digest": null,
+          "note": "null by design in SP-90's own baseline receipt; a real value requires a release task's machine-specific build, not this implementation-baseline receipt.",
+          "sbom_digest": null
+        }
+      },
+      "status": "PASS",
+      "upstream_owner_declared_status": {
+        "sp86": {
+          "reasons": [
+            "scoped_worktree_dirty"
+          ],
+          "status": "RED"
+        },
+        "sp87": {
+          "reasons": [
+            "scoped_worktree_dirty"
+          ],
+          "status": "RED"
+        }
+      }
+    },
+    "AC-SP89-2": {
+      "cross_checks": [
+        {
+          "actual": [
+            "omniscience",
+            "barbarossa",
+            "platform-portal"
+          ],
+          "expected": [
+            "omniscience",
+            "barbarossa",
+            "platform-portal"
+          ],
+          "name": "registry.runtime_components",
+          "pass": true
+        },
+        {
+          "actual": [
+            "omnius"
+          ],
+          "expected": [
+            "omnius"
+          ],
+          "name": "registry.deferred_runtime_components",
+          "pass": true
+        },
+        {
+          "actual": [
+            "reliability"
+          ],
+          "expected": [
+            "reliability"
+          ],
+          "name": "registry.selected_domain_packs",
+          "pass": true
+        },
+        {
+          "actual": "ADR-0021",
+          "expected": "ADR-0021",
+          "name": "registry.governing_adr",
+          "pass": true
+        },
+        {
+          "actual": "not_deployed",
+          "expected": "not_deployed",
+          "name": "sp86 dependency_profile.omnius_status == not_deployed",
+          "pass": true
+        },
+        {
+          "actual": true,
+          "expected": true,
+          "name": "sp87 publishes a selected-domain-manifest digest (SelectedDomainManifest(), Reliability-only per ADR-0003 BMR-1)",
+          "pass": true
+        }
+      ],
+      "evidence": {
+        "registry_selection": {
+          "deferred_runtime_components": [
+            "omnius"
+          ],
+          "governance_components": [
+            "genai-enablement"
+          ],
+          "runtime_components": [
+            "omniscience",
+            "barbarossa",
+            "platform-portal"
+          ],
+          "selected_domain_packs": [
+            "reliability"
+          ]
+        },
+        "sp86_no_effect_evidence": "dependency_profile.omnius_status=not_deployed (Omniscience/contracts/releases/management-readonly-v1/evidence/release-lock.c733a0d445c090187461814263be7a07d20b7af3.json)",
+        "sp87_no_effect_evidence": "cmd/barbarossa/main.go registers exactly /healthz and /readyz; main_test.go's TestNoMutationOrEffectRouteIsReachable probes an explicit negative matrix of operator-mutation/action/effect/autonomy/alert-delivery-shaped paths and asserts every one 404s (Barbarossa/docs/runbooks/management-readonly-release.md AC-SP87-5).",
+        "sp88_no_effect_evidence": "every CV/CMC/Privacy mutation route returns 423 release-gate-open; app/zones/{control,manage}_router.py are GET-only; app/runtime_profiles/router.py is GET-only by construction; GET .../selection renders omniusStatus=not_deployed and the closed selected/not_selected domain set (platform-portal/docs/runbooks/management-readonly-release.md AC-SP88-2, AC-SP88-5)."
+      },
+      "id": "AC-SP89-2",
+      "scope_boundary": "This check is a static, receipt-and-registry-based membership/no-effect audit. It does NOT perform a live workload, network, DNS, route, or secret-name inventory against a running environment -- that requires the named non-production environment AC-SP89-3/AC-SP89-5/AC-SP89-6 are honestly RED for below. Do not read this PASS as a live network/DNS scan.",
+      "status": "PASS"
+    },
+    "AC-SP89-3": {
+      "decision_required": "A human must authorize and supply a named non-production environment (identity, owner, allowed operations, observation window, rollback target) before this AC can be qualified.",
+      "evidence_needed": "two independently controlled tenant identities, a seeded canary/PII/active-content corpus, the human-owned SLO/source revision, and captured API/UI/telemetry evidence from a real environment running all three components together.",
+      "id": "AC-SP89-3",
+      "missing_input": "one named non-production environment receipt at docs/synchronized-platform/releases/management-readonly-v1/environment-receipt.json with all of environment_identity, environment_owner, allowed_operations, observation_window, rollback_target -- none exists.",
+      "requirement": "The selected tenant PW0 Reliability and source-bound Portal journeys pass end to end",
+      "status": "RED",
+      "why_no_substitute": "docs/specs/task-sp-89-management-readonly-profile-qualification.md 'Authority boundary' forbids this task from creating or authorizing an environment: no Terraform/OpenTofu/Terragrunt apply or destroy, no deployment, no secret creation, no DNS change, no policy activation, no Omnius runtime enablement. A missing input produces RED/decision-required evidence, never a mock substitution or partial PASS (docs/synchronized-platform/profiles/management-readonly-v1.md 'Environment and activation boundary')."
+    },
+    "AC-SP89-4": {
+      "covered_pairs": [
+        "barbarossa/outage",
+        "barbarossa/rebuild",
+        "barbarossa/restart",
+        "barbarossa/skew",
+        "barbarossa/stale",
+        "omniscience/outage",
+        "omniscience/skew",
+        "omniscience/stale",
+        "platform-portal/outage",
+        "platform-portal/skew"
+      ],
+      "fixture_count": 11,
+      "fixture_matrix_digest": "sha256:38e468368a4074ac6866d3e85ff3b76c4b9d01da5a0074685d386eb79c8311c3",
+      "id": "AC-SP89-4",
+      "issues": [],
+      "not_evidenced_count": 5,
+      "not_evidenced_pairs": [
+        "omniscience/rebuild",
+        "omniscience/restart",
+        "platform-portal/rebuild",
+        "platform-portal/restart",
+        "platform-portal/stale"
+      ],
+      "scope_boundary": "This is a structural/typed validation of a fixture matrix that joins each owner's already-published severance evidence. It does not execute a live component and is not AC-SP89-3's real environment e2e matrix.",
+      "status": "PASS"
+    },
+    "AC-SP89-5": {
+      "decision_required": "A human must authorize and supply a named non-production environment (identity, owner, allowed operations, observation window, rollback target) before this AC can be qualified.",
+      "evidence_needed": "an environment-owner receipt, external alert observation, an isolated restore result, and post-rollback conformance capture against a real deployed instance.",
+      "id": "AC-SP89-5",
+      "missing_input": "one named non-production environment receipt at docs/synchronized-platform/releases/management-readonly-v1/environment-receipt.json with all of environment_identity, environment_owner, allowed_operations, observation_window, rollback_target -- none exists.",
+      "requirement": "The named non-production profile is observable, recoverable, and reversible",
+      "status": "RED",
+      "why_no_substitute": "docs/specs/task-sp-89-management-readonly-profile-qualification.md 'Authority boundary' forbids this task from creating or authorizing an environment: no Terraform/OpenTofu/Terragrunt apply or destroy, no deployment, no secret creation, no DNS change, no policy activation, no Omnius runtime enablement. A missing input produces RED/decision-required evidence, never a mock substitution or partial PASS (docs/synchronized-platform/profiles/management-readonly-v1.md 'Environment and activation boundary')."
+    },
+    "AC-SP89-6": {
+      "additional_context": "Even the owner-level artifacts this AC would compare against are themselves pending: SP-90's own binary_digest/image_digest/sbom_digest are null by design (go-runtime-migration.md), and SP-87's runbook records the same three fields as un-computed placeholder text, never a real digest. A named environment's independently captured inventory is required regardless.",
+      "decision_required": "A human must authorize and supply a named non-production environment (identity, owner, allowed operations, observation window, rollback target) before this AC can be qualified.",
+      "evidence_needed": "an independently captured OCI image, SBOM, filesystem, process command, and network inventory from the named environment, compared against the exact SP-90 receipt.",
+      "id": "AC-SP89-6",
+      "missing_input": "one named non-production environment receipt at docs/synchronized-platform/releases/management-readonly-v1/environment-receipt.json with all of environment_identity, environment_owner, allowed_operations, observation_window, rollback_target -- none exists.",
+      "requirement": "The deployed Barbarossa workload is built only from the accepted SP-90 Go production baseline",
+      "status": "RED",
+      "why_no_substitute": "docs/specs/task-sp-89-management-readonly-profile-qualification.md 'Authority boundary' forbids this task from creating or authorizing an environment: no Terraform/OpenTofu/Terragrunt apply or destroy, no deployment, no secret creation, no DNS change, no policy activation, no Omnius runtime enablement. A missing input produces RED/decision-required evidence, never a mock substitution or partial PASS (docs/synchronized-platform/profiles/management-readonly-v1.md 'Environment and activation boundary')."
+    }
+  },
+  "buildable_acceptance_criteria": [
+    "AC-SP89-1",
+    "AC-SP89-2",
+    "AC-SP89-4"
+  ],
+  "environment_gated_acceptance_criteria": [
+    "AC-SP89-3",
+    "AC-SP89-5",
+    "AC-SP89-6"
+  ],
+  "genai_enablement_git_commit": "ac32c722235b435bf0632919924d8648a71653a1",
+  "governing_adr": "ADR-0021",
+  "members": {
+    "sp86_omniscience": {
+      "chart_digest": "sha256:bc08302738c4a4e92b04afe156d4f70a1ffc6b5b042c9811e4ede2abf61b09da",
+      "configuration_digest": "sha256:167aa12051487be743250dd64aa1a2b77d4fa6a399d94acbe097da5934a6dae4",
+      "git_commit": "c733a0d445c090187461814263be7a07d20b7af3",
+      "image_digest": "sha256:307129fba5129f91a210b590f6de7deef01aae699492a1d55c271ae42c5fed02",
+      "omnius_status": "not_deployed",
+      "own_declared_reasons": [
+        "scoped_worktree_dirty"
+      ],
+      "own_declared_status": "RED",
+      "owner": "omniscience",
+      "pending": {
+        "image_registry_digest": "ci-artifact://synchronized-platform/task-sp-86-management-readonly-release/ (pending real docker build + push; see release README 'External / pending gates')"
+      },
+      "pii_policy_digest": "sha256:fa312387e5fa4b3980b085e20033fc8d947474c62c15dd9e3836372dea01f038",
+      "pii_policy_revision": "1.0.0",
+      "profile_id": "management-readonly-v1",
+      "profile_revision": "1.0.0",
+      "release_lock_digest": "sha256:bdd2368427f7f4f7ccdcc8a1302cb3dcedd06a474f6281f393706030423bc7ee",
+      "rollback_release_digest": "none:first-candidate",
+      "schema_set_digest": "sha256:2173859cf6066f2eae585d548399f12eeb69e962272debadbd9b89cda411ad9a",
+      "severance_fixture_digest": "sha256:65b00de153aa3c2fad4226a085a4de287b032dc13fead7486e71006e47770f54",
+      "source": "Omniscience/contracts/releases/management-readonly-v1/evidence/release-lock.c733a0d445c090187461814263be7a07d20b7af3.json"
+    },
+    "sp87_barbarossa": {
+      "configuration_digest": "sha256:69e9cf56195fcd6ddcbb05601df55b5ae8d2457ef6e81c42b38326a198d53694",
+      "git_commit": "41d86000d8b2316c81a52a400a7f950d9799349b",
+      "health_readiness_contract": {
+        "health_path": "/healthz",
+        "ready_path": "/readyz"
+      },
+      "journey_slo_digest": "sha256:e92d2f40d2a0d0fe0cfb9532ba852e4d59998eae137b772180b68a0ebf4115e7",
+      "journey_slo_revision": "2026-07-25.1",
+      "own_declared_reasons": [
+        "scoped_worktree_dirty"
+      ],
+      "own_declared_status": "RED",
+      "owner": "barbarossa",
+      "package_or_chart_digest": "sha256:2de250f2eb10e380659b17ceedcbf353aa4fd42fd811e661cfefc1fbfe70671f",
+      "pending": {
+        "live_deployment_activation": "ci-artifact://synchronized-platform/task-sp-87-management-readonly-reliability-release/ (packaging only)",
+        "live_image_registry_digest": "ci-artifact://synchronized-platform/task-sp-87-management-readonly-reliability-release/ (external CI gate; no docker push performed)"
+      },
+      "pii_policy_digest": "sha256:fa312387e5fa4b3980b085e20033fc8d947474c62c15dd9e3836372dea01f038",
+      "pii_policy_revision": "1.0.0",
+      "placeholder_fields": [
+        "binary_digest",
+        "image_digest",
+        "sbom_digest"
+      ],
+      "profile_id": "management-readonly-v1",
+      "profile_revision": "task-sp-87-management-readonly-reliability-release",
+      "published_block_digest": "sha256:580941d182222dd48ccd6dfee5f861a13ae4d596e71a501a18dca70c2d58d4ba",
+      "rollback_release_digest": "none:first-candidate",
+      "selected_domain_manifest_digest": "sha256:835027025bc64bb35716e5f009f79dbe7c54bd78d7e7f0768dacae62e0556aeb",
+      "source": "Barbarossa/docs/runbooks/management-readonly-release.md",
+      "sp86_release_digest": "sha256:bdd2368427f7f4f7ccdcc8a1302cb3dcedd06a474f6281f393706030423bc7ee",
+      "sp90_baseline_digest": "sha256:e72da6880f5c79ef88039eae0ccf5d818f73f71e57e6958d97beefae030f7307"
+    },
+    "sp88_platform_portal": {
+      "note": "No single committed PortalManagementReadOnlyRelease evidence file exists at pin time (unlike SP-86's committed evidence/release-lock-*.json); source_receipt_digest hashes the real, committed source files Portal published (pins.py/schemas.py/release_lock.py/runbook), never Portal's own build_portal_release_lock() output, which this read-only cross-repo join does not execute.",
+      "owner": "platform-portal",
+      "source_file_digests": {
+        "management-readonly-release.md": "sha256:f0dc532330d715844fc2b6df958e221e51a9a9cfd940d2f4024860f0bad7de01",
+        "pins.py": "sha256:04b526fedf55a9c0f87050fcb89908dfb4957627a7f6cdda2fdc6f30ec727276",
+        "release_lock.py": "sha256:da232d7256785ff1ce83a93a87e6353077f29b7846f79052c7894fd1c1950bad",
+        "schemas.py": "sha256:047e22113225987913ba3228e44c03b69f500d639004c234afeeea5e812cd511"
+      },
+      "source_receipt_digest": "sha256:bd1e8f912156ef95d60ca648e6c115299971a97221bcebfbae1c6fb19167e729",
+      "sources": {
+        "management-readonly-release.md": "platform-portal/docs/runbooks/management-readonly-release.md",
+        "pins.py": "platform-portal/backend/app/runtime_profiles/pins.py",
+        "release_lock.py": "platform-portal/backend/app/runtime_profiles/release_lock.py",
+        "schemas.py": "platform-portal/backend/app/runtime_profiles/schemas.py"
+      },
+      "sp86_pin_copy": {
+        "git_commit": "c733a0d445c090187461814263be7a07d20b7af3",
+        "pii_policy_digest": "sha256:fa312387e5fa4b3980b085e20033fc8d947474c62c15dd9e3836372dea01f038",
+        "release_lock_digest": "sha256:bdd2368427f7f4f7ccdcc8a1302cb3dcedd06a474f6281f393706030423bc7ee",
+        "status": "RED"
+      },
+      "sp87_pin_copy": {
+        "git_commit": "41d86000d8b2316c81a52a400a7f950d9799349b",
+        "pii_policy_digest": "sha256:fa312387e5fa4b3980b085e20033fc8d947474c62c15dd9e3836372dea01f038",
+        "sp86_release_digest": "sha256:bdd2368427f7f4f7ccdcc8a1302cb3dcedd06a474f6281f393706030423bc7ee",
+        "sp90_baseline_digest": "sha256:e72da6880f5c79ef88039eae0ccf5d818f73f71e57e6958d97beefae030f7307",
+        "status": "RED"
+      },
+      "sp90_baseline_digest_copy": "sha256:e72da6880f5c79ef88039eae0ccf5d818f73f71e57e6958d97beefae030f7307"
+    },
+    "sp90_go_baseline_transitively_via_sp87": {
+      "binary_digest": null,
+      "configuration_schema_digest": "sha256:40f66c95ae8664b9f4f18585769fca289bf56e3378fed8f987b3e00c74e4407a",
+      "git_commit": "41d86000d8b2316c81a52a400a7f950d9799349b",
+      "go_module_graph_digest": "sha256:40f66c95ae8664b9f4f18585769fca289bf56e3378fed8f987b3e00c74e4407a",
+      "go_toolchain_version": "go1.26.4",
+      "image_digest": null,
+      "owner": "barbarossa",
+      "published_block_digest": "sha256:f5a59b602ef9341dca6b46ba0ea32b5a61fb844991d87c477e34e91b916e72ae",
+      "sbom_digest": null,
+      "source": "Barbarossa/docs/runbooks/go-runtime-migration.md"
+    }
+  },
+  "overall_note": "status=GREEN here means every buildable AC (join, membership, severance-from-fixtures) passed; it does NOT mean the profile is qualified for activation. AC-SP89-3/5/6 remain honestly RED (environment-gated, no named non-production environment receipt exists) regardless of this status, and this task authorizes no deployment, infrastructure mutation, or production-readiness claim.",
+  "profile_id": "management-readonly-v1",
+  "profile_lock_digest": "sha256:2c4f619954779ee2343dc35452d07e44d4c3a91403d81700078fe79e7db5c0e1",
+  "profile_revision": "1.0.0",
+  "reasons": [],
+  "schema": "management-readonly-v1-integrated-profile-lock-v1",
+  "sp60_pw0_policy_digest": "sha256:fa312387e5fa4b3980b085e20033fc8d947474c62c15dd9e3836372dea01f038",
+  "sp60_pw0_policy_revision": "1.0.0",
+  "status": "GREEN"
+}

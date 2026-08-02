@@ -1,0 +1,178 @@
+{
+  "schema": "management-readonly-v1-severance-skew-recovery-fixture-matrix-v1",
+  "note": "AC-SP89-4 buildable severance/skew/outage/restart/rebuild fixture matrix. Every entry joins the typed vocabulary an owner already committed to its own release evidence (Omniscience severance-fixtures.json; Barbarossa's durability_test.go/backup_pw0_test.go/sp86_consumer_test.go/sp86_decoupling_test.go as documented in docs/runbooks/management-readonly-release.md; Portal's classify_sp86_pin/classify_sp87_pin and AC-SP88-3 composition isolation as documented in its own runbook). This matrix is a structural/typed fixture check validated by tests/test_management_readonly_v1.py -- it does not execute a live component and is not a substitute for AC-SP89-3's real environment e2e matrix, which requires a named non-production environment this task does not have.",
+  "components": ["omniscience", "barbarossa", "platform-portal"],
+  "scenario_families": ["stale", "skew", "outage", "restart", "rebuild"],
+  "fixtures": [
+    {
+      "id": "sev89-omniscience-stale-001",
+      "component": "omniscience",
+      "scenario_family": "stale",
+      "source_scenario": "freshness_expiry",
+      "source_ref": "Omniscience/contracts/releases/management-readonly-v1/severance-fixtures.json#sev-freshness-expiry-001",
+      "description": "reference_now minus request.evidence_cut exceeds request.max_age_seconds; expired freshness cannot be silently promoted to current truth.",
+      "expected_decision": "fallback_required",
+      "must_not_validate_as": ["healthy", "empty", "cached_current"],
+      "preserves_unrelated_operation": true,
+      "rejects_stale_writer": false,
+      "rejects_stale_writer_applicable": false
+    },
+    {
+      "id": "sev89-omniscience-skew-001",
+      "component": "omniscience",
+      "scenario_family": "skew",
+      "source_scenario": "contract_skew",
+      "source_ref": "Omniscience/contracts/releases/management-readonly-v1/severance-fixtures.json#sev-contract-skew-001..003",
+      "description": "Consumer's pinned contract_major, schema_revision_pin, or producer_manifest_digest_pin no longer matches the live manifest; three independent skew reasons (contract_major_mismatch, schema_digest_mismatch, producer_manifest_mismatch) all fail closed.",
+      "expected_decision": "fallback_required",
+      "must_not_validate_as": ["healthy", "empty", "cached_current"],
+      "preserves_unrelated_operation": true,
+      "rejects_stale_writer": false,
+      "rejects_stale_writer_applicable": false
+    },
+    {
+      "id": "sev89-omniscience-outage-001",
+      "component": "omniscience",
+      "scenario_family": "outage",
+      "source_scenario": "loss",
+      "source_ref": "Omniscience/contracts/releases/management-readonly-v1/severance-fixtures.json#sev-loss-001,sev-loss-002",
+      "description": "Evidence source is unreachable (raises on health(), or health().healthy == false); consumer must not treat a severed producer as an empty-but-valid answer.",
+      "expected_decision": "fallback_required",
+      "must_not_validate_as": ["healthy", "empty", "cached_current"],
+      "preserves_unrelated_operation": true,
+      "rejects_stale_writer": false,
+      "rejects_stale_writer_applicable": false
+    },
+    {
+      "id": "sev89-omniscience-outage-002",
+      "component": "omniscience",
+      "scenario_family": "outage",
+      "source_scenario": "token_expiry",
+      "source_ref": "Omniscience/contracts/releases/management-readonly-v1/severance-fixtures.json#sev-token-expiry-001",
+      "description": "Consumer's omniscience-mcp-read-v1 token profile has expired or been revoked before the request boundary; a revoked token cannot be treated as still-authorized-but-stale. Mapped into the outage family: a revoked-auth producer is unreachable-for-this-consumer in the same way as an unhealthy producer.",
+      "expected_decision": "fallback_required",
+      "must_not_validate_as": ["healthy", "empty", "cached_current"],
+      "preserves_unrelated_operation": true,
+      "rejects_stale_writer": false,
+      "rejects_stale_writer_applicable": false
+    },
+    {
+      "id": "sev89-barbarossa-stale-001",
+      "component": "barbarossa",
+      "scenario_family": "stale",
+      "source_scenario": "sp86_freshness_expiry_via_consumer",
+      "source_ref": "Barbarossa/internal/kernel/ctx/sp86_consumer_test.go (VerifySp86ReleasePin over the copied SP-86 severance-fixture kit at testdata/conformance/management-readonly-v1/sp86/severance-fixtures.json)",
+      "description": "Barbarossa copies Omniscience's severance-fixture kit byte-for-byte and asserts every fixture (including freshness_expiry) maps to Degraded=true, UsableForFacts=false, Coverage=\"none\" through its own consumer -- never healthy/empty/cached-current.",
+      "expected_decision": "fallback_required",
+      "must_not_validate_as": ["healthy", "empty", "cached_current"],
+      "preserves_unrelated_operation": true,
+      "rejects_stale_writer": false,
+      "rejects_stale_writer_applicable": false
+    },
+    {
+      "id": "sev89-barbarossa-skew-001",
+      "component": "barbarossa",
+      "scenario_family": "skew",
+      "source_scenario": "sp86_pin_mismatch",
+      "source_ref": "Barbarossa/internal/kernel/ctx/sp86_consumer_test.go (VerifySp86ReleasePin)",
+      "description": "VerifySp86ReleasePin fails closed (AbsenceIncompatible, ReasonSp86PinMismatch) on any single-field drift of the pinned SP-86 release; never a silent match.",
+      "expected_decision": "incompatible",
+      "must_not_validate_as": ["healthy", "empty", "cached_current", "compatible"],
+      "preserves_unrelated_operation": true,
+      "rejects_stale_writer": false,
+      "rejects_stale_writer_applicable": false
+    },
+    {
+      "id": "sev89-barbarossa-outage-001",
+      "component": "barbarossa",
+      "scenario_family": "outage",
+      "source_scenario": "sp86_loss_token_expiry_freshness_expiry_contract_skew_pii_block",
+      "source_ref": "Barbarossa/internal/testkit/sp86_decoupling_test.go (TestSp86Severance_NeverChangesAuthoritativeAvailabilityVerdict)",
+      "description": "Evaluates the exact Reliability vertical once, then again after simulating each of loss/token-expiry/freshness-expiry/contract-skew/PII-block, and asserts the resulting AvailabilitySnapshot integrity digest and all three typed conditions stay byte-identical every time -- SP-86 context severance never touches authoritative Reliability state.",
+      "expected_decision": "fallback_required_context_only",
+      "must_not_validate_as": ["healthy", "empty", "cached_current", "authoritative_state_changed"],
+      "preserves_unrelated_operation": true,
+      "rejects_stale_writer": false,
+      "rejects_stale_writer_applicable": false
+    },
+    {
+      "id": "sev89-barbarossa-restart-001",
+      "component": "barbarossa",
+      "scenario_family": "restart",
+      "source_scenario": "restart_duplicate_lease_expiry_stale_writer",
+      "source_ref": "Barbarossa/internal/runtime/durability_test.go (SP-90, reused unmodified by SP-87)",
+      "description": "Proves restart, duplicate delivery, and lease-expiry/stale-writer fencing: a writer holding an expired lease is rejected and cannot mutate authoritative state after a fresher writer has taken the lease.",
+      "expected_decision": "fenced",
+      "must_not_validate_as": ["healthy_stale_write_accepted"],
+      "preserves_unrelated_operation": true,
+      "rejects_stale_writer": true,
+      "rejects_stale_writer_applicable": true
+    },
+    {
+      "id": "sev89-barbarossa-rebuild-001",
+      "component": "barbarossa",
+      "scenario_family": "rebuild",
+      "source_scenario": "projection_rebuild_and_backup_restore",
+      "source_ref": "Barbarossa/internal/runtime/durability_test.go + internal/runtime/backup_pw0_test.go (TestBuildBackupExport_DiskRoundTripPreservesAuthoritativeHistory)",
+      "description": "Projection rebuild proceeds from durable state; a sealed BackupExport is JSON-marshaled, written to disk, read back in a fresh process scope, and restored -- the restored case's full transition history is byte-identical (CasKey-for-CasKey) to the pre-backup ledger, and both records independently re-verify their own integrity seal.",
+      "expected_decision": "restored_byte_identical",
+      "must_not_validate_as": ["lost_state", "duplicated_state", "favorable_fallback"],
+      "preserves_unrelated_operation": true,
+      "rejects_stale_writer": true,
+      "rejects_stale_writer_applicable": true
+    },
+    {
+      "id": "sev89-portal-skew-001",
+      "component": "platform-portal",
+      "scenario_family": "skew",
+      "source_scenario": "sp86_sp87_pin_classification",
+      "source_ref": "platform-portal/backend/app/runtime_profiles/verify.py (classify_sp86_pin/classify_sp87_pin), tests/test_management_readonly_pins.py",
+      "description": "A mutable/skewed/partial candidate pin classifies as incompatible; a Node-backed/TypeScript-production provenance claim also classifies as incompatible regardless of digest match; never a silent match.",
+      "expected_decision": "incompatible",
+      "must_not_validate_as": ["healthy", "empty", "cached_current", "compatible"],
+      "preserves_unrelated_operation": true,
+      "rejects_stale_writer": false,
+      "rejects_stale_writer_applicable": false
+    },
+    {
+      "id": "sev89-portal-outage-001",
+      "component": "platform-portal",
+      "scenario_family": "outage",
+      "source_scenario": "no_candidate_presented",
+      "source_ref": "platform-portal/backend/app/runtime_profiles/verify.py (classify_sp86_pin/classify_sp87_pin, \"no candidate presented -> unknown\")",
+      "description": "When no owner-pin candidate is presented at all, classification is unknown -- never a favorable default. A missing/incompatible input on one owner axis never blanks another independent panel (CMC/Privacy/CV/runtime-profiles stay independently severable, AC-SP88-3).",
+      "expected_decision": "unknown",
+      "must_not_validate_as": ["healthy", "empty", "cached_current"],
+      "preserves_unrelated_operation": true,
+      "rejects_stale_writer": false,
+      "rejects_stale_writer_applicable": false
+    }
+  ],
+  "not_evidenced": [
+    {
+      "component": "omniscience",
+      "scenario_family": "restart",
+      "reason": "Omniscience's SP-86 severance-fixture kit (loss/token_expiry/freshness_expiry/contract_skew) covers consumer-observed producer severance, not Omniscience's own process-restart behavior; no restart fixture or receipt exists in the reviewed SP-86 evidence."
+    },
+    {
+      "component": "omniscience",
+      "scenario_family": "rebuild",
+      "reason": "No projection-rebuild or backup/restore evidence exists in the reviewed SP-86 release evidence; Omniscience's own durability story is out of this join's reviewed inputs."
+    },
+    {
+      "component": "platform-portal",
+      "scenario_family": "stale",
+      "reason": "Portal's runtime-profile pins are static/frozen literals (never runtime-fetched), so Portal has no independent freshness/staleness detector of its own documented in the reviewed SP-88 runbook; staleness is entirely an upstream (SP-86/SP-87) concern Portal renders verbatim."
+    },
+    {
+      "component": "platform-portal",
+      "scenario_family": "restart",
+      "reason": "No Portal process-restart durability evidence is documented in the reviewed SP-88 runbook; Portal's own runtime-profiles surface is a stateless read API over static pins."
+    },
+    {
+      "component": "platform-portal",
+      "scenario_family": "rebuild",
+      "reason": "No projection-rebuild or backup/restore evidence for Portal itself is documented in the reviewed SP-88 runbook; Portal never recomputes component truth (D5/MR-7), so it has no projection of its own to rebuild."
+    }
+  ]
+}
