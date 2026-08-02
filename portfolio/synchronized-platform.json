@@ -479,6 +479,11 @@
           "id": "task-sp-96-management-readonly-local-runtime",
           "path": "docs/specs/task-sp-96-management-readonly-local-runtime.md",
           "status": "ready"
+        },
+        {
+          "id": "task-sp-99-management-readonly-local-cmc-read",
+          "path": "docs/specs/task-sp-99-management-readonly-local-cmc-read.md",
+          "status": "ready"
         }
       ],
       "readiness_profiles": []
@@ -931,6 +936,11 @@
         {
           "id": "task-sp-97-management-readonly-local-portal",
           "path": "docs/specs/task-sp-97-management-readonly-local-portal.md",
+          "status": "ready"
+        },
+        {
+          "id": "task-sp-100-cmc-real-owner-rewire",
+          "path": "docs/specs/task-sp-100-cmc-real-owner-rewire.md",
           "status": "ready"
         }
       ],
