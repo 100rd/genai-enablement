@@ -300,6 +300,7 @@ permit these bounded, ready, non-live tasks from the
 | `task-sp-92-high-availability-runtime-release` | SP-92 |
 | `task-sp-93-typescript-oracle-retirement` | Barbarossa-local oracle retirement; not synchronized SP-93 |
 | `task-sp-96-management-readonly-local-runtime` | SP-96 |
+| `task-sp-99-management-readonly-local-cmc-read` | SP-99 |
 
 They authorize fixture-backed contract/runtime construction only: no live source, credential,
 deployment, alert route, domain activation, model/provider call, owner effect, autonomy promotion,
@@ -407,6 +408,7 @@ bounded non-live development. The independently claimable
 | `task-sp-88-management-readonly-portal-release` | SP-88 |
 | `task-sp-93-barbarossa-ha-observability` | SP-93 |
 | `task-sp-97-management-readonly-local-portal` | SP-97 |
+| `task-sp-100-cmc-real-owner-rewire` | SP-100 |
 
 No portal task authorizes a live integration, uncited component truth, component effect, deployment,
 billing event or production claim; source release gates remain explicit.
