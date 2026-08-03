@@ -1,0 +1,110 @@
+{
+  "schema": "barbarossa-ha-v1-environment-gating-v1",
+  "note": "Typed declaration of the SP-94 acceptance criteria whose ground truth requires a named non-production HA environment plus load/fault/alert authority, and of the NEGATIVE CONTROL that proves the only startable local stack cannot substitute for it. scripts/qualify_barbarossa_ha_v1.py joins this matrix with Barbarossa's own committed deploy/config/management-readonly-local/topology.json, so a claim here that the owner does not actually make fails the qualifier closed.",
+  "negative_control": {
+    "profile_id": "management-readonly-local-v1",
+    "source": "Barbarossa/deploy/config/management-readonly-local/topology.json",
+    "why_it_is_a_negative_control": "The management-readonly-local-v1 Docker stack is the only Barbarossa runtime that can be started here. Its OWN committed topology declares it non-HA. It is used ONLY as proof that AC-SP94-2/3/4/5 cannot be qualified in this environment; it is never presented as HA evidence.",
+    "expected_availability_class": "development-single-host",
+    "expected_ha_qualified": false,
+    "expected_activation_authority": "none",
+    "expected_queue_replicas": 1,
+    "expected_store_replicas": 1,
+    "expected_not_qualified_axes": [
+      "failure_domain_quorum",
+      "queue_replication",
+      "store_replication",
+      "autoscaling",
+      "failover"
+    ]
+  },
+  "environment_gated_criteria": [
+    {
+      "id": "AC-SP94-2",
+      "requirement": "Distributed work preserves one authoritative history across duplicate and worker-crash boundaries",
+      "disqualifying_local_axes": ["queue_replication", "store_replication"],
+      "required_inputs": [
+        "externally injected work-broker delivery trace from a replicated (R3) JetStream cluster",
+        "owner-store transaction history from a replicated PostgreSQL cluster with an induced failover",
+        "outbox publication trace correlated to that delivery trace",
+        "the final signed authoritative receipt set for every duplicate, crash-before-commit and crash-after-commit-before-ACK case",
+        "a named non-production environment receipt authorizing worker-crash injection"
+      ],
+      "forbidden_substitutes": [
+        "the single-host management-readonly-local-v1 stack (queue_replicas=1, store_replicas=1)",
+        "Barbarossa's in-process logic doubles (internal/work/*_test.go) presented as live delivery evidence",
+        "a hand-written fixture describing what the trace would have contained"
+      ]
+    },
+    {
+      "id": "AC-SP94-3",
+      "requirement": "Fencing ordering retries and quarantine remain safe under concurrency and partitions",
+      "disqualifying_local_axes": ["queue_replication", "store_replication"],
+      "required_inputs": [
+        "a controlled lease-partition and delivery-reorder timeline produced by an external fault controller",
+        "fencing and store rows captured from the owner store across that timeline",
+        "broker state (stream, consumer, pending, redelivery) captured independently of the owner process",
+        "the owner projection observed before and after each partition and poison event",
+        "a named non-production environment receipt authorizing partition injection"
+      ],
+      "forbidden_substitutes": [
+        "the single-host management-readonly-local-v1 stack, which cannot be partitioned",
+        "Barbarossa's deterministic ordering/fencing conformance fixtures presented as a live partition timeline",
+        "any automatic DLQ redrive performed to make quarantine look bounded"
+      ]
+    },
+    {
+      "id": "AC-SP94-4",
+      "requirement": "Selected service and work SLOs survive declared replica broker store and failure-domain faults",
+      "disqualifying_local_axes": ["failure_domain_quorum", "failover"],
+      "required_inputs": [
+        "at least three declared failure domains with the SP-92 rendered topology actually scheduled across them",
+        "independent request and work generators outside the owner process",
+        "a fault-controller timeline for pod loss, broker-node loss, store failover, zone loss and recovery",
+        "external SLO observations (availability, latency, recovery interval, integrity) not derived from the owner's own metrics",
+        "quorum state captured from the broker and store clusters",
+        "a named non-production environment receipt authorizing failure-domain loss"
+      ],
+      "forbidden_substitutes": [
+        "the single-host management-readonly-local-v1 stack (failure_domain_quorum and failover are not_qualified)",
+        "deploy/ha/*.json replica counts and PodDisruptionBudgets read as attained availability",
+        "the owner's own declared capacity envelope read as a measured SLO result"
+      ]
+    },
+    {
+      "id": "AC-SP94-5",
+      "requirement": "Capacity autoscaling drain rollout and rollback remain stable under sustained burst and soak load",
+      "disqualifying_local_axes": ["autoscaling", "failover"],
+      "required_inputs": [
+        "an immutable load model plus an external load-generation authority",
+        "autoscaler events from a live horizontal autoscaler driven by queue lag and oldest work age",
+        "queue and store metrics captured across sustained, burst and soak windows",
+        "scheduler events and process traces for scale-in, rolling upgrade and graceful drain",
+        "a post-rollback conformance capture against the exact prior known-good release",
+        "a named non-production environment receipt authorizing load generation and rollout"
+      ],
+      "forbidden_substitutes": [
+        "the single-host management-readonly-local-v1 stack (autoscaling and failover are not_qualified)",
+        "deploy/ha/capacity-envelope.json declared targets read as attained throughput",
+        "deploy/ha/worker-hpa.json thresholds read as observed autoscaler decisions"
+      ]
+    },
+    {
+      "id": "AC-SP94-8",
+      "requirement": "Qualification is observable reproducible reversible and non-authorizing",
+      "disqualifying_local_axes": [],
+      "required_inputs": [
+        "an independent alert-observer receipt showing deploy/ha/alerts.json rules actually evaluating and firing against seeded failures",
+        "an evidence-manifest signing authority and the signature over the emitted manifest",
+        "a named non-production environment receipt with owner, identity, allowed faults and rollback target",
+        "a post-rollback inventory captured from that environment after the exact declared rollback was executed",
+        "prior known-good release digests plus a backup/restore target"
+      ],
+      "forbidden_substitutes": [
+        "deploy/ha/alerts.json rule definitions read as alert evaluations",
+        "docs/runbooks/high-availability.md read as an executed rollback",
+        "this qualifier's own unsigned evidence manifest read as a signed attestation"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,2008 @@
+{
+  "acceptance_criteria": {
+    "AC-SP94-1": {
+      "buildable_checks": [
+        {
+          "actual": true,
+          "expected": true,
+          "name": "sp89 receipt is committed (git-tracked) here",
+          "pass": true
+        },
+        {
+          "actual": "sha256:2c4f619954779ee2343dc35452d07e44d4c3a91403d81700078fe79e7db5c0e1",
+          "expected": "sha256:2c4f619954779ee2343dc35452d07e44d4c3a91403d81700078fe79e7db5c0e1",
+          "name": "sp89 profile_lock_digest re-derives from its own committed body",
+          "pass": true
+        },
+        {
+          "actual": "profile-lock.ac32c722235b435bf0632919924d8648a71653a1.json",
+          "expected": "profile-lock.ac32c722235b435bf0632919924d8648a71653a1.json",
+          "name": "sp89 receipt filename commit == the commit it records",
+          "pass": true
+        },
+        {
+          "actual": "management-readonly-v1",
+          "expected": "management-readonly-v1",
+          "name": "sp89 profile_id == base profile",
+          "pass": true
+        },
+        {
+          "actual": "sha256:f5a59b602ef9341dca6b46ba0ea32b5a61fb844991d87c477e34e91b916e72ae",
+          "expected": "sha256:f5a59b602ef9341dca6b46ba0ea32b5a61fb844991d87c477e34e91b916e72ae",
+          "name": "sp90 runbook block independently re-hashed == the block digest sp89 recorded",
+          "pass": true
+        },
+        {
+          "actual": "sha256:e72da6880f5c79ef88039eae0ccf5d818f73f71e57e6958d97beefae030f7307",
+          "expected": "sha256:e72da6880f5c79ef88039eae0ccf5d818f73f71e57e6958d97beefae030f7307",
+          "name": "portal sp88 pins' SP90_BASELINE_DIGEST == the owner Sp90BaselineDigest() sp89 recorded via sp87",
+          "pass": true
+        },
+        {
+          "actual": [
+            "tenant",
+            "queue_depth",
+            "oldest_work_age_millis",
+            "inflight",
+            "retry_count",
+            "dlq_count",
+            "worker_eligible",
+            "replica_healthy",
+            "replica_desired",
+            "dependency_healthy",
+            "capacity_max_inflight",
+            "rollout_revision",
+            "error_budget_remaining",
+            "fencing_events",
+            "integrity"
+          ],
+          "expected": [
+            "tenant",
+            "queue_depth",
+            "oldest_work_age_millis",
+            "inflight",
+            "retry_count",
+            "dlq_count",
+            "worker_eligible",
+            "replica_healthy",
+            "replica_desired",
+            "dependency_healthy",
+            "capacity_max_inflight",
+            "rollout_revision",
+            "error_budget_remaining",
+            "fencing_events",
+            "integrity"
+          ],
+          "name": "sp92 projection struct json tags == projectionSchemaFields (owner lockstep re-verified)",
+          "pass": true
+        },
+        {
+          "actual": [
+            "tenant",
+            "queue_depth",
+            "oldest_work_age_millis",
+            "inflight",
+            "retry_count",
+            "dlq_count",
+            "worker_eligible",
+            "replica_healthy",
+            "replica_desired",
+            "dependency_healthy",
+            "capacity_max_inflight",
+            "rollout_revision",
+            "error_budget_remaining",
+            "fencing_events",
+            "integrity"
+          ],
+          "expected": [
+            "tenant",
+            "queue_depth",
+            "oldest_work_age_millis",
+            "inflight",
+            "retry_count",
+            "dlq_count",
+            "worker_eligible",
+            "replica_healthy",
+            "replica_desired",
+            "dependency_healthy",
+            "capacity_max_inflight",
+            "rollout_revision",
+            "error_budget_remaining",
+            "fencing_events",
+            "integrity"
+          ],
+          "name": "portal pins SP92_HA_PROJECTION_FIELDS == owner projectionSchemaFields",
+          "pass": true
+        },
+        {
+          "actual": "sha256:2e20878fa2679ed3681ee92ead5686ee3509efd9e7c3a58207f93f04a26589dc",
+          "expected": "sha256:2e20878fa2679ed3681ee92ead5686ee3509efd9e7c3a58207f93f04a26589dc",
+          "name": "portal pins SP92_HA_PROJECTION_SCHEMA_DIGEST == independently re-derived owner digest",
+          "pass": true
+        },
+        {
+          "actual": "sha256:2e20878fa2679ed3681ee92ead5686ee3509efd9e7c3a58207f93f04a26589dc",
+          "expected": "sha256:2e20878fa2679ed3681ee92ead5686ee3509efd9e7c3a58207f93f04a26589dc",
+          "name": "portal profile.json schema_digest == independently re-derived owner digest",
+          "pass": true
+        },
+        {
+          "actual": [
+            "tenant",
+            "queue_depth",
+            "oldest_work_age_millis",
+            "inflight",
+            "retry_count",
+            "dlq_count",
+            "worker_eligible",
+            "replica_healthy",
+            "replica_desired",
+            "dependency_healthy",
+            "capacity_max_inflight",
+            "rollout_revision",
+            "error_budget_remaining",
+            "fencing_events",
+            "integrity"
+          ],
+          "expected": [
+            "tenant",
+            "queue_depth",
+            "oldest_work_age_millis",
+            "inflight",
+            "retry_count",
+            "dlq_count",
+            "worker_eligible",
+            "replica_healthy",
+            "replica_desired",
+            "dependency_healthy",
+            "capacity_max_inflight",
+            "rollout_revision",
+            "error_budget_remaining",
+            "fencing_events",
+            "integrity"
+          ],
+          "name": "portal profile.json consumed_contract.fields == owner projectionSchemaFields",
+          "pass": true
+        },
+        {
+          "actual": {
+            "AC-SP92-1": "RED",
+            "AC-SP92-2": "RED",
+            "AC-SP92-3": "RED",
+            "AC-SP92-4": "RED",
+            "AC-SP92-5": "RED",
+            "AC-SP92-6": "GREEN",
+            "AC-SP92-7": "GREEN"
+          },
+          "expected": {
+            "AC-SP92-1": "RED",
+            "AC-SP92-2": "RED",
+            "AC-SP92-3": "RED",
+            "AC-SP92-4": "RED",
+            "AC-SP92-5": "RED",
+            "AC-SP92-6": "GREEN",
+            "AC-SP92-7": "GREEN"
+          },
+          "name": "portal pins SP92_CONFORMANCE_VERDICTS == owner committed ac-verdicts.json",
+          "pass": true
+        },
+        {
+          "actual": "RED",
+          "expected": "RED",
+          "name": "portal pins SP92_CONFORMANCE_OVERALL_STATUS == owner committed overall_status",
+          "pass": true
+        },
+        {
+          "actual": null,
+          "expected": null,
+          "name": "portal pins SP92_RELEASE_RECEIPT_DIGEST is None (absent, never fabricated)",
+          "pass": true
+        },
+        {
+          "actual": [],
+          "expected": [],
+          "name": "no placeholder template text is carried as an sp90 binary/image/sbom digest",
+          "pass": true
+        },
+        {
+          "actual": [
+            "omniscience",
+            "barbarossa",
+            "platform-portal"
+          ],
+          "expected": [
+            "omniscience",
+            "barbarossa",
+            "platform-portal"
+          ],
+          "name": "registry runtime_components for barbarossa-ha-v1",
+          "pass": true
+        },
+        {
+          "actual": "ADR-0023",
+          "expected": "ADR-0023",
+          "name": "registry governing_adr for barbarossa-ha-v1",
+          "pass": true
+        }
+      ],
+      "buildable_result": "GREEN",
+      "failed_buildable_checks": [],
+      "id": "AC-SP94-1",
+      "missing_ground_truth": [
+        {
+          "decision_required": "the Barbarossa owner must run its own release pipeline with the externally measured binary/image/SBOM/chart facts and commit the resulting receipt",
+          "detail": {
+            "committed_receipt_scan": {
+              "json_files_scanned": 195,
+              "matches": []
+            },
+            "externally_measured_digests_absent": [
+              "binary_digest",
+              "image_digest",
+              "sbom_digest",
+              "chart_digest",
+              "configuration_digest"
+            ]
+          },
+          "input": "an immutable committed SP-92 BarbarossaHighAvailabilityRelease receipt",
+          "why_no_substitute": "HighAvailabilityRelease (internal/runtime/api/release.go) is computed only by a release run supplying externally measured binary/image/SBOM/chart facts, is registered on no HTTP route, and is committed nowhere in the owner repository"
+        },
+        {
+          "decision_required": "a live HA qualification environment must close AC-SP92-1..5 before SP-94 can join a non-RED owner receipt",
+          "input": "an SP-92 receipt whose own status is not RED",
+          "why_no_substitute": "the owner's own committed expected verdicts record overall_status 'RED' with ['AC-SP92-1', 'AC-SP92-2', 'AC-SP92-3', 'AC-SP92-4', 'AC-SP92-5'] RED; a downstream join cannot upgrade an owner's honest RED"
+        },
+        {
+          "decision_required": "SP-91 must publish its substrate receipt; its own runbook records AC-SP91-7 RED",
+          "detail": {
+            "own_declared_red_acs": [
+              "AC-SP91-1",
+              "AC-SP91-2",
+              "AC-SP91-5",
+              "AC-SP91-7"
+            ]
+          },
+          "input": "an immutable committed SP-91 BarbarossaDistributedWorkRelease receipt",
+          "why_no_substitute": "the owner commits no BarbarossaDistributedWorkRelease receipt; AC-SP91-7 is recorded RED in its own runbook"
+        },
+        {
+          "decision_required": "a Barbarossa release build must publish them",
+          "detail": {
+            "binary_digest": null,
+            "image_digest": null,
+            "sbom_digest": null
+          },
+          "input": "SP-90 binary / image / SBOM digests",
+          "why_no_substitute": "null by design in the owner's own implementation-baseline receipt; a real value requires a release pipeline's machine-specific build"
+        },
+        {
+          "decision_required": "the upstream SP-92 receipt plus Portal's own accessibility evidence must exist",
+          "detail": {
+            "portal_declared_red_reasons": [
+              "sp92_release_receipt_absent",
+              "sp92_conformance_overall_status_red",
+              "sp92_acceptance_criterion_red:AC-SP92-1",
+              "sp92_acceptance_criterion_red:AC-SP92-2",
+              "sp92_acceptance_criterion_red:AC-SP92-3",
+              "sp92_acceptance_criterion_red:AC-SP92-4",
+              "sp92_acceptance_criterion_red:AC-SP92-5",
+              "accessibility_evidence_absent"
+            ]
+          },
+          "input": "a non-RED SP-93 PortalBarbarossaHighAvailabilityRelease",
+          "why_no_substitute": "Portal's own release lock is RED for reasons it cannot close from inside its own repository"
+        },
+        {
+          "decision_required": "the Barbarossa owner must publish the release receipt",
+          "input": "owner image / chart / SBOM / configuration / capacity / SLO receipt digests for the HA release",
+          "why_no_substitute": "only the owner's own release run can mint them; this join computes a content digest over the owner's committed artifact bytes (sha256:5f6b07c3a391205031903a1b1c75b5c6e1eb5b183b165a653625a03926d5d8e8) and labels it as exactly that, never as the owner's rendered_topology / capacity_envelope / alert_runbook digests"
+        }
+      ],
+      "non_activation": "buildable_result=GREEN means only that this buildable check passed. It is not profile activation, HA qualification or a production-readiness claim. activation_authority=none.",
+      "red_cause": "missing_upstream_owner_receipt",
+      "requirement": "One content-addressed profile lock joins exact base profile, Barbarossa HA and Portal HA receipts",
+      "scope_boundary": "A content-addressed join over already-published, committed owner artifacts. It does not mint an owner receipt, execute owner code, or observe a running system.",
+      "status": "RED",
+      "upstream_owner_declared_status": {
+        "sp89": {
+          "acceptance_criteria": {
+            "AC-SP89-1": "PASS",
+            "AC-SP89-2": "PASS",
+            "AC-SP89-3": "RED",
+            "AC-SP89-4": "PASS",
+            "AC-SP89-5": "RED",
+            "AC-SP89-6": "RED"
+          },
+          "status": "GREEN"
+        },
+        "sp91": {
+          "AC-SP91-1": "RED",
+          "AC-SP91-2": "RED",
+          "AC-SP91-3": "GREEN",
+          "AC-SP91-4": "GREEN",
+          "AC-SP91-5": "RED",
+          "AC-SP91-6": "GREEN",
+          "AC-SP91-7": "RED"
+        },
+        "sp92": {
+          "overall_status": "RED",
+          "verdicts": {
+            "AC-SP92-1": "RED",
+            "AC-SP92-2": "RED",
+            "AC-SP92-3": "RED",
+            "AC-SP92-4": "RED",
+            "AC-SP92-5": "RED",
+            "AC-SP92-6": "GREEN",
+            "AC-SP92-7": "GREEN"
+          }
+        },
+        "sp93": {
+          "red_reasons": [
+            "sp92_release_receipt_absent",
+            "sp92_conformance_overall_status_red",
+            "sp92_acceptance_criterion_red:AC-SP92-1",
+            "sp92_acceptance_criterion_red:AC-SP92-2",
+            "sp92_acceptance_criterion_red:AC-SP92-3",
+            "sp92_acceptance_criterion_red:AC-SP92-4",
+            "sp92_acceptance_criterion_red:AC-SP92-5",
+            "accessibility_evidence_absent"
+          ]
+        }
+      }
+    },
+    "AC-SP94-2": {
+      "buildable_checks": [
+        {
+          "actual": [],
+          "expected": [],
+          "name": "environment-gating matrix is structurally valid",
+          "pass": true
+        },
+        {
+          "actual": [],
+          "expected": [],
+          "name": "negative control holds (the local stack declares itself non-HA)",
+          "pass": true
+        },
+        {
+          "actual": true,
+          "expected": true,
+          "name": "AC-SP94-2 declares its required inputs",
+          "pass": true
+        },
+        {
+          "actual": true,
+          "expected": true,
+          "name": "AC-SP94-2 declares its forbidden substitutes",
+          "pass": true
+        }
+      ],
+      "buildable_result": "GREEN",
+      "environment_receipt_present": false,
+      "failed_buildable_checks": [],
+      "forbidden_substitutes": [
+        "the single-host management-readonly-local-v1 stack (queue_replicas=1, store_replicas=1)",
+        "Barbarossa's in-process logic doubles (internal/work/*_test.go) presented as live delivery evidence",
+        "a hand-written fixture describing what the trace would have contained"
+      ],
+      "id": "AC-SP94-2",
+      "missing_environment_receipt": "no receipt at docs/synchronized-platform/releases/barbarossa-ha-v1/environment-receipt.json with all of environment_identity, environment_owner, failure_domains, allowed_faults, load_generation_authority, alert_observer, observation_window, rollback_target, prior_release_digest",
+      "missing_ground_truth": [
+        {
+          "decision_required": "a human must authorize and supply a named non-production HA environment receipt at docs/synchronized-platform/releases/barbarossa-ha-v1/environment-receipt.json with all of environment_identity, environment_owner, failure_domains, allowed_faults, load_generation_authority, alert_observer, observation_window, rollback_target, prior_release_digest",
+          "input": "externally injected work-broker delivery trace from a replicated (R3) JetStream cluster",
+          "why_no_substitute": "docs/specs/task-sp-94-barbarossa-ha-profile-qualification.md 'Authority boundary' restricts this task to read-only inspection, load generation and only the exact failure/rollback probes listed in a named non-production authority receipt. It authorizes no Terraform/OpenTofu/Terragrunt apply or destroy, no production deployment, no secrets, no DNS, no redrive, no domain/effect activation and no production-readiness claim. A missing input produces RED/decision-required evidence, never a mock substitution and never a partial PASS."
+        },
+        {
+          "decision_required": "a human must authorize and supply a named non-production HA environment receipt at docs/synchronized-platform/releases/barbarossa-ha-v1/environment-receipt.json with all of environment_identity, environment_owner, failure_domains, allowed_faults, load_generation_authority, alert_observer, observation_window, rollback_target, prior_release_digest",
+          "input": "owner-store transaction history from a replicated PostgreSQL cluster with an induced failover",
+          "why_no_substitute": "docs/specs/task-sp-94-barbarossa-ha-profile-qualification.md 'Authority boundary' restricts this task to read-only inspection, load generation and only the exact failure/rollback probes listed in a named non-production authority receipt. It authorizes no Terraform/OpenTofu/Terragrunt apply or destroy, no production deployment, no secrets, no DNS, no redrive, no domain/effect activation and no production-readiness claim. A missing input produces RED/decision-required evidence, never a mock substitution and never a partial PASS."
+        },
+        {
+          "decision_required": "a human must authorize and supply a named non-production HA environment receipt at docs/synchronized-platform/releases/barbarossa-ha-v1/environment-receipt.json with all of environment_identity, environment_owner, failure_domains, allowed_faults, load_generation_authority, alert_observer, observation_window, rollback_target, prior_release_digest",
+          "input": "outbox publication trace correlated to that delivery trace",
+          "why_no_substitute": "docs/specs/task-sp-94-barbarossa-ha-profile-qualification.md 'Authority boundary' restricts this task to read-only inspection, load generation and only the exact failure/rollback probes listed in a named non-production authority receipt. It authorizes no Terraform/OpenTofu/Terragrunt apply or destroy, no production deployment, no secrets, no DNS, no redrive, no domain/effect activation and no production-readiness claim. A missing input produces RED/decision-required evidence, never a mock substitution and never a partial PASS."
+        },
+        {
+          "decision_required": "a human must authorize and supply a named non-production HA environment receipt at docs/synchronized-platform/releases/barbarossa-ha-v1/environment-receipt.json with all of environment_identity, environment_owner, failure_domains, allowed_faults, load_generation_authority, alert_observer, observation_window, rollback_target, prior_release_digest",
+          "input": "the final signed authoritative receipt set for every duplicate, crash-before-commit and crash-after-commit-before-ACK case",
+          "why_no_substitute": "docs/specs/task-sp-94-barbarossa-ha-profile-qualification.md 'Authority boundary' restricts this task to read-only inspection, load generation and only the exact failure/rollback probes listed in a named non-production authority receipt. It authorizes no Terraform/OpenTofu/Terragrunt apply or destroy, no production deployment, no secrets, no DNS, no redrive, no domain/effect activation and no production-readiness claim. A missing input produces RED/decision-required evidence, never a mock substitution and never a partial PASS."
+        },
+        {
+          "decision_required": "a human must authorize and supply a named non-production HA environment receipt at docs/synchronized-platform/releases/barbarossa-ha-v1/environment-receipt.json with all of environment_identity, environment_owner, failure_domains, allowed_faults, load_generation_authority, alert_observer, observation_window, rollback_target, prior_release_digest",
+          "input": "a named non-production environment receipt authorizing worker-crash injection",
+          "why_no_substitute": "docs/specs/task-sp-94-barbarossa-ha-profile-qualification.md 'Authority boundary' restricts this task to read-only inspection, load generation and only the exact failure/rollback probes listed in a named non-production authority receipt. It authorizes no Terraform/OpenTofu/Terragrunt apply or destroy, no production deployment, no secrets, no DNS, no redrive, no domain/effect activation and no production-readiness claim. A missing input produces RED/decision-required evidence, never a mock substitution and never a partial PASS."
+        }
+      ],
+      "negative_control": "The only startable Barbarossa runtime here is 'management-readonly-local-v1', whose own committed topology declares ha_qualified=False and lists ['queue_replication', 'store_replication'] among its not_qualified axes. It is a NEGATIVE control for AC-SP94-2: proof that this environment cannot produce the ground truth, never evidence that it can.",
+      "non_activation": "buildable_result=GREEN means only that this buildable check passed. It is not profile activation, HA qualification or a production-readiness claim. activation_authority=none.",
+      "requirement": "Distributed work preserves one authoritative history across duplicate and worker-crash boundaries",
+      "scope_boundary": "Environment-gated. No buildable substitute exists: this criterion's ground truth is an observation of a running HA deployment under externally injected faults and load.",
+      "status": "RED"
+    },
+    "AC-SP94-3": {
+      "buildable_checks": [
+        {
+          "actual": [],
+          "expected": [],
+          "name": "environment-gating matrix is structurally valid",
+          "pass": true
+        },
+        {
+          "actual": [],
+          "expected": [],
+          "name": "negative control holds (the local stack declares itself non-HA)",
+          "pass": true
+        },
+        {
+          "actual": true,
+          "expected": true,
+          "name": "AC-SP94-3 declares its required inputs",
+          "pass": true
+        },
+        {
+          "actual": true,
+          "expected": true,
+          "name": "AC-SP94-3 declares its forbidden substitutes",
+          "pass": true
+        }
+      ],
+      "buildable_result": "GREEN",
+      "environment_receipt_present": false,
+      "failed_buildable_checks": [],
+      "forbidden_substitutes": [
+        "the single-host management-readonly-local-v1 stack, which cannot be partitioned",
+        "Barbarossa's deterministic ordering/fencing conformance fixtures presented as a live partition timeline",
+        "any automatic DLQ redrive performed to make quarantine look bounded"
+      ],
+      "id": "AC-SP94-3",
+      "missing_environment_receipt": "no receipt at docs/synchronized-platform/releases/barbarossa-ha-v1/environment-receipt.json with all of environment_identity, environment_owner, failure_domains, allowed_faults, load_generation_authority, alert_observer, observation_window, rollback_target, prior_release_digest",
+      "missing_ground_truth": [
+        {
+          "decision_required": "a human must authorize and supply a named non-production HA environment receipt at docs/synchronized-platform/releases/barbarossa-ha-v1/environment-receipt.json with all of environment_identity, environment_owner, failure_domains, allowed_faults, load_generation_authority, alert_observer, observation_window, rollback_target, prior_release_digest",
+          "input": "a controlled lease-partition and delivery-reorder timeline produced by an external fault controller",
+          "why_no_substitute": "docs/specs/task-sp-94-barbarossa-ha-profile-qualification.md 'Authority boundary' restricts this task to read-only inspection, load generation and only the exact failure/rollback probes listed in a named non-production authority receipt. It authorizes no Terraform/OpenTofu/Terragrunt apply or destroy, no production deployment, no secrets, no DNS, no redrive, no domain/effect activation and no production-readiness claim. A missing input produces RED/decision-required evidence, never a mock substitution and never a partial PASS."
+        },
+        {
+          "decision_required": "a human must authorize and supply a named non-production HA environment receipt at docs/synchronized-platform/releases/barbarossa-ha-v1/environment-receipt.json with all of environment_identity, environment_owner, failure_domains, allowed_faults, load_generation_authority, alert_observer, observation_window, rollback_target, prior_release_digest",
+          "input": "fencing and store rows captured from the owner store across that timeline",
+          "why_no_substitute": "docs/specs/task-sp-94-barbarossa-ha-profile-qualification.md 'Authority boundary' restricts this task to read-only inspection, load generation and only the exact failure/rollback probes listed in a named non-production authority receipt. It authorizes no Terraform/OpenTofu/Terragrunt apply or destroy, no production deployment, no secrets, no DNS, no redrive, no domain/effect activation and no production-readiness claim. A missing input produces RED/decision-required evidence, never a mock substitution and never a partial PASS."
+        },
+        {
+          "decision_required": "a human must authorize and supply a named non-production HA environment receipt at docs/synchronized-platform/releases/barbarossa-ha-v1/environment-receipt.json with all of environment_identity, environment_owner, failure_domains, allowed_faults, load_generation_authority, alert_observer, observation_window, rollback_target, prior_release_digest",
+          "input": "broker state (stream, consumer, pending, redelivery) captured independently of the owner process",
+          "why_no_substitute": "docs/specs/task-sp-94-barbarossa-ha-profile-qualification.md 'Authority boundary' restricts this task to read-only inspection, load generation and only the exact failure/rollback probes listed in a named non-production authority receipt. It authorizes no Terraform/OpenTofu/Terragrunt apply or destroy, no production deployment, no secrets, no DNS, no redrive, no domain/effect activation and no production-readiness claim. A missing input produces RED/decision-required evidence, never a mock substitution and never a partial PASS."
+        },
+        {
+          "decision_required": "a human must authorize and supply a named non-production HA environment receipt at docs/synchronized-platform/releases/barbarossa-ha-v1/environment-receipt.json with all of environment_identity, environment_owner, failure_domains, allowed_faults, load_generation_authority, alert_observer, observation_window, rollback_target, prior_release_digest",
+          "input": "the owner projection observed before and after each partition and poison event",
+          "why_no_substitute": "docs/specs/task-sp-94-barbarossa-ha-profile-qualification.md 'Authority boundary' restricts this task to read-only inspection, load generation and only the exact failure/rollback probes listed in a named non-production authority receipt. It authorizes no Terraform/OpenTofu/Terragrunt apply or destroy, no production deployment, no secrets, no DNS, no redrive, no domain/effect activation and no production-readiness claim. A missing input produces RED/decision-required evidence, never a mock substitution and never a partial PASS."
+        },
+        {
+          "decision_required": "a human must authorize and supply a named non-production HA environment receipt at docs/synchronized-platform/releases/barbarossa-ha-v1/environment-receipt.json with all of environment_identity, environment_owner, failure_domains, allowed_faults, load_generation_authority, alert_observer, observation_window, rollback_target, prior_release_digest",
+          "input": "a named non-production environment receipt authorizing partition injection",
+          "why_no_substitute": "docs/specs/task-sp-94-barbarossa-ha-profile-qualification.md 'Authority boundary' restricts this task to read-only inspection, load generation and only the exact failure/rollback probes listed in a named non-production authority receipt. It authorizes no Terraform/OpenTofu/Terragrunt apply or destroy, no production deployment, no secrets, no DNS, no redrive, no domain/effect activation and no production-readiness claim. A missing input produces RED/decision-required evidence, never a mock substitution and never a partial PASS."
+        }
+      ],
+      "negative_control": "The only startable Barbarossa runtime here is 'management-readonly-local-v1', whose own committed topology declares ha_qualified=False and lists ['queue_replication', 'store_replication'] among its not_qualified axes. It is a NEGATIVE control for AC-SP94-3: proof that this environment cannot produce the ground truth, never evidence that it can.",
+      "non_activation": "buildable_result=GREEN means only that this buildable check passed. It is not profile activation, HA qualification or a production-readiness claim. activation_authority=none.",
+      "requirement": "Fencing ordering retries and quarantine remain safe under concurrency and partitions",
+      "scope_boundary": "Environment-gated. No buildable substitute exists: this criterion's ground truth is an observation of a running HA deployment under externally injected faults and load.",
+      "status": "RED"
+    },
+    "AC-SP94-4": {
+      "buildable_checks": [
+        {
+          "actual": [],
+          "expected": [],
+          "name": "environment-gating matrix is structurally valid",
+          "pass": true
+        },
+        {
+          "actual": [],
+          "expected": [],
+          "name": "negative control holds (the local stack declares itself non-HA)",
+          "pass": true
+        },
+        {
+          "actual": true,
+          "expected": true,
+          "name": "AC-SP94-4 declares its required inputs",
+          "pass": true
+        },
+        {
+          "actual": true,
+          "expected": true,
+          "name": "AC-SP94-4 declares its forbidden substitutes",
+          "pass": true
+        }
+      ],
+      "buildable_result": "GREEN",
+      "environment_receipt_present": false,
+      "failed_buildable_checks": [],
+      "forbidden_substitutes": [
+        "the single-host management-readonly-local-v1 stack (failure_domain_quorum and failover are not_qualified)",
+        "deploy/ha/*.json replica counts and PodDisruptionBudgets read as attained availability",
+        "the owner's own declared capacity envelope read as a measured SLO result"
+      ],
+      "id": "AC-SP94-4",
+      "missing_environment_receipt": "no receipt at docs/synchronized-platform/releases/barbarossa-ha-v1/environment-receipt.json with all of environment_identity, environment_owner, failure_domains, allowed_faults, load_generation_authority, alert_observer, observation_window, rollback_target, prior_release_digest",
+      "missing_ground_truth": [
+        {
+          "decision_required": "a human must authorize and supply a named non-production HA environment receipt at docs/synchronized-platform/releases/barbarossa-ha-v1/environment-receipt.json with all of environment_identity, environment_owner, failure_domains, allowed_faults, load_generation_authority, alert_observer, observation_window, rollback_target, prior_release_digest",
+          "input": "at least three declared failure domains with the SP-92 rendered topology actually scheduled across them",
+          "why_no_substitute": "docs/specs/task-sp-94-barbarossa-ha-profile-qualification.md 'Authority boundary' restricts this task to read-only inspection, load generation and only the exact failure/rollback probes listed in a named non-production authority receipt. It authorizes no Terraform/OpenTofu/Terragrunt apply or destroy, no production deployment, no secrets, no DNS, no redrive, no domain/effect activation and no production-readiness claim. A missing input produces RED/decision-required evidence, never a mock substitution and never a partial PASS."
+        },
+        {
+          "decision_required": "a human must authorize and supply a named non-production HA environment receipt at docs/synchronized-platform/releases/barbarossa-ha-v1/environment-receipt.json with all of environment_identity, environment_owner, failure_domains, allowed_faults, load_generation_authority, alert_observer, observation_window, rollback_target, prior_release_digest",
+          "input": "independent request and work generators outside the owner process",
+          "why_no_substitute": "docs/specs/task-sp-94-barbarossa-ha-profile-qualification.md 'Authority boundary' restricts this task to read-only inspection, load generation and only the exact failure/rollback probes listed in a named non-production authority receipt. It authorizes no Terraform/OpenTofu/Terragrunt apply or destroy, no production deployment, no secrets, no DNS, no redrive, no domain/effect activation and no production-readiness claim. A missing input produces RED/decision-required evidence, never a mock substitution and never a partial PASS."
+        },
+        {
+          "decision_required": "a human must authorize and supply a named non-production HA environment receipt at docs/synchronized-platform/releases/barbarossa-ha-v1/environment-receipt.json with all of environment_identity, environment_owner, failure_domains, allowed_faults, load_generation_authority, alert_observer, observation_window, rollback_target, prior_release_digest",
+          "input": "a fault-controller timeline for pod loss, broker-node loss, store failover, zone loss and recovery",
+          "why_no_substitute": "docs/specs/task-sp-94-barbarossa-ha-profile-qualification.md 'Authority boundary' restricts this task to read-only inspection, load generation and only the exact failure/rollback probes listed in a named non-production authority receipt. It authorizes no Terraform/OpenTofu/Terragrunt apply or destroy, no production deployment, no secrets, no DNS, no redrive, no domain/effect activation and no production-readiness claim. A missing input produces RED/decision-required evidence, never a mock substitution and never a partial PASS."
+        },
+        {
+          "decision_required": "a human must authorize and supply a named non-production HA environment receipt at docs/synchronized-platform/releases/barbarossa-ha-v1/environment-receipt.json with all of environment_identity, environment_owner, failure_domains, allowed_faults, load_generation_authority, alert_observer, observation_window, rollback_target, prior_release_digest",
+          "input": "external SLO observations (availability, latency, recovery interval, integrity) not derived from the owner's own metrics",
+          "why_no_substitute": "docs/specs/task-sp-94-barbarossa-ha-profile-qualification.md 'Authority boundary' restricts this task to read-only inspection, load generation and only the exact failure/rollback probes listed in a named non-production authority receipt. It authorizes no Terraform/OpenTofu/Terragrunt apply or destroy, no production deployment, no secrets, no DNS, no redrive, no domain/effect activation and no production-readiness claim. A missing input produces RED/decision-required evidence, never a mock substitution and never a partial PASS."
+        },
+        {
+          "decision_required": "a human must authorize and supply a named non-production HA environment receipt at docs/synchronized-platform/releases/barbarossa-ha-v1/environment-receipt.json with all of environment_identity, environment_owner, failure_domains, allowed_faults, load_generation_authority, alert_observer, observation_window, rollback_target, prior_release_digest",
+          "input": "quorum state captured from the broker and store clusters",
+          "why_no_substitute": "docs/specs/task-sp-94-barbarossa-ha-profile-qualification.md 'Authority boundary' restricts this task to read-only inspection, load generation and only the exact failure/rollback probes listed in a named non-production authority receipt. It authorizes no Terraform/OpenTofu/Terragrunt apply or destroy, no production deployment, no secrets, no DNS, no redrive, no domain/effect activation and no production-readiness claim. A missing input produces RED/decision-required evidence, never a mock substitution and never a partial PASS."
+        },
+        {
+          "decision_required": "a human must authorize and supply a named non-production HA environment receipt at docs/synchronized-platform/releases/barbarossa-ha-v1/environment-receipt.json with all of environment_identity, environment_owner, failure_domains, allowed_faults, load_generation_authority, alert_observer, observation_window, rollback_target, prior_release_digest",
+          "input": "a named non-production environment receipt authorizing failure-domain loss",
+          "why_no_substitute": "docs/specs/task-sp-94-barbarossa-ha-profile-qualification.md 'Authority boundary' restricts this task to read-only inspection, load generation and only the exact failure/rollback probes listed in a named non-production authority receipt. It authorizes no Terraform/OpenTofu/Terragrunt apply or destroy, no production deployment, no secrets, no DNS, no redrive, no domain/effect activation and no production-readiness claim. A missing input produces RED/decision-required evidence, never a mock substitution and never a partial PASS."
+        }
+      ],
+      "negative_control": "The only startable Barbarossa runtime here is 'management-readonly-local-v1', whose own committed topology declares ha_qualified=False and lists ['failure_domain_quorum', 'failover'] among its not_qualified axes. It is a NEGATIVE control for AC-SP94-4: proof that this environment cannot produce the ground truth, never evidence that it can.",
+      "non_activation": "buildable_result=GREEN means only that this buildable check passed. It is not profile activation, HA qualification or a production-readiness claim. activation_authority=none.",
+      "requirement": "Selected service and work SLOs survive declared replica broker store and failure-domain faults",
+      "scope_boundary": "Environment-gated. No buildable substitute exists: this criterion's ground truth is an observation of a running HA deployment under externally injected faults and load.",
+      "status": "RED"
+    },
+    "AC-SP94-5": {
+      "buildable_checks": [
+        {
+          "actual": [],
+          "expected": [],
+          "name": "environment-gating matrix is structurally valid",
+          "pass": true
+        },
+        {
+          "actual": [],
+          "expected": [],
+          "name": "negative control holds (the local stack declares itself non-HA)",
+          "pass": true
+        },
+        {
+          "actual": true,
+          "expected": true,
+          "name": "AC-SP94-5 declares its required inputs",
+          "pass": true
+        },
+        {
+          "actual": true,
+          "expected": true,
+          "name": "AC-SP94-5 declares its forbidden substitutes",
+          "pass": true
+        }
+      ],
+      "buildable_result": "GREEN",
+      "environment_receipt_present": false,
+      "failed_buildable_checks": [],
+      "forbidden_substitutes": [
+        "the single-host management-readonly-local-v1 stack (autoscaling and failover are not_qualified)",
+        "deploy/ha/capacity-envelope.json declared targets read as attained throughput",
+        "deploy/ha/worker-hpa.json thresholds read as observed autoscaler decisions"
+      ],
+      "id": "AC-SP94-5",
+      "missing_environment_receipt": "no receipt at docs/synchronized-platform/releases/barbarossa-ha-v1/environment-receipt.json with all of environment_identity, environment_owner, failure_domains, allowed_faults, load_generation_authority, alert_observer, observation_window, rollback_target, prior_release_digest",
+      "missing_ground_truth": [
+        {
+          "decision_required": "a human must authorize and supply a named non-production HA environment receipt at docs/synchronized-platform/releases/barbarossa-ha-v1/environment-receipt.json with all of environment_identity, environment_owner, failure_domains, allowed_faults, load_generation_authority, alert_observer, observation_window, rollback_target, prior_release_digest",
+          "input": "an immutable load model plus an external load-generation authority",
+          "why_no_substitute": "docs/specs/task-sp-94-barbarossa-ha-profile-qualification.md 'Authority boundary' restricts this task to read-only inspection, load generation and only the exact failure/rollback probes listed in a named non-production authority receipt. It authorizes no Terraform/OpenTofu/Terragrunt apply or destroy, no production deployment, no secrets, no DNS, no redrive, no domain/effect activation and no production-readiness claim. A missing input produces RED/decision-required evidence, never a mock substitution and never a partial PASS."
+        },
+        {
+          "decision_required": "a human must authorize and supply a named non-production HA environment receipt at docs/synchronized-platform/releases/barbarossa-ha-v1/environment-receipt.json with all of environment_identity, environment_owner, failure_domains, allowed_faults, load_generation_authority, alert_observer, observation_window, rollback_target, prior_release_digest",
+          "input": "autoscaler events from a live horizontal autoscaler driven by queue lag and oldest work age",
+          "why_no_substitute": "docs/specs/task-sp-94-barbarossa-ha-profile-qualification.md 'Authority boundary' restricts this task to read-only inspection, load generation and only the exact failure/rollback probes listed in a named non-production authority receipt. It authorizes no Terraform/OpenTofu/Terragrunt apply or destroy, no production deployment, no secrets, no DNS, no redrive, no domain/effect activation and no production-readiness claim. A missing input produces RED/decision-required evidence, never a mock substitution and never a partial PASS."
+        },
+        {
+          "decision_required": "a human must authorize and supply a named non-production HA environment receipt at docs/synchronized-platform/releases/barbarossa-ha-v1/environment-receipt.json with all of environment_identity, environment_owner, failure_domains, allowed_faults, load_generation_authority, alert_observer, observation_window, rollback_target, prior_release_digest",
+          "input": "queue and store metrics captured across sustained, burst and soak windows",
+          "why_no_substitute": "docs/specs/task-sp-94-barbarossa-ha-profile-qualification.md 'Authority boundary' restricts this task to read-only inspection, load generation and only the exact failure/rollback probes listed in a named non-production authority receipt. It authorizes no Terraform/OpenTofu/Terragrunt apply or destroy, no production deployment, no secrets, no DNS, no redrive, no domain/effect activation and no production-readiness claim. A missing input produces RED/decision-required evidence, never a mock substitution and never a partial PASS."
+        },
+        {
+          "decision_required": "a human must authorize and supply a named non-production HA environment receipt at docs/synchronized-platform/releases/barbarossa-ha-v1/environment-receipt.json with all of environment_identity, environment_owner, failure_domains, allowed_faults, load_generation_authority, alert_observer, observation_window, rollback_target, prior_release_digest",
+          "input": "scheduler events and process traces for scale-in, rolling upgrade and graceful drain",
+          "why_no_substitute": "docs/specs/task-sp-94-barbarossa-ha-profile-qualification.md 'Authority boundary' restricts this task to read-only inspection, load generation and only the exact failure/rollback probes listed in a named non-production authority receipt. It authorizes no Terraform/OpenTofu/Terragrunt apply or destroy, no production deployment, no secrets, no DNS, no redrive, no domain/effect activation and no production-readiness claim. A missing input produces RED/decision-required evidence, never a mock substitution and never a partial PASS."
+        },
+        {
+          "decision_required": "a human must authorize and supply a named non-production HA environment receipt at docs/synchronized-platform/releases/barbarossa-ha-v1/environment-receipt.json with all of environment_identity, environment_owner, failure_domains, allowed_faults, load_generation_authority, alert_observer, observation_window, rollback_target, prior_release_digest",
+          "input": "a post-rollback conformance capture against the exact prior known-good release",
+          "why_no_substitute": "docs/specs/task-sp-94-barbarossa-ha-profile-qualification.md 'Authority boundary' restricts this task to read-only inspection, load generation and only the exact failure/rollback probes listed in a named non-production authority receipt. It authorizes no Terraform/OpenTofu/Terragrunt apply or destroy, no production deployment, no secrets, no DNS, no redrive, no domain/effect activation and no production-readiness claim. A missing input produces RED/decision-required evidence, never a mock substitution and never a partial PASS."
+        },
+        {
+          "decision_required": "a human must authorize and supply a named non-production HA environment receipt at docs/synchronized-platform/releases/barbarossa-ha-v1/environment-receipt.json with all of environment_identity, environment_owner, failure_domains, allowed_faults, load_generation_authority, alert_observer, observation_window, rollback_target, prior_release_digest",
+          "input": "a named non-production environment receipt authorizing load generation and rollout",
+          "why_no_substitute": "docs/specs/task-sp-94-barbarossa-ha-profile-qualification.md 'Authority boundary' restricts this task to read-only inspection, load generation and only the exact failure/rollback probes listed in a named non-production authority receipt. It authorizes no Terraform/OpenTofu/Terragrunt apply or destroy, no production deployment, no secrets, no DNS, no redrive, no domain/effect activation and no production-readiness claim. A missing input produces RED/decision-required evidence, never a mock substitution and never a partial PASS."
+        }
+      ],
+      "negative_control": "The only startable Barbarossa runtime here is 'management-readonly-local-v1', whose own committed topology declares ha_qualified=False and lists ['autoscaling', 'failover'] among its not_qualified axes. It is a NEGATIVE control for AC-SP94-5: proof that this environment cannot produce the ground truth, never evidence that it can.",
+      "non_activation": "buildable_result=GREEN means only that this buildable check passed. It is not profile activation, HA qualification or a production-readiness claim. activation_authority=none.",
+      "requirement": "Capacity autoscaling drain rollout and rollback remain stable under sustained burst and soak load",
+      "scope_boundary": "Environment-gated. No buildable substitute exists: this criterion's ground truth is an observation of a running HA deployment under externally injected faults and load.",
+      "status": "RED"
+    },
+    "AC-SP94-6": {
+      "buildable_checks": [
+        {
+          "actual": true,
+          "expected": true,
+          "name": "portal read-edge path is an owner-published route",
+          "pass": true
+        },
+        {
+          "actual": [
+            "/livez",
+            "/readyz",
+            "/startupz",
+            "/v1/availability",
+            "/v1/health"
+          ],
+          "expected": [
+            "/livez",
+            "/readyz",
+            "/startupz",
+            "/v1/availability",
+            "/v1/health"
+          ],
+          "name": "owner published route set == the read-only set portal declares",
+          "pass": true
+        },
+        {
+          "actual": [
+            "development-single-host",
+            false,
+            [
+              "failure_domain_quorum",
+              "queue_replication",
+              "store_replication",
+              "autoscaling",
+              "failover"
+            ]
+          ],
+          "expected": [
+            "development-single-host",
+            false,
+            [
+              "failure_domain_quorum",
+              "queue_replication",
+              "store_replication",
+              "autoscaling",
+              "failover"
+            ]
+          ],
+          "name": "portal owner_qualification == owner committed topology.json",
+          "pass": true
+        },
+        {
+          "actual": [
+            "development-single-host",
+            false,
+            [
+              "failure_domain_quorum",
+              "queue_replication",
+              "store_replication",
+              "autoscaling",
+              "failover"
+            ]
+          ],
+          "expected": [
+            "development-single-host",
+            false,
+            [
+              "failure_domain_quorum",
+              "queue_replication",
+              "store_replication",
+              "autoscaling",
+              "failover"
+            ]
+          ],
+          "name": "portal pins HA qualification == owner committed topology.json",
+          "pass": true
+        },
+        {
+          "actual": [],
+          "expected": [],
+          "name": "owner projection carries no freshness marker field",
+          "pass": true
+        },
+        {
+          "actual": [
+            false,
+            "unknown",
+            "owner-publishes-no-freshness-marker"
+          ],
+          "expected": [
+            false,
+            "unknown",
+            "owner-publishes-no-freshness-marker"
+          ],
+          "name": "portal declares owner_publishes_marker=false, best state unknown, with the owner reason",
+          "pass": true
+        },
+        {
+          "actual": [],
+          "expected": [],
+          "name": "no captured portal section response is 'fresh'",
+          "pass": true
+        },
+        {
+          "actual": [
+            [
+              "unknown",
+              "owner-publishes-no-freshness-marker"
+            ]
+          ],
+          "expected": [
+            [
+              "unknown",
+              "owner-publishes-no-freshness-marker"
+            ]
+          ],
+          "name": "the contract-exact live capture is 'unknown' with the owner-marker reason",
+          "pass": true
+        },
+        {
+          "actual": [],
+          "expected": [],
+          "name": "portal renders no availability payload in any unavailable/incompatible state",
+          "pass": true
+        },
+        {
+          "actual": true,
+          "expected": true,
+          "name": "portal captures cover severance, skew and outage states",
+          "pass": true
+        },
+        {
+          "actual": [],
+          "expected": [],
+          "name": "every owner payload field keeps its owner wire type in portal",
+          "pass": true
+        },
+        {
+          "actual": false,
+          "expected": false,
+          "name": "the owner integrity seal is not re-published as an availability field",
+          "pass": true
+        },
+        {
+          "actual": [
+            "ackLatency",
+            "autoscaling",
+            "headroom",
+            "perDependencyBreakdown",
+            "redelivery",
+            "rolloutPhase",
+            "sloAttainment",
+            "throughput"
+          ],
+          "expected": [
+            "ackLatency",
+            "autoscaling",
+            "headroom",
+            "perDependencyBreakdown",
+            "redelivery",
+            "rolloutPhase",
+            "sloAttainment",
+            "throughput"
+          ],
+          "name": "portal profile.json absent_axes == portal pins absent axes",
+          "pass": true
+        },
+        {
+          "actual": [
+            "owner-does-not-publish"
+          ],
+          "expected": [
+            "owner-does-not-publish"
+          ],
+          "name": "every absent axis carries the single fixed portal-owned reason",
+          "pass": true
+        },
+        {
+          "actual": [],
+          "expected": [],
+          "name": "no absent axis is silently satisfied by an owner-published field",
+          "pass": true
+        },
+        {
+          "actual": false,
+          "expected": false,
+          "name": "portal never derives headroom from the owner's capacity ceiling",
+          "pass": true
+        },
+        {
+          "actual": [
+            "GET"
+          ],
+          "expected": [
+            "GET"
+          ],
+          "name": "portal profile.json declares GET-only",
+          "pass": true
+        },
+        {
+          "actual": [],
+          "expected": [],
+          "name": "portal HA package imports no broker/store/infrastructure client",
+          "pass": true
+        },
+        {
+          "actual": [],
+          "expected": [],
+          "name": "portal HA package makes no mutating HTTP call",
+          "pass": true
+        },
+        {
+          "actual": true,
+          "expected": true,
+          "name": "the no-control scan actually read files",
+          "pass": true
+        }
+      ],
+      "buildable_result": "GREEN",
+      "failed_buildable_checks": [],
+      "id": "AC-SP94-6",
+      "missing_ground_truth": [
+        {
+          "decision_required": "a named non-production environment running both components, plus an independent observer with browser and cache capture authority",
+          "input": "independent API, browser, cache and audit captures taken against a running Portal and Barbarossa HA pair, plus owner-state before/after observations",
+          "why_no_substitute": "Portal's committed section-responses.json is a generated capture of Portal's own read path over a fixture; it proves the shape Portal renders, not what a browser and an independent observer see against the real owner under skew, outage and recovery"
+        },
+        {
+          "decision_required": "a live Portal instance pointed at a controllable owner double",
+          "input": "the tampered-fixture matrix executed against the live read path",
+          "why_no_substitute": "a structural comparison of committed artifacts cannot show that a tampered owner response is rejected at runtime"
+        },
+        {
+          "decision_required": "the SP-93 frontend scope must produce and commit it",
+          "input": "SP-93 accessibility evidence",
+          "why_no_substitute": "Portal's own release lock records accessibility_evidence_refs=[] and the reason accessibility_evidence_absent"
+        }
+      ],
+      "no_control_scan": {
+        "files_scanned": 8,
+        "forbidden_imports": [],
+        "imported_top_level_modules": [
+          "__future__",
+          "app",
+          "dataclasses",
+          "datetime",
+          "functools",
+          "hashlib",
+          "httpx",
+          "json",
+          "os",
+          "pathlib",
+          "pydantic",
+          "re",
+          "time",
+          "typing"
+        ],
+        "mutating_calls": [],
+        "package": "platform-portal/backend/app/cmc/barbarossa_ha"
+      },
+      "non_activation": "buildable_result=GREEN means only that this buildable check passed. It is not profile activation, HA qualification or a production-readiness claim. activation_authority=none.",
+      "requirement": "Portal displays exact owner HA truth and remains severable and read-only",
+      "scope_boundary": "Structural verification of Portal's shipped artifacts against Barbarossa's actual committed contract. It is not an independent API/browser/cache/audit capture against a running pair, and it does not execute the tampered-fixture matrix live.",
+      "status": "RED"
+    },
+    "AC-SP94-7": {
+      "buildable_checks": [
+        {
+          "actual": [
+            "omniscience",
+            "barbarossa",
+            "platform-portal"
+          ],
+          "expected": [
+            "omniscience",
+            "barbarossa",
+            "platform-portal"
+          ],
+          "name": "registry runtime_components",
+          "pass": true
+        },
+        {
+          "actual": [
+            "omnius"
+          ],
+          "expected": [
+            "omnius"
+          ],
+          "name": "registry deferred_runtime_components (omnius stays deferred)",
+          "pass": true
+        },
+        {
+          "actual": [
+            "reliability"
+          ],
+          "expected": [
+            "reliability"
+          ],
+          "name": "registry selected_domain_packs (reliability only)",
+          "pass": true
+        },
+        {
+          "actual": "PW0",
+          "expected": "PW0",
+          "name": "registry pii_profile",
+          "pass": true
+        },
+        {
+          "actual": "forbidden",
+          "expected": "forbidden",
+          "name": "registry effect_posture",
+          "pass": true
+        },
+        {
+          "actual": "forbidden",
+          "expected": "forbidden",
+          "name": "registry portal_ha_controls",
+          "pass": true
+        },
+        {
+          "actual": 3,
+          "expected": 3,
+          "name": "registry barbarossa_stream_replicas",
+          "pass": true
+        },
+        {
+          "actual": "postgresql-ha",
+          "expected": "postgresql-ha",
+          "name": "registry barbarossa_state_store",
+          "pass": true
+        },
+        {
+          "actual": [],
+          "expected": [],
+          "name": "registry required_work_packages contain the whole HA chain",
+          "pass": true
+        },
+        {
+          "actual": [],
+          "expected": [],
+          "name": "owner publishes no mutation, redrive, action, effect or Omnius route",
+          "pass": true
+        },
+        {
+          "actual": [],
+          "expected": [],
+          "name": "portal declares every HA control capability forbidden",
+          "pass": true
+        },
+        {
+          "actual": [],
+          "expected": [],
+          "name": "portal HA package imports no broker/store/infrastructure client",
+          "pass": true
+        },
+        {
+          "actual": true,
+          "expected": true,
+          "name": "the no-effect scan actually read files",
+          "pass": true
+        }
+      ],
+      "buildable_result": "GREEN",
+      "failed_buildable_checks": [],
+      "id": "AC-SP94-7",
+      "missing_ground_truth": [
+        {
+          "decision_required": "a named non-production environment with tenant-provisioning and load authority",
+          "input": "an independently controlled two-scope identity corpus with seeded PII and active content, exercised through every load and failure path",
+          "why_no_substitute": "a registry and source audit cannot show that no cross-scope disclosure, favorable fallback or hidden domain activation occurs under load, partition or recovery"
+        },
+        {
+          "decision_required": "read-only inventory access to the named environment",
+          "input": "live workload, DNS, route, secret-name, dependency, network, broker, store, log, trace, audit and UI inventories from that environment",
+          "why_no_substitute": "committed manifests declare intent; only a running environment can prove no unselected workload, domain, effect path or managed side effect exists"
+        }
+      ],
+      "no_effect_scan": {
+        "files_scanned": 8,
+        "forbidden_imports": [],
+        "imported_top_level_modules": [
+          "__future__",
+          "app",
+          "dataclasses",
+          "datetime",
+          "functools",
+          "hashlib",
+          "httpx",
+          "json",
+          "os",
+          "pathlib",
+          "pydantic",
+          "re",
+          "time",
+          "typing"
+        ],
+        "mutating_calls": [],
+        "package": "platform-portal/backend/app/cmc/barbarossa_ha"
+      },
+      "non_activation": "buildable_result=GREEN means only that this buildable check passed. It is not profile activation, HA qualification or a production-readiness claim. activation_authority=none.",
+      "requirement": "Tenant PW0 membership and no-effect boundaries survive every load and failure path",
+      "scope_boundary": "A static membership and no-effect audit against the accepted ADR-0023 registry selection and each owner's committed inventories. It is NOT a live workload, network, DNS, route, secret-name, broker, store, log, trace or UI inventory.",
+      "status": "RED"
+    },
+    "AC-SP94-8": {
+      "buildable_checks": [
+        {
+          "actual": [],
+          "expected": [],
+          "name": "environment-gating matrix is structurally valid",
+          "pass": true
+        },
+        {
+          "actual": [],
+          "expected": [],
+          "name": "negative control holds (the local stack declares itself non-HA)",
+          "pass": true
+        },
+        {
+          "actual": true,
+          "expected": true,
+          "name": "AC-SP94-8 declares its required inputs",
+          "pass": true
+        },
+        {
+          "actual": true,
+          "expected": true,
+          "name": "AC-SP94-8 declares its forbidden substitutes",
+          "pass": true
+        }
+      ],
+      "buildable_result": "GREEN",
+      "environment_receipt_present": false,
+      "failed_buildable_checks": [],
+      "forbidden_substitutes": [
+        "deploy/ha/alerts.json rule definitions read as alert evaluations",
+        "docs/runbooks/high-availability.md read as an executed rollback",
+        "this qualifier's own unsigned evidence manifest read as a signed attestation"
+      ],
+      "id": "AC-SP94-8",
+      "missing_environment_receipt": "no receipt at docs/synchronized-platform/releases/barbarossa-ha-v1/environment-receipt.json with all of environment_identity, environment_owner, failure_domains, allowed_faults, load_generation_authority, alert_observer, observation_window, rollback_target, prior_release_digest",
+      "missing_ground_truth": [
+        {
+          "decision_required": "a human must authorize and supply a named non-production HA environment receipt at docs/synchronized-platform/releases/barbarossa-ha-v1/environment-receipt.json with all of environment_identity, environment_owner, failure_domains, allowed_faults, load_generation_authority, alert_observer, observation_window, rollback_target, prior_release_digest",
+          "input": "an independent alert-observer receipt showing deploy/ha/alerts.json rules actually evaluating and firing against seeded failures",
+          "why_no_substitute": "docs/specs/task-sp-94-barbarossa-ha-profile-qualification.md 'Authority boundary' restricts this task to read-only inspection, load generation and only the exact failure/rollback probes listed in a named non-production authority receipt. It authorizes no Terraform/OpenTofu/Terragrunt apply or destroy, no production deployment, no secrets, no DNS, no redrive, no domain/effect activation and no production-readiness claim. A missing input produces RED/decision-required evidence, never a mock substitution and never a partial PASS."
+        },
+        {
+          "decision_required": "a human must authorize and supply a named non-production HA environment receipt at docs/synchronized-platform/releases/barbarossa-ha-v1/environment-receipt.json with all of environment_identity, environment_owner, failure_domains, allowed_faults, load_generation_authority, alert_observer, observation_window, rollback_target, prior_release_digest",
+          "input": "an evidence-manifest signing authority and the signature over the emitted manifest",
+          "why_no_substitute": "docs/specs/task-sp-94-barbarossa-ha-profile-qualification.md 'Authority boundary' restricts this task to read-only inspection, load generation and only the exact failure/rollback probes listed in a named non-production authority receipt. It authorizes no Terraform/OpenTofu/Terragrunt apply or destroy, no production deployment, no secrets, no DNS, no redrive, no domain/effect activation and no production-readiness claim. A missing input produces RED/decision-required evidence, never a mock substitution and never a partial PASS."
+        },
+        {
+          "decision_required": "a human must authorize and supply a named non-production HA environment receipt at docs/synchronized-platform/releases/barbarossa-ha-v1/environment-receipt.json with all of environment_identity, environment_owner, failure_domains, allowed_faults, load_generation_authority, alert_observer, observation_window, rollback_target, prior_release_digest",
+          "input": "a named non-production environment receipt with owner, identity, allowed faults and rollback target",
+          "why_no_substitute": "docs/specs/task-sp-94-barbarossa-ha-profile-qualification.md 'Authority boundary' restricts this task to read-only inspection, load generation and only the exact failure/rollback probes listed in a named non-production authority receipt. It authorizes no Terraform/OpenTofu/Terragrunt apply or destroy, no production deployment, no secrets, no DNS, no redrive, no domain/effect activation and no production-readiness claim. A missing input produces RED/decision-required evidence, never a mock substitution and never a partial PASS."
+        },
+        {
+          "decision_required": "a human must authorize and supply a named non-production HA environment receipt at docs/synchronized-platform/releases/barbarossa-ha-v1/environment-receipt.json with all of environment_identity, environment_owner, failure_domains, allowed_faults, load_generation_authority, alert_observer, observation_window, rollback_target, prior_release_digest",
+          "input": "a post-rollback inventory captured from that environment after the exact declared rollback was executed",
+          "why_no_substitute": "docs/specs/task-sp-94-barbarossa-ha-profile-qualification.md 'Authority boundary' restricts this task to read-only inspection, load generation and only the exact failure/rollback probes listed in a named non-production authority receipt. It authorizes no Terraform/OpenTofu/Terragrunt apply or destroy, no production deployment, no secrets, no DNS, no redrive, no domain/effect activation and no production-readiness claim. A missing input produces RED/decision-required evidence, never a mock substitution and never a partial PASS."
+        },
+        {
+          "decision_required": "a human must authorize and supply a named non-production HA environment receipt at docs/synchronized-platform/releases/barbarossa-ha-v1/environment-receipt.json with all of environment_identity, environment_owner, failure_domains, allowed_faults, load_generation_authority, alert_observer, observation_window, rollback_target, prior_release_digest",
+          "input": "prior known-good release digests plus a backup/restore target",
+          "why_no_substitute": "docs/specs/task-sp-94-barbarossa-ha-profile-qualification.md 'Authority boundary' restricts this task to read-only inspection, load generation and only the exact failure/rollback probes listed in a named non-production authority receipt. It authorizes no Terraform/OpenTofu/Terragrunt apply or destroy, no production deployment, no secrets, no DNS, no redrive, no domain/effect activation and no production-readiness claim. A missing input produces RED/decision-required evidence, never a mock substitution and never a partial PASS."
+        }
+      ],
+      "negative_control": "The only startable Barbarossa runtime here is 'management-readonly-local-v1', declared ha_qualified=False with activation_authority=none. It carries no alert-observer, signing or rollback authority for AC-SP94-8 either.",
+      "non_activation": "buildable_result=GREEN means only that this buildable check passed. It is not profile activation, HA qualification or a production-readiness claim. activation_authority=none.",
+      "requirement": "Qualification is observable reproducible reversible and non-authorizing",
+      "scope_boundary": "Environment-gated. No buildable substitute exists: this criterion's ground truth is an observation of a running HA deployment under externally injected faults and load.",
+      "status": "RED"
+    }
+  },
+  "activation_authority": "none",
+  "authority_boundary": "docs/specs/task-sp-94-barbarossa-ha-profile-qualification.md 'Authority boundary' restricts this task to read-only inspection, load generation and only the exact failure/rollback probes listed in a named non-production authority receipt. It authorizes no Terraform/OpenTofu/Terragrunt apply or destroy, no production deployment, no secrets, no DNS, no redrive, no domain/effect activation and no production-readiness claim. A missing input produces RED/decision-required evidence, never a mock substitution and never a partial PASS.",
+  "base_profile_id": "management-readonly-v1",
+  "buildable_acceptance_criteria": [
+    "AC-SP94-1",
+    "AC-SP94-6",
+    "AC-SP94-7"
+  ],
+  "buildable_checks_result": "GREEN",
+  "environment_gated_acceptance_criteria": [
+    "AC-SP94-2",
+    "AC-SP94-3",
+    "AC-SP94-4",
+    "AC-SP94-5",
+    "AC-SP94-8"
+  ],
+  "environment_gating": {
+    "axes_covered": [
+      "autoscaling",
+      "failover",
+      "failure_domain_quorum",
+      "queue_replication",
+      "store_replication"
+    ],
+    "criteria": {
+      "AC-SP94-2": {
+        "disqualifying_local_axes": [
+          "queue_replication",
+          "store_replication"
+        ],
+        "forbidden_substitutes": [
+          "the single-host management-readonly-local-v1 stack (queue_replicas=1, store_replicas=1)",
+          "Barbarossa's in-process logic doubles (internal/work/*_test.go) presented as live delivery evidence",
+          "a hand-written fixture describing what the trace would have contained"
+        ],
+        "id": "AC-SP94-2",
+        "required_inputs": [
+          "externally injected work-broker delivery trace from a replicated (R3) JetStream cluster",
+          "owner-store transaction history from a replicated PostgreSQL cluster with an induced failover",
+          "outbox publication trace correlated to that delivery trace",
+          "the final signed authoritative receipt set for every duplicate, crash-before-commit and crash-after-commit-before-ACK case",
+          "a named non-production environment receipt authorizing worker-crash injection"
+        ],
+        "requirement": "Distributed work preserves one authoritative history across duplicate and worker-crash boundaries"
+      },
+      "AC-SP94-3": {
+        "disqualifying_local_axes": [
+          "queue_replication",
+          "store_replication"
+        ],
+        "forbidden_substitutes": [
+          "the single-host management-readonly-local-v1 stack, which cannot be partitioned",
+          "Barbarossa's deterministic ordering/fencing conformance fixtures presented as a live partition timeline",
+          "any automatic DLQ redrive performed to make quarantine look bounded"
+        ],
+        "id": "AC-SP94-3",
+        "required_inputs": [
+          "a controlled lease-partition and delivery-reorder timeline produced by an external fault controller",
+          "fencing and store rows captured from the owner store across that timeline",
+          "broker state (stream, consumer, pending, redelivery) captured independently of the owner process",
+          "the owner projection observed before and after each partition and poison event",
+          "a named non-production environment receipt authorizing partition injection"
+        ],
+        "requirement": "Fencing ordering retries and quarantine remain safe under concurrency and partitions"
+      },
+      "AC-SP94-4": {
+        "disqualifying_local_axes": [
+          "failure_domain_quorum",
+          "failover"
+        ],
+        "forbidden_substitutes": [
+          "the single-host management-readonly-local-v1 stack (failure_domain_quorum and failover are not_qualified)",
+          "deploy/ha/*.json replica counts and PodDisruptionBudgets read as attained availability",
+          "the owner's own declared capacity envelope read as a measured SLO result"
+        ],
+        "id": "AC-SP94-4",
+        "required_inputs": [
+          "at least three declared failure domains with the SP-92 rendered topology actually scheduled across them",
+          "independent request and work generators outside the owner process",
+          "a fault-controller timeline for pod loss, broker-node loss, store failover, zone loss and recovery",
+          "external SLO observations (availability, latency, recovery interval, integrity) not derived from the owner's own metrics",
+          "quorum state captured from the broker and store clusters",
+          "a named non-production environment receipt authorizing failure-domain loss"
+        ],
+        "requirement": "Selected service and work SLOs survive declared replica broker store and failure-domain faults"
+      },
+      "AC-SP94-5": {
+        "disqualifying_local_axes": [
+          "autoscaling",
+          "failover"
+        ],
+        "forbidden_substitutes": [
+          "the single-host management-readonly-local-v1 stack (autoscaling and failover are not_qualified)",
+          "deploy/ha/capacity-envelope.json declared targets read as attained throughput",
+          "deploy/ha/worker-hpa.json thresholds read as observed autoscaler decisions"
+        ],
+        "id": "AC-SP94-5",
+        "required_inputs": [
+          "an immutable load model plus an external load-generation authority",
+          "autoscaler events from a live horizontal autoscaler driven by queue lag and oldest work age",
+          "queue and store metrics captured across sustained, burst and soak windows",
+          "scheduler events and process traces for scale-in, rolling upgrade and graceful drain",
+          "a post-rollback conformance capture against the exact prior known-good release",
+          "a named non-production environment receipt authorizing load generation and rollout"
+        ],
+        "requirement": "Capacity autoscaling drain rollout and rollback remain stable under sustained burst and soak load"
+      },
+      "AC-SP94-8": {
+        "disqualifying_local_axes": [],
+        "forbidden_substitutes": [
+          "deploy/ha/alerts.json rule definitions read as alert evaluations",
+          "docs/runbooks/high-availability.md read as an executed rollback",
+          "this qualifier's own unsigned evidence manifest read as a signed attestation"
+        ],
+        "id": "AC-SP94-8",
+        "required_inputs": [
+          "an independent alert-observer receipt showing deploy/ha/alerts.json rules actually evaluating and firing against seeded failures",
+          "an evidence-manifest signing authority and the signature over the emitted manifest",
+          "a named non-production environment receipt with owner, identity, allowed faults and rollback target",
+          "a post-rollback inventory captured from that environment after the exact declared rollback was executed",
+          "prior known-good release digests plus a backup/restore target"
+        ],
+        "requirement": "Qualification is observable reproducible reversible and non-authorizing"
+      }
+    },
+    "criteria_count": 5,
+    "errors": [],
+    "fixture": "tests/fixtures/barbarossa-ha-v1/environment-gating.json",
+    "fixture_digest": "sha256:97c68d792b9b79f0572c8af6f2a4fd3e6eb38d275ccc73476b8a3eb2fc731201",
+    "issues": [],
+    "member": "environment_gating_matrix",
+    "valid": true
+  },
+  "evidence_manifest": {
+    "genai_enablement_git_commit": "5b9be6c6087defaab8044fc770b70f5b03bfd992",
+    "profile_lock_digest": "sha256:157e285410f8bd15d4e99517e43ede4c545e7014bc450ea7321418f2098162af",
+    "signature": null,
+    "signature_absent_reason": "no evidence-manifest signing authority exists for this task; an unsigned manifest is never presented as a signed attestation (AC-SP94-8)"
+  },
+  "genai_enablement_git_commit": "5b9be6c6087defaab8044fc770b70f5b03bfd992",
+  "governing_adr": "ADR-0023",
+  "members": {
+    "sp89_base_profile": {
+      "committed": true,
+      "errors": [],
+      "evidence_file_digest": "sha256:5f614b86364f33ede49ab54cb17ec3b8f15f899289ae0bc3ab915cba35522646",
+      "genai_enablement_git_commit": "ac32c722235b435bf0632919924d8648a71653a1",
+      "independently_rederived_profile_lock_digest": "sha256:2c4f619954779ee2343dc35452d07e44d4c3a91403d81700078fe79e7db5c0e1",
+      "member": "sp89_base_profile",
+      "own_declared_ac_status": {
+        "AC-SP89-1": "PASS",
+        "AC-SP89-2": "PASS",
+        "AC-SP89-3": "RED",
+        "AC-SP89-4": "PASS",
+        "AC-SP89-5": "RED",
+        "AC-SP89-6": "RED"
+      },
+      "own_declared_status": "GREEN",
+      "profile_id": "management-readonly-v1",
+      "recorded_profile_lock_digest": "sha256:2c4f619954779ee2343dc35452d07e44d4c3a91403d81700078fe79e7db5c0e1",
+      "source": "docs/synchronized-platform/releases/management-readonly-v1/evidence/profile-lock.ac32c722235b435bf0632919924d8648a71653a1.json",
+      "sp60_pw0_policy_digest": "sha256:fa312387e5fa4b3980b085e20033fc8d947474c62c15dd9e3836372dea01f038",
+      "sp86_release_lock_digest": "sha256:bdd2368427f7f4f7ccdcc8a1302cb3dcedd06a474f6281f393706030423bc7ee",
+      "sp87_declared_sp90_baseline_digest": "sha256:e72da6880f5c79ef88039eae0ccf5d818f73f71e57e6958d97beefae030f7307",
+      "sp87_published_block_digest": "sha256:580941d182222dd48ccd6dfee5f861a13ae4d596e71a501a18dca70c2d58d4ba",
+      "sp88_source_receipt_digest": "sha256:bd1e8f912156ef95d60ca648e6c115299971a97221bcebfbae1c6fb19167e729",
+      "sp90_published_block_digest": "sha256:f5a59b602ef9341dca6b46ba0ea32b5a61fb844991d87c477e34e91b916e72ae",
+      "uncommitted_sibling_evidence_files": [
+        "profile-lock.0c5faaee9b4d9a96a0e9fc7d20eda31acf4a740e.json"
+      ]
+    },
+    "sp90_go_baseline_transitively_via_sp92": {
+      "binary_digest": null,
+      "errors": [],
+      "git_commit": "41d86000d8b2316c81a52a400a7f950d9799349b",
+      "go_module_graph_digest": "sha256:40f66c95ae8664b9f4f18585769fca289bf56e3378fed8f987b3e00c74e4407a",
+      "go_toolchain_version": "go1.26.4",
+      "image_digest": null,
+      "member": "sp90_go_baseline",
+      "published_block_digest": "sha256:f5a59b602ef9341dca6b46ba0ea32b5a61fb844991d87c477e34e91b916e72ae",
+      "sbom_digest": null,
+      "source": "Barbarossa/docs/runbooks/go-runtime-migration.md"
+    },
+    "sp91_distributed_work_transitively_via_sp92": {
+      "errors": [],
+      "member": "sp91_distributed_work_substrate",
+      "own_declared_ac_verdicts": {
+        "AC-SP91-1": "RED",
+        "AC-SP91-2": "RED",
+        "AC-SP91-3": "GREEN",
+        "AC-SP91-4": "GREEN",
+        "AC-SP91-5": "RED",
+        "AC-SP91-6": "GREEN",
+        "AC-SP91-7": "RED"
+      },
+      "own_declared_red_acs": [
+        "AC-SP91-1",
+        "AC-SP91-2",
+        "AC-SP91-5",
+        "AC-SP91-7"
+      ],
+      "release_receipt_absent_reason": "the owner commits no BarbarossaDistributedWorkRelease receipt; AC-SP91-7 is recorded RED in its own runbook",
+      "release_receipt_digest": null,
+      "runbook_digest": "sha256:31ac6b3dde2d3f9d5b4eb3219853bc3a7b337b6a9311b12292f5f19d8e7db4c4",
+      "source": "Barbarossa/docs/runbooks/distributed-work.md"
+    },
+    "sp92_barbarossa_ha": {
+      "committed_receipt_scan": {
+        "json_files_scanned": 195,
+        "matches": []
+      },
+      "conformance_manifest_digest": "sha256:cd0437540d4afc833611be5a94121959fe73f254681b467784ba8106a1a56cd3",
+      "conformance_verdicts_digest": "sha256:7c42f1294d536e28de74aca0df4a4b06256cd16524872cc92b508a0a8996c54f",
+      "errors": [],
+      "externally_measured_digests_absent": [
+        "binary_digest",
+        "image_digest",
+        "sbom_digest",
+        "chart_digest",
+        "configuration_digest"
+      ],
+      "git_commit": "5cd2d164c65916dcbbbaafef5be88fda4a6d24bf",
+      "ha_artifact_content_digest": "sha256:5f6b07c3a391205031903a1b1c75b5c6e1eb5b183b165a653625a03926d5d8e8",
+      "ha_artifact_digest_note": "genai-enablement-computed content digest over the owner's committed HA artifact bytes. It is NOT the owner's rendered_topology_digest / capacity_envelope_digest / alert_runbook_digest, which only the owner's own release run can mint. It exists to give this join a reproducible identity for the owner source and to fail closed if that source drifts.",
+      "ha_artifact_file_digests": {
+        "deploy/ha/alerts.json": "sha256:8eb6260623a578b7d0f694e9da6c15aba4bb908a3a65eb399608ac256b2cf1c6",
+        "deploy/ha/api-deployment.json": "sha256:c2c59eef6f0256c498455ec4841009e844d592f246e0b273b69844c9eaeb8b9c",
+        "deploy/ha/api-pdb.json": "sha256:2a43b0f75dc731742cf373a445b91f7b2eccbaf40fec346d84d73ac2e13b13ad",
+        "deploy/ha/api-service.json": "sha256:c6b3fccb8cc97254405eb17a70aa9079789e2b70b607a0e23781a589d1f8c6b4",
+        "deploy/ha/capacity-envelope.json": "sha256:37806da803f2f34ec02fda2b71e4ceb5bc6b07320ef5bbf05c0620839173c0f2",
+        "deploy/ha/worker-deployment.json": "sha256:b5fc19206f64e1502c06f02d2c4c1add875179159528b5b1035e6e2dd4bcfd82",
+        "deploy/ha/worker-hpa.json": "sha256:f915033edb94a56fa25ad39de4c0ae92104945695d5d024137c6a5ac3a8691b9",
+        "deploy/ha/worker-pdb.json": "sha256:b8b460fa8560d782a8d260c10b8a2f00d1318d05265264490188e3b7d18de17d",
+        "deploy/jetstream/account-permissions.json": "sha256:df8cff9e0b0ff5242947c563b9f9ce61797c42fa829f2c039d10dcf4e6da974d",
+        "deploy/jetstream/consumer.json": "sha256:d0cd3bfb2de8b26163e35bf7ed846cfc59b5e01e0b7f3ba29567d0eeccf0044a",
+        "deploy/jetstream/stream.json": "sha256:bed5ab8c4b614a01c234f9919df8195405092ff01ac5da258fe667e59263c4b8",
+        "deploy/postgresql/ha-cluster.yaml": "sha256:acf2a04b20a96f15d8bfcf30d6b2c0d7d78f4e4a635929a16901983cd552c2eb",
+        "docs/runbooks/capacity-and-scaling.md": "sha256:1757816497f6cdb8fb717ab93f4da8a800af3612e70a9f52bb98f07ad26873af",
+        "docs/runbooks/high-availability.md": "sha256:5dcac19e1207e94cd95391aca141737ec29cffbe6cc1f3257db9cd0c229388be",
+        "docs/runbooks/queue-recovery.md": "sha256:d5daab4a154987c1939c4b0e4a383d08bd0359c44c8ad80f04e3743998712c4f"
+      },
+      "member": "sp92_barbarossa_ha_release",
+      "own_declared_conformance_overall_status": "RED",
+      "own_declared_conformance_verdicts": {
+        "AC-SP92-1": "RED",
+        "AC-SP92-2": "RED",
+        "AC-SP92-3": "RED",
+        "AC-SP92-4": "RED",
+        "AC-SP92-5": "RED",
+        "AC-SP92-6": "GREEN",
+        "AC-SP92-7": "GREEN"
+      },
+      "projection_schema_digest_independently_rederived": "sha256:2e20878fa2679ed3681ee92ead5686ee3509efd9e7c3a58207f93f04a26589dc",
+      "projection_schema_fields": [
+        "tenant",
+        "queue_depth",
+        "oldest_work_age_millis",
+        "inflight",
+        "retry_count",
+        "dlq_count",
+        "worker_eligible",
+        "replica_healthy",
+        "replica_desired",
+        "dependency_healthy",
+        "capacity_max_inflight",
+        "rollout_revision",
+        "error_budget_remaining",
+        "fencing_events",
+        "integrity"
+      ],
+      "projection_struct_go_types": {
+        "capacity_max_inflight": "int",
+        "dependency_healthy": "bool",
+        "dlq_count": "int",
+        "error_budget_remaining": "float64",
+        "fencing_events": "int",
+        "inflight": "int",
+        "integrity": "shared.Integrity",
+        "oldest_work_age_millis": "int64",
+        "queue_depth": "int",
+        "replica_desired": "int",
+        "replica_healthy": "int",
+        "retry_count": "int",
+        "rollout_revision": "string",
+        "tenant": "shared.SubjectScope",
+        "worker_eligible": "int"
+      },
+      "projection_struct_json_fields": [
+        "tenant",
+        "queue_depth",
+        "oldest_work_age_millis",
+        "inflight",
+        "retry_count",
+        "dlq_count",
+        "worker_eligible",
+        "replica_healthy",
+        "replica_desired",
+        "dependency_healthy",
+        "capacity_max_inflight",
+        "rollout_revision",
+        "error_budget_remaining",
+        "fencing_events",
+        "integrity"
+      ],
+      "published_routes": [
+        "/livez",
+        "/readyz",
+        "/startupz",
+        "/v1/availability",
+        "/v1/health"
+      ],
+      "release_receipt_absent_reason": "HighAvailabilityRelease (internal/runtime/api/release.go) is computed only by a release run supplying externally measured binary/image/SBOM/chart facts, is registered on no HTTP route, and is committed nowhere in the owner repository",
+      "release_receipt_digest": null,
+      "release_source_declares_live_pending_gates": [
+        "live_drain_rollout_traces",
+        "live_failure_domain_loss",
+        "live_image_registry_digest",
+        "live_observability_correlation",
+        "live_queue_driven_autoscaling",
+        "live_resilience_matrix"
+      ],
+      "source": "Barbarossa/internal/runtime/api/release.go"
+    },
+    "sp93_platform_portal_ha": {
+      "accessibility_evidence_refs": [],
+      "declared_profile": {
+        "absent_axes": [
+          {
+            "axis": "throughput",
+            "reason": "owner-does-not-publish"
+          },
+          {
+            "axis": "ackLatency",
+            "reason": "owner-does-not-publish"
+          },
+          {
+            "axis": "redelivery",
+            "reason": "owner-does-not-publish"
+          },
+          {
+            "axis": "headroom",
+            "reason": "owner-does-not-publish"
+          },
+          {
+            "axis": "autoscaling",
+            "reason": "owner-does-not-publish"
+          },
+          {
+            "axis": "rolloutPhase",
+            "reason": "owner-does-not-publish"
+          },
+          {
+            "axis": "sloAttainment",
+            "reason": "owner-does-not-publish"
+          },
+          {
+            "axis": "perDependencyBreakdown",
+            "reason": "owner-does-not-publish"
+          }
+        ],
+        "absent_axes_note": "Named by AC-SP93-2 but absent from the owner wire contract. They exist only as a declared-but-unwired Prometheus schema in barbarossa/internal/runtime/telemetry/metrics.go, which emits nothing; the owner exposes no /metrics route (verified live: 404). capacity_max_inflight is the CEILING only - remaining headroom is never published and is never derived by Portal.",
+        "consumed_contract": {
+          "fields": [
+            "tenant",
+            "queue_depth",
+            "oldest_work_age_millis",
+            "inflight",
+            "retry_count",
+            "dlq_count",
+            "worker_eligible",
+            "replica_healthy",
+            "replica_desired",
+            "dependency_healthy",
+            "capacity_max_inflight",
+            "rollout_revision",
+            "error_budget_remaining",
+            "fencing_events",
+            "integrity"
+          ],
+          "schema_digest": "sha256:2e20878fa2679ed3681ee92ead5686ee3509efd9e7c3a58207f93f04a26589dc",
+          "source": "barbarossa/internal/runtime/projection/schema.go"
+        },
+        "error_semantics": {
+          "200": "sanitized AvailabilityProjection (JSON)",
+          "409": "{\"absent\": true, \"reason_codes\": [...]} - fail-closed foreign-tenant absence; owner is healthy and refuses the scope",
+          "503": "the PLAIN TEXT body \"unavailable\" - every other failure, with no reason codes and no JSON; Portal names no cause the owner did not publish"
+        },
+        "freshness": {
+          "best_achievable_state": "unknown",
+          "note": "The SP-92 AvailabilityProjection carries no produced_at, observed_at, freshness_deadline, contract_revision or source_health. Portal never substitutes its own clock, so this section can never be classified fresh.",
+          "owner_publishes_marker": false,
+          "reason": "owner-publishes-no-freshness-marker"
+        },
+        "no_control": {
+          "forbidden_capabilities": [
+            "pause",
+            "retry",
+            "redrive",
+            "scale",
+            "drain",
+            "failover",
+            "rollback"
+          ],
+          "forbidden_clients": [
+            "nats",
+            "jetstream",
+            "asyncpg",
+            "psycopg",
+            "sqlalchemy",
+            "kubernetes",
+            "boto3",
+            "redis",
+            "kafka"
+          ],
+          "http_methods": [
+            "GET"
+          ],
+          "note": "Read-only by construction, not by a runtime gate. Barbarossa's own API publishes no mutation route either (internal/runtime/api/server.go serves exactly /livez, /readyz, /startupz, /v1/availability, /v1/health). Proven structurally by backend/tests/cmc/barbarossa_ha/test_no_control.py."
+        },
+        "owner": "barbarossa",
+        "owner_profile_id": "management-readonly-local-v1",
+        "owner_qualification": {
+          "availability_class": "development-single-host",
+          "ha_qualified": false,
+          "not_qualified_axes": [
+            "failure_domain_quorum",
+            "queue_replication",
+            "store_replication",
+            "autoscaling",
+            "failover"
+          ],
+          "source": "barbarossa/deploy/config/management-readonly-local/topology.json"
+        },
+        "profile_id": "barbarossa-ha-v1-portal-readonly",
+        "profile_revision": "task-sp-93-barbarossa-ha-observability",
+        "read_edge": {
+          "credentials": "none",
+          "env": "CMC_BARBAROSSA_HA_BASE_URL",
+          "host_published": false,
+          "method": "GET",
+          "network": "barbarossa-edge",
+          "path": "/v1/availability",
+          "port": 8080,
+          "service_dns": "barbarossa-api"
+        },
+        "release_gate": {
+          "expected_status": "RED",
+          "sp92_conformance_overall_status": "RED",
+          "sp92_conformance_source": "barbarossa/testdata/conformance/ha-runtime-v1/expected/ac-verdicts.json",
+          "sp92_conformance_verdicts": {
+            "AC-SP92-1": "RED",
+            "AC-SP92-2": "RED",
+            "AC-SP92-3": "RED",
+            "AC-SP92-4": "RED",
+            "AC-SP92-5": "RED",
+            "AC-SP92-6": "GREEN",
+            "AC-SP92-7": "GREEN"
+          },
+          "sp92_release_receipt": null,
+          "sp92_release_receipt_reason": "absent - barbarossa commits no SP-92 receipt; internal/runtime/api/release.go's HighAvailabilityRelease is CLI-computed by scripts/qualify_ha_runtime.sh and registered on no HTTP route"
+        },
+        "rollback": "revert-pr; the section renders not_available without owner access"
+      },
+      "errors": [],
+      "git_commit": "7ccb4f2c83696141162b95f1281413dcb3c60060",
+      "member": "sp93_portal_ha_experience",
+      "note": "No committed PortalBarbarossaHighAvailabilityRelease evidence file exists; source_receipt_digest hashes the real committed Portal source and shipped runtime-profile artifacts. build_barbarossa_ha_release_lock() is never executed by this read-only cross-repository join.",
+      "own_declared_release_lock_red_reasons": [
+        "sp92_release_receipt_absent",
+        "sp92_conformance_overall_status_red",
+        "sp92_acceptance_criterion_red:AC-SP92-1",
+        "sp92_acceptance_criterion_red:AC-SP92-2",
+        "sp92_acceptance_criterion_red:AC-SP92-3",
+        "sp92_acceptance_criterion_red:AC-SP92-4",
+        "sp92_acceptance_criterion_red:AC-SP92-5",
+        "accessibility_evidence_absent"
+      ],
+      "pins": {
+        "BARBAROSSA_HA_ABSENT_AXES": [
+          "throughput",
+          "ackLatency",
+          "redelivery",
+          "headroom",
+          "autoscaling",
+          "rolloutPhase",
+          "sloAttainment",
+          "perDependencyBreakdown"
+        ],
+        "BARBAROSSA_HA_ABSENT_AXIS_REASON": "owner-does-not-publish",
+        "BARBAROSSA_HA_AVAILABILITY_CLASS": "development-single-host",
+        "BARBAROSSA_HA_AVAILABILITY_PATH": "/v1/availability",
+        "BARBAROSSA_HA_NOT_QUALIFIED_AXES": [
+          "failure_domain_quorum",
+          "queue_replication",
+          "store_replication",
+          "autoscaling",
+          "failover"
+        ],
+        "BARBAROSSA_HA_PROFILE_ID": "management-readonly-local-v1",
+        "BARBAROSSA_HA_QUALIFIED": false,
+        "SP92_CONFORMANCE_OVERALL_STATUS": "RED",
+        "SP92_CONFORMANCE_VERDICTS": {
+          "AC-SP92-1": "RED",
+          "AC-SP92-2": "RED",
+          "AC-SP92-3": "RED",
+          "AC-SP92-4": "RED",
+          "AC-SP92-5": "RED",
+          "AC-SP92-6": "GREEN",
+          "AC-SP92-7": "GREEN"
+        },
+        "SP92_HA_PROJECTION_FIELDS": [
+          "tenant",
+          "queue_depth",
+          "oldest_work_age_millis",
+          "inflight",
+          "retry_count",
+          "dlq_count",
+          "worker_eligible",
+          "replica_healthy",
+          "replica_desired",
+          "dependency_healthy",
+          "capacity_max_inflight",
+          "rollout_revision",
+          "error_budget_remaining",
+          "fencing_events",
+          "integrity"
+        ],
+        "SP92_HA_PROJECTION_SCHEMA_DIGEST": "sha256:2e20878fa2679ed3681ee92ead5686ee3509efd9e7c3a58207f93f04a26589dc",
+        "SP92_RELEASE_RECEIPT_DIGEST": null
+      },
+      "portal_profile_id": "barbarossa-ha-v1-portal-readonly",
+      "portal_profile_revision": "task-sp-93-barbarossa-ha-observability",
+      "runtime_profile_digest": "sha256:5eda5aaf2056a3e886b790af4c085243ddd6c62152c35fe22af61366dcd1d00a",
+      "section_case_states": [
+        {
+          "availability_rendered": true,
+          "case": "live-contract-exact",
+          "reason": "owner-publishes-no-freshness-marker",
+          "sp92_pin_status": "compatible",
+          "state": "unknown"
+        },
+        {
+          "availability_rendered": false,
+          "case": "source-not-wired",
+          "reason": "barbarossa-ha-source-not-wired",
+          "sp92_pin_status": "unknown",
+          "state": "unavailable"
+        },
+        {
+          "availability_rendered": false,
+          "case": "projection-unreachable",
+          "reason": "projection-unreachable",
+          "sp92_pin_status": "unknown",
+          "state": "unavailable"
+        },
+        {
+          "availability_rendered": false,
+          "case": "owner-reported-unavailable",
+          "reason": "owner-reported-unavailable-without-reason-codes",
+          "sp92_pin_status": "unknown",
+          "state": "unavailable"
+        },
+        {
+          "availability_rendered": false,
+          "case": "foreign-tenant-absence",
+          "reason": "owner-reported-foreign-tenant-absence",
+          "sp92_pin_status": "unknown",
+          "state": "incompatible"
+        },
+        {
+          "availability_rendered": false,
+          "case": "projection-schema-skew",
+          "reason": "projection-schema-skew",
+          "sp92_pin_status": "incompatible",
+          "state": "incompatible"
+        },
+        {
+          "availability_rendered": false,
+          "case": "projection-field-type-skew",
+          "reason": "projection-field-type-skew",
+          "sp92_pin_status": "compatible",
+          "state": "incompatible"
+        },
+        {
+          "availability_rendered": false,
+          "case": "projection-field-length-skew",
+          "reason": "projection-field-length-skew",
+          "sp92_pin_status": "compatible",
+          "state": "incompatible"
+        },
+        {
+          "availability_rendered": false,
+          "case": "projection-response-too-large",
+          "reason": "projection-response-too-large",
+          "sp92_pin_status": "unknown",
+          "state": "incompatible"
+        }
+      ],
+      "section_field_types": {
+        "absentAxis": {
+          "axis": [
+            "string"
+          ],
+          "reason": [
+            "string"
+          ]
+        },
+        "availability": {
+          "capacityMaxInflight": [
+            "integer",
+            "null"
+          ],
+          "dependencyHealthy": [
+            "boolean",
+            "null"
+          ],
+          "dlqCount": [
+            "integer",
+            "null"
+          ],
+          "errorBudgetRemaining": [
+            "null",
+            "number"
+          ],
+          "fencingEvents": [
+            "integer",
+            "null"
+          ],
+          "inflight": [
+            "integer",
+            "null"
+          ],
+          "oldestWorkAgeMillis": [
+            "integer",
+            "null"
+          ],
+          "queueDepth": [
+            "integer",
+            "null"
+          ],
+          "replicaDesired": [
+            "integer",
+            "null"
+          ],
+          "replicaHealthy": [
+            "integer",
+            "null"
+          ],
+          "retryCount": [
+            "integer",
+            "null"
+          ],
+          "rolloutRevision": [
+            "null",
+            "string"
+          ],
+          "tenant": [
+            "null",
+            "string"
+          ],
+          "workerEligible": [
+            "integer",
+            "null"
+          ]
+        },
+        "ownerQualification": {
+          "availabilityClass": [
+            "null",
+            "string"
+          ],
+          "haQualified": [
+            "boolean",
+            "null"
+          ],
+          "notQualifiedAxes": [
+            "array"
+          ]
+        },
+        "section": {
+          "absentAxes": [
+            "array"
+          ],
+          "availability": [
+            "null",
+            "object"
+          ],
+          "envelope": [
+            "null",
+            "object"
+          ],
+          "ownerQualification": [
+            "null",
+            "object"
+          ],
+          "reason": [
+            "null",
+            "string"
+          ],
+          "sp92Pin": [
+            "object"
+          ],
+          "state": [
+            "string"
+          ]
+        },
+        "sp92Pin": {
+          "reasons": [
+            "array"
+          ],
+          "schemaDigest": [
+            "null",
+            "string"
+          ],
+          "status": [
+            "string"
+          ]
+        }
+      },
+      "section_responses_digest": "sha256:16163ed30fab02edc1ea9a7a099c4c3aae07de360d2afc09eac14b7a4722074e",
+      "source_file_digests": {
+        "backend/app/cmc/barbarossa_ha/__init__.py": "sha256:92af4584af5f3a92404a1d81485d948eaf38d50fba962e8739d31af0db2184a0",
+        "backend/app/cmc/barbarossa_ha/client.py": "sha256:6df2a6756bc96af6567e2d5b43d49ae9a5cd5f04c21c8c7ff2d7e6df208c723a",
+        "backend/app/cmc/barbarossa_ha/config.py": "sha256:15dc5e20c2e285d306aa4498d425ff6b01026c52635be49292ecb4f6b724a70e",
+        "backend/app/cmc/barbarossa_ha/pins.py": "sha256:896cfd85cb0c00e39647d70eb26a13e98496e33468ba2c0842cbb172e6d48380",
+        "backend/app/cmc/barbarossa_ha/read.py": "sha256:4d0c12644250fc95995bd5bf8a59ccb929ba01945651278b91a925b50c76b6f4",
+        "backend/app/cmc/barbarossa_ha/release_lock.py": "sha256:d30cd11ccd4afd1252598fb0e8a07489ffead1a9c69cc805b5b7822717e3b505",
+        "backend/app/cmc/barbarossa_ha/startup_checks.py": "sha256:42463d1de8fdf9e9f7ad786772c17832ff20722bd9cacb5e75a6bbef1b9ad2b6",
+        "backend/app/cmc/barbarossa_ha/states.py": "sha256:17184a9e7e4ebc21b8381497a603d9dce978d54b0ab29d03b2d9a01c518df1fe",
+        "docs/runbooks/barbarossa-ha-observability.md": "sha256:cacac83372ab094c1fd666d1aaed9765129e39d50375018bb8f7da3d59b054b5",
+        "workflows/runtime_profiles/barbarossa-ha-v1/profile.json": "sha256:5eda5aaf2056a3e886b790af4c085243ddd6c62152c35fe22af61366dcd1d00a",
+        "workflows/runtime_profiles/barbarossa-ha-v1/section-responses.json": "sha256:16163ed30fab02edc1ea9a7a099c4c3aae07de360d2afc09eac14b7a4722074e"
+      },
+      "source_receipt_digest": "sha256:c65ba8d1d4cf29c2cd432d0291e7641a97bc57f089637812adb86dd39ff48551",
+      "sources": [
+        "platform-portal/workflows/runtime_profiles/barbarossa-ha-v1/profile.json",
+        "platform-portal/workflows/runtime_profiles/barbarossa-ha-v1/section-responses.json",
+        "platform-portal/backend/app/cmc/barbarossa_ha/__init__.py",
+        "platform-portal/backend/app/cmc/barbarossa_ha/client.py",
+        "platform-portal/backend/app/cmc/barbarossa_ha/config.py",
+        "platform-portal/backend/app/cmc/barbarossa_ha/pins.py",
+        "platform-portal/backend/app/cmc/barbarossa_ha/read.py",
+        "platform-portal/backend/app/cmc/barbarossa_ha/release_lock.py",
+        "platform-portal/backend/app/cmc/barbarossa_ha/startup_checks.py",
+        "platform-portal/backend/app/cmc/barbarossa_ha/states.py",
+        "platform-portal/docs/runbooks/barbarossa-ha-observability.md"
+      ],
+      "sp88_sp90_baseline_digest_copy": "sha256:e72da6880f5c79ef88039eae0ccf5d818f73f71e57e6958d97beefae030f7307"
+    }
+  },
+  "negative_control": {
+    "conclusion": "The only Barbarossa runtime startable here declares itself 'development-single-host' with ha_qualified=False and activation_authority='none'. It therefore CANNOT produce ground truth for AC-SP94-2/3/4/5 and is used only to prove that.",
+    "errors": [],
+    "holds": true,
+    "issues": [],
+    "member": "negative_control",
+    "owner_declared_topology": {
+      "activation_authority": "none",
+      "api_replicas": 1,
+      "availability_class": "development-single-host",
+      "ha_qualified": false,
+      "not_qualified_axes": [
+        "failure_domain_quorum",
+        "queue_replication",
+        "store_replication",
+        "autoscaling",
+        "failover"
+      ],
+      "note": "Non-HA truth for the management-readonly-local fragment (ADR-0007 BLR-2/BLR-9). Every API projection and receipt reports these values verbatim. A single-host local runtime cannot satisfy the SP-92 rendered-topology validator (>=3 spread API replicas, >=2 workers, PDBs, HPA) or the SP-94 HA qualification; the missing failure-domain quorum, autoscaling and failover axes stay not_qualified. Portal cannot render a missing HA axis as green, zero or satisfied.",
+      "queue_replicas": 1,
+      "store_replicas": 1,
+      "worker_replicas": 1
+    },
+    "owner_not_qualified_axes": [
+      "failure_domain_quorum",
+      "queue_replication",
+      "store_replication",
+      "autoscaling",
+      "failover"
+    ],
+    "profile_id": "management-readonly-local-v1",
+    "source": "Barbarossa/deploy/config/management-readonly-local/topology.json",
+    "topology_digest": "sha256:db5d9039a4e1ebd9993c0234d698561f63e2843b829d4dd26fc0f8cdc5a2b0a9"
+  },
+  "overall_note": "status is RED and cannot be otherwise while no committed SP-92 owner receipt exists and no named non-production HA environment receipt exists. buildable_checks_result=GREEN means every check that CAN be performed from committed artifacts passed -- it is not HA qualification, profile activation or production readiness, and it grants no infrastructure-mutation authority.",
+  "profile_id": "barbarossa-ha-v1",
+  "profile_lock_digest": "sha256:157e285410f8bd15d4e99517e43ede4c545e7014bc450ea7321418f2098162af",
+  "profile_revision": "1.0.0",
+  "reasons": [
+    "AC-SP94-1: RED",
+    "AC-SP94-6: RED",
+    "AC-SP94-7: RED",
+    "AC-SP94-2: RED",
+    "AC-SP94-3: RED",
+    "AC-SP94-4: RED",
+    "AC-SP94-5: RED",
+    "AC-SP94-8: RED"
+  ],
+  "registry_selection": {
+    "barbarossa_go_scope": "complete-implemented-capability-surface",
+    "barbarossa_runtime": "go",
+    "barbarossa_state_store": "postgresql-ha",
+    "barbarossa_stream_replicas": 3,
+    "barbarossa_typescript_role": "conformance-oracle-only",
+    "barbarossa_work_transport": "nats-jetstream",
+    "deferred_runtime_components": [
+      "omnius"
+    ],
+    "deferred_work_packages": [
+      "SP-11",
+      "SP-20",
+      "SP-30",
+      "SP-40",
+      "SP-62",
+      "SP-82",
+      "SP-85"
+    ],
+    "delivery_semantics": "at-least-once",
+    "effect_posture": "forbidden",
+    "governance_components": [
+      "genai-enablement"
+    ],
+    "governing_adr": "ADR-0023",
+    "id": "barbarossa-ha-v1",
+    "non_gating_work_packages": [
+      "SP-12",
+      "SP-B0-B7",
+      "SP-51",
+      "SP-52",
+      "SP-63",
+      "SP-84",
+      "SP-95",
+      "SP-96",
+      "SP-97",
+      "SP-98"
+    ],
+    "path": "docs/synchronized-platform/profiles/barbarossa-ha-v1.md",
+    "pii_profile": "PW0",
+    "portal_ha_controls": "forbidden",
+    "release_work_packages": [
+      "SP-86",
+      "SP-87",
+      "SP-88",
+      "SP-89",
+      "SP-91",
+      "SP-92",
+      "SP-93",
+      "SP-94"
+    ],
+    "required_work_packages": [
+      "SP-00",
+      "SP-10",
+      "SP-50",
+      "SP-60",
+      "SP-61",
+      "SP-70",
+      "SP-71",
+      "SP-72",
+      "SP-73",
+      "SP-74",
+      "SP-75",
+      "SP-76",
+      "SP-77",
+      "SP-78",
+      "SP-79",
+      "SP-80",
+      "SP-81",
+      "SP-83",
+      "SP-86",
+      "SP-90",
+      "SP-87",
+      "SP-88",
+      "SP-89",
+      "SP-91",
+      "SP-92",
+      "SP-93",
+      "SP-94"
+    ],
+    "runtime_components": [
+      "omniscience",
+      "barbarossa",
+      "platform-portal"
+    ],
+    "selected_domain_packs": [
+      "reliability"
+    ],
+    "status": "accepted-for-development"
+  },
+  "schema": "barbarossa-ha-v1-integrated-profile-lock-v1",
+  "status": "RED"
+}
