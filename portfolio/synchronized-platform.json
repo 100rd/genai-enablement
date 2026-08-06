@@ -942,6 +942,11 @@
           "id": "task-sp-100-cmc-real-owner-rewire",
           "path": "docs/specs/task-sp-100-cmc-real-owner-rewire.md",
           "status": "ready"
+        },
+        {
+          "id": "task-sp-101-knowledge-view-live-release",
+          "path": "docs/specs/task-sp-101-knowledge-view-live-release.md",
+          "status": "draft"
         }
       ],
       "readiness_profiles": []

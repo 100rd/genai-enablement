@@ -409,6 +409,7 @@ bounded non-live development. The independently claimable
 | `task-sp-93-barbarossa-ha-observability` | SP-93 |
 | `task-sp-97-management-readonly-local-portal` | SP-97 |
 | `task-sp-100-cmc-real-owner-rewire` | SP-100 |
+| `task-sp-101-knowledge-view-live-release` | SP-101 |
 
 No portal task authorizes a live integration, uncited component truth, component effect, deployment,
 billing event or production claim; source release gates remain explicit.
