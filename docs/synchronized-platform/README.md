@@ -374,6 +374,19 @@ independent ready slices:
 Ready authorizes only the bounded repository-local work and disposable qualification written in each task.
 It is not production/deployment/destructive authority.
 
+> **Design change (2026-08-15) — Omniscience graph-write model.** The first real
+> non-code ingestion (an AWS inventory, four accounts) exposed three defects in the
+> Neo4j write path: a per-source checkpoint silently dropped 963 of 978 documents, an
+> unconstrained stub `MERGE` forked under concurrency and fanned edges out tenfold, and
+> one edge-type render bypassed its injection gate. The fix — captured in
+> **Omniscience `ADR-0024` (graph-write idempotency model)** — splits `:DocumentCheckpoint`
+> (write guard) from `:StoreCheckpoint` (monotonic watermark), makes stub identity
+> deterministic under a constrained-key `MERGE`, gates every edge-type render, and reports
+> persisted rather than submitted counts. It also wires `EntityLinker` into ingestion for
+> the first time and adds an infrastructure-entity extractor. This is component-local
+> knowledge-plane correctness; it changes no cross-repository contract, SPEC dependency, or
+> work-package boundary in this plan.
+
 ### `platform-portal`
 
 The [local capability index](https://github.com/100rd/platform-portal/blob/main/specs/SPEC-INDEX.md)
