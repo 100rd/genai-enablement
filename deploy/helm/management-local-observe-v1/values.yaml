@@ -1,0 +1,17 @@
+omniscience:
+  enabled: true
+  config:
+    omniscienceMcpSourceCommit: "639c52dac220b461d286b86a6fdeb36cf89300a4"
+
+barbarossa:
+  enabled: true
+  config:
+    barbarossaPortalTenantIds: '["a34f0802-8321-5c7c-8a6b-dea95391faf5"]'
+
+platform-portal:
+  enabled: true
+  config:
+    portalRuntimeProfile: "management-local-observe-v1"
+    kvOmniscienceBaseUrl: "http://omniscience-api:8000"
+    kvOmniscienceAllowedHosts: "omniscience-api"
+    portalBarbarossaObserveBaseUrl: "http://barbarossa-api:8080"
