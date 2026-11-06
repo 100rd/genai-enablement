@@ -398,14 +398,16 @@ def test_legacy_capture_fails_closed_and_discards_command_output(
         return subprocess.CompletedProcess(
             args,
             returncode,
-            stdout=json.dumps({
-                "unsigned_status": unsigned_status,
-                "signed_status": 200,
-                "foreign_status": 403,
-                "scope_mismatch_status": 409,
-                "valid_shape": True,
-                "discard": "untrusted output",
-            }),
+            stdout=json.dumps(
+                {
+                    "unsigned_status": unsigned_status,
+                    "signed_status": 200,
+                    "foreign_status": 403,
+                    "scope_mismatch_status": 409,
+                    "valid_shape": True,
+                    "discard": "untrusted output",
+                }
+            ),
             stderr="untrusted output",
         )
 
@@ -448,7 +450,9 @@ def test_authenticated_legacy_assembly_keeps_topology_and_scopes_key_mounts(
     model = qual.render_compose([COMPOSE_DIR / "compose.portal-read.yaml"])
     services = model["services"]
     assert model["name"] == qual.PROFILE_ID
-    assert set(services) == qual.EXPECTED_STEADY_SERVICES | qual.EXPECTED_ONESHOT_SERVICES
+    assert (
+        set(services) == qual.EXPECTED_STEADY_SERVICES | qual.EXPECTED_ONESHOT_SERVICES
+    )
     assert (
         qual.service_networks(services["portal-backend"])
         == qual.PORTAL_BACKEND_ALLOWED_NETWORKS
@@ -478,7 +482,9 @@ def test_authenticated_legacy_assembly_keeps_topology_and_scopes_key_mounts(
     )
 
     monkeypatch.setenv("PORTAL_LEGACY_READ_PRIVATE_KEY_FILE", "")
-    with pytest.raises(qual.QualificationError, match="PORTAL_LEGACY_READ_PRIVATE_KEY_FILE"):
+    with pytest.raises(
+        qual.QualificationError, match="PORTAL_LEGACY_READ_PRIVATE_KEY_FILE"
+    ):
         qual.render_compose([COMPOSE_DIR / "compose.portal-read.yaml"])
 
 
