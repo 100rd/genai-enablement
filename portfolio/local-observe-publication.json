@@ -1,0 +1,233 @@
+{
+  "schema_version": 1,
+  "profile": "management-local-observe-v1",
+  "as_of": "2026-11-06T19:26:22.021180+00:00",
+  "state": "all-four-prs-open",
+  "qualification_receipt": "docs/synchronized-platform/releases/management-local-observe-v1/qualification.json",
+  "qualification_source_snapshot_sha256": "91665f8da0c6289a4214af8bd5b08547db1fa0b844fad3f610e881fe13f34c08",
+  "qualification_scope": "Historical qualification and its source snapshot remain unchanged. Initial publication retained the qualified runtime implementation, with static/CI/governance follow-ups. Subsequent Portal revision 7526fb1 corrects the natural login/default graph journey; its frontend/backend source images were rebuilt and activated locally, with separate two-tenant Chromium, owner outage and recovery evidence. Portal ae74ebc adds independently streamed home connection cards; its frontend source image was rebuilt and activated with additive home-connections browser evidence. Control follow-up exposes owner job reads and separates work/results from observations. Both source roles and Portal were rebuilt locally; additive Control browser and database evidence records a real rollout-induced Portal case and one additional accepted Codex analysis.",
+  "production_activation": "out-of-scope",
+  "oci_release": "not-published",
+  "repositories": {
+    "Omniscience": {
+      "repository": "100rd/Omniscience",
+      "commit": "639c52dac220b461d286b86a6fdeb36cf89300a4",
+      "branch": "codex/local-observe-v1",
+      "base": "main",
+      "pr_url": "https://github.com/100rd/Omniscience/pull/374",
+      "pr_number": 374,
+      "pr_state": "open",
+      "merged": false,
+      "mergeable": true,
+      "ci_runs": [
+        {
+          "id": 42259414808,
+          "name": "Conformance Gates",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/100rd/Omniscience/actions/runs/42259414808"
+        },
+        {
+          "id": 42259414771,
+          "name": "HA Qualification",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/100rd/Omniscience/actions/runs/42259414771"
+        },
+        {
+          "id": 42259414927,
+          "name": "management-readonly-v1 release qualification",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/100rd/Omniscience/actions/runs/42259414927"
+        },
+        {
+          "id": 42259415031,
+          "name": "Admission Qualification",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/100rd/Omniscience/actions/runs/42259415031"
+        },
+        {
+          "id": 42259414741,
+          "name": "CI",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/100rd/Omniscience/actions/runs/42259414741"
+        }
+      ],
+      "ci_observed_at": "2026-11-06T17:35:34.135Z",
+      "qualified_implementation_commit": "be14dad76e239e9a797ace6808a421ec5acf743d"
+    },
+    "Barbarossa": {
+      "repository": "100rd/Barbarossa",
+      "commit": "1c6335656b348dbd9025aa82d0cb730b442604dd",
+      "branch": "codex/local-observe-v1",
+      "base": "main",
+      "pr_url": "https://github.com/100rd/Barbarossa/pull/13",
+      "pr_number": 13,
+      "pr_state": "open",
+      "merged": false,
+      "mergeable": true,
+      "ci_runs": [
+        {
+          "id": 42276801279,
+          "name": "ha-runtime",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/100rd/Barbarossa/actions/runs/42276801279"
+        },
+        {
+          "id": 42276801561,
+          "name": "distributed-work",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/100rd/Barbarossa/actions/runs/42276801561"
+        },
+        {
+          "id": 42276801433,
+          "name": "go-runtime",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/100rd/Barbarossa/actions/runs/42276801433"
+        },
+        {
+          "id": 42276801340,
+          "name": "management-readonly-release",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/100rd/Barbarossa/actions/runs/42276801340"
+        },
+        {
+          "id": 42276801302,
+          "name": "management-readonly-local",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/100rd/Barbarossa/actions/runs/42276801302"
+        }
+      ],
+      "ci_observed_at": "2026-11-06T19:24:03.450831+00:00",
+      "qualified_implementation_commit": "6a9289601790e5c57124a543df34e4459058d62a",
+      "control_work_qualified_commit": "1c6335656b348dbd9025aa82d0cb730b442604dd"
+    },
+    "platform-portal": {
+      "repository": "100rd/platform-portal",
+      "commit": "1389aae9112ba03696fb3bc99560e970887d3241",
+      "branch": "codex/local-observe-v1",
+      "base": "main",
+      "pr_url": "https://github.com/100rd/platform-portal/pull/23",
+      "pr_number": 23,
+      "pr_state": "open",
+      "merged": false,
+      "mergeable": true,
+      "ci_runs": [
+        {
+          "id": 42279090843,
+          "name": "Lint",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/100rd/platform-portal/actions/runs/42279090843"
+        },
+        {
+          "id": 42279090842,
+          "name": "Test",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/100rd/platform-portal/actions/runs/42279090842"
+        },
+        {
+          "id": 42279090914,
+          "name": "Build",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/100rd/platform-portal/actions/runs/42279090914"
+        },
+        {
+          "id": 42279090986,
+          "name": "management-readonly-local-v1 fragment",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/100rd/platform-portal/actions/runs/42279090986"
+        },
+        {
+          "id": 42279090839,
+          "name": "management-readonly-v1 release candidate",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/100rd/platform-portal/actions/runs/42279090839"
+        }
+      ],
+      "ci_observed_at": "2026-11-06T19:26:22.021180+00:00",
+      "qualified_implementation_commit": "6d223dbc76d3f6359ea9caabba44c625eed5c38a",
+      "default_journey_qualified_commit": "7526fb1c32a745617c2e0b8d3c1ebbb9ff33edc2",
+      "home_connections_qualified_commit": "ae74ebc39da2ebc558d509ac8a12ca98f0dc01f8",
+      "control_work_qualified_commit": "1389aae9112ba03696fb3bc99560e970887d3241"
+    },
+    "genai-enablement": {
+      "repository": "100rd/genai-enablement",
+      "branch": "codex/local-observe-v1",
+      "base": "main",
+      "pr_url": "https://github.com/100rd/genai-enablement/pull/60",
+      "pr_number": 60,
+      "pr_state": "open",
+      "merged": false,
+      "mergeable": true,
+      "ci_runs": [
+        {
+          "id": 42258164812,
+          "name": "management-readonly-local-v1 integrator",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/100rd/genai-enablement/actions/runs/42258164812"
+        },
+        {
+          "id": 42258165213,
+          "name": "Portfolio documentation drift",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/100rd/genai-enablement/actions/runs/42258165213"
+        }
+      ],
+      "ci_observed_at": "2026-11-06T17:13:38.806452+00:00",
+      "qualified_implementation_commit": "725d504c039ee4461a09a3ed6f44052ca1108e18",
+      "validated_code_commit": "d67ed1fe1ff92467f8916be97c43104e9150ef3f",
+      "tracking_revision": "the Git commit containing this publication record"
+    }
+  },
+  "post_qualification_changes": {
+    "Omniscience": [
+      "80c5325: precise variable-length tuple annotation; release test formatting; mypy and 17 focused tests passed",
+      "639c52d: complete SP-103 governance metadata using the existing user approval; governance validation passed"
+    ],
+    "Barbarossa": [
+      "ebf9379: ephemeral CI-only Ed25519 fixture for protected legacy reads; actual handler and token rotation checks passed",
+      "ebf9379: legacy release dependency-closure scan and continuously executed detached/imported regression; forbidden patterns preserved; Go and generic reviews approved"
+    ],
+    "platform-portal": [
+      "6d223db: shared ignore rules for private runtime state and nested worktrees; independently reviewed",
+      "f7e2bfe: import order only; Ruff and Python/generic reviews passed; all five PR workflows green"
+    ],
+    "genai-enablement": [
+      "Publication/status documentation, exact component revisions, PR links and CI snapshots",
+      "d67ed1f: test formatting only; AST unchanged; 25 focused tests passed, six explicit skips",
+      "Captured database-browser test output has trailing whitespace normalized for Git; evidence manifest updated"
+    ]
+  },
+  "publication_review": {
+    "model": "gpt-6-luna",
+    "result": "passed",
+    "estimated_elapsed_seconds": 300,
+    "followup_reviews": 1,
+    "actual_tokens": null,
+    "note": "No runtime credential matches in 227 candidate files; source/evidence hashes verified; shared Portal ignore gap fixed and independently rechecked."
+  },
+  "ci_policy": "CI below is a timestamped snapshot for the recorded revision. A tracking-only commit may follow; the PR page reports current checks. No merge or production authorization is inferred.",
+  "merge_order": [
+    "Omniscience #374 and Barbarossa #13 provide the owner contracts",
+    "Portal #23 consumes both owner contracts",
+    "genai-enablement #60 records the coordinated delivery and qualification; update exact merged revisions after merges"
+  ],
+  "default_user_journey_evidence": "docs/synchronized-platform/releases/management-local-observe-v1/default-journey/verification.json",
+  "home_connections_evidence": "docs/synchronized-platform/releases/management-local-observe-v1/home-connections/verification.json",
+  "control_work_evidence": "docs/synchronized-platform/releases/management-local-observe-v1/control-work/verification.json"
+}

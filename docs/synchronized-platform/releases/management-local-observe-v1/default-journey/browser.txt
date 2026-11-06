@@ -1,0 +1,13 @@
+
+Running 5 tests using 1 worker
+
+(node:23045) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  1 e2e/local-observe.spec.ts:21:7 › alpha lands on its own owner-served graph without URL selectors (3.3s)
+  ✓  2 e2e/local-observe.spec.ts:21:7 › beta lands on its own owner-served graph without URL selectors (3.1s)
+  ✓  3 e2e/local-observe.spec.ts:67:5 › a live incident shows case evidence and a non-authoritative assessment (1.6s)
+  -  4 e2e/local-observe.spec.ts:80:5 › an owner outage is shown without a healthy projection
+  -  5 e2e/local-observe.spec.ts:90:5 › an Omniscience outage leaves the default graph unconfirmed
+
+  2 skipped
+  3 passed (8.6s)

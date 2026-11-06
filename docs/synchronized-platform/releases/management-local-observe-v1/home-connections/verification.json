@@ -1,0 +1,33 @@
+{
+  "schema_version": 1,
+  "profile": "management-local-observe-v1",
+  "as_of": "2026-11-06T18:01:55.262202+00:00",
+  "portal_revision": "ae74ebc39da2ebc558d509ac8a12ca98f0dc01f8",
+  "portal_pr": "https://github.com/100rd/platform-portal/pull/23",
+  "result": "passed-and-running",
+  "frontend_image_id": "sha256:62d6b4dd4895ac30b8c465708cc5e9160b3885ce4a5b10b48b80a85fd0e2ca9f",
+  "scope": "Prominent Barbarossa/Omniscience connection, observed readiness and per-component last-check cards on the local landing page. Independent streaming from knowledge; auto refresh every 30 seconds and manual refresh.",
+  "checks": {
+    "unit_regression": "175 passed across 14 files; lead separately repeated 28 widget/page/runner checks",
+    "static": "TypeScript and direct ESLint passed; production frontend image built",
+    "browser": "4 passed, 2 outage-only tests skipped: both real tenant logins, own graphs, foreign refusal, visible cards in first viewport, alpha readiness, beta status access denial, recorded incident evidence",
+    "refresh_failure_recovery": "Browser-intercepted HTTP 503 clears previous healthy readings; next automatic 30s poll reads the real authenticated BFF and restores exact component timestamps. This is a client transport-failure simulation, not a new owner outage drill.",
+    "streaming": "With the real Omniscience API briefly paused, cards appeared in 853ms while knowledge was pending. API resumed in finally; a fresh page read restored 3 graph entities.",
+    "state_boundaries": "Tests cover debounce overriding healthy; stale at >90s; unknown/missing/duplicate rows; HTTP notready, unreachable, timeout; denied/auth/schema failures; no overlapping refresh and old-tenant response exclusion."
+  },
+  "reviews": {
+    "typescript": "approved including final independent Suspense rendering",
+    "generic": "two findings fixed and re-reviewed: independent loading and accurate debounce wording",
+    "lead": "Full final diff/new files reviewed, targeted tests reproduced, actual Chromium and controlled streaming check run"
+  },
+  "verification_retries": [
+    "First streaming harness expected an already-failed graph request to recover without reloading. Container was resumed in finally. Corrected harness uses a fresh graph read after resume; application code was unchanged."
+  ],
+  "limits": [
+    "Connection/readiness describe timestamped local observer results with the existing debounce policy; they are not instantaneous external availability.",
+    "Barbarossa status read denial/unavailability cannot establish Omniscience is disconnected; the cards show unknown or denied status.",
+    "Prepared knowledge remains separate from readiness.",
+    "Previous qualification/drill receipts remain historical and were not replaced; no new paid model run or full fault requalification was required.",
+    "No production activation, OCI publication or PR merge."
+  ]
+}

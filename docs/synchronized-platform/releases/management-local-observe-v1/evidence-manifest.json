@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "profile": "management-local-observe-v1",
+  "files": {
+    "README.md": "bdc8539eb7dd0e3f4545594573497b3ddf19f11e3b4ab531d14f40d486255cf9",
+    "barbarossa-drill-recovered.json": "1be7c613f28d963895bb0d867eae840e2d4aec009a428f9d340d9fe34d13d0d5",
+    "barbarossa-go-tests.txt": "d8a5eef179ad2aaaf0489ebbb002380d09e2d56d945e60bd8093f5cc9cadc121",
+    "barbarossa-outage-case.json": "421b3cffc992249efde6e43dcdbf09726df4b8613ca5591c6bb5def2df832045",
+    "barbarossa-pending-runner.json": "ac6f466cc9c49afc263e7f0cc1371fbc65d1dd6eb877143d2395e57a496a6e71",
+    "barbarossa-postgres-tests.txt": "31f6c80851b1961b15c069408bb5d3e535315443e8eb67f055a1fa030c389d36",
+    "browser-tests.txt": "51d6d8c79df052fb7b2d15a1cf2d071a982e8d3a3e94d29a240eb0ee84e6064e",
+    "database-browser-drill.txt": "fa8d6c2ab39c511e835933a4aef3f2d56831f22ca26c08678701b1f5fa10a65a",
+    "database-recovered.json": "1522bb64198b8474bf79bd93d4b85a4c48af1ba11e071d7a97787a9db0ab564f",
+    "database-unavailable.json": "25c2081eceac12de3b975b8191695de03e15419bd474e8717b33f267f33aba7c",
+    "final-status.json": "646e945dcbe30994ebcb7ebefee9ffa9071fcf465610dae6e541a95d8f5e0688",
+    "genai-tests.txt": "acbdc4ef0b4f190df99f5292c33e7ec9684e00cb94723458c1e0e86ee2be10de",
+    "observer-runner-stale.json": "5b85036f23c03916051497518813b8423fefed8035ffc4acba407fa10576b33f",
+    "omniscience-second-accepted.json": "697178b78a7d57f96f59c22dfd8bf13b7d59094e418883127445a4d7c4e8553c",
+    "omniscience-second-recovered.json": "e5db34d2f1fbe0586ce40fb4e98d729fef0e4e20aeb52ac7a0d3ab8a0a036950",
+    "omniscience-tests.txt": "54e8f0873443481cf87508ad6d5d46e5f7a18cb722e8b3b71cdf45d287e47cda",
+    "original-preservation.json": "920f2203d0167cc99c9c27d269cf8d9a49632d7091fb4fe35e7cf2c74ea2bef7",
+    "portal-backend-tests.txt": "45a0ee71f157917f15f7d4152827ccdc62c614771c42e5e4457f9606b6e23505",
+    "portal-drill-accepted.json": "696de369069776263930bd14bf83cbc77ab6a99e755e07f5c0ed56c4f196eb4e",
+    "portal-drill-recovered.json": "163b47f5603dc099505192a645ae7964f7257e70d01ff190358ce3d59f8fa8ab",
+    "portal-qualified.png": "18c7210f5be68700a47fc8ea71b9282d58af4fcfae4e0dc5c1fd97ec5cde27cc",
+    "qualification.json": "7e367ba5983916226692c5bb7ec0cb3ceebceacba5cf529967ed96b13ed57ac6",
+    "restart.json": "169af4d87c76a8e414821b0f05c94cd69b27ca55f00c41f6fa597c14584eb636",
+    "security-final.json": "9ef729c626eb3fef76cd934f8beba3c068a4df58baf1294587c5ee57efbb9b86",
+    "source-snapshot.json": "91665f8da0c6289a4214af8bd5b08547db1fa0b844fad3f610e881fe13f34c08"
+  }
+}

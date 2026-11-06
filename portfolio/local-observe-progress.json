@@ -1,0 +1,658 @@
+{
+  "schema_version": 1,
+  "profile": "management-local-observe-v1",
+  "as_of": "2026-11-06T19:24:03.450831+00:00",
+  "implementation": "committed",
+  "verification": "passed-local-source-and-control-work",
+  "local_activation": "running",
+  "production_activation": "out_of_scope",
+  "completed_baseline_tasks": {
+    "SP-99": {
+      "repository": "Barbarossa",
+      "revision": "5cd2d164c65916dcbbbaafef5be88fda4a6d24bf",
+      "state": "merged"
+    },
+    "SP-100": {
+      "repository": "platform-portal",
+      "revision": "5733f56b1bf42464034d31f24b2133012bb5f20e",
+      "state": "merged"
+    }
+  },
+  "tasks": [
+    {
+      "id": "SP-102",
+      "owner": "genai-enablement",
+      "implementation": "complete",
+      "verification": "passed-local-source-qualification",
+      "evidence": [
+        "docs/synchronized-platform/releases/management-local-observe-v1/qualification.json"
+      ],
+      "local_activation": "running",
+      "commit": "d67ed1fe1ff92467f8916be97c43104e9150ef3f",
+      "pr_url": "https://github.com/100rd/genai-enablement/pull/60",
+      "publication": "pr-open"
+    },
+    {
+      "id": "SP-103",
+      "owner": "omniscience",
+      "implementation": "complete",
+      "verification": "passed-local-source-qualification",
+      "evidence": [
+        "docs/synchronized-platform/releases/management-local-observe-v1/qualification.json"
+      ],
+      "local_activation": "running",
+      "commit": "639c52dac220b461d286b86a6fdeb36cf89300a4",
+      "pr_url": "https://github.com/100rd/Omniscience/pull/374",
+      "publication": "pr-open"
+    },
+    {
+      "id": "SP-104",
+      "owner": "barbarossa",
+      "implementation": "complete",
+      "verification": "passed-control-work-and-prior-local-qualification",
+      "evidence": [
+        "docs/synchronized-platform/releases/management-local-observe-v1/qualification.json",
+        "docs/synchronized-platform/releases/management-local-observe-v1/control-work/verification.json"
+      ],
+      "local_activation": "running",
+      "commit": "1c6335656b348dbd9025aa82d0cb730b442604dd",
+      "pr_url": "https://github.com/100rd/Barbarossa/pull/13",
+      "publication": "pr-open"
+    },
+    {
+      "id": "SP-105",
+      "owner": "platform-portal",
+      "implementation": "complete",
+      "verification": "passed-control-work-and-prior-local-qualification",
+      "evidence": [
+        "docs/synchronized-platform/releases/management-local-observe-v1/qualification.json",
+        "docs/synchronized-platform/releases/management-local-observe-v1/default-journey/verification.json",
+        "docs/synchronized-platform/releases/management-local-observe-v1/home-connections/verification.json",
+        "docs/synchronized-platform/releases/management-local-observe-v1/control-work/verification.json"
+      ],
+      "local_activation": "running",
+      "commit": "1389aae9112ba03696fb3bc99560e970887d3241",
+      "pr_url": "https://github.com/100rd/platform-portal/pull/23",
+      "publication": "pr-open"
+    },
+    {
+      "id": "SP-106",
+      "owner": "genai-enablement",
+      "implementation": "complete",
+      "verification": "passed-control-work-and-prior-local-qualification",
+      "evidence": [
+        "docs/synchronized-platform/releases/management-local-observe-v1/qualification.json",
+        "docs/synchronized-platform/releases/management-local-observe-v1/default-journey/verification.json",
+        "docs/synchronized-platform/releases/management-local-observe-v1/home-connections/verification.json",
+        "docs/synchronized-platform/releases/management-local-observe-v1/control-work/verification.json"
+      ],
+      "local_activation": "running",
+      "commit": "d67ed1fe1ff92467f8916be97c43104e9150ef3f",
+      "pr_url": "https://github.com/100rd/genai-enablement/pull/60",
+      "publication": "pr-open"
+    }
+  ],
+  "agent_runs": [
+    {
+      "task": "implement_omniscience",
+      "model": "gpt-6.1-sol",
+      "state": "completed-reviewed",
+      "root_diff_review": "completed including added files",
+      "key_check": "reproduced by lead; see qualification report",
+      "token_usage": null,
+      "elapsed_seconds": null,
+      "retry_count": null,
+      "measurement_note": "Collaboration API did not expose token usage or complete run timing/retry counters. No measured values are fabricated. Subtasks were planned as approximately 15-minute reviewable chunks."
+    },
+    {
+      "task": "implement_barbarossa",
+      "model": "gpt-6.1-sol",
+      "state": "completed-reviewed",
+      "root_diff_review": "completed including added files",
+      "key_check": "reproduced by lead; see qualification report",
+      "token_usage": null,
+      "elapsed_seconds": null,
+      "retry_count": null,
+      "measurement_note": "Collaboration API did not expose token usage or complete run timing/retry counters. No measured values are fabricated. Subtasks were planned as approximately 15-minute reviewable chunks."
+    },
+    {
+      "task": "implement_portal",
+      "model": "gpt-6.1-sol",
+      "state": "completed-reviewed",
+      "root_diff_review": "completed including added files",
+      "key_check": "reproduced by lead; see qualification report",
+      "token_usage": null,
+      "elapsed_seconds": null,
+      "retry_count": null,
+      "measurement_note": "Collaboration API did not expose token usage or complete run timing/retry counters. No measured values are fabricated. Subtasks were planned as approximately 15-minute reviewable chunks."
+    },
+    {
+      "task": "implement_codex_runner",
+      "model": "gpt-6.1-sol",
+      "state": "completed-reviewed",
+      "root_diff_review": "completed including added files",
+      "key_check": "reproduced by lead; see qualification report",
+      "token_usage": null,
+      "elapsed_seconds": null,
+      "retry_count": null,
+      "measurement_note": "Collaboration API did not expose token usage or complete run timing/retry counters. No measured values are fabricated. Subtasks were planned as approximately 15-minute reviewable chunks."
+    },
+    {
+      "task": "fix_consumer_contract",
+      "model": "gpt-6.1-sol",
+      "state": "completed-reviewed",
+      "root_diff_review": "completed including added files",
+      "key_check": "reproduced by lead; see qualification report",
+      "token_usage": null,
+      "elapsed_seconds": null,
+      "retry_count": null,
+      "measurement_note": "Collaboration API did not expose token usage or complete run timing/retry counters. No measured values are fabricated. Subtasks were planned as approximately 15-minute reviewable chunks."
+    },
+    {
+      "task": "fix_live_omniscience_search",
+      "model": "gpt-6.1-sol",
+      "state": "completed-reviewed",
+      "root_diff_review": "completed including added files",
+      "key_check": "reproduced by lead; see qualification report",
+      "token_usage": null,
+      "elapsed_seconds": null,
+      "retry_count": null,
+      "measurement_note": "Collaboration API did not expose token usage or complete run timing/retry counters. No measured values are fabricated. Subtasks were planned as approximately 15-minute reviewable chunks."
+    },
+    {
+      "task": "fix_live_portal_login",
+      "model": "gpt-6.1-sol",
+      "state": "completed-reviewed",
+      "root_diff_review": "completed including added files",
+      "key_check": "reproduced by lead; see qualification report",
+      "token_usage": null,
+      "elapsed_seconds": null,
+      "retry_count": null,
+      "measurement_note": "Collaboration API did not expose token usage or complete run timing/retry counters. No measured values are fabricated. Subtasks were planned as approximately 15-minute reviewable chunks."
+    },
+    {
+      "task": "legacy_coordinator",
+      "model": "gpt-6.1-sol",
+      "state": "completed-reviewed",
+      "root_diff_review": "completed including added files",
+      "key_check": "reproduced by lead; see qualification report",
+      "token_usage": null,
+      "elapsed_seconds": null,
+      "retry_count": null,
+      "measurement_note": "Collaboration API did not expose token usage or complete run timing/retry counters. No measured values are fabricated. Subtasks were planned as approximately 15-minute reviewable chunks."
+    },
+    {
+      "task": "final_integration_review",
+      "model": "gpt-6.1-sol",
+      "state": "completed-reviewed",
+      "root_diff_review": "completed including added files",
+      "key_check": "reproduced by lead; see qualification report",
+      "token_usage": null,
+      "elapsed_seconds": null,
+      "retry_count": null,
+      "measurement_note": "Collaboration API did not expose token usage or complete run timing/retry counters. No measured values are fabricated. Subtasks were planned as approximately 15-minute reviewable chunks."
+    },
+    {
+      "task": "final_security_review",
+      "model": "gpt-6.1-sol",
+      "state": "completed-reviewed",
+      "root_diff_review": "completed including added files",
+      "key_check": "reproduced by lead; see qualification report",
+      "token_usage": null,
+      "elapsed_seconds": null,
+      "retry_count": null,
+      "measurement_note": "Collaboration API did not expose token usage or complete run timing/retry counters. No measured values are fabricated. Subtasks were planned as approximately 15-minute reviewable chunks."
+    },
+    {
+      "task": "final_go_review",
+      "model": "gpt-6.1-sol",
+      "state": "completed-reviewed",
+      "root_diff_review": "completed including added files",
+      "key_check": "reproduced by lead; see qualification report",
+      "token_usage": null,
+      "elapsed_seconds": null,
+      "retry_count": null,
+      "measurement_note": "Collaboration API did not expose token usage or complete run timing/retry counters. No measured values are fabricated. Subtasks were planned as approximately 15-minute reviewable chunks."
+    },
+    {
+      "task": "final_database_review",
+      "model": "gpt-6.1-sol",
+      "state": "completed-reviewed",
+      "root_diff_review": "completed including added files",
+      "key_check": "reproduced by lead; see qualification report",
+      "token_usage": null,
+      "elapsed_seconds": null,
+      "retry_count": null,
+      "measurement_note": "Collaboration API did not expose token usage or complete run timing/retry counters. No measured values are fabricated. Subtasks were planned as approximately 15-minute reviewable chunks."
+    },
+    {
+      "task": "fix_release_verifier",
+      "model": "gpt-6-luna",
+      "state": "completed-reviewed",
+      "root_diff_review": "completed including added files",
+      "key_check": "reproduced by lead; see qualification report",
+      "token_usage": null,
+      "elapsed_seconds": null,
+      "retry_count": null,
+      "measurement_note": "Collaboration API did not expose token usage or complete run timing/retry counters. No measured values are fabricated. Subtasks were planned as approximately 15-minute reviewable chunks."
+    },
+    {
+      "task": "fix_consumer_kit",
+      "model": "gpt-6-luna",
+      "state": "completed-reviewed",
+      "root_diff_review": "completed including added files",
+      "key_check": "reproduced by lead; see qualification report",
+      "token_usage": null,
+      "elapsed_seconds": null,
+      "retry_count": null,
+      "measurement_note": "Collaboration API did not expose token usage or complete run timing/retry counters. No measured values are fabricated. Subtasks were planned as approximately 15-minute reviewable chunks."
+    },
+    {
+      "task": "fix_knowledge_partial",
+      "model": "gpt-6-luna",
+      "state": "completed-reviewed",
+      "root_diff_review": "completed including added files",
+      "key_check": "reproduced by lead; see qualification report",
+      "token_usage": null,
+      "elapsed_seconds": null,
+      "retry_count": null,
+      "measurement_note": "Collaboration API did not expose token usage or complete run timing/retry counters. No measured values are fabricated. Subtasks were planned as approximately 15-minute reviewable chunks."
+    },
+    {
+      "task": "final_typescript_review",
+      "model": "gpt-6-luna",
+      "state": "completed-reviewed",
+      "root_diff_review": "completed including added files",
+      "key_check": "reproduced by lead; see qualification report",
+      "token_usage": null,
+      "elapsed_seconds": null,
+      "retry_count": null,
+      "measurement_note": "Collaboration API did not expose token usage or complete run timing/retry counters. No measured values are fabricated. Subtasks were planned as approximately 15-minute reviewable chunks."
+    },
+    {
+      "task": "document_local_launcher",
+      "model": "gpt-6-luna",
+      "state": "completed-reviewed",
+      "root_diff_review": "completed including added files",
+      "key_check": "reproduced by lead; see qualification report",
+      "token_usage": null,
+      "elapsed_seconds": null,
+      "retry_count": null,
+      "measurement_note": "Collaboration API did not expose token usage or complete run timing/retry counters. No measured values are fabricated. Subtasks were planned as approximately 15-minute reviewable chunks."
+    },
+    {
+      "task": "final_tail_review",
+      "model": "gpt-6-luna",
+      "state": "completed-reviewed",
+      "root_diff_review": "completed including added files",
+      "key_check": "Lead repeated Go tests; reviewer ran targeted Go test and vet. Staticcheck export-data incompatibility recorded in report.",
+      "token_usage": null,
+      "elapsed_seconds": null,
+      "retry_count": null,
+      "measurement_note": "Collaboration API did not expose token usage or complete run timing/retry counters. No measured values are fabricated. Subtasks were planned as approximately 15-minute reviewable chunks.",
+      "elapsed_seconds_estimate": 360
+    },
+    {
+      "task": "final_browser_test_review",
+      "model": "gpt-6-luna",
+      "state": "completed-reviewed",
+      "root_diff_review": "completed including added files",
+      "key_check": "reproduced by lead; see qualification report",
+      "token_usage": null,
+      "elapsed_seconds": null,
+      "retry_count": null,
+      "measurement_note": "Collaboration API did not expose token usage or complete run timing/retry counters. No measured values are fabricated. Subtasks were planned as approximately 15-minute reviewable chunks.",
+      "elapsed_seconds_estimate": 120
+    },
+    {
+      "task": "publication_boundary_review",
+      "model": "gpt-6-luna",
+      "state": "completed-reviewed",
+      "root_diff_review": "Exact credential scan repeated by lead; Portal ignore-rule diff and check-ignore reproduced",
+      "elapsed_seconds_estimate": 300,
+      "token_usage": null,
+      "followup_reviews": 1,
+      "measurement_note": "Time is an estimate; collaboration token usage unavailable."
+    },
+    {
+      "task": "fix_portal_pr_lint",
+      "model": "gpt-6-luna",
+      "state": "completed-reviewed",
+      "result": "Portal import ordering; Omniscience annotation/test formatting. Root reproduced checks, Python and generic reviews passed.",
+      "token_usage": null,
+      "elapsed_seconds": null,
+      "measurement_note": "Actual token/timing counters unavailable; no fabricated measured usage."
+    },
+    {
+      "task": "fix_barbarossa_pr_ci",
+      "model": "gpt-6.1-sol",
+      "state": "completed-reviewed",
+      "result": "Ephemeral identity and dependency-scope CI; root replayed real handler/rotation and scope regression; Go and generic review findings closed.",
+      "token_usage": null,
+      "elapsed_seconds": null,
+      "measurement_note": "Actual token/timing counters unavailable; no fabricated measured usage."
+    },
+    {
+      "task": "review_portal_ci_import",
+      "model": "gpt-6-luna",
+      "state": "completed-reviewed",
+      "result": "Python CI diffs reviewed; no runtime behavior changes.",
+      "token_usage": null,
+      "elapsed_seconds": null,
+      "measurement_note": "Actual token/timing counters unavailable; no fabricated measured usage."
+    },
+    {
+      "task": "review_barbarossa_ci_go",
+      "model": "gpt-6-luna",
+      "state": "completed-reviewed",
+      "result": "Fixture checked. Initial escaping concern independently disproved using actual bytes and emitted JWT; reviewer corrected finding.",
+      "token_usage": null,
+      "elapsed_seconds": null,
+      "measurement_note": "Actual token/timing counters unavailable; no fabricated measured usage."
+    },
+    {
+      "task": "review_publication_ci_fixes",
+      "model": "gpt-6.1-sol",
+      "state": "completed-reviewed",
+      "result": "Generic review approved after wiring scope regression into CI and updating runbook.",
+      "token_usage": null,
+      "elapsed_seconds": null,
+      "measurement_note": "Actual token/timing counters unavailable; no fabricated measured usage."
+    },
+    {
+      "task": "inspect_portal_control_profile",
+      "model": "gpt-6-luna",
+      "state": "completed-reviewed",
+      "root_diff_review": "complete including new files",
+      "elapsed_seconds_estimate": 240,
+      "token_estimate": 7000,
+      "token_usage": null,
+      "repair_retries": 0,
+      "result": "Profile landing and Control; lead reviewed every file and repeated 8 focused tests.",
+      "measurement_note": "Estimates reported by agents; exact billing/counters unavailable. Expected RED tests are not repair retries."
+    },
+    {
+      "task": "inspect_portal_default_observe",
+      "model": "gpt-6.1-sol",
+      "state": "completed-reviewed",
+      "root_diff_review": "complete including new files",
+      "elapsed_seconds_estimate": 315,
+      "token_estimate": 7000,
+      "token_usage": null,
+      "repair_retries": 1,
+      "result": "Tenant-bound backend default slice; 205 passed 1 skip; lead repeated 10 endpoint tests.",
+      "measurement_note": "Estimates reported by agents; exact billing/counters unavailable. Expected RED tests are not repair retries. One formatting correction reported."
+    },
+    {
+      "task": "review_portal_default_ui",
+      "model": "gpt-6-luna",
+      "state": "completed-reviewed",
+      "root_diff_review": "complete including new files",
+      "elapsed_seconds_estimate": 240,
+      "token_estimate": 3000,
+      "token_usage": null,
+      "repair_retries": 0,
+      "result": "Initial and incremental TypeScript reviews; approved.",
+      "measurement_note": "Estimates reported by agents; exact billing/counters unavailable. Expected RED tests are not repair retries."
+    },
+    {
+      "task": "review_portal_default_backend",
+      "model": "gpt-6-luna",
+      "state": "completed-reviewed",
+      "root_diff_review": "complete including new files",
+      "elapsed_seconds_estimate": null,
+      "token_estimate": null,
+      "token_usage": null,
+      "repair_retries": 0,
+      "result": "Python review approved and Ruff passed.",
+      "measurement_note": "Estimates reported by agents; exact billing/counters unavailable. Expected RED tests are not repair retries."
+    },
+    {
+      "task": "review_portal_default_integration",
+      "model": "gpt-6.1-sol",
+      "state": "completed-reviewed",
+      "root_diff_review": "complete including new files",
+      "elapsed_seconds_estimate": 150,
+      "token_estimate": 2400,
+      "token_usage": null,
+      "repair_retries": 1,
+      "result": "Three findings fixed and re-reviewed: workspace selector, tenant/workspace test IDs, conditional copy.",
+      "measurement_note": "Estimates reported by agents; exact billing/counters unavailable. Expected RED tests are not repair retries."
+    },
+    {
+      "task": "publication_boundary_review_default_journey",
+      "model": "gpt-6-luna",
+      "state": "completed-reviewed",
+      "root_diff_review": "Root reproduced all 37 manifest hashes and credential scan; tracked generated pycache restored and excluded.",
+      "elapsed_seconds_estimate": 180,
+      "token_usage": null,
+      "result": "Additive default-journey evidence and four tracking files approved; no blockers.",
+      "measurement_note": "Agent-reported approximate duration; actual token usage unavailable."
+    },
+    {
+      "task": "inspect_connection_semantics",
+      "model": "gpt-6.1-sol",
+      "state": "completed-reviewed",
+      "elapsed_seconds_estimate": 60,
+      "token_estimate": 1200,
+      "token_usage": null,
+      "result": "Existing owner state/reason/debounce semantics traced read-only.",
+      "measurement_note": "Agent-reported estimates; exact billing unavailable. Writer had one fixture type correction; generic review had one repair round."
+    },
+    {
+      "task": "implement_home_connections",
+      "model": "gpt-6.1-sol",
+      "state": "completed-reviewed",
+      "elapsed_seconds_estimate": 240,
+      "token_estimate": 5000,
+      "token_usage": null,
+      "result": "Widget/shared response parser implemented; lead reviewed full final diff and repeated tests.",
+      "measurement_note": "Agent-reported estimates; exact billing unavailable. Writer had one fixture type correction; generic review had one repair round."
+    },
+    {
+      "task": "review_home_connections_typescript",
+      "model": "gpt-6-luna",
+      "state": "completed-reviewed",
+      "elapsed_seconds_estimate": 300,
+      "token_estimate": 4100,
+      "token_usage": null,
+      "result": "Initial and final streaming reviews approved; typecheck and direct lint passed.",
+      "measurement_note": "Agent-reported estimates; exact billing unavailable. Writer had one fixture type correction; generic review had one repair round."
+    },
+    {
+      "task": "review_home_connections_integration",
+      "model": "gpt-6.1-sol",
+      "state": "completed-reviewed",
+      "elapsed_seconds_estimate": 150,
+      "token_estimate": 2450,
+      "token_usage": null,
+      "result": "Independent-load and debounce-copy findings fixed and re-reviewed.",
+      "measurement_note": "Agent-reported estimates; exact billing unavailable. Writer had one fixture type correction; generic review had one repair round."
+    },
+    {
+      "task": "publication_boundary_review_home_connections",
+      "model": "gpt-6-luna",
+      "state": "completed-reviewed",
+      "token_usage": null,
+      "result": "Revision, current scope, simulated failure versus actual pause, artifact hashes and public evidence approved; root independently repeated all 43 hashes and credential scan.",
+      "measurement_note": "Actual token/timing counters not exposed."
+    },
+    {
+      "task": "control-work: Portal UI exploration",
+      "model": "gpt-6-luna",
+      "state": "completed-reviewed",
+      "token_usage": null,
+      "evidence": "docs/synchronized-platform/releases/management-local-observe-v1/control-work/verification.json",
+      "elapsed_seconds_estimate": 300,
+      "token_estimate": 4000
+    },
+    {
+      "task": "control-work: Barbarossa job reads and PostgreSQL regressions",
+      "model": "gpt-6.1-sol",
+      "state": "completed-reviewed",
+      "token_usage": null,
+      "evidence": "docs/synchronized-platform/releases/management-local-observe-v1/control-work/verification.json",
+      "elapsed_seconds_estimate": 600,
+      "completion_token_estimate": 8500,
+      "review_repair_rounds": 1
+    },
+    {
+      "task": "control-work: Portal Control/Observe split",
+      "model": "gpt-6.1-sol",
+      "state": "completed-reviewed",
+      "token_usage": null,
+      "evidence": "docs/synchronized-platform/releases/management-local-observe-v1/control-work/verification.json",
+      "elapsed_seconds_estimate": 360,
+      "token_estimate_range": [
+        8000,
+        10000
+      ],
+      "tooling_retries": 1
+    },
+    {
+      "task": "control-work: Go",
+      "model": "gpt-6.1-sol",
+      "state": "completed-reviewed",
+      "token_usage": null,
+      "evidence": "docs/synchronized-platform/releases/management-local-observe-v1/control-work/verification.json",
+      "result": "approved after correction",
+      "findings_resolved": [
+        "Future leases on resolved/revised cases must be superseded rather than active.",
+        "Compare fencing epochs without narrowing the stored uint64."
+      ],
+      "token_estimate": 3000,
+      "elapsed_seconds_estimate": 120
+    },
+    {
+      "task": "control-work: PostgreSQL",
+      "model": "gpt-6-luna",
+      "state": "completed-reviewed",
+      "token_usage": null,
+      "evidence": "docs/synchronized-platform/releases/management-local-observe-v1/control-work/verification.json",
+      "result": "approved with nonblocking scale note",
+      "findings_resolved": [],
+      "accepted_limit": "Current indexes may require sorting all retained history; returned pages are bounded to 50. Revisit ordering indexes with measured growth; this local change adds no migration.",
+      "token_estimate": 2700,
+      "elapsed_seconds_estimate": null
+    },
+    {
+      "task": "control-work: Python",
+      "model": "gpt-6-luna",
+      "state": "completed-reviewed",
+      "token_usage": null,
+      "evidence": "docs/synchronized-platform/releases/management-local-observe-v1/control-work/verification.json",
+      "result": "approved including superseded enum delta",
+      "token_estimate": 2200,
+      "elapsed_seconds_estimate": 120
+    },
+    {
+      "task": "control-work: TypeScript",
+      "model": "gpt-6-luna",
+      "state": "completed-reviewed",
+      "token_usage": null,
+      "evidence": "docs/synchronized-platform/releases/management-local-observe-v1/control-work/verification.json",
+      "result": "approved; typecheck and direct ESLint passed",
+      "token_estimate": null,
+      "elapsed_seconds_estimate": null
+    },
+    {
+      "task": "control-work: cross-layer code review",
+      "model": "gpt-6.1-sol",
+      "state": "completed-reviewed",
+      "token_usage": null,
+      "evidence": "docs/synchronized-platform/releases/management-local-observe-v1/control-work/verification.json",
+      "result": "approved after correction",
+      "findings_resolved": [
+        "Runner Active count renamed Occupied lease slots to include superseded claims honestly.",
+        "Slot-retention documentation includes early release by runner failure report.",
+        "Default browser test must accept clean history; incident result assertions remain opt-in."
+      ],
+      "token_estimate": 3000,
+      "elapsed_seconds_estimate": 240
+    },
+    {
+      "task": "control-work publication boundary review",
+      "model": "gpt-6-luna",
+      "state": "completed-reviewed",
+      "elapsed_seconds_estimate": 90,
+      "token_usage": null,
+      "result": "Source refs, current 6/4/6 totals, browser evidence/skips, historical hashes, screenshots and final CI snapshot approved.",
+      "evidence": "docs/synchronized-platform/releases/management-local-observe-v1/control-work/reviews.json"
+    }
+  ],
+  "evidence": "docs/synchronized-platform/releases/management-local-observe-v1/qualification.json",
+  "source_snapshot": "docs/synchronized-platform/releases/management-local-observe-v1/source-snapshot.json",
+  "component_deliveries": {
+    "SP-86": {
+      "implementation": "completed-and-source-tested",
+      "release": "not-published; dirty source and OCI release gate remain",
+      "commit": "639c52dac220b461d286b86a6fdeb36cf89300a4",
+      "pr_url": "https://github.com/100rd/Omniscience/pull/374"
+    },
+    "SP-101": {
+      "implementation": "completed-in-isolated-worktree",
+      "verification": "real two-tenant MCP; natural landing graph, foreign-workspace refusal and owner outage passed",
+      "commit": "1389aae9112ba03696fb3bc99560e970887d3241",
+      "pr_url": "https://github.com/100rd/platform-portal/pull/23"
+    }
+  },
+  "rework": [
+    {
+      "task": "consumer-kit",
+      "from": "gpt-6-luna",
+      "to": "gpt-6.1-sol",
+      "reason": "Independent Go review found semantic gaps in digest/fixture/receipt binding; escalated fixes and reran 12 tests."
+    },
+    {
+      "task": "local Codex output contract",
+      "model": "gpt-6.1-sol",
+      "reason": "Two live model attempts were rejected; tightened per-job citation enum/output bounds and tested actual CLI wire schema before three successful component drills."
+    },
+    {
+      "task": "local source integration",
+      "reason": "Live testing exposed fixture checkpoint skipping, public login port mismatch, cadence boundary skipping and missing Keycloak persistence. Fixed and rechecked live."
+    }
+  ],
+  "model_calls": {
+    "reserved": 6,
+    "accepted": 4,
+    "rejected": 2,
+    "historical_failed_jobs": 1,
+    "duplicate_accepted_results": 0,
+    "measured_tokens": null,
+    "note": "Historical qualification reserved five calls and accepted three. During Control activation, backend recreation caused one additional automatically observed Portal case and one accepted Codex attempt. Current PostgreSQL totals: six reservations/four assessments. No duplicate result; exact billing tokens unavailable."
+  },
+  "remaining_queue": [
+    "SP-89",
+    "SP-94",
+    "published OCI release",
+    "AWS",
+    "execution of recommendations",
+    "image vulnerability scanning",
+    "HA/external availability",
+    "native Linux bind-permission qualification"
+  ],
+  "publication": "portfolio/local-observe-publication.json",
+  "pull_requests": "open-in-all-four-repositories",
+  "user_journey_correction": {
+    "state": "verified-and-running",
+    "portal_commit": "7526fb1c32a745617c2e0b8d3c1ebbb9ff33edc2",
+    "evidence": "docs/synchronized-platform/releases/management-local-observe-v1/default-journey/verification.json",
+    "prior_test_gap": "Original browser acceptance used explicit entity selectors and Reliability deep links; natural landing and bare Observe were not checked. The user correctly identified a missing default graph and an unselected factory presented as unavailable."
+  },
+  "home_connections": {
+    "state": "verified-and-running",
+    "portal_commit": "ae74ebc39da2ebc558d509ac8a12ca98f0dc01f8",
+    "evidence": "docs/synchronized-platform/releases/management-local-observe-v1/home-connections/verification.json"
+  },
+  "control_work": {
+    "state": "verified-and-running",
+    "portal_commit": "1389aae9112ba03696fb3bc99560e970887d3241",
+    "barbarossa_commit": "1c6335656b348dbd9025aa82d0cb730b442604dd",
+    "evidence": "docs/synchronized-platform/releases/management-local-observe-v1/control-work/verification.json",
+    "case_count": 6,
+    "accepted_assessments": 4,
+    "queue_rows": 0,
+    "runner": "online"
+  }
+}

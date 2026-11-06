@@ -1,0 +1,5 @@
+# Generated local profile credentials, source build logs and host runner state.
+/.local-observe/
+/.worktrees/
+__pycache__/
+.pytest_cache/

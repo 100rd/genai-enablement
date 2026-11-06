@@ -1,0 +1,43 @@
+{
+  "schema_version": 1,
+  "profile": "management-local-observe-v1",
+  "as_of": "2026-11-06T17:35:05.131785+00:00",
+  "portal_revision": "7526fb1c32a745617c2e0b8d3c1ebbb9ff33edc2",
+  "portal_pr": "https://github.com/100rd/platform-portal/pull/23",
+  "result": "passed",
+  "historical_qualification": "../qualification.json",
+  "prior_gap": "Original browser acceptance used explicit entity selectors and Reliability deep links; natural landing and bare Observe were not checked. The user correctly identified a missing default graph and an unselected factory presented as unavailable.",
+  "baseline": "baseline.json",
+  "runtime": "result.json",
+  "checks": {
+    "natural_login_both_tenants": "passed from / with fresh browser sessions; landing /observe without query selectors",
+    "own_graph": "3 owner-served entities and 2 edges per seeded workspace; workspace provenance and effective timestamp visible",
+    "foreign_workspace": "needs-mapping with null graph and provenance",
+    "control": "factory-not-selected; no run controls or unavailable factory panel",
+    "reliability": "alpha live owner observations/cases/assessment; beta owner-forbidden",
+    "knowledge_outage": "1 actual browser test passed with isolated Omniscience API stopped; no graph rows",
+    "recovery": "Omniscience ready; 3 browser tests passed after restart; 2 outage-only tests skipped in the healthy run",
+    "root_backend": "10 new endpoint tests independently repeated; passed",
+    "agent_backend": "205 passed; 1 optional MCP SDK lifecycle skip",
+    "frontend": "156 regression tests passed, then 8 page tests passed after adding the workspace-only regression",
+    "static": "TypeScript, direct ESLint, Ruff and whitespace checks passed",
+    "build": "Production frontend and backend source images built and activated"
+  },
+  "images": {
+    "platform-portal-frontend:observe-source": "sha256:522a4b643e1fc35aad67806a6df388fbe0081fc27cffc816dfd6e30a68337bb2",
+    "platform-portal-backend:observe-source": "sha256:05c5ae001ae12efdf385033677c9cfd41464ccbb2add2a25458b13cd9d243c4a"
+  },
+  "reviews": {
+    "typescript": "approved; final incremental test changes reviewed",
+    "python": "approved",
+    "generic": "3 findings corrected and re-reviewed; zero remaining",
+    "lead": "Complete diff including added files reviewed; key backend tests and real Chromium independently run"
+  },
+  "limits": [
+    "Graph is owner-seeded synthetic test topology, not dynamically discovered live infrastructure.",
+    "Live component state, incidents and recommendations are under /observe/reliability.",
+    "Single shared host; no HA/external-availability claim.",
+    "This correction did not rerun all earlier Codex/fault/security drills or replace their historical receipts.",
+    "No public image release, production activation or PR merge."
+  ]
+}

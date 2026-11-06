@@ -54,6 +54,7 @@ COMPOSE_DIR = ROOT / "deploy" / "local" / "management-readonly-v1"
 COMPOSE_BASE = COMPOSE_DIR / "compose.yaml"
 COMPOSE_SOURCE = COMPOSE_DIR / "compose.source.yaml"
 ENV_EXAMPLE = COMPOSE_DIR / ".env.example"
+LEGACY_READ_PROBE = COMPOSE_DIR / "probe_barbarossa.py"
 
 # --- owner fragment + contract inputs (READ-ONLY cross-repo) ------------------
 OMNI_FRAGMENT_DIR = OMNISCIENCE_ROOT / "deploy/compose/management-readonly-local"
@@ -1248,15 +1249,7 @@ def probe_live(project: str = PROFILE_ID) -> dict[str, Any]:
                 "import urllib.request;print(urllib.request.urlopen('http://barbarossa-api:8080/v1/health',timeout=5).status)",
             ],
         ),
-        "barbarossa_availability": _exec_in(
-            project,
-            "portal-backend",
-            [
-                "python",
-                "-c",
-                "import urllib.request;print(urllib.request.urlopen('http://barbarossa-api:8080/v1/local/availability',timeout=5).read().decode()[:400])",
-            ],
-        ),
+        "barbarossa_availability": _probe_barbarossa_availability(project),
     }
     return capture
 
@@ -1310,18 +1303,59 @@ def _docker_stats() -> list[dict[str, Any]]:
     return rows
 
 
-def _exec_in(project: str, service: str, cmd: list[str]) -> str:
+def _probe_barbarossa_availability(project: str) -> dict[str, Any]:
+    # Only program source crosses stdin. The mounted Portal signer and JWTs
+    # stay inside the backend container, including when the probe fails.
+    output = _exec_in(
+        project,
+        "portal-backend",
+        ["python", "-"],
+        stdin=LEGACY_READ_PROBE.read_text(encoding="utf-8"),
+    )
+    try:
+        report = json.loads(output)
+    except json.JSONDecodeError:
+        return {"status": "unavailable"}
+    if not isinstance(report, dict):
+        return {"status": "unavailable"}
+
+    expected = {
+        "unsigned_status": 401,
+        "signed_status": 200,
+        "foreign_status": 403,
+        "scope_mismatch_status": 409,
+    }
+    observed = {key: report.get(key) for key in expected}
+    valid_shape = report.get("valid_shape")
+    if not isinstance(valid_shape, bool) or any(
+        type(status) is not int or not 100 <= status <= 599
+        for status in observed.values()
+    ):
+        return {"status": "unavailable"}
+    return {
+        "status": "observed" if valid_shape and observed == expected else "unexpected",
+        **observed,
+        "valid_shape": valid_shape,
+    }
+
+
+def _exec_in(
+    project: str, service: str, cmd: list[str], *, stdin: str | None = None
+) -> str:
     try:
         result = subprocess.run(
             ["docker", "compose", "-p", project, "exec", "-T", service, *cmd],
+            input=stdin,
             capture_output=True,
             text=True,
             timeout=30,
             check=False,
         )
-    except (OSError, subprocess.TimeoutExpired) as exc:
-        return f"<exec-error: {exc}>"
-    return (result.stdout + result.stderr).strip()[:500]
+    except (OSError, subprocess.TimeoutExpired):
+        return "<exec-error>"
+    if result.returncode != 0:
+        return "<exec-error>"
+    return result.stdout.strip()[:500]
 
 
 # ---------------------------------------------------------------------------

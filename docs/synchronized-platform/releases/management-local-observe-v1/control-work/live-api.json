@@ -1,0 +1,154 @@
+{
+  "observed_at": "2026-11-06T19:22:23.909121Z",
+  "queue_rows": 0,
+  "history_rows": 6,
+  "accepted_results_checked": 4,
+  "accepted_results": [
+    {
+      "work_id": "work-d67d2d41022d576011f476527540997dde4c39667b6e7adb42025bdb1b4a5b36",
+      "case_id": "case-009ec1c79991adf4b2372ecd1d98799ead5bc91c58cc34805424bb781cd43000",
+      "assessment_id": "assessment-8379f2ef3a0218b6dbf9c11059305d9d4a904d41b2a512482a143b1e6b189705",
+      "model": "sha256:fed2ebeede06f15f5d1109f42278fa81c14cc54a5e9feee4be8f9267d7231bdb",
+      "created_at": "2026-11-06T19:14:28.637749Z"
+    },
+    {
+      "work_id": "work-87350549bad6615686f9b97f58bf9f8b8a85fae647a686e133e9b12ad6e34867",
+      "case_id": "case-f4bda5c69dbeea87c1c93179cbd160b7522f8e6afc10a8538f75803383c4b080",
+      "assessment_id": "assessment-c1288b4d98248ea6d7fb602a0b9af140599e117bc8b55b79e80bde2d3e234246",
+      "model": "sha256:fed2ebeede06f15f5d1109f42278fa81c14cc54a5e9feee4be8f9267d7231bdb",
+      "created_at": "2026-11-06T15:28:22.893208Z"
+    },
+    {
+      "work_id": "work-62da84c0b40123bac0a42784aec207bae79b4fd7f4a93a173dcc9e4686766dba",
+      "case_id": "case-29357c89381f46f4f55cf9be64910538989818b099b99523460f4ff8f605de6b",
+      "assessment_id": "assessment-7ae7042a8ca6c5ab60406b2558d6e5c340d43dbe1cd3c832485b60e163227b38",
+      "model": "sha256:fed2ebeede06f15f5d1109f42278fa81c14cc54a5e9feee4be8f9267d7231bdb",
+      "created_at": "2026-11-06T15:22:46.554112Z"
+    },
+    {
+      "work_id": "work-8698d3cae4e1afdb353348260029b29278ed7e60748a84fbaf3e458fcc792a02",
+      "case_id": "case-63f3a808540611a83a04032d5c35a061304e5cd2981ae2d389feabed07c15024",
+      "assessment_id": "assessment-c4e3b3d7b0c9c44924b55b8b9260637ca13e7a834f903e46565bf675f3049e35",
+      "model": "sha256:fed2ebeede06f15f5d1109f42278fa81c14cc54a5e9feee4be8f9267d7231bdb",
+      "created_at": "2026-11-06T15:18:48.770907Z"
+    }
+  ],
+  "history_states": [
+    "completed",
+    "completed",
+    "completed",
+    "completed",
+    "failed",
+    "cancelled"
+  ],
+  "security_checks": [
+    {
+      "path_kind": "list",
+      "check": "anonymous",
+      "status": 401
+    },
+    {
+      "path_kind": "list",
+      "check": "foreign",
+      "status": 403
+    },
+    {
+      "path_kind": "list",
+      "check": "bad_signature",
+      "status": 401
+    },
+    {
+      "path_kind": "list",
+      "check": "expired",
+      "status": 401
+    },
+    {
+      "path_kind": "list",
+      "check": "audience",
+      "status": 401
+    },
+    {
+      "path_kind": "list",
+      "check": "scope",
+      "status": 403
+    },
+    {
+      "path_kind": "detail",
+      "check": "anonymous",
+      "status": 401
+    },
+    {
+      "path_kind": "detail",
+      "check": "foreign",
+      "status": 403
+    },
+    {
+      "path_kind": "detail",
+      "check": "bad_signature",
+      "status": 401
+    },
+    {
+      "path_kind": "detail",
+      "check": "expired",
+      "status": 401
+    },
+    {
+      "path_kind": "detail",
+      "check": "audience",
+      "status": 401
+    },
+    {
+      "path_kind": "detail",
+      "check": "scope",
+      "status": 403
+    },
+    {
+      "check": "tenant_override",
+      "status": 403
+    },
+    {
+      "check": "missing",
+      "status": 404
+    }
+  ],
+  "case_count": 6,
+  "rollout_case": {
+    "id": "case-009ec1c79991adf4b2372ecd1d98799ead5bc91c58cc34805424bb781cd43000",
+    "domain": "reliability",
+    "component": "portal",
+    "status": "resolved",
+    "reason": "probe_unreachable",
+    "opened_at": "2026-11-06T19:14:21.418543Z",
+    "updated_at": "2026-11-06T19:15:21.417261Z"
+  },
+  "runner": {
+    "state": "online",
+    "last_seen_at": "2026-11-06T19:22:23.885827Z",
+    "queue_pending": 0,
+    "active": 0,
+    "failed": 1,
+    "rate_limited_until": null,
+    "last_error": {
+      "reason": "invalid_result",
+      "at": "2026-11-06T15:03:20.663214Z",
+      "work_id": "work-d302bc7ceeaccdb472842fe818653a2050ee7013d24948569c94eb39c4d09769"
+    }
+  },
+  "components": [
+    {
+      "id": "omniscience",
+      "state": "healthy",
+      "last_observed_at": "2026-11-06T19:22:21.425003Z"
+    },
+    {
+      "id": "barbarossa",
+      "state": "healthy",
+      "last_observed_at": "2026-11-06T19:22:21.425003Z"
+    },
+    {
+      "id": "portal",
+      "state": "healthy",
+      "last_observed_at": "2026-11-06T19:22:21.425003Z"
+    }
+  ]
+}

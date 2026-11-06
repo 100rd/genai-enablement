@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "files": {
+    "README.md": "04c8561cbf0058d8c3b2828ebe99afb80406e77a11c7d9e8c8b2e83cebbffba8",
+    "assessment.png": "35155037725a1a4170eb0bc2ca3d236cd29c9d475c8c7b2e283363c765d5dd96",
+    "backend-tests.txt": "989543d288a2c7da68e345f385dcc691d9849d379f2dde4476aabfad21370a0c",
+    "browser.txt": "ab2bf54b45f9a5123fc0db1558b2eddfc8b4a5f8b2dc7cd6f571eb9cc8300a55",
+    "control.png": "9656b058e900c818d59fff961d590f2ad9a131367d83fa7ab571f311e93fda7f",
+    "coordinator-tests.txt": "e6e900aa21737c9064dde528869326e9308919005ac2b83f1e9786926abfac53",
+    "frontend-tests.txt": "90e1a6644acb133487a095e770012dcd29d1b07c6d5d16aa7ab2dc66677c30a3",
+    "go-tests.txt": "40ef725692dcd5ca06e11cc0e46dc98048e3a98e6b1ecfba630de4752ba06c92",
+    "live-api.json": "b8c346e49d4426b9c10d8bb8853b02ee68b1f8f54fe975fd54e09872926e9e3a",
+    "observe.png": "62421c37fc4c47d301cee2e92b091c7b91816118132e5539207308978d1b1617",
+    "postgres-tests.txt": "9f21f25470cb4fb933314ecb32a8c78ae4d5e946a079f3bd5838659b96bff7d6",
+    "reviews.json": "f6a7f5b76d1ba4563fd734620fd73b8c391aaad9ccfab91089af9d388a809681",
+    "verification.json": "32713eb15227736983a3320423823bb518b6d39670cbb4665ae2c5b8bf08b497"
+  }
+}

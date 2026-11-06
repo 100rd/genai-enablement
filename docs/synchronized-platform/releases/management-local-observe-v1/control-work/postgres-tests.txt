@@ -1,0 +1,26 @@
+=== RUN   TestPostgresCaseHistoryPagination
+--- PASS: TestPostgresCaseHistoryPagination (0.58s)
+=== RUN   TestPostgresAnalysisContextRemainsPinned
+--- PASS: TestPostgresAnalysisContextRemainsPinned (1.61s)
+=== RUN   TestPostgresUnconfirmedEvidenceDoesNotCreateAnalysis
+--- PASS: TestPostgresUnconfirmedEvidenceDoesNotCreateAnalysis (0.41s)
+=== RUN   TestPostgresRejectsMismatchedContextIdentity
+--- PASS: TestPostgresRejectsMismatchedContextIdentity (0.31s)
+=== RUN   TestPostgresJobQueueAndHistoryPages
+--- PASS: TestPostgresJobQueueAndHistoryPages (0.22s)
+=== RUN   TestPostgresJobLeaseSupersededByCaseChanges
+=== RUN   TestPostgresJobLeaseSupersededByCaseChanges/resolved
+=== RUN   TestPostgresJobLeaseSupersededByCaseChanges/revision_advanced
+--- PASS: TestPostgresJobLeaseSupersededByCaseChanges (0.41s)
+    --- PASS: TestPostgresJobLeaseSupersededByCaseChanges/resolved (0.20s)
+    --- PASS: TestPostgresJobLeaseSupersededByCaseChanges/revision_advanced (0.22s)
+=== RUN   TestPostgresJobDetailUsesExactAssessment
+--- PASS: TestPostgresJobDetailUsesExactAssessment (1.65s)
+=== RUN   TestPostgresCaseLifecycle
+--- PASS: TestPostgresCaseLifecycle (0.56s)
+=== RUN   TestPostgresExclusiveLeaseAndDurableLimits
+--- PASS: TestPostgresExclusiveLeaseAndDurableLimits (0.66s)
+=== RUN   TestPostgresStaleAndUnknownEvidence
+--- PASS: TestPostgresStaleAndUnknownEvidence (0.16s)
+PASS
+ok  	github.com/100rd/Barbarossa/cmd/barbarossa-observe	6.918s

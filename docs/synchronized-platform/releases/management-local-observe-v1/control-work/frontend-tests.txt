@@ -1,0 +1,10 @@
+
+ RUN  v4.1.9 <workspace>/platform-portal/.worktrees/local-observe-v1/frontend
+
+Not implemented: navigation to another Document
+
+ Test Files  84 passed (84)
+      Tests  682 passed (682)
+   Start at  20:05:09
+   Duration  15.89s (transform 5.94s, setup 7.87s, import 19.95s, tests 19.69s, environment 75.21s)
+

@@ -1,8 +1,65 @@
 # GenAI Enablement - Project Status
 
-**Last Updated**: 2026-07-19
+**Last Updated**: 2026-11-06
 **Phase**: Autonomous SRE Harness development — Stages 0 & 2 shipped; Stage 3 portable construction and Stage 7 (Sentinel) portable detector expansion in progress
 **Overall Health**: On Track
+
+## Current local activation — 2026-11-06
+
+**Barbarossa work is now in Control:** Portal `1389aae` shows cases, real analysis queue/history,
+runner diagnostics, exact job results and text recommendations. Observe retains component/domain
+observations, knowledge and recorded case evidence. Barbarossa `1c63356` provides protected,
+bounded job reads. Four real Chromium scenarios passed for both tenant sessions and the complete
+Control → result → Observe evidence → Control path, including manual refresh and access denial.
+[Control evidence and screenshots](docs/synchronized-platform/releases/management-local-observe-v1/control-work/README.md).
+
+During backend recreation the observer detected a real outage and Codex completed one more analysis.
+Current totals are **6 cases, 4 accepted assessments and 6 durable reservations**; the queue is empty,
+runner online and all three component observations healthy. The five-reservation qualification below
+is historical. Runtime volumes were preserved; no recommendation was executed. All five CI workflows passed
+for both current component revisions; publication remains separate from local activation.
+
+**Home connection cards running:** Portal `ae74ebc` now shows Barbarossa and Omniscience
+connection, observed readiness and last-check time above the graph. Authenticated status refreshes
+every 30 seconds and on demand. Cards stream independently of knowledge loading; unavailable,
+denied, checking and stale observations remain distinct. [Browser and test evidence](docs/synchronized-platform/releases/management-local-observe-v1/home-connections/README.md).
+
+**Default Portal journey corrected after user report.** Previous browser checks used explicit
+entity/deep links and missed the normal landing. Portal `7526fb1` now opens `/observe` and loads
+its tenant's owner-served seeded graph. Both fresh login journeys, foreign-workspace refusal,
+Control's unselected-factory state, an actual Omniscience outage and recovery passed in Chromium.
+See the [corrective receipt](docs/synchronized-platform/releases/management-local-observe-v1/default-journey/README.md).
+The graph is prepared test topology. Current observations are in Observe; cases and recommendations
+are now in Control. The older unselected-factory receipt remains historical.
+Historical drill receipts below retain their original scope.
+
+The **management-local-observe-v1** profile is implemented and running from
+isolated `codex/local-observe-v1` worktrees. Omniscience serves real two-tenant knowledge, Barbarossa
+records live Reliability/Security observations and durable cases, and Portal displays evidence and
+non-authoritative Codex recommendations. Controlled outages of all three APIs completed the full
+observation → case → real Codex analysis → Portal → recovery path.
+
+In the original qualification, three assessments were accepted from five reserved `gpt-6-luna` calls. The first two invalid responses
+were rejected and remain visible as one historical failed job; subsequent faults passed on the first
+attempt. Stop/start preserved all five cases, three assessments, five reservations, lease epochs,
+credentials and nine persistent volumes. Observer/runner loss and database failure were checked
+separately. Both tenants passed real browser login/MCP isolation; all eleven signed-identity checks passed.
+
+SP-99 and SP-100 are merged. SP-86 source work and SP-101 Knowledge View are implemented and tested;
+SP-86 publication remains release-gated. Original dirty checkouts and earlier qualification receipts
+are preserved. Changes in all four repositories are committed, pushed and published as open pull requests. The coordinator delivery record
+tracks source commits, review status and the separate local/production boundaries.
+
+- [Qualification and evidence](docs/synchronized-platform/releases/management-local-observe-v1/README.md)
+- [Runtime profile](docs/synchronized-platform/profiles/management-local-observe-v1.md)
+- [Execution progress](portfolio/local-observe-progress.json) and [local runbook](docs/runbooks/management-local-observe-v1.md)
+- [Commit and PR publication record](portfolio/local-observe-publication.json)
+- Open PRs: [Omniscience #374](https://github.com/100rd/Omniscience/pull/374), [Barbarossa #13](https://github.com/100rd/Barbarossa/pull/13), [Portal #23](https://github.com/100rd/platform-portal/pull/23), [genai-enablement #60](https://github.com/100rd/genai-enablement/pull/60).
+- CI follow-ups fixed import/format/type/governance checks and legacy signed-read qualification. Barbarossa, Omniscience and coordinator checks passed at their recorded revisions. All five Portal CI workflows passed for correction 7526fb1. All five workflows also passed for home-card revision ae74ebc; results are timestamped in the publication record. No PR has been merged.
+- Portal: http://localhost:13000; this qualification is macOS/Docker Desktop, single-host and advisory only.
+- Published OCI releases, SP-89/SP-94, AWS, image vulnerability scanning, autonomous effects and HA remain separate gates.
+
+The older sections below retain their historical scope.
 
 ## Direction shift (2026-06-16)
 The SRE workstream is reframed from a "smart pager" (enriched notifications) to an

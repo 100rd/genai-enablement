@@ -1,0 +1,8 @@
+
+Running 1 test using 1 worker
+
+(node:22378) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  1 e2e/local-observe.spec.ts:90:5 › an Omniscience outage leaves the default graph unconfirmed (926ms)
+
+  1 passed (1.4s)

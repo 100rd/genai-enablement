@@ -1,0 +1,100 @@
+{
+  "schema_version": 1,
+  "result": "approved",
+  "lead_verification": "Full tracked diff and added files read; targeted Go/Python checks, all frontend tests and disposable PostgreSQL suite repeated by lead. Browser verification is recorded separately.",
+  "reviews": [
+    {
+      "role": "Go",
+      "model": "gpt-6.1-sol",
+      "result": "approved after correction",
+      "findings_resolved": [
+        "Future leases on resolved/revised cases must be superseded rather than active.",
+        "Compare fencing epochs without narrowing the stored uint64."
+      ],
+      "token_estimate": 3000,
+      "elapsed_seconds_estimate": 120
+    },
+    {
+      "role": "PostgreSQL",
+      "model": "gpt-6-luna",
+      "result": "approved with nonblocking scale note",
+      "findings_resolved": [],
+      "accepted_limit": "Current indexes may require sorting all retained history; returned pages are bounded to 50. Revisit ordering indexes with measured growth; this local change adds no migration.",
+      "token_estimate": 2700,
+      "elapsed_seconds_estimate": null
+    },
+    {
+      "role": "Python",
+      "model": "gpt-6-luna",
+      "result": "approved including superseded enum delta",
+      "token_estimate": 2200,
+      "elapsed_seconds_estimate": 120
+    },
+    {
+      "role": "TypeScript",
+      "model": "gpt-6-luna",
+      "result": "approved; typecheck and direct ESLint passed",
+      "token_estimate": null,
+      "elapsed_seconds_estimate": null
+    },
+    {
+      "role": "cross-layer code review",
+      "model": "gpt-6.1-sol",
+      "result": "approved after correction",
+      "findings_resolved": [
+        "Runner Active count renamed Occupied lease slots to include superseded claims honestly.",
+        "Slot-retention documentation includes early release by runner failure report.",
+        "Default browser test must accept clean history; incident result assertions remain opt-in."
+      ],
+      "token_estimate": 3000,
+      "elapsed_seconds_estimate": 240
+    }
+  ],
+  "implementation_runs": [
+    {
+      "task": "Portal UI exploration",
+      "model": "gpt-6-luna",
+      "elapsed_seconds_estimate": 300,
+      "token_estimate": 4000,
+      "state": "completed-read-only"
+    },
+    {
+      "task": "Barbarossa job reads and PostgreSQL regressions",
+      "model": "gpt-6.1-sol",
+      "elapsed_seconds_estimate": 600,
+      "completion_token_estimate": 8500,
+      "review_repair_rounds": 1,
+      "state": "completed-reviewed; lead repeated integration tests"
+    },
+    {
+      "task": "Portal Control/Observe split",
+      "model": "gpt-6.1-sol",
+      "elapsed_seconds_estimate": 360,
+      "token_estimate_range": [
+        8000,
+        10000
+      ],
+      "tooling_retries": 1,
+      "state": "completed-reviewed; lead repeated all 682 frontend tests"
+    }
+  ],
+  "measurement_note": "Estimates were reported by agents; exact token billing was not exposed. Null means unavailable, not zero. Root owns Python proxy, E2E, integration and tracking.",
+  "verification_retries": [
+    "Initial added owner and proxy tests failed on missing routes as intended.",
+    "A root test command named a nonexistent delegation test file; corrected to the existing legacy delegation suite.",
+    "After root changed the home link label, its existing assertion was updated and all 682 frontend tests were repeated.",
+    "First live API helper invocation had a Python syntax typo and performed no requests; the corrected run passed.",
+    "Final image build repeated after review wording and enum corrections.",
+    "Lead started the first browser run while frontend recreation was still pending; all four active tests received connection refused. Reran only after Compose reported Healthy; no application change.",
+    "Second browser run: alpha Control, refresh recovery and exact job/evidence passed; beta graph still loading at default 5s assertion. Explorer verified serial 5s owner exchanges (about 30s cold envelope); bounded graph assertion changed to 35s without changing required three entities or app code.",
+    "Mount-preservation helper initially compared Docker mount array order; normalized sets after confirming identical destinations and names."
+  ],
+  "tool_limit": "Installed Staticcheck 2023.1.7 cannot read the local Go 1.27 export format. Go tests/vet passed and all five Barbarossa CI workflows passed.",
+  "publication_review": {
+    "model": "gpt-6-luna",
+    "result": "approved",
+    "elapsed_seconds_estimate": 90,
+    "token_usage": null,
+    "scope": "Exact source/PR refs, current counts, browser receipt/skips, historical preservation, manifest and screenshots; lead separately scanned all changed public files against actual private credentials. Final metadata recheck confirmed all five current Portal CI workflows successful."
+  }
+}

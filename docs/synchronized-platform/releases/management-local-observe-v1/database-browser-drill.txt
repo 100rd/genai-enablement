@@ -1,0 +1,14 @@
+ Container management-local-observe-v1-barbarossa-postgres-1 Stopping
+ Container management-local-observe-v1-barbarossa-postgres-1 Stopped
+
+Running 1 test using 1 worker
+
+(node:82122) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  1 e2e/local-observe.spec.ts:59:5 › an owner outage is shown without a healthy projection (926ms)
+
+  1 passed (1.4s)
+DATABASE_OUTAGE_SHOWN_IN_BROWSER
+ Container management-local-observe-v1-barbarossa-postgres-1 Starting
+ Container management-local-observe-v1-barbarossa-postgres-1 Started
+DATABASE_RECOVERED_HISTORY_READABLE

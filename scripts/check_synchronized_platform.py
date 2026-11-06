@@ -281,6 +281,19 @@ REQUIRED_PACKAGE_ADRS = {
     "SP-97": {"ADR-0024"},
     "SP-98": {"ADR-0024"},
 }
+# Later local-observe work does not widen earlier runtime selections.
+LOCAL_OBSERVE_PACKAGES = ["SP-102", "SP-103", "SP-104", "SP-105", "SP-106"]
+for _profile_pin in RUNTIME_PROFILE_PINS.values():
+    _profile_pin["non_gating_work_packages"].extend(LOCAL_OBSERVE_PACKAGES)
+RUNTIME_PROFILE_PINS["management-local-observe-v1"] = {
+    "runtime_components": ["omniscience", "barbarossa", "platform-portal"],
+    "selected_domain_packs": ["reliability", "security"],
+    "effect_posture": "forbidden",
+    "availability_class": "development-single-host",
+    "ha_qualified": False,
+    "required_work_packages": LOCAL_OBSERVE_PACKAGES,
+}
+
 BARBAROSSA_FULL_GO_CAPABILITY_IDS = frozenset(
     {
         "SPEC-LOOP",
@@ -489,9 +502,24 @@ def _component_roots(workspace_root: Path | None) -> dict[str, Path]:
     roots = {"genai-enablement": ROOT}
     if workspace_root is not None:
         resolved_workspace = workspace_root.resolve()
+        # Coordinated owner worktrees live below each repository. A caller
+        # selecting this checkout's parent is selecting that coordinated set,
+        # not a nonexistent set of repositories below `.worktrees`.
+        coordinated = (
+            resolved_workspace == ROOT.parent
+            and ROOT.parent.name == ".worktrees"
+            and (ROOT / ".git").is_file()
+        )
+        if coordinated:
+            resolved_workspace = ROOT.parents[2]
         for component_id, directory in EXPECTED_COMPONENTS.items():
+            if component_id == "genai-enablement":
+                continue
             candidate = (resolved_workspace / directory).resolve()
             if candidate.parent == resolved_workspace:
+                checkout = candidate / ".worktrees" / ROOT.name
+                if coordinated and (checkout / ".git").is_file():
+                    candidate = checkout
                 roots[component_id] = candidate
     return roots
 
