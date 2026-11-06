@@ -22,10 +22,20 @@ never printed by the launcher.
 
 ## Read and analysis contracts
 
-The owner public API exposes `GET /v1/observe/status`, `/v1/observe/cases`, and
-`/v1/observe/cases/{id}` using `schema_version: 1`. It carries observation provenance, freshness,
+The owner public API exposes `GET /v1/observe/status`, `/v1/observe/cases`,
+`/v1/observe/cases/{id}`, `/v1/observe/jobs?view=queue|history&cursor=...`, and
+`/v1/observe/jobs/{work_id}` using `schema_version: 1`. It carries observation provenance, freshness,
 components, cases, assessments and runner status. Protected reads require the exact ADR-0025 delegated
 identity. Minimal liveness/readiness remains separate from tenant data.
+
+Portal separates the views: Control contains cases, analysis queue/history, runner diagnostics,
+exact-job results and advisory recommendations; Observe contains component/domain observations,
+workspace knowledge and recorded case evidence. Evidence bookmarks remain valid and link back to
+their Control case. Control offers manual refresh and shows each owner's read snapshot time.
+Job pages contain at most 50 rows with view-bound cursors, ordered by enqueue time and work ID.
+Claim attempts are not billed calls. Active, expired and superseded lease states remain distinct;
+occupied lease slots do not prove a model process is running. The shared local projection retains
+its explicit tenant allowlist. No runner mutations are published through Portal.
 
 The internal listener accepts authenticated JSON POSTs to `/internal/analysis/claim` and
 `/internal/analysis/{work_id}/{heartbeat,submit,fail}`. Claims bind runner id, work/case id, lease epoch,

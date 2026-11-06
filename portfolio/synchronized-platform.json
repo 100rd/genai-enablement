@@ -1358,7 +1358,8 @@
       "publication": "four-prs-open",
       "publication_tracking": "portfolio/local-observe-publication.json",
       "user_journey_evidence": "docs/synchronized-platform/releases/management-local-observe-v1/default-journey/verification.json",
-      "home_connections_evidence": "docs/synchronized-platform/releases/management-local-observe-v1/home-connections/verification.json"
+      "home_connections_evidence": "docs/synchronized-platform/releases/management-local-observe-v1/home-connections/verification.json",
+      "control_work_evidence": "docs/synchronized-platform/releases/management-local-observe-v1/control-work/verification.json"
     }
   ],
   "work_packages": [
@@ -3181,9 +3182,10 @@
       "verification": "passed",
       "local_activation": "running",
       "evidence": "docs/synchronized-platform/releases/management-local-observe-v1/qualification.json",
-      "implementation_commit": "ebf937965e0942388c6cbe83c785f37a1d76397c",
+      "implementation_commit": "1c6335656b348dbd9025aa82d0cb730b442604dd",
       "pull_request": "https://github.com/100rd/Barbarossa/pull/13",
-      "publication": "pr-open"
+      "publication": "pr-open",
+      "control_work_evidence": "docs/synchronized-platform/releases/management-local-observe-v1/control-work/verification.json"
     },
     {
       "id": "SP-105",
@@ -3207,11 +3209,12 @@
       "verification": "passed",
       "local_activation": "running",
       "evidence": "docs/synchronized-platform/releases/management-local-observe-v1/qualification.json",
-      "implementation_commit": "ae74ebc39da2ebc558d509ac8a12ca98f0dc01f8",
+      "implementation_commit": "1389aae9112ba03696fb3bc99560e970887d3241",
       "pull_request": "https://github.com/100rd/platform-portal/pull/23",
       "publication": "pr-open",
       "user_journey_evidence": "docs/synchronized-platform/releases/management-local-observe-v1/default-journey/verification.json",
-      "home_connections_evidence": "docs/synchronized-platform/releases/management-local-observe-v1/home-connections/verification.json"
+      "home_connections_evidence": "docs/synchronized-platform/releases/management-local-observe-v1/home-connections/verification.json",
+      "control_work_evidence": "docs/synchronized-platform/releases/management-local-observe-v1/control-work/verification.json"
     },
     {
       "id": "SP-106",
@@ -3240,7 +3243,8 @@
       "pull_request": "https://github.com/100rd/genai-enablement/pull/60",
       "publication": "pr-open",
       "user_journey_evidence": "docs/synchronized-platform/releases/management-local-observe-v1/default-journey/verification.json",
-      "home_connections_evidence": "docs/synchronized-platform/releases/management-local-observe-v1/home-connections/verification.json"
+      "home_connections_evidence": "docs/synchronized-platform/releases/management-local-observe-v1/home-connections/verification.json",
+      "control_work_evidence": "docs/synchronized-platform/releases/management-local-observe-v1/control-work/verification.json"
     }
   ],
   "execution_tracking": "portfolio/local-observe-progress.json",

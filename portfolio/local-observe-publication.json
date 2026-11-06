@@ -1,11 +1,11 @@
 {
   "schema_version": 1,
   "profile": "management-local-observe-v1",
-  "as_of": "2026-11-06T18:04:02.727083+00:00",
+  "as_of": "2026-11-06T19:26:22.021180+00:00",
   "state": "all-four-prs-open",
   "qualification_receipt": "docs/synchronized-platform/releases/management-local-observe-v1/qualification.json",
   "qualification_source_snapshot_sha256": "91665f8da0c6289a4214af8bd5b08547db1fa0b844fad3f610e881fe13f34c08",
-  "qualification_scope": "Historical qualification and its source snapshot remain unchanged. Initial publication retained the qualified runtime implementation, with static/CI/governance follow-ups. Subsequent Portal revision 7526fb1 corrects the natural login/default graph journey; its frontend/backend source images were rebuilt and activated locally, with separate two-tenant Chromium, owner outage and recovery evidence. Portal ae74ebc adds independently streamed home connection cards; its frontend source image was rebuilt and activated with additive home-connections browser evidence.",
+  "qualification_scope": "Historical qualification and its source snapshot remain unchanged. Initial publication retained the qualified runtime implementation, with static/CI/governance follow-ups. Subsequent Portal revision 7526fb1 corrects the natural login/default graph journey; its frontend/backend source images were rebuilt and activated locally, with separate two-tenant Chromium, owner outage and recovery evidence. Portal ae74ebc adds independently streamed home connection cards; its frontend source image was rebuilt and activated with additive home-connections browser evidence. Control follow-up exposes owner job reads and separates work/results from observations. Both source roles and Portal were rebuilt locally; additive Control browser and database evidence records a real rollout-induced Portal case and one additional accepted Codex analysis.",
   "production_activation": "out-of-scope",
   "oci_release": "not-published",
   "repositories": {
@@ -61,7 +61,7 @@
     },
     "Barbarossa": {
       "repository": "100rd/Barbarossa",
-      "commit": "ebf937965e0942388c6cbe83c785f37a1d76397c",
+      "commit": "1c6335656b348dbd9025aa82d0cb730b442604dd",
       "branch": "codex/local-observe-v1",
       "base": "main",
       "pr_url": "https://github.com/100rd/Barbarossa/pull/13",
@@ -71,47 +71,48 @@
       "mergeable": true,
       "ci_runs": [
         {
-          "id": 42259177928,
+          "id": 42276801279,
           "name": "ha-runtime",
           "status": "completed",
           "conclusion": "success",
-          "url": "https://github.com/100rd/Barbarossa/actions/runs/42259177928"
+          "url": "https://github.com/100rd/Barbarossa/actions/runs/42276801279"
         },
         {
-          "id": 42259177853,
-          "name": "management-readonly-release",
-          "status": "completed",
-          "conclusion": "success",
-          "url": "https://github.com/100rd/Barbarossa/actions/runs/42259177853"
-        },
-        {
-          "id": 42259177852,
+          "id": 42276801561,
           "name": "distributed-work",
           "status": "completed",
           "conclusion": "success",
-          "url": "https://github.com/100rd/Barbarossa/actions/runs/42259177852"
+          "url": "https://github.com/100rd/Barbarossa/actions/runs/42276801561"
         },
         {
-          "id": 42259177872,
+          "id": 42276801433,
           "name": "go-runtime",
           "status": "completed",
           "conclusion": "success",
-          "url": "https://github.com/100rd/Barbarossa/actions/runs/42259177872"
+          "url": "https://github.com/100rd/Barbarossa/actions/runs/42276801433"
         },
         {
-          "id": 42259178008,
+          "id": 42276801340,
+          "name": "management-readonly-release",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/100rd/Barbarossa/actions/runs/42276801340"
+        },
+        {
+          "id": 42276801302,
           "name": "management-readonly-local",
           "status": "completed",
           "conclusion": "success",
-          "url": "https://github.com/100rd/Barbarossa/actions/runs/42259178008"
+          "url": "https://github.com/100rd/Barbarossa/actions/runs/42276801302"
         }
       ],
-      "ci_observed_at": "2026-11-06T17:16:48.454890+00:00",
-      "qualified_implementation_commit": "6a9289601790e5c57124a543df34e4459058d62a"
+      "ci_observed_at": "2026-11-06T19:24:03.450831+00:00",
+      "qualified_implementation_commit": "6a9289601790e5c57124a543df34e4459058d62a",
+      "control_work_qualified_commit": "1c6335656b348dbd9025aa82d0cb730b442604dd"
     },
     "platform-portal": {
       "repository": "100rd/platform-portal",
-      "commit": "ae74ebc39da2ebc558d509ac8a12ca98f0dc01f8",
+      "commit": "1389aae9112ba03696fb3bc99560e970887d3241",
       "branch": "codex/local-observe-v1",
       "base": "main",
       "pr_url": "https://github.com/100rd/platform-portal/pull/23",
@@ -121,45 +122,46 @@
       "mergeable": true,
       "ci_runs": [
         {
-          "id": 42266734587,
+          "id": 42279090843,
           "name": "Lint",
           "status": "completed",
           "conclusion": "success",
-          "url": "https://github.com/100rd/platform-portal/actions/runs/42266734587"
+          "url": "https://github.com/100rd/platform-portal/actions/runs/42279090843"
         },
         {
-          "id": 42266734239,
+          "id": 42279090842,
           "name": "Test",
           "status": "completed",
           "conclusion": "success",
-          "url": "https://github.com/100rd/platform-portal/actions/runs/42266734239"
+          "url": "https://github.com/100rd/platform-portal/actions/runs/42279090842"
         },
         {
-          "id": 42266734249,
-          "name": "management-readonly-v1 release candidate",
-          "status": "completed",
-          "conclusion": "success",
-          "url": "https://github.com/100rd/platform-portal/actions/runs/42266734249"
-        },
-        {
-          "id": 42266734370,
-          "name": "management-readonly-local-v1 fragment",
-          "status": "completed",
-          "conclusion": "success",
-          "url": "https://github.com/100rd/platform-portal/actions/runs/42266734370"
-        },
-        {
-          "id": 42266734215,
+          "id": 42279090914,
           "name": "Build",
           "status": "completed",
           "conclusion": "success",
-          "url": "https://github.com/100rd/platform-portal/actions/runs/42266734215"
+          "url": "https://github.com/100rd/platform-portal/actions/runs/42279090914"
+        },
+        {
+          "id": 42279090986,
+          "name": "management-readonly-local-v1 fragment",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/100rd/platform-portal/actions/runs/42279090986"
+        },
+        {
+          "id": 42279090839,
+          "name": "management-readonly-v1 release candidate",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/100rd/platform-portal/actions/runs/42279090839"
         }
       ],
-      "ci_observed_at": "2026-11-06T18:04:02.727083+00:00",
+      "ci_observed_at": "2026-11-06T19:26:22.021180+00:00",
       "qualified_implementation_commit": "6d223dbc76d3f6359ea9caabba44c625eed5c38a",
       "default_journey_qualified_commit": "7526fb1c32a745617c2e0b8d3c1ebbb9ff33edc2",
-      "home_connections_qualified_commit": "ae74ebc39da2ebc558d509ac8a12ca98f0dc01f8"
+      "home_connections_qualified_commit": "ae74ebc39da2ebc558d509ac8a12ca98f0dc01f8",
+      "control_work_qualified_commit": "1389aae9112ba03696fb3bc99560e970887d3241"
     },
     "genai-enablement": {
       "repository": "100rd/genai-enablement",
@@ -226,5 +228,6 @@
     "genai-enablement #60 records the coordinated delivery and qualification; update exact merged revisions after merges"
   ],
   "default_user_journey_evidence": "docs/synchronized-platform/releases/management-local-observe-v1/default-journey/verification.json",
-  "home_connections_evidence": "docs/synchronized-platform/releases/management-local-observe-v1/home-connections/verification.json"
+  "home_connections_evidence": "docs/synchronized-platform/releases/management-local-observe-v1/home-connections/verification.json",
+  "control_work_evidence": "docs/synchronized-platform/releases/management-local-observe-v1/control-work/verification.json"
 }

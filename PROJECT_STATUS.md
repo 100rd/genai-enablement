@@ -6,6 +6,19 @@
 
 ## Current local activation — 2026-11-06
 
+**Barbarossa work is now in Control:** Portal `1389aae` shows cases, real analysis queue/history,
+runner diagnostics, exact job results and text recommendations. Observe retains component/domain
+observations, knowledge and recorded case evidence. Barbarossa `1c63356` provides protected,
+bounded job reads. Four real Chromium scenarios passed for both tenant sessions and the complete
+Control → result → Observe evidence → Control path, including manual refresh and access denial.
+[Control evidence and screenshots](docs/synchronized-platform/releases/management-local-observe-v1/control-work/README.md).
+
+During backend recreation the observer detected a real outage and Codex completed one more analysis.
+Current totals are **6 cases, 4 accepted assessments and 6 durable reservations**; the queue is empty,
+runner online and all three component observations healthy. The five-reservation qualification below
+is historical. Runtime volumes were preserved; no recommendation was executed. All five CI workflows passed
+for both current component revisions; publication remains separate from local activation.
+
 **Home connection cards running:** Portal `ae74ebc` now shows Barbarossa and Omniscience
 connection, observed readiness and last-check time above the graph. Authenticated status refreshes
 every 30 seconds and on demand. Cards stream independently of knowledge loading; unavailable,
@@ -16,7 +29,8 @@ entity/deep links and missed the normal landing. Portal `7526fb1` now opens `/ob
 its tenant's owner-served seeded graph. Both fresh login journeys, foreign-workspace refusal,
 Control's unselected-factory state, an actual Omniscience outage and recovery passed in Chromium.
 See the [corrective receipt](docs/synchronized-platform/releases/management-local-observe-v1/default-journey/README.md).
-The graph is prepared test topology; live health/cases/recommendations are in Local Reliability.
+The graph is prepared test topology. Current observations are in Observe; cases and recommendations
+are now in Control. The older unselected-factory receipt remains historical.
 Historical drill receipts below retain their original scope.
 
 The **management-local-observe-v1** profile is implemented and running from
@@ -25,7 +39,7 @@ records live Reliability/Security observations and durable cases, and Portal dis
 non-authoritative Codex recommendations. Controlled outages of all three APIs completed the full
 observation → case → real Codex analysis → Portal → recovery path.
 
-Three assessments were accepted from five reserved `gpt-6-luna` calls. The first two invalid responses
+In the original qualification, three assessments were accepted from five reserved `gpt-6-luna` calls. The first two invalid responses
 were rejected and remain visible as one historical failed job; subsequent faults passed on the first
 attempt. Stop/start preserved all five cases, three assessments, five reservations, lease epochs,
 credentials and nine persistent volumes. Observer/runner loss and database failure were checked

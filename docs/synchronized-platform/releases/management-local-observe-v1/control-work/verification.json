@@ -1,0 +1,79 @@
+{
+  "schema_version": 1,
+  "profile": "management-local-observe-v1",
+  "as_of": "2026-11-06T19:24:03.450831+00:00",
+  "portal_revision": "1389aae9112ba03696fb3bc99560e970887d3241",
+  "barbarossa_revision": "1c6335656b348dbd9025aa82d0cb730b442604dd",
+  "portal_pr": "https://github.com/100rd/platform-portal/pull/23",
+  "barbarossa_pr": "https://github.com/100rd/Barbarossa/pull/13",
+  "result": "passed-and-running",
+  "scope": "Control shows cases, real queue/history, runner diagnostics and exact accepted job results/recommendations; Observe retains domain/component observations, knowledge and recorded evidence.",
+  "images": {
+    "portal-frontend": "sha256:abce31043b6239a4666142cd6fac893b9cea495acc270ea0382cc47ca1e85c2f",
+    "portal-backend": "sha256:e5784fc6c6e6f5cbe7db29c97c832deeba7988ff98c8b27b62d66a3dde07b70f",
+    "barbarossa-api": "sha256:37e425ba54422fe7397af26efdd9e46c671d1788d2e4741960beb8d5b6de89ac"
+  },
+  "checks": {
+    "frontend": "682 tests across 84 files passed; lead repeated full suite. TypeScript and direct ESLint passed.",
+    "backend": "22 focused proxy tests passed; 58 local-observe/CMC checks and 205 legacy/HA checks (3 explicit skips) passed before the additive superseded-enum test. Ruff passed.",
+    "postgres": "Lead repeated all 10 top-level integration tests on disposable PostgreSQL 18, including both superseded-case subcases; no skips.",
+    "go": "Targeted localobserve/readaccess/runtime API tests passed; independent vet passed. Five Barbarossa CI workflows passed at the recorded revision.",
+    "browser": "4 passed, 2 outage-only scenarios explicitly skipped. Fresh alpha and beta logins, own real graphs and foreign-workspace refusal; Control available vs denied; manual work refresh changes DB snapshot; exact job/result recommendations; Observe evidence and backlink; unknown job refusal; home refresh failure/recovery.",
+    "owner_security": "14 live negative/missing-resource assertions passed for job list/detail, plus exact identity/assessment/epoch and non-authoritative checks for all four accepted results.",
+    "coordinator": "Offline portfolio drift and workspace ADR/SPEC checks passed; 90 tests and 174 subtests passed, one skip.",
+    "preservation": "Eight runtime volumes and all selected role mount destinations/names preserved; state-binding volume untouched. Case/job history retained; host runner and observer were not restarted."
+  },
+  "runtime_state": {
+    "case_count": 6,
+    "job_count": 6,
+    "queue_rows": 0,
+    "accepted_assessments": 4,
+    "durable_launch_reservations": 6,
+    "runner": "online",
+    "components": [
+      {
+        "id": "omniscience",
+        "state": "healthy",
+        "last_observed_at": "2026-11-06T19:22:21.425003Z"
+      },
+      {
+        "id": "barbarossa",
+        "state": "healthy",
+        "last_observed_at": "2026-11-06T19:22:21.425003Z"
+      },
+      {
+        "id": "portal",
+        "state": "healthy",
+        "last_observed_at": "2026-11-06T19:22:21.425003Z"
+      }
+    ]
+  },
+  "rollout_event": {
+    "kind": "automatic response to backend recreation, not a separately scheduled fault drill",
+    "case": {
+      "id": "case-009ec1c79991adf4b2372ecd1d98799ead5bc91c58cc34805424bb781cd43000",
+      "domain": "reliability",
+      "component": "portal",
+      "status": "resolved",
+      "reason": "probe_unreachable",
+      "opened_at": "2026-11-06T19:14:21.418543Z",
+      "updated_at": "2026-11-06T19:15:21.417261Z"
+    },
+    "accepted_result": {
+      "work_id": "work-d67d2d41022d576011f476527540997dde4c39667b6e7adb42025bdb1b4a5b36",
+      "case_id": "case-009ec1c79991adf4b2372ecd1d98799ead5bc91c58cc34805424bb781cd43000",
+      "assessment_id": "assessment-8379f2ef3a0218b6dbf9c11059305d9d4a904d41b2a512482a143b1e6b189705",
+      "model": "sha256:fed2ebeede06f15f5d1109f42278fa81c14cc54a5e9feee4be8f9267d7231bdb",
+      "created_at": "2026-11-06T19:14:28.637749Z"
+    },
+    "effect": "One additional real Codex attempt was reserved and accepted. Totals rose from five cases/three accepted results/five reservations to six/four/six. Recovery and history persisted."
+  },
+  "reviews": "reviews.json",
+  "limits": [
+    "Queue was empty during the final browser run; queued/leased/expired/superseded rows and multi-page ordering were verified in UI tests and isolated PostgreSQL tests.",
+    "This is additive Control verification. Historical fault/restart/default-journey/home-card receipts and hashes remain unchanged; no full requalification is claimed.",
+    "A cold knowledge read has per-exchange time bounds without an aggregate deadline. Browser graph assertion waits up to 35s for actual entities; this is not a latency performance qualification.",
+    "Work view refresh is manual and displays read snapshot timestamps. An occupied lease slot is not proof of an active model process.",
+    "No execution controls, PR merge, published OCI release, HA or production activation."
+  ]
+}

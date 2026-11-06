@@ -89,6 +89,14 @@ directory (`runner.log`); inspect that file locally if startup or queue contact 
 does not print credential values. Usernames `observe-alpha` and `observe-beta`, generated passwords,
 signing keys, and all other private state credentials must remain private.
 
+In Portal, open **Control** for Barbarossa cases, the analysis queue and history, runner heartbeat,
+and accepted results/recommendations. Select a job to see that job's exact accepted result, then
+use **Open recorded evidence** to inspect its case observations in **Observe**. **Refresh work**
+requests a new read; the work view shows snapshot times and does not poll automatically.
+An empty confirmed queue means no jobs on that page, while denied or failed reads show a separate
+message. Recommendations remain text. The **Observe** landing page retains connection checks and
+tenant knowledge; **Local Observations** contains domain/component state and case evidence.
+
 The internal queue uses authenticated HTTP on fixed loopback under a single trusted host assumption.
 Protection against another privileged local process impersonating that listener is outside this
 profile. Codex manages refresh of the existing host ChatGPT login; credentials never enter containers.
