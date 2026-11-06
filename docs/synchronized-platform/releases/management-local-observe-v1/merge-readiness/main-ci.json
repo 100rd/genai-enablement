@@ -1,0 +1,190 @@
+{
+  "checked_at": "2026-11-06T21:12:14.649Z",
+  "repositories": [
+    {
+      "merge_sha": "c7f78d3ac37b6d0b933fee91292bf9c5c7ff1233",
+      "tested_sha": "1c6335656b348dbd9025aa82d0cb730b442604dd",
+      "verified_equal_tree": "59cfa70c5fbb4327b8adb7795125a9bf1253c8d9",
+      "runs": [
+        {
+          "name": "distributed-work",
+          "head_sha": "c7f78d3ac37b6d0b933fee91292bf9c5c7ff1233",
+          "status": "completed",
+          "conclusion": "success",
+          "id": 42291459265,
+          "html_url": "https://github.com/100rd/Barbarossa/actions/runs/42291459265",
+          "run_attempt": 1
+        },
+        {
+          "name": "go-runtime",
+          "head_sha": "c7f78d3ac37b6d0b933fee91292bf9c5c7ff1233",
+          "status": "completed",
+          "conclusion": "success",
+          "id": 42291459290,
+          "html_url": "https://github.com/100rd/Barbarossa/actions/runs/42291459290",
+          "run_attempt": 1
+        },
+        {
+          "name": "ha-runtime",
+          "head_sha": "c7f78d3ac37b6d0b933fee91292bf9c5c7ff1233",
+          "status": "completed",
+          "conclusion": "success",
+          "id": 42291459378,
+          "html_url": "https://github.com/100rd/Barbarossa/actions/runs/42291459378",
+          "run_attempt": 1
+        },
+        {
+          "name": "management-readonly-local",
+          "head_sha": "c7f78d3ac37b6d0b933fee91292bf9c5c7ff1233",
+          "status": "completed",
+          "conclusion": "success",
+          "id": 42291459311,
+          "html_url": "https://github.com/100rd/Barbarossa/actions/runs/42291459311",
+          "run_attempt": 1
+        },
+        {
+          "name": "management-readonly-release",
+          "head_sha": "c7f78d3ac37b6d0b933fee91292bf9c5c7ff1233",
+          "status": "completed",
+          "conclusion": "success",
+          "id": 42291459276,
+          "html_url": "https://github.com/100rd/Barbarossa/actions/runs/42291459276",
+          "run_attempt": 1
+        }
+      ],
+      "repo": "Barbarossa"
+    },
+    {
+      "repo": "Omniscience",
+      "merge_sha": "3831fb7f581ac747a679513dd221231eb083581d",
+      "tested_sha": "639c52dac220b461d286b86a6fdeb36cf89300a4",
+      "verified_equal_tree": "5f9a7b58701f0e2380ffa12c6b5b61796aea3d28",
+      "runs": [
+        {
+          "conclusion": "success",
+          "head_sha": "3831fb7f581ac747a679513dd221231eb083581d",
+          "html_url": "https://github.com/100rd/Omniscience/actions/runs/42292619661",
+          "id": 42292619661,
+          "name": "Admission Qualification",
+          "run_attempt": 1,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "head_sha": "3831fb7f581ac747a679513dd221231eb083581d",
+          "html_url": "https://github.com/100rd/Omniscience/actions/runs/42292619685",
+          "id": 42292619685,
+          "name": "management-readonly-local-v1 fragment qualification",
+          "run_attempt": 1,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "head_sha": "3831fb7f581ac747a679513dd221231eb083581d",
+          "html_url": "https://github.com/100rd/Omniscience/actions/runs/42292619737",
+          "id": 42292619737,
+          "name": "HA Qualification",
+          "run_attempt": 1,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "head_sha": "3831fb7f581ac747a679513dd221231eb083581d",
+          "html_url": "https://github.com/100rd/Omniscience/actions/runs/42292619708",
+          "id": 42292619708,
+          "name": "management-readonly-v1 release qualification",
+          "run_attempt": 1,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "head_sha": "3831fb7f581ac747a679513dd221231eb083581d",
+          "html_url": "https://github.com/100rd/Omniscience/actions/runs/42292619758",
+          "id": 42292619758,
+          "name": "CI",
+          "run_attempt": 1,
+          "status": "completed"
+        }
+      ]
+    },
+    {
+      "repo": "platform-portal",
+      "merge_sha": "adcddeb2338991f0780d7abb40a050c224efb392",
+      "tested_sha": "1389aae9112ba03696fb3bc99560e970887d3241",
+      "verified_equal_tree": "40b5db788284036b1f5495e45255c6a46f751c2c",
+      "runs": [
+        {
+          "conclusion": "success",
+          "head_sha": "adcddeb2338991f0780d7abb40a050c224efb392",
+          "html_url": "https://github.com/100rd/platform-portal/actions/runs/42292634767",
+          "id": 42292634767,
+          "name": "Build",
+          "run_attempt": 1,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "head_sha": "adcddeb2338991f0780d7abb40a050c224efb392",
+          "html_url": "https://github.com/100rd/platform-portal/actions/runs/42292634898",
+          "id": 42292634898,
+          "name": "management-readonly-v1 release candidate",
+          "run_attempt": 1,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "head_sha": "adcddeb2338991f0780d7abb40a050c224efb392",
+          "html_url": "https://github.com/100rd/platform-portal/actions/runs/42292634653",
+          "id": 42292634653,
+          "name": "Lint",
+          "run_attempt": 1,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "head_sha": "adcddeb2338991f0780d7abb40a050c224efb392",
+          "html_url": "https://github.com/100rd/platform-portal/actions/runs/42292634675",
+          "id": 42292634675,
+          "name": "management-readonly-local-v1 fragment",
+          "run_attempt": 1,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "head_sha": "adcddeb2338991f0780d7abb40a050c224efb392",
+          "html_url": "https://github.com/100rd/platform-portal/actions/runs/42292634660",
+          "id": 42292634660,
+          "name": "Test",
+          "run_attempt": 1,
+          "status": "completed"
+        }
+      ]
+    },
+    {
+      "repo": "genai-enablement",
+      "merge_sha": "4cbf5c0603869fdf24cb486ad76e32a608970d82",
+      "tested_sha": "2f9d654445ba3aa10f21e938c860d8b9e765d2e1",
+      "verified_equal_tree": "7de5e00fc77c38e9b5a0dc4fab37544fa230066a",
+      "runs": [
+        {
+          "conclusion": "success",
+          "head_sha": "4cbf5c0603869fdf24cb486ad76e32a608970d82",
+          "html_url": "https://github.com/100rd/genai-enablement/actions/runs/42292662514",
+          "id": 42292662514,
+          "name": "management-readonly-local-v1 integrator",
+          "run_attempt": 1,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "head_sha": "4cbf5c0603869fdf24cb486ad76e32a608970d82",
+          "html_url": "https://github.com/100rd/genai-enablement/actions/runs/42292662487",
+          "id": 42292662487,
+          "name": "Portfolio documentation drift",
+          "run_attempt": 1,
+          "status": "completed"
+        }
+      ]
+    }
+  ]
+}

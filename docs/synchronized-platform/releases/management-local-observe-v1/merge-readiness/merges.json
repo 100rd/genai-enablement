@@ -1,0 +1,50 @@
+{
+  "schema_version": 1,
+  "as_of": "2026-11-06T20:57:48.549Z",
+  "repositories": [
+    {
+      "repository": "100rd/Omniscience",
+      "pr_number": 374,
+      "pr_url": "https://github.com/100rd/Omniscience/pull/374",
+      "source_commit": "639c52dac220b461d286b86a6fdeb36cf89300a4",
+      "merge_commit": "3831fb7f581ac747a679513dd221231eb083581d",
+      "merged_at": "2026-11-06T20:56:58Z",
+      "pr_state": "closed",
+      "merged": true,
+      "verified_equal_tree": "5f9a7b58701f0e2380ffa12c6b5b61796aea3d28"
+    },
+    {
+      "repository": "100rd/Barbarossa",
+      "pr_number": 13,
+      "pr_url": "https://github.com/100rd/Barbarossa/pull/13",
+      "source_commit": "1c6335656b348dbd9025aa82d0cb730b442604dd",
+      "merge_commit": "c7f78d3ac37b6d0b933fee91292bf9c5c7ff1233",
+      "merged_at": "2026-11-06T20:48:28Z",
+      "pr_state": "closed",
+      "merged": true,
+      "verified_equal_tree": "59cfa70c5fbb4327b8adb7795125a9bf1253c8d9"
+    },
+    {
+      "repository": "100rd/platform-portal",
+      "pr_number": 23,
+      "pr_url": "https://github.com/100rd/platform-portal/pull/23",
+      "source_commit": "1389aae9112ba03696fb3bc99560e970887d3241",
+      "merge_commit": "adcddeb2338991f0780d7abb40a050c224efb392",
+      "merged_at": "2026-11-06T20:57:05Z",
+      "pr_state": "closed",
+      "merged": true,
+      "verified_equal_tree": "40b5db788284036b1f5495e45255c6a46f751c2c"
+    },
+    {
+      "repository": "100rd/genai-enablement",
+      "pr_number": 60,
+      "pr_url": "https://github.com/100rd/genai-enablement/pull/60",
+      "source_commit": "2f9d654445ba3aa10f21e938c860d8b9e765d2e1",
+      "merge_commit": "4cbf5c0603869fdf24cb486ad76e32a608970d82",
+      "merged_at": "2026-11-06T20:57:17Z",
+      "pr_state": "closed",
+      "merged": true,
+      "verified_equal_tree": "7de5e00fc77c38e9b5a0dc4fab37544fa230066a"
+    }
+  ]
+}

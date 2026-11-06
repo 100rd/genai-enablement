@@ -1,0 +1,57 @@
+[
+  {
+    "check": "own",
+    "status": 200,
+    "expected": 200
+  },
+  {
+    "check": "anonymous",
+    "status": 401,
+    "expected": 401
+  },
+  {
+    "check": "wrong_signature",
+    "status": 401,
+    "expected": 401
+  },
+  {
+    "check": "expired",
+    "status": 401,
+    "expected": 401
+  },
+  {
+    "check": "wrong_audience",
+    "status": 401,
+    "expected": 401
+  },
+  {
+    "check": "wrong_scope",
+    "status": 403,
+    "expected": 403
+  },
+  {
+    "check": "foreign_tenant",
+    "status": 403,
+    "expected": 403
+  },
+  {
+    "check": "wrong_role",
+    "status": 401,
+    "expected": 401
+  },
+  {
+    "check": "tenant_selector",
+    "status": 403,
+    "expected": 403
+  },
+  {
+    "check": "tenant_selector",
+    "status": 403,
+    "expected": 403
+  },
+  {
+    "check": "tenant_header",
+    "status": 403,
+    "expected": 403
+  }
+]

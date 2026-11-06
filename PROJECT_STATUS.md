@@ -6,6 +6,17 @@
 
 ## Current local activation — 2026-11-06
 
+**Source delivery merged; Kubernetes handoff prepared.** The current queue (SP-86 source work,
+SP-101, SP-102–SP-106 and the Control follow-up) is merged into all four repositories.
+All 17 source-head CI workflows and all 17 push workflows on the merge commits passed. Fresh real Chromium checks passed for both tenants,
+Control/results/evidence and automatic connection refresh (4 passed; 2 outage-only checks skipped).
+The 11 live signed-identity checks passed. Repeating the Omniscience seed preserved the recorded
+PostgreSQL, Neo4j and Qdrant hashes, including IDs, document versions, graph temporal state and vectors.
+See [merge verification](docs/synchronized-platform/releases/management-local-observe-v1/merge-readiness/verification.json)
+and the [Kubernetes handoff](docs/runbooks/management-local-observe-kubernetes-handoff.md).
+Charts and deployment belong to the deployment agent; Kubernetes acceptance is pending.
+The local profile still has one observer and a host Codex runner; a cluster install does not qualify HA.
+
 **Barbarossa work is now in Control:** Portal `1389aae` shows cases, real analysis queue/history,
 runner diagnostics, exact job results and text recommendations. Observe retains component/domain
 observations, knowledge and recorded case evidence. Barbarossa `1c63356` provides protected,
@@ -47,15 +58,15 @@ separately. Both tenants passed real browser login/MCP isolation; all eleven sig
 
 SP-99 and SP-100 are merged. SP-86 source work and SP-101 Knowledge View are implemented and tested;
 SP-86 publication remains release-gated. Original dirty checkouts and earlier qualification receipts
-are preserved. Changes in all four repositories are committed, pushed and published as open pull requests. The coordinator delivery record
+are preserved. Changes in all four repositories are committed, pushed and merged. The coordinator delivery record
 tracks source commits, review status and the separate local/production boundaries.
 
 - [Qualification and evidence](docs/synchronized-platform/releases/management-local-observe-v1/README.md)
 - [Runtime profile](docs/synchronized-platform/profiles/management-local-observe-v1.md)
 - [Execution progress](portfolio/local-observe-progress.json) and [local runbook](docs/runbooks/management-local-observe-v1.md)
 - [Commit and PR publication record](portfolio/local-observe-publication.json)
-- Open PRs: [Omniscience #374](https://github.com/100rd/Omniscience/pull/374), [Barbarossa #13](https://github.com/100rd/Barbarossa/pull/13), [Portal #23](https://github.com/100rd/platform-portal/pull/23), [genai-enablement #60](https://github.com/100rd/genai-enablement/pull/60).
-- CI follow-ups fixed import/format/type/governance checks and legacy signed-read qualification. Barbarossa, Omniscience and coordinator checks passed at their recorded revisions. All five Portal CI workflows passed for correction 7526fb1. All five workflows also passed for home-card revision ae74ebc; results are timestamped in the publication record. No PR has been merged.
+- Merged PRs: [Omniscience #374](https://github.com/100rd/Omniscience/pull/374) (`3831fb7`), [Barbarossa #13](https://github.com/100rd/Barbarossa/pull/13) (`c7f78d3`), [Portal #23](https://github.com/100rd/platform-portal/pull/23) (`adcddeb`), [genai-enablement #60](https://github.com/100rd/genai-enablement/pull/60) (`4cbf5c0`). Barbarossa tenant-boundary [issue #12](https://github.com/100rd/Barbarossa/issues/12) is closed.
+- CI follow-ups fixed import/format/type/governance checks and legacy signed-read qualification. Exact source and merge revisions, CI results and tree equality are recorded in the additive merge receipt. Historical qualification receipts retain their original scope.
 - Portal: http://localhost:13000; this qualification is macOS/Docker Desktop, single-host and advisory only.
 - Published OCI releases, SP-89/SP-94, AWS, image vulnerability scanning, autonomous effects and HA remain separate gates.
 

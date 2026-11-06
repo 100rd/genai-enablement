@@ -1,0 +1,14 @@
+
+Running 6 tests using 1 worker
+
+(node:65908) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  1 e2e/local-observe.spec.ts:21:7 › alpha lands on its own owner-served graph without URL selectors (4.6s)
+  ✓  2 e2e/local-observe.spec.ts:21:7 › beta lands on its own owner-served graph without URL selectors (4.1s)
+  ✓  3 e2e/local-observe.spec.ts:107:5 › home connection cards clear failed reads and recover on automatic refresh (30.8s)
+  ✓  4 e2e/local-observe.spec.ts:137:5 › Control opens the exact accepted job result and links to observations in Observe (1.8s)
+  -  5 e2e/local-observe.spec.ts:173:5 › an owner outage is shown without a healthy projection
+  -  6 e2e/local-observe.spec.ts:183:5 › an Omniscience outage leaves the default graph unconfirmed
+
+  2 skipped
+  4 passed (41.9s)

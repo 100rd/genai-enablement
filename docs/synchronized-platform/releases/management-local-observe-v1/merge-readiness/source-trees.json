@@ -1,0 +1,22 @@
+{
+  "Omniscience": {
+    "commit": "639c52dac220b461d286b86a6fdeb36cf89300a4",
+    "tree": "5f9a7b58701f0e2380ffa12c6b5b61796aea3d28",
+    "clean": true
+  },
+  "Barbarossa": {
+    "commit": "1c6335656b348dbd9025aa82d0cb730b442604dd",
+    "tree": "59cfa70c5fbb4327b8adb7795125a9bf1253c8d9",
+    "clean": true
+  },
+  "platform-portal": {
+    "commit": "1389aae9112ba03696fb3bc99560e970887d3241",
+    "tree": "40b5db788284036b1f5495e45255c6a46f751c2c",
+    "clean": true
+  },
+  "genai-enablement": {
+    "commit": "2f9d654445ba3aa10f21e938c860d8b9e765d2e1",
+    "tree": "7de5e00fc77c38e9b5a0dc4fab37544fa230066a",
+    "clean": true
+  }
+}

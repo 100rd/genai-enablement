@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "independent_review": {
+    "agent": "merge_handoff_review",
+    "role": "code-reviewer",
+    "model": "gpt-6-luna",
+    "result": "no-blocking-findings",
+    "scope": "Tracking diff and all new merge-readiness/handoff files then present; exact source heads, merge/tree bindings, tenant boundaries, secrets/ports, source-vs-Kubernetes evidence. main-ci.json was pending and is separately checked by lead before commit.",
+    "token_estimate": 3300,
+    "elapsed_seconds_estimate": 180,
+    "retry_count": 0,
+    "actual_token_usage": null,
+    "followup": "Added concrete seed, scoped read receipt, context import and source provenance instructions independently rechecked against bootstrap; no issues."
+  },
+  "lead_review": {
+    "scope": "Full documentation agent draft and tracked diff, new receipts, real browser screenshot, 11 identity assertions, persistent snapshots and before/after equality",
+    "result": "passed",
+    "corrections": "Corrected draft alpha-only Barbarossa allowlist, source-build inputs, public/internal origins, observer write-store authority, probe credential sharing and runner port-owner cutover.",
+    "key_checks": "Repeated 28 Omniscience tests, 22 Portal proxy tests, Barbarossa readaccess/localobserve tests; 4 real Chromium passes, 11 signed identity passes and persistent seed replay; coordinator checks and 54 unit tests.",
+    "main_ci": "Final receipt inspected: all 17 successful push workflows bind exact merge SHAs, source SHAs and identical trees; independently fetched Omniscience main CI job completion."
+  }
+}

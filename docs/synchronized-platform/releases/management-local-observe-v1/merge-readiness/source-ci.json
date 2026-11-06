@@ -1,0 +1,158 @@
+{
+  "observed_at": "2026-11-06T20:50:34.855Z",
+  "event": "pull_request",
+  "scope": "Exact source heads before merge; legacy workflow names retain their own qualification scope",
+  "repositories": [
+    {
+      "repository": "100rd/Omniscience",
+      "head_sha": "639c52dac220b461d286b86a6fdeb36cf89300a4",
+      "base_sha": "9131e8e8f82da510e162793583ddc3290a696864",
+      "pr_url": "https://github.com/100rd/Omniscience/pull/374",
+      "runs": [
+        {
+          "id": 42259414808,
+          "name": "Conformance Gates",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/100rd/Omniscience/actions/runs/42259414808"
+        },
+        {
+          "id": 42259414771,
+          "name": "HA Qualification",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/100rd/Omniscience/actions/runs/42259414771"
+        },
+        {
+          "id": 42259414927,
+          "name": "management-readonly-v1 release qualification",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/100rd/Omniscience/actions/runs/42259414927"
+        },
+        {
+          "id": 42259415031,
+          "name": "Admission Qualification",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/100rd/Omniscience/actions/runs/42259415031"
+        },
+        {
+          "id": 42259414741,
+          "name": "CI",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/100rd/Omniscience/actions/runs/42259414741"
+        }
+      ]
+    },
+    {
+      "repository": "100rd/Barbarossa",
+      "head_sha": "1c6335656b348dbd9025aa82d0cb730b442604dd",
+      "base_sha": "5cd2d164c65916dcbbbaafef5be88fda4a6d24bf",
+      "pr_url": "https://github.com/100rd/Barbarossa/pull/13",
+      "runs": [
+        {
+          "id": 42276801340,
+          "name": "management-readonly-release",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/100rd/Barbarossa/actions/runs/42276801340"
+        },
+        {
+          "id": 42276801302,
+          "name": "management-readonly-local",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/100rd/Barbarossa/actions/runs/42276801302"
+        },
+        {
+          "id": 42276801279,
+          "name": "ha-runtime",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/100rd/Barbarossa/actions/runs/42276801279"
+        },
+        {
+          "id": 42276801561,
+          "name": "distributed-work",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/100rd/Barbarossa/actions/runs/42276801561"
+        },
+        {
+          "id": 42276801433,
+          "name": "go-runtime",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/100rd/Barbarossa/actions/runs/42276801433"
+        }
+      ]
+    },
+    {
+      "repository": "100rd/platform-portal",
+      "head_sha": "1389aae9112ba03696fb3bc99560e970887d3241",
+      "base_sha": "94a2e36f7619664ba154d14e9d4bbe62503b9c49",
+      "pr_url": "https://github.com/100rd/platform-portal/pull/23",
+      "runs": [
+        {
+          "id": 42279090914,
+          "name": "Build",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/100rd/platform-portal/actions/runs/42279090914"
+        },
+        {
+          "id": 42279090986,
+          "name": "management-readonly-local-v1 fragment",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/100rd/platform-portal/actions/runs/42279090986"
+        },
+        {
+          "id": 42279090839,
+          "name": "management-readonly-v1 release candidate",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/100rd/platform-portal/actions/runs/42279090839"
+        },
+        {
+          "id": 42279090843,
+          "name": "Lint",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/100rd/platform-portal/actions/runs/42279090843"
+        },
+        {
+          "id": 42279090842,
+          "name": "Test",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/100rd/platform-portal/actions/runs/42279090842"
+        }
+      ]
+    },
+    {
+      "repository": "100rd/genai-enablement",
+      "head_sha": "2f9d654445ba3aa10f21e938c860d8b9e765d2e1",
+      "base_sha": "c45d66084267cdc4ccaa5e93d0f59969d0dc5019",
+      "pr_url": "https://github.com/100rd/genai-enablement/pull/60",
+      "runs": [
+        {
+          "id": 42279886295,
+          "name": "Portfolio documentation drift",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/100rd/genai-enablement/actions/runs/42279886295"
+        },
+        {
+          "id": 42279886527,
+          "name": "management-readonly-local-v1 integrator",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/100rd/genai-enablement/actions/runs/42279886527"
+        }
+      ]
+    }
+  ]
+}
