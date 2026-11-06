@@ -1,9 +1,9 @@
 {
   "schema_version": 1,
   "profile": "management-local-observe-v1",
-  "as_of": "2026-11-06T17:13:38.806452+00:00",
+  "as_of": "2026-11-06T17:35:05.131785+00:00",
   "implementation": "committed",
-  "verification": "passed-local-source-qualification",
+  "verification": "passed-local-source-qualification-with-default-journey-correction",
   "local_activation": "running",
   "production_activation": "out_of_scope",
   "completed_baseline_tasks": {
@@ -62,12 +62,13 @@
       "id": "SP-105",
       "owner": "platform-portal",
       "implementation": "complete",
-      "verification": "passed-local-source-qualification",
+      "verification": "passed-default-journey-and-knowledge-outage",
       "evidence": [
-        "docs/synchronized-platform/releases/management-local-observe-v1/qualification.json"
+        "docs/synchronized-platform/releases/management-local-observe-v1/qualification.json",
+        "docs/synchronized-platform/releases/management-local-observe-v1/default-journey/verification.json"
       ],
       "local_activation": "running",
-      "commit": "f7e2bfe9bcc1f5683c09ef9f5878bf25d801a86e",
+      "commit": "7526fb1c32a745617c2e0b8d3c1ebbb9ff33edc2",
       "pr_url": "https://github.com/100rd/platform-portal/pull/23",
       "publication": "pr-open"
     },
@@ -77,7 +78,8 @@
       "implementation": "complete",
       "verification": "passed-local-source-qualification",
       "evidence": [
-        "docs/synchronized-platform/releases/management-local-observe-v1/qualification.json"
+        "docs/synchronized-platform/releases/management-local-observe-v1/qualification.json",
+        "docs/synchronized-platform/releases/management-local-observe-v1/default-journey/verification.json"
       ],
       "local_activation": "running",
       "commit": "d67ed1fe1ff92467f8916be97c43104e9150ef3f",
@@ -351,6 +353,76 @@
       "token_usage": null,
       "elapsed_seconds": null,
       "measurement_note": "Actual token/timing counters unavailable; no fabricated measured usage."
+    },
+    {
+      "task": "inspect_portal_control_profile",
+      "model": "gpt-6-luna",
+      "state": "completed-reviewed",
+      "root_diff_review": "complete including new files",
+      "elapsed_seconds_estimate": 240,
+      "token_estimate": 7000,
+      "token_usage": null,
+      "repair_retries": 0,
+      "result": "Profile landing and Control; lead reviewed every file and repeated 8 focused tests.",
+      "measurement_note": "Estimates reported by agents; exact billing/counters unavailable. Expected RED tests are not repair retries."
+    },
+    {
+      "task": "inspect_portal_default_observe",
+      "model": "gpt-6.1-sol",
+      "state": "completed-reviewed",
+      "root_diff_review": "complete including new files",
+      "elapsed_seconds_estimate": 315,
+      "token_estimate": 7000,
+      "token_usage": null,
+      "repair_retries": 1,
+      "result": "Tenant-bound backend default slice; 205 passed 1 skip; lead repeated 10 endpoint tests.",
+      "measurement_note": "Estimates reported by agents; exact billing/counters unavailable. Expected RED tests are not repair retries. One formatting correction reported."
+    },
+    {
+      "task": "review_portal_default_ui",
+      "model": "gpt-6-luna",
+      "state": "completed-reviewed",
+      "root_diff_review": "complete including new files",
+      "elapsed_seconds_estimate": 240,
+      "token_estimate": 3000,
+      "token_usage": null,
+      "repair_retries": 0,
+      "result": "Initial and incremental TypeScript reviews; approved.",
+      "measurement_note": "Estimates reported by agents; exact billing/counters unavailable. Expected RED tests are not repair retries."
+    },
+    {
+      "task": "review_portal_default_backend",
+      "model": "gpt-6-luna",
+      "state": "completed-reviewed",
+      "root_diff_review": "complete including new files",
+      "elapsed_seconds_estimate": null,
+      "token_estimate": null,
+      "token_usage": null,
+      "repair_retries": 0,
+      "result": "Python review approved and Ruff passed.",
+      "measurement_note": "Estimates reported by agents; exact billing/counters unavailable. Expected RED tests are not repair retries."
+    },
+    {
+      "task": "review_portal_default_integration",
+      "model": "gpt-6.1-sol",
+      "state": "completed-reviewed",
+      "root_diff_review": "complete including new files",
+      "elapsed_seconds_estimate": 150,
+      "token_estimate": 2400,
+      "token_usage": null,
+      "repair_retries": 1,
+      "result": "Three findings fixed and re-reviewed: workspace selector, tenant/workspace test IDs, conditional copy.",
+      "measurement_note": "Estimates reported by agents; exact billing/counters unavailable. Expected RED tests are not repair retries."
+    },
+    {
+      "task": "publication_boundary_review_default_journey",
+      "model": "gpt-6-luna",
+      "state": "completed-reviewed",
+      "root_diff_review": "Root reproduced all 37 manifest hashes and credential scan; tracked generated pycache restored and excluded.",
+      "elapsed_seconds_estimate": 180,
+      "token_usage": null,
+      "result": "Additive default-journey evidence and four tracking files approved; no blockers.",
+      "measurement_note": "Agent-reported approximate duration; actual token usage unavailable."
     }
   ],
   "evidence": "docs/synchronized-platform/releases/management-local-observe-v1/qualification.json",
@@ -364,8 +436,8 @@
     },
     "SP-101": {
       "implementation": "completed-in-isolated-worktree",
-      "verification": "real two-tenant MCP and Chromium passed",
-      "commit": "f7e2bfe9bcc1f5683c09ef9f5878bf25d801a86e",
+      "verification": "real two-tenant MCP; natural landing graph, foreign-workspace refusal and owner outage passed",
+      "commit": "7526fb1c32a745617c2e0b8d3c1ebbb9ff33edc2",
       "pr_url": "https://github.com/100rd/platform-portal/pull/23"
     }
   },
@@ -406,5 +478,11 @@
     "native Linux bind-permission qualification"
   ],
   "publication": "portfolio/local-observe-publication.json",
-  "pull_requests": "open-in-all-four-repositories"
+  "pull_requests": "open-in-all-four-repositories",
+  "user_journey_correction": {
+    "state": "verified-and-running",
+    "portal_commit": "7526fb1c32a745617c2e0b8d3c1ebbb9ff33edc2",
+    "evidence": "docs/synchronized-platform/releases/management-local-observe-v1/default-journey/verification.json",
+    "prior_test_gap": "Original browser acceptance used explicit entity selectors and Reliability deep links; natural landing and bare Observe were not checked. The user correctly identified a missing default graph and an unselected factory presented as unavailable."
+  }
 }

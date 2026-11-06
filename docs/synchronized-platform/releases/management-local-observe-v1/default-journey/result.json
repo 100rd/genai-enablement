@@ -1,0 +1,54 @@
+{
+  "checked_at": "2026-11-06T17:34:02.487Z",
+  "natural_login_landing": "/observe",
+  "knowledge_state": "fresh",
+  "workspace_id": "a34f0802-8321-5c7c-8a6b-dea95391faf5",
+  "entities": [
+    "service://observe-alpha-api",
+    "service://observe-alpha-worker",
+    "service://observe-alpha-database"
+  ],
+  "edges": [
+    {
+      "from": "service://observe-alpha-api",
+      "to": "service://observe-alpha-worker",
+      "edgeType": "DEPENDS_ON"
+    },
+    {
+      "from": "service://observe-alpha-worker",
+      "to": "service://observe-alpha-database",
+      "edgeType": "DEPENDS_ON"
+    }
+  ],
+  "control_factory_not_selected": true,
+  "barbarossa_read_state": "available",
+  "components": [
+    {
+      "id": "omniscience",
+      "state": "healthy",
+      "last_observed_at": "2026-11-06T17:33:51.378472Z"
+    },
+    {
+      "id": "barbarossa",
+      "state": "healthy",
+      "last_observed_at": "2026-11-06T17:33:51.378472Z"
+    },
+    {
+      "id": "portal",
+      "state": "healthy",
+      "last_observed_at": "2026-11-06T17:33:51.378472Z"
+    }
+  ],
+  "domains": [
+    {
+      "id": "reliability",
+      "state": "healthy"
+    },
+    {
+      "id": "security",
+      "state": "healthy"
+    }
+  ],
+  "runner": "online",
+  "case_count": 5
+}

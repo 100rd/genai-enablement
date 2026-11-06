@@ -6,7 +6,15 @@
 
 ## Current local activation — 2026-11-06
 
-The **management-local-observe-v1** profile is implemented, locally qualified and running from
+**Default Portal journey corrected after user report.** Previous browser checks used explicit
+entity/deep links and missed the normal landing. Portal `7526fb1` now opens `/observe` and loads
+its tenant's owner-served seeded graph. Both fresh login journeys, foreign-workspace refusal,
+Control's unselected-factory state, an actual Omniscience outage and recovery passed in Chromium.
+See the [corrective receipt](docs/synchronized-platform/releases/management-local-observe-v1/default-journey/README.md).
+The graph is prepared test topology; live health/cases/recommendations are in Local Reliability.
+Historical drill receipts below retain their original scope.
+
+The **management-local-observe-v1** profile is implemented and running from
 isolated `codex/local-observe-v1` worktrees. Omniscience serves real two-tenant knowledge, Barbarossa
 records live Reliability/Security observations and durable cases, and Portal displays evidence and
 non-authoritative Codex recommendations. Controlled outages of all three APIs completed the full
@@ -28,7 +36,7 @@ tracks source commits, review status and the separate local/production boundarie
 - [Execution progress](portfolio/local-observe-progress.json) and [local runbook](docs/runbooks/management-local-observe-v1.md)
 - [Commit and PR publication record](portfolio/local-observe-publication.json)
 - Open PRs: [Omniscience #374](https://github.com/100rd/Omniscience/pull/374), [Barbarossa #13](https://github.com/100rd/Barbarossa/pull/13), [Portal #23](https://github.com/100rd/platform-portal/pull/23), [genai-enablement #60](https://github.com/100rd/genai-enablement/pull/60).
-- CI follow-ups fixed import/format/type/governance checks and legacy signed-read qualification. Barbarossa, Portal and coordinator checks passed at their recorded revisions; the Omniscience CI suite remains in progress in the timestamped publication record. No PR has been merged.
+- CI follow-ups fixed import/format/type/governance checks and legacy signed-read qualification. Barbarossa, Omniscience and coordinator checks passed at their recorded revisions. All five Portal CI workflows passed for correction 7526fb1; results are timestamped in the publication record. No PR has been merged.
 - Portal: http://localhost:13000; this qualification is macOS/Docker Desktop, single-host and advisory only.
 - Published OCI releases, SP-89/SP-94, AWS, image vulnerability scanning, autonomous effects and HA remain separate gates.
 

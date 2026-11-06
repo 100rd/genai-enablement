@@ -1,11 +1,11 @@
 {
   "schema_version": 1,
   "profile": "management-local-observe-v1",
-  "as_of": "2026-11-06T17:16:48.454890+00:00",
+  "as_of": "2026-11-06T17:36:44.136185+00:00",
   "state": "all-four-prs-open",
   "qualification_receipt": "docs/synchronized-platform/releases/management-local-observe-v1/qualification.json",
   "qualification_source_snapshot_sha256": "91665f8da0c6289a4214af8bd5b08547db1fa0b844fad3f610e881fe13f34c08",
-  "qualification_scope": "Historical local qualification and its source snapshot remain preserved. The publication commits retain that implementation, with independently reviewed static/CI/governance follow-ups listed below. Runtime images were not rebuilt or redeployed by this publication task.",
+  "qualification_scope": "Historical qualification and its source snapshot remain unchanged. Initial publication retained the qualified runtime implementation, with static/CI/governance follow-ups. Subsequent Portal revision 7526fb1 corrects the natural login/default graph journey; its frontend/backend source images were rebuilt and activated locally, with separate two-tenant Chromium, owner outage and recovery evidence.",
   "production_activation": "out-of-scope",
   "oci_release": "not-published",
   "repositories": {
@@ -21,11 +21,11 @@
       "mergeable": true,
       "ci_runs": [
         {
-          "id": 42259414741,
-          "name": "CI",
-          "status": "in_progress",
-          "conclusion": null,
-          "url": "https://github.com/100rd/Omniscience/actions/runs/42259414741"
+          "id": 42259414808,
+          "name": "Conformance Gates",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/100rd/Omniscience/actions/runs/42259414808"
         },
         {
           "id": 42259414771,
@@ -49,14 +49,14 @@
           "url": "https://github.com/100rd/Omniscience/actions/runs/42259415031"
         },
         {
-          "id": 42259414808,
-          "name": "Conformance Gates",
+          "id": 42259414741,
+          "name": "CI",
           "status": "completed",
           "conclusion": "success",
-          "url": "https://github.com/100rd/Omniscience/actions/runs/42259414808"
+          "url": "https://github.com/100rd/Omniscience/actions/runs/42259414741"
         }
       ],
-      "ci_observed_at": "2026-11-06T17:16:48.454890+00:00",
+      "ci_observed_at": "2026-11-06T17:35:34.135Z",
       "qualified_implementation_commit": "be14dad76e239e9a797ace6808a421ec5acf743d"
     },
     "Barbarossa": {
@@ -111,7 +111,7 @@
     },
     "platform-portal": {
       "repository": "100rd/platform-portal",
-      "commit": "f7e2bfe9bcc1f5683c09ef9f5878bf25d801a86e",
+      "commit": "7526fb1c32a745617c2e0b8d3c1ebbb9ff33edc2",
       "branch": "codex/local-observe-v1",
       "base": "main",
       "pr_url": "https://github.com/100rd/platform-portal/pull/23",
@@ -121,43 +121,44 @@
       "mergeable": true,
       "ci_runs": [
         {
-          "id": 42257528103,
-          "name": "Lint",
-          "status": "completed",
-          "conclusion": "success",
-          "url": "https://github.com/100rd/platform-portal/actions/runs/42257528103"
-        },
-        {
-          "id": 42257528141,
-          "name": "Test",
-          "status": "completed",
-          "conclusion": "success",
-          "url": "https://github.com/100rd/platform-portal/actions/runs/42257528141"
-        },
-        {
-          "id": 42257528075,
-          "name": "management-readonly-local-v1 fragment",
-          "status": "completed",
-          "conclusion": "success",
-          "url": "https://github.com/100rd/platform-portal/actions/runs/42257528075"
-        },
-        {
-          "id": 42257528135,
-          "name": "Build",
-          "status": "completed",
-          "conclusion": "success",
-          "url": "https://github.com/100rd/platform-portal/actions/runs/42257528135"
-        },
-        {
-          "id": 42257528054,
+          "id": 42262745717,
           "name": "management-readonly-v1 release candidate",
           "status": "completed",
           "conclusion": "success",
-          "url": "https://github.com/100rd/platform-portal/actions/runs/42257528054"
+          "url": "https://github.com/100rd/platform-portal/actions/runs/42262745717"
+        },
+        {
+          "id": 42262745745,
+          "name": "Lint",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/100rd/platform-portal/actions/runs/42262745745"
+        },
+        {
+          "id": 42262745768,
+          "name": "management-readonly-local-v1 fragment",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/100rd/platform-portal/actions/runs/42262745768"
+        },
+        {
+          "id": 42262745759,
+          "name": "Test",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/100rd/platform-portal/actions/runs/42262745759"
+        },
+        {
+          "id": 42262745779,
+          "name": "Build",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/100rd/platform-portal/actions/runs/42262745779"
         }
       ],
-      "ci_observed_at": "2026-11-06T17:13:38.806452+00:00",
-      "qualified_implementation_commit": "6d223dbc76d3f6359ea9caabba44c625eed5c38a"
+      "ci_observed_at": "2026-11-06T17:36:44.136185+00:00",
+      "qualified_implementation_commit": "6d223dbc76d3f6359ea9caabba44c625eed5c38a",
+      "default_journey_qualified_commit": "7526fb1c32a745617c2e0b8d3c1ebbb9ff33edc2"
     },
     "genai-enablement": {
       "repository": "100rd/genai-enablement",
@@ -222,5 +223,6 @@
     "Omniscience #374 and Barbarossa #13 provide the owner contracts",
     "Portal #23 consumes both owner contracts",
     "genai-enablement #60 records the coordinated delivery and qualification; update exact merged revisions after merges"
-  ]
+  ],
+  "default_user_journey_evidence": "docs/synchronized-platform/releases/management-local-observe-v1/default-journey/verification.json"
 }

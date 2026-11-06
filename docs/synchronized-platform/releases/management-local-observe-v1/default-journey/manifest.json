@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "files": {
+    "README.md": "e24b7183ea067451b68b407a0eea633ddfc274f652dac6583b324d2d323aa618",
+    "baseline.json": "983ff0043aaee056162f5e30a135ee6bbbbf6bc4aa2a6e89c32b7191f4460f07",
+    "browser.txt": "46928d6ff9fe83f5ef5ee84cdd53fdd7722d16eddf5cf3a309aae205b10d697e",
+    "control-after.png": "99d0701cd3e5e0574dbbdf3746cd25db1436fbffc3c1d8211b0019bd76e95f4e",
+    "control-before.png": "a46d16cf466c84feb18e73c43f53a8c0a789ec6de58d878eece0d5147c38d16c",
+    "knowledge-outage.txt": "56f03ede22a21292b3143422d7e159e488d7ae5a2310f2972995622bb439f119",
+    "observe-alpha.png": "b3366708f85d1d080db9336a56bac303036a0ce8ea27f4c368d54aa48a6bb6ed",
+    "observe-before.png": "150cb6464e62d7c7a7ea2df6426304f09868c87f41bc6e3b18f76c6e4b5faa4e",
+    "observe-beta.png": "4a1c8ac96ca06acca432eeda478fe4f6714dab3584176a3c75dd75886c09e851",
+    "reliability-after.png": "81f75cbbfe286743e274a854b65a7922dda35e5d49a49e832f347608285e3367",
+    "result.json": "5fc4841a66be2bf586d7ce0ccd37cd968b61e7747d8c2f658998b33fb3e0d423",
+    "verification.json": "205aa86e7c77489421813fcbd2b4e3165d8bc71af582253f9331fd8e06c33c4f"
+  }
+}
