@@ -1,11 +1,11 @@
 {
   "schema_version": 1,
   "profile": "management-local-observe-v1",
-  "as_of": "2026-11-06T17:36:44.136185+00:00",
+  "as_of": "2026-11-06T18:04:02.727083+00:00",
   "state": "all-four-prs-open",
   "qualification_receipt": "docs/synchronized-platform/releases/management-local-observe-v1/qualification.json",
   "qualification_source_snapshot_sha256": "91665f8da0c6289a4214af8bd5b08547db1fa0b844fad3f610e881fe13f34c08",
-  "qualification_scope": "Historical qualification and its source snapshot remain unchanged. Initial publication retained the qualified runtime implementation, with static/CI/governance follow-ups. Subsequent Portal revision 7526fb1 corrects the natural login/default graph journey; its frontend/backend source images were rebuilt and activated locally, with separate two-tenant Chromium, owner outage and recovery evidence.",
+  "qualification_scope": "Historical qualification and its source snapshot remain unchanged. Initial publication retained the qualified runtime implementation, with static/CI/governance follow-ups. Subsequent Portal revision 7526fb1 corrects the natural login/default graph journey; its frontend/backend source images were rebuilt and activated locally, with separate two-tenant Chromium, owner outage and recovery evidence. Portal ae74ebc adds independently streamed home connection cards; its frontend source image was rebuilt and activated with additive home-connections browser evidence.",
   "production_activation": "out-of-scope",
   "oci_release": "not-published",
   "repositories": {
@@ -111,7 +111,7 @@
     },
     "platform-portal": {
       "repository": "100rd/platform-portal",
-      "commit": "7526fb1c32a745617c2e0b8d3c1ebbb9ff33edc2",
+      "commit": "ae74ebc39da2ebc558d509ac8a12ca98f0dc01f8",
       "branch": "codex/local-observe-v1",
       "base": "main",
       "pr_url": "https://github.com/100rd/platform-portal/pull/23",
@@ -121,44 +121,45 @@
       "mergeable": true,
       "ci_runs": [
         {
-          "id": 42262745717,
-          "name": "management-readonly-v1 release candidate",
-          "status": "completed",
-          "conclusion": "success",
-          "url": "https://github.com/100rd/platform-portal/actions/runs/42262745717"
-        },
-        {
-          "id": 42262745745,
+          "id": 42266734587,
           "name": "Lint",
           "status": "completed",
           "conclusion": "success",
-          "url": "https://github.com/100rd/platform-portal/actions/runs/42262745745"
+          "url": "https://github.com/100rd/platform-portal/actions/runs/42266734587"
         },
         {
-          "id": 42262745768,
-          "name": "management-readonly-local-v1 fragment",
-          "status": "completed",
-          "conclusion": "success",
-          "url": "https://github.com/100rd/platform-portal/actions/runs/42262745768"
-        },
-        {
-          "id": 42262745759,
+          "id": 42266734239,
           "name": "Test",
           "status": "completed",
           "conclusion": "success",
-          "url": "https://github.com/100rd/platform-portal/actions/runs/42262745759"
+          "url": "https://github.com/100rd/platform-portal/actions/runs/42266734239"
         },
         {
-          "id": 42262745779,
+          "id": 42266734249,
+          "name": "management-readonly-v1 release candidate",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/100rd/platform-portal/actions/runs/42266734249"
+        },
+        {
+          "id": 42266734370,
+          "name": "management-readonly-local-v1 fragment",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/100rd/platform-portal/actions/runs/42266734370"
+        },
+        {
+          "id": 42266734215,
           "name": "Build",
           "status": "completed",
           "conclusion": "success",
-          "url": "https://github.com/100rd/platform-portal/actions/runs/42262745779"
+          "url": "https://github.com/100rd/platform-portal/actions/runs/42266734215"
         }
       ],
-      "ci_observed_at": "2026-11-06T17:36:44.136185+00:00",
+      "ci_observed_at": "2026-11-06T18:04:02.727083+00:00",
       "qualified_implementation_commit": "6d223dbc76d3f6359ea9caabba44c625eed5c38a",
-      "default_journey_qualified_commit": "7526fb1c32a745617c2e0b8d3c1ebbb9ff33edc2"
+      "default_journey_qualified_commit": "7526fb1c32a745617c2e0b8d3c1ebbb9ff33edc2",
+      "home_connections_qualified_commit": "ae74ebc39da2ebc558d509ac8a12ca98f0dc01f8"
     },
     "genai-enablement": {
       "repository": "100rd/genai-enablement",
@@ -224,5 +225,6 @@
     "Portal #23 consumes both owner contracts",
     "genai-enablement #60 records the coordinated delivery and qualification; update exact merged revisions after merges"
   ],
-  "default_user_journey_evidence": "docs/synchronized-platform/releases/management-local-observe-v1/default-journey/verification.json"
+  "default_user_journey_evidence": "docs/synchronized-platform/releases/management-local-observe-v1/default-journey/verification.json",
+  "home_connections_evidence": "docs/synchronized-platform/releases/management-local-observe-v1/home-connections/verification.json"
 }

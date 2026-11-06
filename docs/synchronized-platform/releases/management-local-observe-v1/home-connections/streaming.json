@@ -1,0 +1,11 @@
+{
+  "checked_at": "2026-11-06T17:59:48.650Z",
+  "connection_cards_visible_ms": 853,
+  "knowledge_pending_when_cards_visible": true,
+  "graph_rows_after_resume_and_reload": 3,
+  "initial_last_checks": [
+    "2026-11-06T17:59:21.373073Z",
+    "2026-11-06T17:59:21.373073Z"
+  ],
+  "container_resumed": true
+}

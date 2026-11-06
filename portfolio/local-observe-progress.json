@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "profile": "management-local-observe-v1",
-  "as_of": "2026-11-06T17:35:05.131785+00:00",
+  "as_of": "2026-11-06T18:01:55.262202+00:00",
   "implementation": "committed",
   "verification": "passed-local-source-qualification-with-default-journey-correction",
   "local_activation": "running",
@@ -62,13 +62,14 @@
       "id": "SP-105",
       "owner": "platform-portal",
       "implementation": "complete",
-      "verification": "passed-default-journey-and-knowledge-outage",
+      "verification": "passed-home-connections-and-default-journey",
       "evidence": [
         "docs/synchronized-platform/releases/management-local-observe-v1/qualification.json",
-        "docs/synchronized-platform/releases/management-local-observe-v1/default-journey/verification.json"
+        "docs/synchronized-platform/releases/management-local-observe-v1/default-journey/verification.json",
+        "docs/synchronized-platform/releases/management-local-observe-v1/home-connections/verification.json"
       ],
       "local_activation": "running",
-      "commit": "7526fb1c32a745617c2e0b8d3c1ebbb9ff33edc2",
+      "commit": "ae74ebc39da2ebc558d509ac8a12ca98f0dc01f8",
       "pr_url": "https://github.com/100rd/platform-portal/pull/23",
       "publication": "pr-open"
     },
@@ -79,7 +80,8 @@
       "verification": "passed-local-source-qualification",
       "evidence": [
         "docs/synchronized-platform/releases/management-local-observe-v1/qualification.json",
-        "docs/synchronized-platform/releases/management-local-observe-v1/default-journey/verification.json"
+        "docs/synchronized-platform/releases/management-local-observe-v1/default-journey/verification.json",
+        "docs/synchronized-platform/releases/management-local-observe-v1/home-connections/verification.json"
       ],
       "local_activation": "running",
       "commit": "d67ed1fe1ff92467f8916be97c43104e9150ef3f",
@@ -423,6 +425,54 @@
       "token_usage": null,
       "result": "Additive default-journey evidence and four tracking files approved; no blockers.",
       "measurement_note": "Agent-reported approximate duration; actual token usage unavailable."
+    },
+    {
+      "task": "inspect_connection_semantics",
+      "model": "gpt-6.1-sol",
+      "state": "completed-reviewed",
+      "elapsed_seconds_estimate": 60,
+      "token_estimate": 1200,
+      "token_usage": null,
+      "result": "Existing owner state/reason/debounce semantics traced read-only.",
+      "measurement_note": "Agent-reported estimates; exact billing unavailable. Writer had one fixture type correction; generic review had one repair round."
+    },
+    {
+      "task": "implement_home_connections",
+      "model": "gpt-6.1-sol",
+      "state": "completed-reviewed",
+      "elapsed_seconds_estimate": 240,
+      "token_estimate": 5000,
+      "token_usage": null,
+      "result": "Widget/shared response parser implemented; lead reviewed full final diff and repeated tests.",
+      "measurement_note": "Agent-reported estimates; exact billing unavailable. Writer had one fixture type correction; generic review had one repair round."
+    },
+    {
+      "task": "review_home_connections_typescript",
+      "model": "gpt-6-luna",
+      "state": "completed-reviewed",
+      "elapsed_seconds_estimate": 300,
+      "token_estimate": 4100,
+      "token_usage": null,
+      "result": "Initial and final streaming reviews approved; typecheck and direct lint passed.",
+      "measurement_note": "Agent-reported estimates; exact billing unavailable. Writer had one fixture type correction; generic review had one repair round."
+    },
+    {
+      "task": "review_home_connections_integration",
+      "model": "gpt-6.1-sol",
+      "state": "completed-reviewed",
+      "elapsed_seconds_estimate": 150,
+      "token_estimate": 2450,
+      "token_usage": null,
+      "result": "Independent-load and debounce-copy findings fixed and re-reviewed.",
+      "measurement_note": "Agent-reported estimates; exact billing unavailable. Writer had one fixture type correction; generic review had one repair round."
+    },
+    {
+      "task": "publication_boundary_review_home_connections",
+      "model": "gpt-6-luna",
+      "state": "completed-reviewed",
+      "token_usage": null,
+      "result": "Revision, current scope, simulated failure versus actual pause, artifact hashes and public evidence approved; root independently repeated all 43 hashes and credential scan.",
+      "measurement_note": "Actual token/timing counters not exposed."
     }
   ],
   "evidence": "docs/synchronized-platform/releases/management-local-observe-v1/qualification.json",
@@ -437,7 +487,7 @@
     "SP-101": {
       "implementation": "completed-in-isolated-worktree",
       "verification": "real two-tenant MCP; natural landing graph, foreign-workspace refusal and owner outage passed",
-      "commit": "7526fb1c32a745617c2e0b8d3c1ebbb9ff33edc2",
+      "commit": "ae74ebc39da2ebc558d509ac8a12ca98f0dc01f8",
       "pr_url": "https://github.com/100rd/platform-portal/pull/23"
     }
   },
@@ -484,5 +534,10 @@
     "portal_commit": "7526fb1c32a745617c2e0b8d3c1ebbb9ff33edc2",
     "evidence": "docs/synchronized-platform/releases/management-local-observe-v1/default-journey/verification.json",
     "prior_test_gap": "Original browser acceptance used explicit entity selectors and Reliability deep links; natural landing and bare Observe were not checked. The user correctly identified a missing default graph and an unselected factory presented as unavailable."
+  },
+  "home_connections": {
+    "state": "verified-and-running",
+    "portal_commit": "ae74ebc39da2ebc558d509ac8a12ca98f0dc01f8",
+    "evidence": "docs/synchronized-platform/releases/management-local-observe-v1/home-connections/verification.json"
   }
 }

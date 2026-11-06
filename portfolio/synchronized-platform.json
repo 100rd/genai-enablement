@@ -1357,7 +1357,8 @@
       "qualification_evidence": "docs/synchronized-platform/releases/management-local-observe-v1/qualification.json",
       "publication": "four-prs-open",
       "publication_tracking": "portfolio/local-observe-publication.json",
-      "user_journey_evidence": "docs/synchronized-platform/releases/management-local-observe-v1/default-journey/verification.json"
+      "user_journey_evidence": "docs/synchronized-platform/releases/management-local-observe-v1/default-journey/verification.json",
+      "home_connections_evidence": "docs/synchronized-platform/releases/management-local-observe-v1/home-connections/verification.json"
     }
   ],
   "work_packages": [
@@ -3206,10 +3207,11 @@
       "verification": "passed",
       "local_activation": "running",
       "evidence": "docs/synchronized-platform/releases/management-local-observe-v1/qualification.json",
-      "implementation_commit": "7526fb1c32a745617c2e0b8d3c1ebbb9ff33edc2",
+      "implementation_commit": "ae74ebc39da2ebc558d509ac8a12ca98f0dc01f8",
       "pull_request": "https://github.com/100rd/platform-portal/pull/23",
       "publication": "pr-open",
-      "user_journey_evidence": "docs/synchronized-platform/releases/management-local-observe-v1/default-journey/verification.json"
+      "user_journey_evidence": "docs/synchronized-platform/releases/management-local-observe-v1/default-journey/verification.json",
+      "home_connections_evidence": "docs/synchronized-platform/releases/management-local-observe-v1/home-connections/verification.json"
     },
     {
       "id": "SP-106",
@@ -3237,7 +3239,8 @@
       "implementation_commit": "d67ed1fe1ff92467f8916be97c43104e9150ef3f",
       "pull_request": "https://github.com/100rd/genai-enablement/pull/60",
       "publication": "pr-open",
-      "user_journey_evidence": "docs/synchronized-platform/releases/management-local-observe-v1/default-journey/verification.json"
+      "user_journey_evidence": "docs/synchronized-platform/releases/management-local-observe-v1/default-journey/verification.json",
+      "home_connections_evidence": "docs/synchronized-platform/releases/management-local-observe-v1/home-connections/verification.json"
     }
   ],
   "execution_tracking": "portfolio/local-observe-progress.json",

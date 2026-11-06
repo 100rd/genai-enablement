@@ -6,6 +6,11 @@
 
 ## Current local activation — 2026-11-06
 
+**Home connection cards running:** Portal `ae74ebc` now shows Barbarossa and Omniscience
+connection, observed readiness and last-check time above the graph. Authenticated status refreshes
+every 30 seconds and on demand. Cards stream independently of knowledge loading; unavailable,
+denied, checking and stale observations remain distinct. [Browser and test evidence](docs/synchronized-platform/releases/management-local-observe-v1/home-connections/README.md).
+
 **Default Portal journey corrected after user report.** Previous browser checks used explicit
 entity/deep links and missed the normal landing. Portal `7526fb1` now opens `/observe` and loads
 its tenant's owner-served seeded graph. Both fresh login journeys, foreign-workspace refusal,
@@ -36,7 +41,7 @@ tracks source commits, review status and the separate local/production boundarie
 - [Execution progress](portfolio/local-observe-progress.json) and [local runbook](docs/runbooks/management-local-observe-v1.md)
 - [Commit and PR publication record](portfolio/local-observe-publication.json)
 - Open PRs: [Omniscience #374](https://github.com/100rd/Omniscience/pull/374), [Barbarossa #13](https://github.com/100rd/Barbarossa/pull/13), [Portal #23](https://github.com/100rd/platform-portal/pull/23), [genai-enablement #60](https://github.com/100rd/genai-enablement/pull/60).
-- CI follow-ups fixed import/format/type/governance checks and legacy signed-read qualification. Barbarossa, Omniscience and coordinator checks passed at their recorded revisions. All five Portal CI workflows passed for correction 7526fb1; results are timestamped in the publication record. No PR has been merged.
+- CI follow-ups fixed import/format/type/governance checks and legacy signed-read qualification. Barbarossa, Omniscience and coordinator checks passed at their recorded revisions. All five Portal CI workflows passed for correction 7526fb1. All five workflows also passed for home-card revision ae74ebc; results are timestamped in the publication record. No PR has been merged.
 - Portal: http://localhost:13000; this qualification is macOS/Docker Desktop, single-host and advisory only.
 - Published OCI releases, SP-89/SP-94, AWS, image vulnerability scanning, autonomous effects and HA remain separate gates.
 
