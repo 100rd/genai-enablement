@@ -1,9 +1,9 @@
 {
   "schema_version": 1,
   "profile": "management-local-observe-v1",
-  "as_of": "2026-11-06T19:24:03.450831+00:00",
-  "implementation": "committed",
-  "verification": "passed-local-source-and-control-work",
+  "as_of": "2026-11-06T20:58:32.181038+00:00",
+  "implementation": "merged-to-main",
+  "verification": "passed-local-source-control-and-merge-readiness",
   "local_activation": "running",
   "production_activation": "out_of_scope",
   "completed_baseline_tasks": {
@@ -25,12 +25,14 @@
       "implementation": "complete",
       "verification": "passed-local-source-qualification",
       "evidence": [
-        "docs/synchronized-platform/releases/management-local-observe-v1/qualification.json"
+        "docs/synchronized-platform/releases/management-local-observe-v1/qualification.json",
+        "docs/synchronized-platform/releases/management-local-observe-v1/merge-readiness/verification.json"
       ],
       "local_activation": "running",
       "commit": "d67ed1fe1ff92467f8916be97c43104e9150ef3f",
       "pr_url": "https://github.com/100rd/genai-enablement/pull/60",
-      "publication": "pr-open"
+      "publication": "merged",
+      "merged_revision": "4cbf5c0603869fdf24cb486ad76e32a608970d82"
     },
     {
       "id": "SP-103",
@@ -38,12 +40,14 @@
       "implementation": "complete",
       "verification": "passed-local-source-qualification",
       "evidence": [
-        "docs/synchronized-platform/releases/management-local-observe-v1/qualification.json"
+        "docs/synchronized-platform/releases/management-local-observe-v1/qualification.json",
+        "docs/synchronized-platform/releases/management-local-observe-v1/merge-readiness/verification.json"
       ],
       "local_activation": "running",
       "commit": "639c52dac220b461d286b86a6fdeb36cf89300a4",
       "pr_url": "https://github.com/100rd/Omniscience/pull/374",
-      "publication": "pr-open"
+      "publication": "merged",
+      "merged_revision": "3831fb7f581ac747a679513dd221231eb083581d"
     },
     {
       "id": "SP-104",
@@ -52,12 +56,14 @@
       "verification": "passed-control-work-and-prior-local-qualification",
       "evidence": [
         "docs/synchronized-platform/releases/management-local-observe-v1/qualification.json",
-        "docs/synchronized-platform/releases/management-local-observe-v1/control-work/verification.json"
+        "docs/synchronized-platform/releases/management-local-observe-v1/control-work/verification.json",
+        "docs/synchronized-platform/releases/management-local-observe-v1/merge-readiness/verification.json"
       ],
       "local_activation": "running",
       "commit": "1c6335656b348dbd9025aa82d0cb730b442604dd",
       "pr_url": "https://github.com/100rd/Barbarossa/pull/13",
-      "publication": "pr-open"
+      "publication": "merged",
+      "merged_revision": "c7f78d3ac37b6d0b933fee91292bf9c5c7ff1233"
     },
     {
       "id": "SP-105",
@@ -68,12 +74,14 @@
         "docs/synchronized-platform/releases/management-local-observe-v1/qualification.json",
         "docs/synchronized-platform/releases/management-local-observe-v1/default-journey/verification.json",
         "docs/synchronized-platform/releases/management-local-observe-v1/home-connections/verification.json",
-        "docs/synchronized-platform/releases/management-local-observe-v1/control-work/verification.json"
+        "docs/synchronized-platform/releases/management-local-observe-v1/control-work/verification.json",
+        "docs/synchronized-platform/releases/management-local-observe-v1/merge-readiness/verification.json"
       ],
       "local_activation": "running",
       "commit": "1389aae9112ba03696fb3bc99560e970887d3241",
       "pr_url": "https://github.com/100rd/platform-portal/pull/23",
-      "publication": "pr-open"
+      "publication": "merged",
+      "merged_revision": "adcddeb2338991f0780d7abb40a050c224efb392"
     },
     {
       "id": "SP-106",
@@ -84,12 +92,14 @@
         "docs/synchronized-platform/releases/management-local-observe-v1/qualification.json",
         "docs/synchronized-platform/releases/management-local-observe-v1/default-journey/verification.json",
         "docs/synchronized-platform/releases/management-local-observe-v1/home-connections/verification.json",
-        "docs/synchronized-platform/releases/management-local-observe-v1/control-work/verification.json"
+        "docs/synchronized-platform/releases/management-local-observe-v1/control-work/verification.json",
+        "docs/synchronized-platform/releases/management-local-observe-v1/merge-readiness/verification.json"
       ],
       "local_activation": "running",
       "commit": "d67ed1fe1ff92467f8916be97c43104e9150ef3f",
       "pr_url": "https://github.com/100rd/genai-enablement/pull/60",
-      "publication": "pr-open"
+      "publication": "merged",
+      "merged_revision": "4cbf5c0603869fdf24cb486ad76e32a608970d82"
     }
   ],
   "agent_runs": [
@@ -578,22 +588,92 @@
       "token_usage": null,
       "result": "Source refs, current 6/4/6 totals, browser evidence/skips, historical hashes, screenshots and final CI snapshot approved.",
       "evidence": "docs/synchronized-platform/releases/management-local-observe-v1/control-work/reviews.json"
+    },
+    {
+      "task": "merge-readiness Barbarossa audit and post-merge CI",
+      "model": "gpt-6.1-sol",
+      "state": "completed-reviewed",
+      "token_usage": null,
+      "token_estimate": 6000,
+      "elapsed_seconds_estimate": 240,
+      "retry_count": 0,
+      "measurement_note": "Initial audit estimate; CI wait is separate. Lead repeated readaccess/localobserve tests and verified exact merge/source tree equality.",
+      "evidence": "docs/synchronized-platform/releases/management-local-observe-v1/merge-readiness/verification.json"
+    },
+    {
+      "task": "merge-readiness Omniscience audit",
+      "model": "gpt-6-luna",
+      "state": "completed-reviewed",
+      "token_usage": null,
+      "token_estimate": 3400,
+      "elapsed_seconds_estimate": 240,
+      "retry_count": 1,
+      "measurement_note": "Interpreter lookup fallback. Lead corrected initial owner-only evidence scope; repeated 28 focused tests and closed the persistent seed replay proof separately.",
+      "evidence": "docs/synchronized-platform/releases/management-local-observe-v1/merge-readiness/verification.json"
+    },
+    {
+      "task": "merge-readiness Portal audit",
+      "model": "gpt-6-luna",
+      "state": "completed-reviewed",
+      "token_usage": null,
+      "token_estimate": null,
+      "elapsed_seconds_estimate": null,
+      "retry_count": 1,
+      "measurement_note": "Initial pytest wrong working directory corrected. Lead repeated 22 focused backend tests and four actual Chromium scenarios. Exact usage/timing unavailable.",
+      "evidence": "docs/synchronized-platform/releases/management-local-observe-v1/merge-readiness/verification.json"
+    },
+    {
+      "task": "Kubernetes handoff draft and correction",
+      "model": "gpt-6-luna",
+      "state": "completed-reviewed",
+      "token_usage": null,
+      "authored_token_estimate": 2600,
+      "elapsed_seconds_estimate": 660,
+      "retry_count": 1,
+      "root_diff_review": "Full draft reviewed; fixed tenant allowlist, actual source build, origin separation, observer DB authority, runner cutover and full acceptance lifecycle. No charts or source code edited.",
+      "evidence": "docs/synchronized-platform/releases/management-local-observe-v1/merge-readiness/verification.json"
+    },
+    {
+      "task": "Persistent Omniscience snapshot helper",
+      "model": "gpt-6-luna",
+      "state": "completed-reviewed",
+      "token_usage": null,
+      "token_estimate": null,
+      "elapsed_seconds_estimate": null,
+      "retry_count": 0,
+      "root_diff_review": "Private read-only helper inspected by lead before execution. Lead ran existing owner bootstrap and compared all three persistent stores; only hashes/counts published.",
+      "evidence": "docs/synchronized-platform/releases/management-local-observe-v1/merge-readiness/seed-verification.json"
+    },
+    {
+      "task": "Independent merge/handoff review",
+      "model": "gpt-6-luna",
+      "state": "completed-reviewed",
+      "token_usage": null,
+      "token_estimate": 3300,
+      "elapsed_seconds_estimate": 180,
+      "retry_count": 0,
+      "result": "No blocking accuracy, scope or credential leak issue. Main CI receipt awaited separately at review time.",
+      "evidence": "docs/synchronized-platform/releases/management-local-observe-v1/merge-readiness/reviews.json"
     }
   ],
   "evidence": "docs/synchronized-platform/releases/management-local-observe-v1/qualification.json",
   "source_snapshot": "docs/synchronized-platform/releases/management-local-observe-v1/source-snapshot.json",
   "component_deliveries": {
     "SP-86": {
-      "implementation": "completed-and-source-tested",
-      "release": "not-published; dirty source and OCI release gate remain",
+      "implementation": "merged-and-source-tested",
+      "release": "not-published; clean merged source available, OCI producer/publication qualification remains",
       "commit": "639c52dac220b461d286b86a6fdeb36cf89300a4",
-      "pr_url": "https://github.com/100rd/Omniscience/pull/374"
+      "pr_url": "https://github.com/100rd/Omniscience/pull/374",
+      "publication": "merged",
+      "merged_revision": "3831fb7f581ac747a679513dd221231eb083581d"
     },
     "SP-101": {
-      "implementation": "completed-in-isolated-worktree",
+      "implementation": "merged-and-source-tested",
       "verification": "real two-tenant MCP; natural landing graph, foreign-workspace refusal and owner outage passed",
       "commit": "1389aae9112ba03696fb3bc99560e970887d3241",
-      "pr_url": "https://github.com/100rd/platform-portal/pull/23"
+      "pr_url": "https://github.com/100rd/platform-portal/pull/23",
+      "publication": "merged",
+      "merged_revision": "adcddeb2338991f0780d7abb40a050c224efb392"
     }
   },
   "rework": [
@@ -633,7 +713,7 @@
     "native Linux bind-permission qualification"
   ],
   "publication": "portfolio/local-observe-publication.json",
-  "pull_requests": "open-in-all-four-repositories",
+  "pull_requests": "merged-in-all-four-repositories",
   "user_journey_correction": {
     "state": "verified-and-running",
     "portal_commit": "7526fb1c32a745617c2e0b8d3c1ebbb9ff33edc2",
@@ -654,5 +734,8 @@
     "accepted_assessments": 4,
     "queue_rows": 0,
     "runner": "online"
-  }
+  },
+  "kubernetes_activation": "pending-deployment-agent",
+  "merge_readiness_evidence": "docs/synchronized-platform/releases/management-local-observe-v1/merge-readiness/verification.json",
+  "kubernetes_handoff": "docs/runbooks/management-local-observe-kubernetes-handoff.md"
 }

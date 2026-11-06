@@ -1,0 +1,15 @@
+{
+  "as_of": "2026-11-06T20:56:46.278272+00:00",
+  "result": "passed",
+  "scope": "owner-only seed rerun against existing persistent local PostgreSQL, Neo4j and Qdrant",
+  "postgres": "2 workspaces, 2 sources, 5 documents and 5 chunks; stable IDs/content/versions",
+  "neo4j": "23 nodes including 9 EntityState, 16 relationships; semantic state/versions/temporal properties unchanged",
+  "qdrant": "7 points including vectors and payloads unchanged",
+  "neo4j_updated_at_changed": false,
+  "comparison": "All recorded full and semantic hashes and counts equal, including temporal fields. Neo4j updated_at did not change on this replay. No raw corpus or credentials in receipt.",
+  "before": "seed-before.json",
+  "after": "seed-after.json",
+  "no_coordinator_bootstrap": true,
+  "no_component_recreated": true,
+  "all_recorded_hashes_equal": true
+}

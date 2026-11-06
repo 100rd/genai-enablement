@@ -1,0 +1,43 @@
+{
+  "neo4j": {
+    "full_sha256": "4d20b905934fbacc715c3b3d6083366f6c79581cc9810bd3d0df7402d082777f",
+    "node_count": 23,
+    "node_label_counts": {
+      "DocumentCheckpoint": 3,
+      "Entity": 9,
+      "EntityState": 9,
+      "StoreCheckpoint": 2
+    },
+    "relationship_count": 16,
+    "relationship_type_counts": {
+      "DEPENDS_ON": 7,
+      "HAD_STATE": 9
+    },
+    "semantic_sha256_omit_updated_at_only": "d108ed395d84659f8a06563bdb65e34e6ab03ec9a01d0e3073bfcfcb7e7e5564",
+    "timestamp_sha256": "f5a5d6189053a4eb6a69d5aa1ce9fd82c2e781dea5432d239c0be965d9ec076d"
+  },
+  "postgres": {
+    "content_sha256": "924652455dc1e6a0acc641e7d9d5936e5cccf75f380cb004bc69daf5c94672ce",
+    "counts": {
+      "chunks": 5,
+      "documents": 5,
+      "sources": 2,
+      "workspaces": 2
+    },
+    "sha256": {
+      "chunks": "438e64687cb93724bb370e4a7ae931bec793a4af03a54755db255fe6b9ec5b96",
+      "documents": "8c4f8f73519968fbd09bf3f3d89511a84069ccbb45e3ede6a973cd042dfd97c7",
+      "sources": "1b0842a0818c5624bc7fa4d223c61a7d07cfb445a8d2a244ac474c521df21f7a",
+      "workspaces": "dd986f0873c2ade106c58e352fb7f4e5313ec056846e2104ef54c4ed62bb5b50"
+    }
+  },
+  "profile": "management-local-observe-v1",
+  "qdrant": {
+    "collection_count": 1,
+    "point_count": 7,
+    "semantic_sha256_omit_updated_at_only": "88f2a0b41b4556b7c04dee6379c92cd8d28a7df2e4328e233caee96f557e9c31",
+    "sha256": "88f2a0b41b4556b7c04dee6379c92cd8d28a7df2e4328e233caee96f557e9c31",
+    "timestamp_sha256": "90dced93b2c5f5fbdde6c8f08715cfb6c7ed796e7c094cc5a58747bd6d52bb8e"
+  },
+  "schema_version": 1
+}

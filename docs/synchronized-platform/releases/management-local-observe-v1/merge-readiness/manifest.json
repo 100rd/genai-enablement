@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "profile": "management-local-observe-v1",
+  "files": {
+    "README.md": "228d56210442c7699eb5756f7cd563e6790348e47d442f572a547934ce1e3037",
+    "browser.txt": "18231df3a327fde9782d1a47dfdc15290d5217d7db16f651a141e6e1e3f0a466",
+    "control-analysis.png": "a32762cf0887d29783782daf435d2e06f0a1f7af4532afd01015af6fad38af50",
+    "main-ci.json": "dae2057eca3c4f9d5acdbbe300647ad8cfde78ad3878697c20be0cccfa76b81a",
+    "merges.json": "64d8c16e0081ac0d93cf051063d05a37b48d24384fa5a5888df96beff1149b44",
+    "reviews.json": "c9a912b30321dd31681592766ba8f9706680aa9eae3b200dba02e585eba402aa",
+    "runtime-status.json": "95c611bf7f9fd60802c0d5ca1ec9f832562580b274b4383a00f247a888552697",
+    "security.json": "9ef729c626eb3fef76cd934f8beba3c068a4df58baf1294587c5ee57efbb9b86",
+    "seed-after.json": "1144e8c7c94f7fb3246730730eeeaed709434633e0858213491bd7deef052479",
+    "seed-before.json": "1144e8c7c94f7fb3246730730eeeaed709434633e0858213491bd7deef052479",
+    "seed-verification.json": "add95021f94242b88502996ec17a426c7023d2eab7db521cad92c3e752b6abbf",
+    "source-ci.json": "6bea0ee71b83f284d6aabb36638780a371a32952b44e62b0589d60a52db062d1",
+    "source-trees.json": "1122fda0ceb55d32fb7d90eaed78f1e5927e04599d137661bf9730fcacade826",
+    "verification.json": "ca2a97533dd7358bec3c6bc0526c77f8a5a361fa8711f9fdf5bd8967d60eb3c6"
+  }
+}

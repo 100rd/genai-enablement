@@ -1,0 +1,38 @@
+{
+  "components": [
+    {
+      "id": "omniscience",
+      "state": "healthy",
+      "last_observed_at": "2026-11-06T20:57:18.377809Z"
+    },
+    {
+      "id": "barbarossa",
+      "state": "healthy",
+      "last_observed_at": "2026-11-06T20:57:18.377809Z"
+    },
+    {
+      "id": "portal",
+      "state": "healthy",
+      "last_observed_at": "2026-11-06T20:57:18.377809Z"
+    }
+  ],
+  "runner": {
+    "state": "online",
+    "last_seen_at": "2026-11-06T20:57:37.744424Z",
+    "queue_pending": 0,
+    "active": 0,
+    "failed": 1,
+    "rate_limited_until": null,
+    "last_error": {
+      "reason": "invalid_result",
+      "at": "2026-11-06T15:03:20.663214Z",
+      "work_id": "work-d302bc7ceeaccdb472842fe818653a2050ee7013d24948569c94eb39c4d09769"
+    }
+  },
+  "durable_totals": {
+    "cases": 6,
+    "jobs": 6,
+    "assessments": 4,
+    "reservations": 6
+  }
+}

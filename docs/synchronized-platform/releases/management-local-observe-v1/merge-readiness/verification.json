@@ -1,0 +1,55 @@
+{
+  "schema_version": 1,
+  "profile": "management-local-observe-v1",
+  "as_of": "2026-11-06T21:12:49.037808+00:00",
+  "scope": "SP-86 source, SP-101, SP-102-SP-106 and Control follow-up; source readiness and merge handoff",
+  "implementation": "merged-to-main-in-all-four-repositories",
+  "kubernetes_activation": "pending-deployment-agent",
+  "published_oci_release": false,
+  "ha_qualified": false,
+  "merges": "merges.json",
+  "source_ci": "source-ci.json",
+  "main_ci": "main-ci.json",
+  "checks": {
+    "source_ci": "17/17 exact-source-head workflows passed; no unresolved GitHub review threads or changes-requested reviews. Independent implementation reviews remain in prior receipts.",
+    "merge_trees": "All four merge trees equal their tested source trees; source commits preserved as ancestors.",
+    "omniscience_audit": "107 focused owner/release tests passed; 11 local receipt tests passed, 1 live MCP env-only skip. Lead separately repeated 28 bootstrap/token-profile tests. Real MCP transport and isolation exercised by Chromium and earlier qualification.",
+    "barbarossa_audit": "Observer/store/readaccess/Codex runner package tests passed. Lead repeated readaccess/localobserve tests. Actual CLI opt-in fixture not repeated; prior real Codex and 10 disposable PostgreSQL tests remain in qualification/Control receipts.",
+    "portal_audit": "218 backend/KV tests passed, 1 environment-only skip; 10 focused frontend tests passed. Lead repeated 22 proxy tests; full frontend/backend regression and build/lint at exact SHA passed in GitHub CI.",
+    "browser": "4 passed, 2 outage-only skips; two fresh real tenant logins/graphs, foreign-workspace refusal, alpha Control available/beta denied, manual refresh, exact accepted job result and Observe backlink, connection refresh failure/recovery. Screenshot visually reviewed by lead.",
+    "identity": "11/11 actual signed-identity checks passed; details in security.json.",
+    "persistent_seed_replay": "Passed owner-only bootstrap replay on existing persistent PG/Neo4j/Qdrant. All recorded hashes and counts equal, including full graph temporal state and point vectors. No service recreated or Portal mapping rewritten.",
+    "coordinator": "Portfolio drift and synchronized workspace ADR/SPEC checks passed; 54 portfolio drift unit tests passed.",
+    "historical_evidence": "56 prior artifact hashes rechecked unchanged; no historical receipts repurposed as Kubernetes evidence.",
+    "runtime": "All three observed healthy, runner online; 6 cases/6 jobs/4 accepted assessments/6 durable reservations unchanged. No additional model calls during audit.",
+    "parent_preservation": "Parent control-plane status unchanged; original dirty SP-86/SP-101 checkouts untouched.",
+    "merge_ci": "17/17 exact-merge-head push workflows passed without retries; lead verified main Omniscience full pytest job completion and all tree/commit bindings."
+  },
+  "retries": [
+    {
+      "task": "Portal audit pytest",
+      "reason": "wrong working directory caused import-path collection failure; corrected cwd, 218 passed/1 skipped"
+    },
+    {
+      "task": "Omniscience audit interpreter",
+      "reason": "interpreter lookup fallback; final command passed"
+    },
+    {
+      "task": "lead persistent snapshot wrapper",
+      "reason": "container emitted non-JSON log lines; accepted exactly one profile/schema snapshot JSON, then all hash comparisons passed"
+    },
+    {
+      "task": "tracking registry check",
+      "reason": "SP-86 source status needed matching canonical-plan update; synchronized both"
+    }
+  ],
+  "limits": [
+    "Fresh browser run did not repeat the disruptive fault/DB-loss drills; separate original and corrective receipts remain authoritative for those local scenarios.",
+    "Local source deployment only; Kubernetes networking/storage/identity/port-forward acceptance, image architecture and Linux permissions still require deployment-owner evidence.",
+    "Single observer/shared-host provenance; no external availability or HA claim.",
+    "SP-89/SP-94, published OCI release, AWS, image scanning and execution remain separate gates."
+  ],
+  "handoff": "../../../../runbooks/management-local-observe-kubernetes-handoff.md",
+  "reviews": "reviews.json",
+  "result": "passed-source-merge-readiness"
+}

@@ -1355,11 +1355,13 @@
       "verification": "passed",
       "local_activation": "running",
       "qualification_evidence": "docs/synchronized-platform/releases/management-local-observe-v1/qualification.json",
-      "publication": "four-prs-open",
+      "publication": "four-prs-merged",
       "publication_tracking": "portfolio/local-observe-publication.json",
       "user_journey_evidence": "docs/synchronized-platform/releases/management-local-observe-v1/default-journey/verification.json",
       "home_connections_evidence": "docs/synchronized-platform/releases/management-local-observe-v1/home-connections/verification.json",
-      "control_work_evidence": "docs/synchronized-platform/releases/management-local-observe-v1/control-work/verification.json"
+      "control_work_evidence": "docs/synchronized-platform/releases/management-local-observe-v1/control-work/verification.json",
+      "merge_readiness_evidence": "docs/synchronized-platform/releases/management-local-observe-v1/merge-readiness/verification.json",
+      "kubernetes_activation": "pending-deployment-agent"
     }
   ],
   "work_packages": [
@@ -2398,7 +2400,7 @@
     {
       "id": "SP-86",
       "owner": "omniscience",
-      "status": "ready-for-development-input-release-gated",
+      "status": "source-implemented-publication-release-gated",
       "depends_on": [
         "SP-10",
         "SP-61",
@@ -2433,7 +2435,10 @@
           "kind": "task",
           "id": "task-sp-86-management-readonly-release"
         }
-      ]
+      ],
+      "implementation": "merged-source-tested",
+      "publication": "source-merged-oci-unpublished",
+      "merged_revision": "3831fb7f581ac747a679513dd221231eb083581d"
     },
     {
       "id": "SP-87",
@@ -3134,7 +3139,9 @@
       "evidence": "docs/synchronized-platform/releases/management-local-observe-v1/qualification.json",
       "implementation_commit": "d67ed1fe1ff92467f8916be97c43104e9150ef3f",
       "pull_request": "https://github.com/100rd/genai-enablement/pull/60",
-      "publication": "pr-open"
+      "publication": "merged",
+      "merged_revision": "4cbf5c0603869fdf24cb486ad76e32a608970d82",
+      "merge_readiness_evidence": "docs/synchronized-platform/releases/management-local-observe-v1/merge-readiness/verification.json"
     },
     {
       "id": "SP-103",
@@ -3159,7 +3166,9 @@
       "evidence": "docs/synchronized-platform/releases/management-local-observe-v1/qualification.json",
       "implementation_commit": "639c52dac220b461d286b86a6fdeb36cf89300a4",
       "pull_request": "https://github.com/100rd/Omniscience/pull/374",
-      "publication": "pr-open"
+      "publication": "merged",
+      "merged_revision": "3831fb7f581ac747a679513dd221231eb083581d",
+      "merge_readiness_evidence": "docs/synchronized-platform/releases/management-local-observe-v1/merge-readiness/verification.json"
     },
     {
       "id": "SP-104",
@@ -3184,8 +3193,10 @@
       "evidence": "docs/synchronized-platform/releases/management-local-observe-v1/qualification.json",
       "implementation_commit": "1c6335656b348dbd9025aa82d0cb730b442604dd",
       "pull_request": "https://github.com/100rd/Barbarossa/pull/13",
-      "publication": "pr-open",
-      "control_work_evidence": "docs/synchronized-platform/releases/management-local-observe-v1/control-work/verification.json"
+      "publication": "merged",
+      "control_work_evidence": "docs/synchronized-platform/releases/management-local-observe-v1/control-work/verification.json",
+      "merged_revision": "c7f78d3ac37b6d0b933fee91292bf9c5c7ff1233",
+      "merge_readiness_evidence": "docs/synchronized-platform/releases/management-local-observe-v1/merge-readiness/verification.json"
     },
     {
       "id": "SP-105",
@@ -3211,10 +3222,12 @@
       "evidence": "docs/synchronized-platform/releases/management-local-observe-v1/qualification.json",
       "implementation_commit": "1389aae9112ba03696fb3bc99560e970887d3241",
       "pull_request": "https://github.com/100rd/platform-portal/pull/23",
-      "publication": "pr-open",
+      "publication": "merged",
       "user_journey_evidence": "docs/synchronized-platform/releases/management-local-observe-v1/default-journey/verification.json",
       "home_connections_evidence": "docs/synchronized-platform/releases/management-local-observe-v1/home-connections/verification.json",
-      "control_work_evidence": "docs/synchronized-platform/releases/management-local-observe-v1/control-work/verification.json"
+      "control_work_evidence": "docs/synchronized-platform/releases/management-local-observe-v1/control-work/verification.json",
+      "merged_revision": "adcddeb2338991f0780d7abb40a050c224efb392",
+      "merge_readiness_evidence": "docs/synchronized-platform/releases/management-local-observe-v1/merge-readiness/verification.json"
     },
     {
       "id": "SP-106",
@@ -3241,10 +3254,12 @@
       "evidence": "docs/synchronized-platform/releases/management-local-observe-v1/qualification.json",
       "implementation_commit": "d67ed1fe1ff92467f8916be97c43104e9150ef3f",
       "pull_request": "https://github.com/100rd/genai-enablement/pull/60",
-      "publication": "pr-open",
+      "publication": "merged",
       "user_journey_evidence": "docs/synchronized-platform/releases/management-local-observe-v1/default-journey/verification.json",
       "home_connections_evidence": "docs/synchronized-platform/releases/management-local-observe-v1/home-connections/verification.json",
-      "control_work_evidence": "docs/synchronized-platform/releases/management-local-observe-v1/control-work/verification.json"
+      "control_work_evidence": "docs/synchronized-platform/releases/management-local-observe-v1/control-work/verification.json",
+      "merged_revision": "4cbf5c0603869fdf24cb486ad76e32a608970d82",
+      "merge_readiness_evidence": "docs/synchronized-platform/releases/management-local-observe-v1/merge-readiness/verification.json"
     }
   ],
   "execution_tracking": "portfolio/local-observe-progress.json",
