@@ -102,6 +102,16 @@ structurally excluded; SP-98 validates startup, real-owner reads, tenant/PW0/no-
 severance, persistence, resource bounds and reset separation. The order is
 `SP-95 || SP-96 -> SP-97 -> SP-98`.
 
+## Local observation activation
+
+The user-approved [`management-local-observe-v1`](profiles/management-local-observe-v1.md) profile
+adds live local Reliability and Security observations plus a bounded host Codex runner.
+[Execution progress](../../portfolio/local-observe-progress.json) distinguishes implementation,
+verification and local activation. SP-99 and SP-100 are merged; SP-101 is locally implemented and verified.
+Published component commits and PRs are recorded in [delivery progress](../../portfolio/local-observe-publication.json).
+The [source qualification](releases/management-local-observe-v1/README.md) passed all three component
+fault/recovery drills, real Codex analysis, tenant isolation, browser reads and full restart persistence.
+
 ## Component ownership
 
 | Component | Owns | Does not own | Local plan |
@@ -221,10 +231,15 @@ Statuses below are decision states, not implementation states.
 | [ADR-0022](../decisions/0022-barbarossa-go-production-runtime.md) | Accepted | Go-only Barbarossa production runtime, TypeScript conformance-oracle boundary and SP-90 migration gate |
 | [ADR-0023](../decisions/0023-barbarossa-full-go-distributed-ha-runtime.md) | Accepted | full-Go closure, fenced JetStream work, Barbarossa HA, Portal observability and integrated qualification |
 | [ADR-0024](../decisions/0024-management-readonly-local-compose-profile.md) | Accepted | owner-fragment Compose, real local owner wiring, selected-owner mock exclusion and functional-smoke/HA separation |
+| [ADR-0025](../decisions/0025-management-local-observe-v1.md) | Accepted | Local observe profile, owner identity and bounded advisory Codex execution |
 
 ## Component SPEC inventory
 
 ### `genai-enablement`
+
+Local observation task: `task-sp-106-local-observe-qualification` (ADR-0025).
+
+Local observation task: `task-sp-102-local-observe-contract` (ADR-0025).
 
 The Autonomous SRE catalog remains a separate, non-authorizing construction track. The same local
 [SPEC index](../specs/README.md) now also owns the ready PII policy contract and governance handoffs.
@@ -252,6 +267,8 @@ provider, credential, production deployment, remediation, PII activation, manage
 production claim.
 
 ### `Barbarossa`
+
+Local observation task: `task-sp-104-local-observe-runtime` (ADR-0025).
 
 The authoritative [local capability index](../../../Barbarossa/specs/SPEC-INDEX.md) contains 29
 independently claimable planning-complete contracts:
@@ -342,6 +359,8 @@ acceptance/rollback contract.
 
 ### `Omniscience`
 
+Local observation task: `task-sp-103-local-observe-knowledge` (ADR-0025).
+
 All nine capability contracts are `ready` under the component-local decisions; PII and management
 context readiness is limited to their exact task slices:
 
@@ -388,6 +407,8 @@ It is not production/deployment/destructive authority.
 > work-package boundary in this plan.
 
 ### `platform-portal`
+
+Local observation task: `task-sp-105-local-observe-portal` (ADR-0025).
 
 The [local capability index](https://github.com/100rd/platform-portal/blob/main/specs/SPEC-INDEX.md)
 contains eleven capability contracts:
@@ -478,6 +499,11 @@ registry. External and human inputs remain prose in `Current gate` and are not f
 | `SP-96` Barbarossa local owner runtime | `barbarossa` | ADR-0018, ADR-0020, ADR-0022, ADR-0023, ADR-0024 | selected kernel/work/read capabilities + `task-sp-96-management-readonly-local-runtime` | `SP-90`, `SP-91`, `SP-92` | `ready-for-development-owner-local-gated` | Go API/worker images, R1 JetStream/single PostgreSQL, real owner projection and explicit non-HA semantics |
 | `SP-97` Portal local real-owner runtime | `platform-portal` | ADR-0007, ADR-0018, ADR-0021, ADR-0023, ADR-0024 | selected Portal read capabilities + `task-sp-97-management-readonly-local-portal` | `SP-88`, `SP-93`, `SP-95`, `SP-96` | `ready-for-development-local-owner-release-gated` | selected-route Portal fragment, real owner reads, structural selected-owner mock exclusion and truthful single-host UX |
 | `SP-98` integrated local qualification | `genai-enablement` | ADR-0012, ADR-0018, ADR-0021, ADR-0022, ADR-0023, ADR-0024 | `task-sp-98-management-readonly-local-qualification` | `SP-95`, `SP-96`, `SP-97` | `ready-for-development-local-receipt-gated` | compose exact owner fragments and qualify functional startup, tenancy/PW0, no effects, severance, persistence and resource envelope |
+| `SP-102` local-observe-contract | `genai-enablement` | ADR-0025 | `task-sp-102-local-observe-contract` | — | `implemented-and-locally-verified` | local source qualification passed; see SP-106 evidence |
+| `SP-103` local-observe-knowledge | `omniscience` | ADR-0025 | `task-sp-103-local-observe-knowledge` | `SP-102` | `implemented-and-locally-verified` | local source qualification passed; see SP-106 evidence |
+| `SP-104` local-observe-runtime | `barbarossa` | ADR-0025 | `task-sp-104-local-observe-runtime` | `SP-102` | `implemented-and-locally-verified` | local source qualification passed; see SP-106 evidence |
+| `SP-105` local-observe-portal | `platform-portal` | ADR-0025 | `task-sp-105-local-observe-portal` | `SP-103`, `SP-104` | `implemented-and-locally-verified` | local source qualification passed; see SP-106 evidence |
+| `SP-106` local-observe-qualification | `genai-enablement` | ADR-0025 | `task-sp-106-local-observe-qualification` | `SP-103`, `SP-104`, `SP-105` | `implemented-and-locally-verified` | local source qualification passed; see SP-106 evidence |
 
 `SP-10`, `SP-11`, and `SP-12` deliberately remain three tasks. No producer task may edit the consumer,
 and no consumer receipt may rewrite the producer contract.

@@ -1,0 +1,222 @@
+{
+  "state_unchanged": true,
+  "credential_files_unchanged": [
+    "credentials.json",
+    "portal-private.pem",
+    "portal-public.pem",
+    "runner.token",
+    "probe.token",
+    "realm.json"
+  ],
+  "volume_creation_times_unchanged": {
+    "management-local-observe-v1-barbarossa-observe-data": "2026-11-06T13:58:39Z",
+    "management-local-observe-v1-omniscience-natsdata": "2026-11-06T13:58:39Z",
+    "management-local-observe-v1-omniscience-neo4jdata": "2026-11-06T13:58:39Z",
+    "management-local-observe-v1-omniscience-neo4jlogs": "2026-11-06T13:58:39Z",
+    "management-local-observe-v1-omniscience-pgdata": "2026-11-06T13:58:39Z",
+    "management-local-observe-v1-omniscience-qdrantdata": "2026-11-06T13:58:39Z",
+    "management-local-observe-v1-portal-keycloak-data": "2026-11-06T15:11:00Z",
+    "management-local-observe-v1-portal-pgdata": "2026-11-06T13:58:39Z",
+    "management-local-observe-v1-state-binding": "2026-11-06T15:09:31Z"
+  },
+  "ledger": {
+    "cases": [
+      "case-29357c89381f46f4f55cf9be64910538989818b099b99523460f4ff8f605de6b",
+      "case-4c7bde6efd669de08d8bb93ad68a260bcdd09b611032e7602013f249d495bbc8",
+      "case-63f3a808540611a83a04032d5c35a061304e5cd2981ae2d389feabed07c15024",
+      "case-6f483d45c2047d3e64224df05b7b143eb6c598af5b1235eedba542574eec4df3",
+      "case-f4bda5c69dbeea87c1c93179cbd160b7522f8e6afc10a8538f75803383c4b080"
+    ],
+    "assessments": [
+      {
+        "id": "assessment-7ae7042a8ca6c5ab60406b2558d6e5c340d43dbe1cd3c832485b60e163227b38",
+        "work_id": "work-62da84c0b40123bac0a42784aec207bae79b4fd7f4a93a173dcc9e4686766dba",
+        "assessment": {
+          "work_id": "work-62da84c0b40123bac0a42784aec207bae79b4fd7f4a93a173dcc9e4686766dba",
+          "integrity": {
+            "algo": "sha256",
+            "digest": "cb7250c67f1c06dbf716c2cc6ced8fcb0675c251f2547b52827f625853cff468",
+            "signer": "mock-unsigned"
+          },
+          "proposals": [
+            "Compare contemporaneous Omniscience, Barbarossa, and Portal backend readiness results and timestamps."
+          ],
+          "created_at": "2026-11-06T15:22:46.554112Z",
+          "expires_at": "2026-11-07T15:22:46.554112Z",
+          "hypotheses": [
+            "Portal backend readiness probe failed twice about 30 seconds apart, consistent with the runbook’s case-opening threshold.",
+            "The shared-host synthetic vantage cannot distinguish a Portal fault from a host or dependency issue."
+          ],
+          "input_refs": [
+            {
+              "ref_id": "obs-portal-59799284",
+              "revision": "sha256:95dd8f9dc1a3773d526c5d3ef6bc367969b5128982c4fdb8c04e6f1dce49b749"
+            },
+            {
+              "ref_id": "obs-portal-59799285",
+              "revision": "sha256:a18a08ad7a47b873912aafdf55aee23808e6db8d9c0aa48e303517e106afa246"
+            },
+            {
+              "ref_id": "knowledge-fba8f71b928cab27e5dc852ccdab5e95a858b7acc0237829a723ac8dddf79452",
+              "revision": "sha256:f8dec065e6d61990a7cdbbbab2001d68462b0c7ad137f40494ab04d6f1fec650"
+            }
+          ],
+          "facts_cited": [
+            "obs-portal-59799284",
+            "obs-portal-59799285"
+          ],
+          "lease_epoch": 1,
+          "uncertainty": "The supplied topology is historical (observed at 14:55Z), so current dependencies and topology are uncertain; these observations do not establish external availability or HA.",
+          "alternatives": [],
+          "agent_profile": "management-local-observe-v1",
+          "assessment_id": "assessment-7ae7042a8ca6c5ab60406b2558d6e5c340d43dbe1cd3c832485b60e163227b38",
+          "authoritative": false,
+          "model_revision": "sha256:fed2ebeede06f15f5d1109f42278fa81c14cc54a5e9feee4be8f9267d7231bdb"
+        }
+      },
+      {
+        "id": "assessment-c1288b4d98248ea6d7fb602a0b9af140599e117bc8b55b79e80bde2d3e234246",
+        "work_id": "work-87350549bad6615686f9b97f58bf9f8b8a85fae647a686e133e9b12ad6e34867",
+        "assessment": {
+          "work_id": "work-87350549bad6615686f9b97f58bf9f8b8a85fae647a686e133e9b12ad6e34867",
+          "integrity": {
+            "algo": "sha256",
+            "digest": "d4ba32ea5ebe014f4e0783129a76c38980315f808c88b59442b2cd9b36620496",
+            "signer": "mock-unsigned"
+          },
+          "proposals": [],
+          "created_at": "2026-11-06T15:28:22.893208Z",
+          "expires_at": "2026-11-07T15:28:22.893208Z",
+          "hypotheses": [
+            "Two consecutive synthetic probes reported Barbarossa unreachable, consistent with the runbook's case-opening threshold.",
+            "Because both probes share the host failure domain with Barbarossa, they cannot establish external availability or high availability."
+          ],
+          "input_refs": [
+            {
+              "ref_id": "obs-barbarossa-59799295",
+              "revision": "sha256:caf7fc39fb5f5b94c48de94c97e4ac424268a9159e03cbb84f3a1d5f1703058c"
+            },
+            {
+              "ref_id": "obs-barbarossa-59799296",
+              "revision": "sha256:ca43f3daf5b72284fe2836d0e4c872942bb60b32ea83dce23a9d482c0b1394fd"
+            },
+            {
+              "ref_id": "knowledge-fba8f71b928cab27e5dc852ccdab5e95a858b7acc0237829a723ac8dddf79452",
+              "revision": "sha256:f8dec065e6d61990a7cdbbbab2001d68462b0c7ad137f40494ab04d6f1fec650"
+            }
+          ],
+          "facts_cited": [
+            "obs-barbarossa-59799295",
+            "obs-barbarossa-59799296"
+          ],
+          "lease_epoch": 1,
+          "uncertainty": "The observations are from 15:27–15:28 UTC; the supplied topology snapshot is historical (14:55 UTC), so it does not establish current topology or cause.",
+          "alternatives": [],
+          "agent_profile": "management-local-observe-v1",
+          "assessment_id": "assessment-c1288b4d98248ea6d7fb602a0b9af140599e117bc8b55b79e80bde2d3e234246",
+          "authoritative": false,
+          "model_revision": "sha256:fed2ebeede06f15f5d1109f42278fa81c14cc54a5e9feee4be8f9267d7231bdb"
+        }
+      },
+      {
+        "id": "assessment-c4e3b3d7b0c9c44924b55b8b9260637ca13e7a834f903e46565bf675f3049e35",
+        "work_id": "work-8698d3cae4e1afdb353348260029b29278ed7e60748a84fbaf3e458fcc792a02",
+        "assessment": {
+          "work_id": "work-8698d3cae4e1afdb353348260029b29278ed7e60748a84fbaf3e458fcc792a02",
+          "integrity": {
+            "algo": "sha256",
+            "digest": "06788de9cf547a4758a40e8a7883339a5209f0b841fe3f9dc459810bf1c941f5",
+            "signer": "mock-unsigned"
+          },
+          "proposals": [
+            "Compare dependency readiness and recorded timestamps around the failures."
+          ],
+          "created_at": "2026-11-06T15:18:48.770907Z",
+          "expires_at": "2026-11-07T15:18:48.770907Z",
+          "hypotheses": [
+            "Omniscience was unreachable from the synthetic local observer on two probes 30 seconds apart; this indicates a local readiness issue but does not identify its cause."
+          ],
+          "input_refs": [
+            {
+              "ref_id": "obs-omniscience-59799276",
+              "revision": "sha256:8783d1d5c6bccb6a002017b764cd4bd1160b8ca98733551304c5e7a171c4eead"
+            },
+            {
+              "ref_id": "obs-omniscience-59799277",
+              "revision": "sha256:0e3f09627ec764909bf1967417527e19c511788c3be604f7bbd81a1e1547a936"
+            },
+            {
+              "ref_id": "knowledge-fba8f71b928cab27e5dc852ccdab5e95a858b7acc0237829a723ac8dddf79452",
+              "revision": "sha256:f8dec065e6d61990a7cdbbbab2001d68462b0c7ad137f40494ab04d6f1fec650"
+            }
+          ],
+          "facts_cited": [
+            "obs-omniscience-59799276",
+            "obs-omniscience-59799277"
+          ],
+          "lease_epoch": 1,
+          "uncertainty": "The probes share a host and failure domain with Omniscience, so they cannot establish external availability or high availability. The supplied topology snapshot is historical (14:55 UTC).",
+          "alternatives": [],
+          "agent_profile": "management-local-observe-v1",
+          "assessment_id": "assessment-c4e3b3d7b0c9c44924b55b8b9260637ca13e7a834f903e46565bf675f3049e35",
+          "authoritative": false,
+          "model_revision": "sha256:fed2ebeede06f15f5d1109f42278fa81c14cc54a5e9feee4be8f9267d7231bdb"
+        }
+      }
+    ],
+    "reservations": [
+      {
+        "work_id": "work-62da84c0b40123bac0a42784aec207bae79b4fd7f4a93a173dcc9e4686766dba",
+        "lease_epoch": 1,
+        "reserved_at": "2026-11-06T15:22:39.839467+00:00"
+      },
+      {
+        "work_id": "work-8698d3cae4e1afdb353348260029b29278ed7e60748a84fbaf3e458fcc792a02",
+        "lease_epoch": 1,
+        "reserved_at": "2026-11-06T15:18:40.593724+00:00"
+      },
+      {
+        "work_id": "work-87350549bad6615686f9b97f58bf9f8b8a85fae647a686e133e9b12ad6e34867",
+        "lease_epoch": 1,
+        "reserved_at": "2026-11-06T15:28:17.889528+00:00"
+      },
+      {
+        "work_id": "work-d302bc7ceeaccdb472842fe818653a2050ee7013d24948569c94eb39c4d09769",
+        "lease_epoch": 1,
+        "reserved_at": "2026-11-06T15:03:00.357269+00:00"
+      },
+      {
+        "work_id": "work-d302bc7ceeaccdb472842fe818653a2050ee7013d24948569c94eb39c4d09769",
+        "lease_epoch": 2,
+        "reserved_at": "2026-11-06T15:03:11.622631+00:00"
+      }
+    ],
+    "jobs": [
+      {
+        "id": "work-62da84c0b40123bac0a42784aec207bae79b4fd7f4a93a173dcc9e4686766dba",
+        "status": "completed",
+        "lease_epoch": 1
+      },
+      {
+        "id": "work-655f28bebfcf5afab87d973ceaabfe916b970089cc450448d4dd88e24b82f957",
+        "status": "cancelled",
+        "lease_epoch": 0
+      },
+      {
+        "id": "work-8698d3cae4e1afdb353348260029b29278ed7e60748a84fbaf3e458fcc792a02",
+        "status": "completed",
+        "lease_epoch": 1
+      },
+      {
+        "id": "work-87350549bad6615686f9b97f58bf9f8b8a85fae647a686e133e9b12ad6e34867",
+        "status": "completed",
+        "lease_epoch": 1
+      },
+      {
+        "id": "work-d302bc7ceeaccdb472842fe818653a2050ee7013d24948569c94eb39c4d09769",
+        "status": "failed",
+        "lease_epoch": 2
+      }
+    ]
+  }
+}

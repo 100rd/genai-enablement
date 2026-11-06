@@ -246,7 +246,7 @@ class AcSp70_2_OwnerAuthorityAndSeveranceTests(unittest.TestCase):
             owner = entry["owner"]
             component = _registry_component(self.registry, owner)
             owner_directory = component["directory"]
-            owner_root = WORKSPACE_ROOT / owner_directory
+            owner_root = checker._component_roots(WORKSPACE_ROOT)[owner]
             if not owner_root.is_dir():
                 continue
             for contract in entry["contracts"]:

@@ -1,0 +1,93 @@
+{
+  "schema_version": 1,
+  "case": {
+    "id": "case-63f3a808540611a83a04032d5c35a061304e5cd2981ae2d389feabed07c15024",
+    "domain": "reliability",
+    "component": "omniscience",
+    "status": "open",
+    "reason": "probe_unreachable",
+    "opened_at": "2026-11-06T15:18:39.468402Z",
+    "updated_at": "2026-11-06T15:18:39.468402Z"
+  },
+  "observations": [
+    {
+      "id": "obs-omniscience-59799276",
+      "component": "omniscience",
+      "state": "unhealthy",
+      "reason": "probe_unreachable",
+      "observed_at": "2026-11-06T15:18:09.466277Z",
+      "vantage": {
+        "source_id": "local-observer",
+        "vantage": "synthetic",
+        "failure_domain": "shared-host",
+        "shared_fate_with_subject": true
+      }
+    },
+    {
+      "id": "obs-omniscience-59799277",
+      "component": "omniscience",
+      "state": "unhealthy",
+      "reason": "probe_unreachable",
+      "observed_at": "2026-11-06T15:18:39.468402Z",
+      "vantage": {
+        "source_id": "local-observer",
+        "vantage": "synthetic",
+        "failure_domain": "shared-host",
+        "shared_fate_with_subject": true
+      }
+    }
+  ],
+  "assessments": [
+    {
+      "assessment_id": "assessment-c4e3b3d7b0c9c44924b55b8b9260637ca13e7a834f903e46565bf675f3049e35",
+      "work_id": "work-8698d3cae4e1afdb353348260029b29278ed7e60748a84fbaf3e458fcc792a02",
+      "lease_epoch": 1,
+      "agent_profile": "management-local-observe-v1",
+      "model_revision": "sha256:fed2ebeede06f15f5d1109f42278fa81c14cc54a5e9feee4be8f9267d7231bdb",
+      "input_refs": [
+        {
+          "ref_id": "obs-omniscience-59799276",
+          "revision": "sha256:8783d1d5c6bccb6a002017b764cd4bd1160b8ca98733551304c5e7a171c4eead"
+        },
+        {
+          "ref_id": "obs-omniscience-59799277",
+          "revision": "sha256:0e3f09627ec764909bf1967417527e19c511788c3be604f7bbd81a1e1547a936"
+        },
+        {
+          "ref_id": "knowledge-fba8f71b928cab27e5dc852ccdab5e95a858b7acc0237829a723ac8dddf79452",
+          "revision": "sha256:f8dec065e6d61990a7cdbbbab2001d68462b0c7ad137f40494ab04d6f1fec650"
+        }
+      ],
+      "facts_cited": [
+        "obs-omniscience-59799276",
+        "obs-omniscience-59799277"
+      ],
+      "hypotheses": [
+        "Omniscience was unreachable from the synthetic local observer on two probes 30 seconds apart; this indicates a local readiness issue but does not identify its cause."
+      ],
+      "alternatives": [],
+      "uncertainty": "The probes share a host and failure domain with Omniscience, so they cannot establish external availability or high availability. The supplied topology snapshot is historical (14:55 UTC).",
+      "proposals": [
+        "Compare dependency readiness and recorded timestamps around the failures."
+      ],
+      "created_at": "2026-11-06T15:18:48.770907Z",
+      "expires_at": "2026-11-07T15:18:48.770907Z",
+      "authoritative": false,
+      "integrity": {
+        "algo": "sha256",
+        "digest": "06788de9cf547a4758a40e8a7883339a5209f0b841fe3f9dc459810bf1c941f5",
+        "signer": "mock-unsigned"
+      }
+    }
+  ],
+  "context": [
+    {
+      "id": "knowledge-fba8f71b928cab27e5dc852ccdab5e95a858b7acc0237829a723ac8dddf79452",
+      "revision": "sha256:f8dec065e6d61990a7cdbbbab2001d68462b0c7ad137f40494ab04d6f1fec650",
+      "observed_at": "2026-11-06T14:55:21Z",
+      "source": "omniscience",
+      "workspace_id": "a34f0802-8321-5c7c-8a6b-dea95391faf5",
+      "content": "Local platform observation runbook. This prepared, synthetic topology describes the management-local-observe-v1 deployment on one host. Portal reads knowledge from Omniscience and observations from Barbarossa. Barbarossa's observer probes Omniscience readiness, its own API readiness and Portal backend readiness every 30 seconds. Two failures open a case; two successes resolve it. Missing evidence over 90 seconds is unknown or stale. One host shares a failure domain: these probes cannot establish external availability or HA. Check dependency readiness and recorded timestamps before proposing a cause. Codex assessments are non-authoritative text and must never execute remediation."
+    }
+  ]
+}

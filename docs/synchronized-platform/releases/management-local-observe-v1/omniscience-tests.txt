@@ -1,0 +1,9 @@
+........................................................................ [ 83%]
+..............                                                           [100%]
+=============================== warnings summary ===============================
+packages/connectors/src/omniscience_connectors/agentic/__init__.py:30
+  /Users/lo/Develop/multi-team-agentic/project/Omniscience/.worktrees/local-observe-v1/packages/connectors/src/omniscience_connectors/agentic/__init__.py:30: DeprecationWarning: K8sAgenticConnector is deprecated as of Omniscience v0.3 and will be removed in v0.5.0.  Migrate to omniscience-operator (the in-cluster Go operator at operator/ of this repo).  Migration guide: https://github.com/100rd/Omniscience/blob/main/docs/connectors/k8s-agentic-deprecation.md
+    from omniscience_connectors.agentic.k8s import K8sAgenticConfig, K8sAgenticConnector
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+86 passed, 1 warning in 4.26s

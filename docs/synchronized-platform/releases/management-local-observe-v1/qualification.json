@@ -1,0 +1,73 @@
+{
+  "schema_version": 1,
+  "profile": "management-local-observe-v1",
+  "qualified_at": "2026-11-06T15:45:39.567660+00:00",
+  "implementation": "complete-in-isolated-worktrees",
+  "verification": "passed-local-source-qualification",
+  "local_activation": "running",
+  "production_activation": false,
+  "ha_qualified": false,
+  "published_release": false,
+  "host": {
+    "system": "Darwin",
+    "machine": "arm64",
+    "docker_context": "desktop-linux"
+  },
+  "source_snapshot": "source-snapshot.json",
+  "images": {
+    "omniscience-local/omniscience-server:observe-source": "sha256:8fd688d903a633d37003606f6d372bed5ea9cfc6dc56165879ffe71467520056",
+    "omniscience-local/omniscience-admin:observe-source": "sha256:0e135259837e235a8529b9ca7c728d8f47da71320db25a6a20e036bee6809ae5",
+    "barbarossa-observe:observe-source": "sha256:870e63d7225613b4b71db3ea2ffb6b4daa80e746cf10a971d7d48daeadffc21b",
+    "platform-portal-backend:observe-source": "sha256:5d30fc925ba24aa61d7410cb815837d11470007e05be5278fd3e8634940cae10",
+    "platform-portal-frontend:observe-source": "sha256:f3c3d017c2a3eb1384fa9b79f7d2e70a420e3eb25e88ab7a66103763040283f1"
+  },
+  "model": "gpt-6-luna",
+  "codex_cli": "0.159.2",
+  "model_calls": {
+    "reserved": 5,
+    "accepted": 3,
+    "rejected": 2,
+    "historical_failed_jobs": 1,
+    "duplicate_accepted_results": 0,
+    "measured_tokens": null,
+    "note": "CLI/collaboration token billing is not exposed by this evidence. Two early invalid responses were rejected before tightening the per-job schema; each subsequent component fault succeeded on its first attempt."
+  },
+  "checks": {
+    "two_tenant_real_mcp_and_browser": "pass",
+    "signed_identity_negative_matrix": "11/11 pass",
+    "omniscience_failure_analysis_recovery": "pass",
+    "portal_failure_analysis_recovery": "pass",
+    "barbarossa_failure_analysis_recovery": "pass",
+    "timestamp_only_deduplication": "pass",
+    "observer_and_runner_stale": "pass",
+    "database_unavailable_browser": "pass",
+    "full_stop_start_persistence": "pass",
+    "zero_tool_actual_codex_loopback_fixture": "pass",
+    "advisory_text_only": "pass",
+    "independent_go_python_typescript_sql_security_reviews": "pass",
+    "legacy_source_contract_regression": "pass",
+    "legacy_profile_live_requalification": "not-claimed; prior receipts retained"
+  },
+  "limits": {
+    "observer_seconds": 30,
+    "timeout_seconds": 3,
+    "stale_seconds": 90,
+    "success_failure_threshold": 2,
+    "max_parallel_model_calls": 1,
+    "max_calls_per_hour": 6,
+    "attempt_seconds": 120,
+    "max_attempts": 2
+  },
+  "deferred": [
+    "SP-89",
+    "SP-94",
+    "published OCI release",
+    "AWS",
+    "execution of recommendations",
+    "image vulnerability scanning",
+    "HA/external availability",
+    "native Linux bind-permission qualification"
+  ],
+  "source_snapshot_sha256": "91665f8da0c6289a4214af8bd5b08547db1fa0b844fad3f610e881fe13f34c08",
+  "evidence_manifest": "evidence-manifest.json"
+}

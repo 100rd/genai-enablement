@@ -1,0 +1,16 @@
+=== RUN   TestPostgresCaseHistoryPagination
+--- PASS: TestPostgresCaseHistoryPagination (0.21s)
+=== RUN   TestPostgresAnalysisContextRemainsPinned
+--- PASS: TestPostgresAnalysisContextRemainsPinned (0.21s)
+=== RUN   TestPostgresUnconfirmedEvidenceDoesNotCreateAnalysis
+--- PASS: TestPostgresUnconfirmedEvidenceDoesNotCreateAnalysis (0.13s)
+=== RUN   TestPostgresRejectsMismatchedContextIdentity
+--- PASS: TestPostgresRejectsMismatchedContextIdentity (0.13s)
+=== RUN   TestPostgresCaseLifecycle
+--- PASS: TestPostgresCaseLifecycle (0.18s)
+=== RUN   TestPostgresExclusiveLeaseAndDurableLimits
+--- PASS: TestPostgresExclusiveLeaseAndDurableLimits (0.26s)
+=== RUN   TestPostgresStaleAndUnknownEvidence
+--- PASS: TestPostgresStaleAndUnknownEvidence (0.10s)
+PASS
+ok  	github.com/100rd/Barbarossa/cmd/barbarossa-observe	2.712s

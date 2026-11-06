@@ -1,0 +1,11 @@
+{
+  "id": "case-f4bda5c69dbeea87c1c93179cbd160b7522f8e6afc10a8538f75803383c4b080",
+  "domain": "reliability",
+  "component": "barbarossa",
+  "status": "open",
+  "reason": "probe_unreachable",
+  "fingerprint": "b4cbbef858aabd69fba32d70097a2e9a2444046164c6439d16d65b58cd1673e5",
+  "revision": 1,
+  "opened_at": "2026-11-06T15:28:12.877719+00:00",
+  "updated_at": "2026-11-06T15:28:12.877719+00:00"
+}

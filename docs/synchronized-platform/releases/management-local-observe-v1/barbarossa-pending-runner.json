@@ -1,0 +1,113 @@
+{
+  "schema_version": 1,
+  "profile": "management-local-observe-v1",
+  "observed_at": "2026-11-06T15:28:16.702095Z",
+  "components": [
+    {
+      "id": "omniscience",
+      "state": "healthy",
+      "reason": "probe_ok",
+      "last_observed_at": "2026-11-06T15:28:12.877719Z",
+      "vantage": {
+        "source_id": "local-observer",
+        "vantage": "synthetic",
+        "failure_domain": "shared-host",
+        "shared_fate_with_subject": true
+      }
+    },
+    {
+      "id": "barbarossa",
+      "state": "unhealthy",
+      "reason": "probe_unreachable",
+      "last_observed_at": "2026-11-06T15:28:12.877719Z",
+      "vantage": {
+        "source_id": "local-observer",
+        "vantage": "synthetic",
+        "failure_domain": "shared-host",
+        "shared_fate_with_subject": true
+      }
+    },
+    {
+      "id": "portal",
+      "state": "healthy",
+      "reason": "probe_ok",
+      "last_observed_at": "2026-11-06T15:28:12.877719Z",
+      "vantage": {
+        "source_id": "local-observer",
+        "vantage": "synthetic",
+        "failure_domain": "shared-host",
+        "shared_fate_with_subject": true
+      }
+    }
+  ],
+  "cases": [
+    {
+      "id": "case-f4bda5c69dbeea87c1c93179cbd160b7522f8e6afc10a8538f75803383c4b080",
+      "domain": "reliability",
+      "component": "barbarossa",
+      "status": "open",
+      "reason": "probe_unreachable",
+      "opened_at": "2026-11-06T15:28:12.877719Z",
+      "updated_at": "2026-11-06T15:28:12.877719Z"
+    },
+    {
+      "id": "case-29357c89381f46f4f55cf9be64910538989818b099b99523460f4ff8f605de6b",
+      "domain": "reliability",
+      "component": "portal",
+      "status": "resolved",
+      "reason": "probe_unreachable",
+      "opened_at": "2026-11-06T15:22:39.469315Z",
+      "updated_at": "2026-11-06T15:23:39.454503Z"
+    },
+    {
+      "id": "case-63f3a808540611a83a04032d5c35a061304e5cd2981ae2d389feabed07c15024",
+      "domain": "reliability",
+      "component": "omniscience",
+      "status": "resolved",
+      "reason": "probe_unreachable",
+      "opened_at": "2026-11-06T15:18:39.468402Z",
+      "updated_at": "2026-11-06T15:20:39.471917Z"
+    },
+    {
+      "id": "case-4c7bde6efd669de08d8bb93ad68a260bcdd09b611032e7602013f249d495bbc8",
+      "domain": "reliability",
+      "component": "omniscience",
+      "status": "resolved",
+      "reason": "probe_unreachable",
+      "opened_at": "2026-11-06T15:02:59.99783Z",
+      "updated_at": "2026-11-06T15:04:59.999771Z"
+    },
+    {
+      "id": "case-6f483d45c2047d3e64224df05b7b143eb6c598af5b1235eedba542574eec4df3",
+      "domain": "reliability",
+      "component": "barbarossa",
+      "status": "resolved",
+      "reason": "probe_unreachable",
+      "opened_at": "2026-11-06T14:47:30.000119Z",
+      "updated_at": "2026-11-06T14:55:30.000372Z"
+    }
+  ],
+  "runner": {
+    "state": "stale",
+    "last_seen_at": "2026-11-06T15:25:33.190719Z",
+    "queue_pending": 1,
+    "active": 0,
+    "failed": 1,
+    "rate_limited_until": null,
+    "last_error": {
+      "reason": "invalid_result",
+      "at": "2026-11-06T15:03:20.663214Z",
+      "work_id": "work-d302bc7ceeaccdb472842fe818653a2050ee7013d24948569c94eb39c4d09769"
+    }
+  },
+  "domains": [
+    {
+      "id": "reliability",
+      "state": "unhealthy"
+    },
+    {
+      "id": "security",
+      "state": "unknown"
+    }
+  ]
+}

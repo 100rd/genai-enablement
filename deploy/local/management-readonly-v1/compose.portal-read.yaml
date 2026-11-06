@@ -1,0 +1,25 @@
+# Opt-in source-mode assembly for authenticated legacy owner reads.
+# Group each owner's files so its relative paths resolve from its own directory.
+name: management-readonly-local-v1
+
+include:
+  - path:
+      - ${SP98_OMNISCIENCE_FRAGMENT_DIR:-../../../../Omniscience/deploy/compose/management-readonly-local}/compose.yaml
+      - ${SP98_OMNISCIENCE_FRAGMENT_DIR:-../../../../Omniscience/deploy/compose/management-readonly-local}/compose.source.yaml
+  - path:
+      - ${SP98_BARBAROSSA_FRAGMENT_DIR:-../../../../barbarossa/deploy/compose/management-readonly-local}/compose.yaml
+      - ${SP98_BARBAROSSA_FRAGMENT_DIR:-../../../../barbarossa/deploy/compose/management-readonly-local}/compose.source.yaml
+      - ${SP98_BARBAROSSA_FRAGMENT_DIR:-../../../../barbarossa/deploy/compose/management-readonly-local}/compose.portal-read.yaml
+  - path:
+      - ${SP98_PORTAL_FRAGMENT_DIR:-../../../../platform-portal/infra/compose/management-readonly-local}/compose.yaml
+      - ${SP98_PORTAL_FRAGMENT_DIR:-../../../../platform-portal/infra/compose/management-readonly-local}/compose.source.yaml
+      - ${SP98_PORTAL_FRAGMENT_DIR:-../../../../platform-portal/infra/compose/management-readonly-local}/compose.portal-read.yaml
+
+# Same read-edge reconciliation as the canonical legacy assembly.
+networks:
+  omniscience-readnet:
+    name: omniscience-readnet
+    external: false
+  barbarossa-edge:
+    name: barbarossa-edge
+    external: false

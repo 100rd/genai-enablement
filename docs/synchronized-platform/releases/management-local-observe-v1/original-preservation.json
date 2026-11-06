@@ -1,0 +1,26 @@
+{
+  "genai-enablement": {
+    "head_unchanged": true,
+    "preserved_dirty_files": 22,
+    "changed_original_files": []
+  },
+  "Barbarossa": {
+    "head_unchanged": true,
+    "preserved_dirty_files": 0,
+    "changed_original_files": []
+  },
+  "Omniscience": {
+    "head_unchanged": true,
+    "preserved_dirty_files": 564,
+    "changed_original_files": []
+  },
+  "platform-portal": {
+    "head_unchanged": true,
+    "preserved_dirty_files": 49,
+    "changed_original_files": []
+  },
+  "control_plane": {
+    "status_unchanged": true,
+    "comparison": "porcelain=v1, untracked-files=all"
+  }
+}

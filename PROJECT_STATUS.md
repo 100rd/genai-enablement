@@ -1,8 +1,37 @@
 # GenAI Enablement - Project Status
 
-**Last Updated**: 2026-07-19
+**Last Updated**: 2026-11-06
 **Phase**: Autonomous SRE Harness development — Stages 0 & 2 shipped; Stage 3 portable construction and Stage 7 (Sentinel) portable detector expansion in progress
 **Overall Health**: On Track
+
+## Current local activation — 2026-11-06
+
+The **management-local-observe-v1** profile is implemented, locally qualified and running from
+isolated `codex/local-observe-v1` worktrees. Omniscience serves real two-tenant knowledge, Barbarossa
+records live Reliability/Security observations and durable cases, and Portal displays evidence and
+non-authoritative Codex recommendations. Controlled outages of all three APIs completed the full
+observation → case → real Codex analysis → Portal → recovery path.
+
+Three assessments were accepted from five reserved `gpt-6-luna` calls. The first two invalid responses
+were rejected and remain visible as one historical failed job; subsequent faults passed on the first
+attempt. Stop/start preserved all five cases, three assessments, five reservations, lease epochs,
+credentials and nine persistent volumes. Observer/runner loss and database failure were checked
+separately. Both tenants passed real browser login/MCP isolation; all eleven signed-identity checks passed.
+
+SP-99 and SP-100 are merged. SP-86 source work and SP-101 Knowledge View are implemented and tested;
+SP-86 publication remains release-gated. Original dirty checkouts and earlier qualification receipts
+are preserved. Component changes are committed and published as pull requests. The coordinator delivery record
+tracks source commits, review status and the separate local/production boundaries.
+
+- [Qualification and evidence](docs/synchronized-platform/releases/management-local-observe-v1/README.md)
+- [Runtime profile](docs/synchronized-platform/profiles/management-local-observe-v1.md)
+- [Execution progress](portfolio/local-observe-progress.json) and [local runbook](docs/runbooks/management-local-observe-v1.md)
+- [Commit and PR publication record](portfolio/local-observe-publication.json)
+- Component PRs: [Omniscience #374](https://github.com/100rd/Omniscience/pull/374), [Barbarossa #13](https://github.com/100rd/Barbarossa/pull/13), [Portal #23](https://github.com/100rd/platform-portal/pull/23).
+- Portal: http://localhost:13000; this qualification is macOS/Docker Desktop, single-host and advisory only.
+- Published OCI releases, SP-89/SP-94, AWS, image vulnerability scanning, autonomous effects and HA remain separate gates.
+
+The older sections below retain their historical scope.
 
 ## Direction shift (2026-06-16)
 The SRE workstream is reframed from a "smart pager" (enriched notifications) to an

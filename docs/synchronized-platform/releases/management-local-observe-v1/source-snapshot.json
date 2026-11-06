@@ -1,0 +1,1253 @@
+{
+  "schema_version": 1,
+  "captured_at": "2026-11-06T15:52:06.160274+00:00",
+  "method": "Each base Git HEAD plus sorted changed/new nonignored file hashes and deletions. Excludes the coordinator qualification evidence directory to avoid self-reference. Files otherwise match the base Git tree. Git SHA is not claimed to include uncommitted changes.",
+  "repositories": {
+    "genai-enablement": {
+      "root": "/Users/lo/Develop/multi-team-agentic/project/genai-enablement/.worktrees/local-observe-v1",
+      "base_git_head": "c45d66084267cdc4ccaa5e93d0f59969d0dc5019",
+      "branch": "codex/local-observe-v1",
+      "dirty": true,
+      "changes_sha256": "1fb189d41378c4f400af1433514d9ccd4c3edce96bf6e9fdaabebecf1db1b9be",
+      "changed_file_count": 20,
+      "files": [
+        {
+          "path": ".gitignore",
+          "kind": "file",
+          "mode": "0o644",
+          "sha256": "d81fc48b8500a40a360debb12ab6ad5cc75b001c47f85d8e039f499d7c30f1ee"
+        },
+        {
+          "path": "PROJECT_STATUS.md",
+          "kind": "file",
+          "mode": "0o644",
+          "sha256": "7d18179b4bf39a73c1eae1ddd9dc34af93e8498a189a7c8a6e6f7bfaaab198fd"
+        },
+        {
+          "path": "deploy/local/management-readonly-v1/.gitignore",
+          "kind": "file",
+          "mode": "0o644",
+          "sha256": "4b3d3603a6d02d6933e7d8e3400419570c35b60221a3ed24fdc04d756206cb2f"
+        },
+        {
+          "path": "deploy/local/management-readonly-v1/README.md",
+          "kind": "file",
+          "mode": "0o644",
+          "sha256": "95cdbc72ae66f9e6709b1d24cfb603bfc1780e7481eff9048a37cbe4e56c99d3"
+        },
+        {
+          "path": "deploy/local/management-readonly-v1/compose.portal-read.yaml",
+          "kind": "file",
+          "mode": "0o644",
+          "sha256": "1e7bc4c5e904f6cf7061dc78d121f178f25b554007d5aff9e1720c2668d328ac"
+        },
+        {
+          "path": "deploy/local/management-readonly-v1/probe_barbarossa.py",
+          "kind": "file",
+          "mode": "0o644",
+          "sha256": "86b3fd4d0735ed4a969cddc10289a6c9779a8c70a173525a377235273e446597"
+        },
+        {
+          "path": "docs/decisions/0025-management-local-observe-v1.md",
+          "kind": "file",
+          "mode": "0o644",
+          "sha256": "b462661ee1ac88b65e12c2d40ac7e31315647b44cd9ed52d181fb9570fc7d587"
+        },
+        {
+          "path": "docs/runbooks/management-local-observe-v1.md",
+          "kind": "file",
+          "mode": "0o644",
+          "sha256": "3629956139652b161b3427bca69517d2a042dd1e216dc950f3c0dcbb5b409bfc"
+        },
+        {
+          "path": "docs/specs/task-sp-102-local-observe-contract.md",
+          "kind": "file",
+          "mode": "0o644",
+          "sha256": "9dfe639acc2099e8efa122b6d9f3cf01877f79a009f8a0017031b0f7999d247b"
+        },
+        {
+          "path": "docs/specs/task-sp-106-local-observe-qualification.md",
+          "kind": "file",
+          "mode": "0o644",
+          "sha256": "aa0e28afaf3a5cd54006cfdd4c43fcce7d8e9629fded42dd894f7896c4c33ac3"
+        },
+        {
+          "path": "docs/synchronized-platform/README.md",
+          "kind": "file",
+          "mode": "0o644",
+          "sha256": "de2c71ba3bb82082ff2f17078424f52f2d9262aff6fe018cbab08b834aa987b2"
+        },
+        {
+          "path": "docs/synchronized-platform/profiles/management-local-observe-v1.md",
+          "kind": "file",
+          "mode": "0o644",
+          "sha256": "84b90558ef95943d1fb51df443934bb0afd57871cd30461cde94447ce1c2bb42"
+        },
+        {
+          "path": "portfolio/local-observe-progress.json",
+          "kind": "file",
+          "mode": "0o644",
+          "sha256": "f0e2d359c41e45bda23b840c72c752f34f37360d3057994ef27b4ff9a6329521"
+        },
+        {
+          "path": "portfolio/synchronized-platform.json",
+          "kind": "file",
+          "mode": "0o644",
+          "sha256": "05551e68b80ad77cd329bfeaebe482c1bc23e96ce237396a0fed8896470c6cdf"
+        },
+        {
+          "path": "scripts/check_synchronized_platform.py",
+          "kind": "file",
+          "mode": "0o644",
+          "sha256": "0e8d3422a0601266cdbc0bec27533fce27406c0288463a0faab35cf92a2d1644"
+        },
+        {
+          "path": "scripts/local_observe.py",
+          "kind": "file",
+          "mode": "0o644",
+          "sha256": "0b5846120fed23bc82eb1037ce1d7e11d1a45c4ed19988e80b1a2590648de996"
+        },
+        {
+          "path": "scripts/qualify_management_readonly_local.py",
+          "kind": "file",
+          "mode": "0o755",
+          "sha256": "666132f23eaeb2a2534d6499e1465910dcf85108e5bf2fa3c412f7054ab6fa5c"
+        },
+        {
+          "path": "tests/test_local_observe.py",
+          "kind": "file",
+          "mode": "0o644",
+          "sha256": "78eb03851c4bc71119f4fe0ecb7dd3ff7f127f435a55614e3ace4a3ec9697567"
+        },
+        {
+          "path": "tests/test_management_readonly_local.py",
+          "kind": "file",
+          "mode": "0o644",
+          "sha256": "1b4a3e99fca6a017ada8d7e51986c057ed65234aa594705da0b75760ed4cce62"
+        },
+        {
+          "path": "tests/test_sp70_continuous_management_manifest.py",
+          "kind": "file",
+          "mode": "0o644",
+          "sha256": "fac0851dca5ee744096603d57a55d5f03f6b98e654c62308fc072200a0432288"
+        }
+      ]
+    },
+    "Barbarossa": {
+      "root": "/Users/lo/Develop/multi-team-agentic/project/Barbarossa/.worktrees/local-observe-v1",
+      "base_git_head": "5cd2d164c65916dcbbbaafef5be88fda4a6d24bf",
+      "branch": "codex/local-observe-v1",
+      "dirty": true,
+      "changes_sha256": "f288511e2e11104a0db3566e21a5684f2616765e6dabfbd855717b336392a557",
+      "changed_file_count": 57,
+      "files": [
+        {
+          "path": ".dockerignore",
+          "kind": "file",
+          "mode": "0o644",
+          "sha256": "978b89b62e1ed54f77c620102780ef58dcc9627a47d41981168b0b592ed2bf00"
+        },
+        {
+          "path": ".gitignore",
+          "kind": "file",
+          "mode": "0o644",
+          "sha256": "b9237a8d4e7f60cd2a036a06a322c7ae7dd889c7c1fdb115fc8d4bcd3ce94adc"
+        },
+        {
+          "path": "Dockerfile",
+          "kind": "file",
+          "mode": "0o644",
+          "sha256": "7a28a4a87d8968c976079ee499506d3e716a12480e566c3ba3117c20fab5ffb5"
+        },
+        {
+          "path": "cmd/barbarossa-api/main.go",
+          "kind": "file",
+          "mode": "0o644",
+          "sha256": "77406eea0c0e63cac78b30e7970bc9adbfb849ec5642aec63f66745382a24fbc"
+        },
+        {
+          "path": "cmd/barbarossa-api/main_test.go",
+          "kind": "file",
+          "mode": "0o644",
+          "sha256": "b098dfe4b9f5e9e13486ea1a01482e0540169ad709175bee180f865515f89458"
+        },
+        {
+          "path": "cmd/barbarossa-api/portal_read_test.go",
+          "kind": "file",
+          "mode": "0o644",
+          "sha256": "b937a6198791b97977454cdcfc5d1558f45c6f0582d845aef1c42b132a621ccf"
+        },
+        {
+          "path": "cmd/barbarossa-codex-runner/main.go",
+          "kind": "file",
+          "mode": "0o644",
+          "sha256": "12918a8946a29120d7ce4c9d02635eb60b09affc78a9f28ca75b6b4107a0532e"
+        },
+        {
+          "path": "cmd/barbarossa-observe/case_history_integration_test.go",
+          "kind": "file",
+          "mode": "0o644",
+          "sha256": "16b8dc34adf30f0020a9cd24810c05c3adea9bae290641c55e4e7ca85d1b3937"
+        },
+        {
+          "path": "cmd/barbarossa-observe/go.mod",
+          "kind": "file",
+          "mode": "0o644",
+          "sha256": "7b6e9558f3b98bd2eee5b2e0d65b541031e53996d3fa8411e43863a13995944b"
+        },
+        {
+          "path": "cmd/barbarossa-observe/go.sum",
+          "kind": "file",
+          "mode": "0o644",
+          "sha256": "4a03a26472c5df773653cf10ce6f08f1bbb7689138893bd0d39d0ffc67d36a28"
+        },
+        {
+          "path": "cmd/barbarossa-observe/main.go",
+          "kind": "file",
+          "mode": "0o644",
+          "sha256": "700fb95babcb151692270d2295d2455313c3189fc6eeda200ae43cb0150083d2"
+        },
+        {
+          "path": "cmd/barbarossa-observe/store_integration_test.go",
+          "kind": "file",
+          "mode": "0o644",
+          "sha256": "551441fc13ce4c03eab8f7fc5c322ca615d6ce2e07d07cc80b2ecbeecbebb53f"
+        },
+        {
+          "path": "deploy/compose/management-local-observe-v1/compose.yaml",
+          "kind": "file",
+          "mode": "0o644",
+          "sha256": "50c9e8315bfcaffb92d2eb989ce388380b427134aff32f5790b0ef45ac1a67d2"
+        },
+        {
+          "path": "deploy/compose/management-readonly-local/README.md",
+          "kind": "file",
+          "mode": "0o644",
+          "sha256": "ac51cacd0c001a2d70aa4dcbd563db0a0938400d7f66c4176686d3968cffef6a"
+        },
+        {
+          "path": "deploy/compose/management-readonly-local/compose.portal-read.yaml",
+          "kind": "file",
+          "mode": "0o644",
+          "sha256": "606b29784b0483b931c9feda764125905b1b6a0d750662b45a334826e1c3ed4b"
+        },
+        {
+          "path": "deploy/postgresql/migrations/management-local-observe-v1/0002_local_observe.up.sql",
+          "kind": "file",
+          "mode": "0o644",
+          "sha256": "d2b863bb7a6a6d1f166cfe29070273afa0330e04c5efd4f3b42cd65700097447"
+        },
+        {
+          "path": "docs/runbooks/high-availability.md",
+          "kind": "file",
+          "mode": "0o644",
+          "sha256": "3a05ef2b94fff1850689a9a668733b0d269f6c608ce35cc6ccb1a3ad82c28f56"
+        },
+        {
+          "path": "docs/runbooks/management-local-codex-runner.md",
+          "kind": "file",
+          "mode": "0o644",
+          "sha256": "8b493fa75382309bd8241438c7391b2daa276da21f9f98bb021010f08744c2a4"
+        },
+        {
+          "path": "docs/runbooks/management-readonly-local.md",
+          "kind": "file",
+          "mode": "0o644",
+          "sha256": "cdf8ab50c11c16d6b50a1b3e120a41e4af705f34bf7cbbb6458df90e5d2c5de8"
+        },
+        {
+          "path": "docs/specs/task-sp-104-local-observe-runtime.md",
+          "kind": "file",
+          "mode": "0o644",
+          "sha256": "b9f000c5807ae477ac2fcb6817a03692ff5860d46cc7d5f671864510a3d509e6"
+        },
+        {
+          "path": "internal/codexrunner/client.go",
+          "kind": "file",
+          "mode": "0o644",
+          "sha256": "9ef592a3da69f872f057ab81eef6c770f82bb973f8837774cefe0dc84ef2d5bc"
+        },
+        {
+          "path": "internal/codexrunner/client_test.go",
+          "kind": "file",
+          "mode": "0o644",
+          "sha256": "9585089884047bdc4d9776793df899ad96ce41505ac9dd013957f20919063fdc"
+        },
+        {
+          "path": "internal/codexrunner/codex.go",
+          "kind": "file",
+          "mode": "0o644",
+          "sha256": "a7d9a5c7067e8f65d5e3b9595ad41eaf50b5ea52c83e57e16c59bacc8a5f13a5"
+        },
+        {
+          "path": "internal/codexrunner/codex_integration_test.go",
+          "kind": "file",
+          "mode": "0o644",
+          "sha256": "f409de0e48466ae58775829ccd3d0fb6ae27685d55e7fb0fcc5dce278477f14d"
+        },
+        {
+          "path": "internal/codexrunner/failed_result.go",
+          "kind": "file",
+          "mode": "0o644",
+          "sha256": "a64e7ccb2e56c381200c40294a2f8a6255c9d0afb42ccc0a45a7b118aa4ac196"
+        },
+        {
+          "path": "internal/codexrunner/process_unix.go",
+          "kind": "file",
+          "mode": "0o644",
+          "sha256": "faab86c551965e2bb34620bfe530e9f2344c3477e0711e4d7080bb07864d160d"
+        },
+        {
+          "path": "internal/codexrunner/process_unsupported.go",
+          "kind": "file",
+          "mode": "0o644",
+          "sha256": "6f79b3afdf5cd11623276761048d7397ca34e717f053140043af9b178613ab5f"
+        },
+        {
+          "path": "internal/codexrunner/readiness.go",
+          "kind": "file",
+          "mode": "0o644",
+          "sha256": "27ecc2580f7f1b2c5d1cb55e688ac92778dbbb3a5a48177f5839fa62181c4f87"
+        },
+        {
+          "path": "internal/codexrunner/readiness_test.go",
+          "kind": "file",
+          "mode": "0o644",
+          "sha256": "ee3b2405d892137ed6a1043b4d2c68a289a4d384dbba74001aeb790403a5abdf"
+        },
+        {
+          "path": "internal/codexrunner/result.go",
+          "kind": "file",
+          "mode": "0o644",
+          "sha256": "8186bb38543f3b816c894748b28a8448c94310feafff4c5ded55d0f7e28d8297"
+        },
+        {
+          "path": "internal/codexrunner/result_test.go",
+          "kind": "file",
+          "mode": "0o644",
+          "sha256": "6f386985f48c64539047e817f8a4e731be2d34441a8400e36ddafd35dc0adf84"
+        },
+        {
+          "path": "internal/codexrunner/runner.go",
+          "kind": "file",
+          "mode": "0o644",
+          "sha256": "d00b0e0ddf3487f9828fd1c00a7923648453b9ee9e2ecfdba18f345db2fdc35d"
+        },
+        {
+          "path": "internal/codexrunner/runner_test.go",
+          "kind": "file",
+          "mode": "0o644",
+          "sha256": "a93b11d335a7804efbf34ddf9f60b67039019d5a948341f1a72891b78870a32e"
+        },
+        {
+          "path": "internal/codexrunner/supervisor_test.go",
+          "kind": "file",
+          "mode": "0o644",
+          "sha256": "ca93c32b5dc14f8a64ba5ae2c80bb6e10cf6ac17fa8d3b9177de6cb3ffcb8cde"
+        },
+        {
+          "path": "internal/codexrunner/supervisor_unix.go",
+          "kind": "file",
+          "mode": "0o644",
+          "sha256": "81d8b444ac80386aa10a011421862bdb032037a4f38daea5c1e373893d4f2c58"
+        },
+        {
+          "path": "internal/codexrunner/supervisor_unsupported.go",
+          "kind": "file",
+          "mode": "0o644",
+          "sha256": "6bb35b74ffa3b508549ce6969e9a69b0a2f90baa5888eb1fd5ada99879f4a1ce"
+        },
+        {
+          "path": "internal/localobserve/boundary.go",
+          "kind": "file",
+          "mode": "0o644",
+          "sha256": "71b78fc3ec12a5ad4a18c23bd0154b273080a9cc0f8e7de3fa55d5886a9d4ae1"
+        },
+        {
+          "path": "internal/localobserve/context.go",
+          "kind": "file",
+          "mode": "0o644",
+          "sha256": "2c09a3fe3eb844902f296ac45f6497b45c9030aef43fcca60f43c8d29034d71a"
+        },
+        {
+          "path": "internal/localobserve/context_test.go",
+          "kind": "file",
+          "mode": "0o644",
+          "sha256": "cc8f13dc67b839a90e7ca7ae44fa4885b80cdde54b83d33a4759820d4ef1b140"
+        },
+        {
+          "path": "internal/localobserve/http.go",
+          "kind": "file",
+          "mode": "0o644",
+          "sha256": "543d6ed9a02cb7c93a794044402e4575ab3fddb6dfc78e21b2ae04bebb4a602d"
+        },
+        {
+          "path": "internal/localobserve/http_test.go",
+          "kind": "file",
+          "mode": "0o644",
+          "sha256": "58742c5a2ad83463c65888bbeca80c9d51bab595fdde6012afbcd9cd083fce3f"
+        },
+        {
+          "path": "internal/localobserve/jobs.go",
+          "kind": "file",
+          "mode": "0o644",
+          "sha256": "f1abc3de3cd3470f096918a55c264bf534a7f37b3b2e983e55d0d1111bee7349"
+        },
+        {
+          "path": "internal/localobserve/model.go",
+          "kind": "file",
+          "mode": "0o644",
+          "sha256": "195f582f75bdd878184ae20ace48da096bc42ca62354ee539e6fa3873a52a31e"
+        },
+        {
+          "path": "internal/localobserve/observer.go",
+          "kind": "file",
+          "mode": "0o644",
+          "sha256": "5b15cfefd53a6d079a9e7459b643de0a5a5abbe1f5abbed0b74c658e81b0c336"
+        },
+        {
+          "path": "internal/localobserve/observer_test.go",
+          "kind": "file",
+          "mode": "0o644",
+          "sha256": "f552b64f39915c2702b5af58a4e318568ff68076b321f9d1d5549a0cf4d29395"
+        },
+        {
+          "path": "internal/localobserve/read.go",
+          "kind": "file",
+          "mode": "0o644",
+          "sha256": "f58bbb6d75e1212f4379c5f42632757fa173757d21973cfc55e0fdac88fac077"
+        },
+        {
+          "path": "internal/localobserve/store.go",
+          "kind": "file",
+          "mode": "0o644",
+          "sha256": "c0fe7b19d5c69eb97857e4ed29fb2d7b7e6ef0a02f95293ef6a901622f0eed76"
+        },
+        {
+          "path": "internal/readaccess/http.go",
+          "kind": "file",
+          "mode": "0o644",
+          "sha256": "13702778494b2f264903f3891e14d394209ae60ce6220a4b026ba8ac338fb1ef"
+        },
+        {
+          "path": "internal/readaccess/portal.go",
+          "kind": "file",
+          "mode": "0o644",
+          "sha256": "66c26aa0882fc649b41ad04b622ae416f2223a36b3d2294f4cdc1efef417e6f7"
+        },
+        {
+          "path": "internal/readaccess/portal_test.go",
+          "kind": "file",
+          "mode": "0o644",
+          "sha256": "c60e0b32287e1072a6db48b1e012a9625f497e47eabadb51005568052081e2f8"
+        },
+        {
+          "path": "internal/runtime/api/local.go",
+          "kind": "file",
+          "mode": "0o644",
+          "sha256": "900db4a7080c431aed895b2fa23e6104ffaf1e7b7201754c123a3c0bd187421d"
+        },
+        {
+          "path": "internal/runtime/api/local_cmc.go",
+          "kind": "file",
+          "mode": "0o644",
+          "sha256": "45dd4f786f40753335227dd7fed8ce197471058bdc73e339b88b22e6a9a15a83"
+        },
+        {
+          "path": "internal/runtime/api/local_cmc_test.go",
+          "kind": "file",
+          "mode": "0o644",
+          "sha256": "e62283d993795dad3d63553eafcb11f518c79b608a9fa9a2085e8d97df81f593"
+        },
+        {
+          "path": "internal/runtime/api/local_test.go",
+          "kind": "file",
+          "mode": "0o644",
+          "sha256": "eeb24cd06be5f0f1d7c60617a4bbc4865e008c34702a54f3f23e802713eb522f"
+        },
+        {
+          "path": "internal/runtime/api/read_access_test.go",
+          "kind": "file",
+          "mode": "0o644",
+          "sha256": "0e94c9687fd8eab107918a63c0d3d2fe2650da093259ec8aa5151a9a059a0650"
+        },
+        {
+          "path": "internal/runtime/api/server.go",
+          "kind": "file",
+          "mode": "0o644",
+          "sha256": "7f7f11d3c9e57093ef15ef611334a385b0cdb8d7678a8197c11b24ed46600c77"
+        },
+        {
+          "path": "scripts/qualify_management_readonly_local.sh",
+          "kind": "file",
+          "mode": "0o755",
+          "sha256": "685b8920b1131c21840c0e49ad23ed8c58519da69b1babb4d28e07c6e3c1d43a"
+        }
+      ]
+    },
+    "Omniscience": {
+      "root": "/Users/lo/Develop/multi-team-agentic/project/Omniscience/.worktrees/local-observe-v1",
+      "base_git_head": "9131e8e8f82da510e162793583ddc3290a696864",
+      "branch": "codex/local-observe-v1",
+      "dirty": true,
+      "changes_sha256": "b8491a35c28cf9baaa0b86284d2f7d45a4061422deb6d13e23deb332e912d5f1",
+      "changed_file_count": 41,
+      "files": [
+        {
+          "path": ".dockerignore",
+          "kind": "file",
+          "mode": "0o644",
+          "sha256": "97e74bef82a403d3dd089e13da5e426821908912a44930d177695dbde1f8c48d"
+        },
+        {
+          "path": ".github/workflows/management-readonly-release.yml",
+          "kind": "file",
+          "mode": "0o644",
+          "sha256": "f537932e29b29a9fdded770a0248d60802058991b74b99bd8d5b54c139676618"
+        },
+        {
+          "path": ".gitignore",
+          "kind": "file",
+          "mode": "0o644",
+          "sha256": "7b16d757b757d5a68715e4b84bc293b1c4917107f32d77382792e70878fd4418"
+        },
+        {
+          "path": "apps/server/src/omniscience_server/local_observe.py",
+          "kind": "file",
+          "mode": "0o644",
+          "sha256": "59d7a5261ab104989cd2bd4d77a5372f438efe30baacca114b67238c4b159ff5"
+        },
+        {
+          "path": "apps/server/src/omniscience_server/local_observe_policy.py",
+          "kind": "file",
+          "mode": "0o644",
+          "sha256": "3c5cdaeee26cec007bd64c57c4c2648faadd7a6a2bd3c720aa88bb763138c7f7"
+        },
+        {
+          "path": "apps/server/src/omniscience_server/mcp/mount.py",
+          "kind": "file",
+          "mode": "0o644",
+          "sha256": "1ccfaae04dba2a01851a679fe302e3e8d0211f2650b111bb1aff9f68f6110806"
+        },
+        {
+          "path": "apps/server/src/omniscience_server/routes/tokens.py",
+          "kind": "file",
+          "mode": "0o644",
+          "sha256": "5bfafdd1533f7c6a3be35983f469690772af8eb82a17559c7ebaf7aa4fda2453"
+        },
+        {
+          "path": "contracts/releases/management-readonly-v1/README.md",
+          "kind": "file",
+          "mode": "0o644",
+          "sha256": "06d14d372ec976b3fbbc4cfdd2f9236bff999299bc9442e48fcd38393311cd5f"
+        },
+        {
+          "path": "contracts/releases/management-readonly-v1/consumer-kit-go/.gitignore",
+          "kind": "file",
+          "mode": "0o644",
+          "sha256": "4d79e74dcb60461743808da37fff4349f788a69f3b6b8b4f4a2d4238a46f6c52"
+        },
+        {
+          "path": "contracts/releases/management-readonly-v1/consumer-kit-go/README.md",
+          "kind": "file",
+          "mode": "0o644",
+          "sha256": "20ef96b626334b3a755d7b42a2e3bb007d32ba6a70751a063f45d268297c32d8"
+        },
+        {
+          "path": "contracts/releases/management-readonly-v1/consumer-kit-go/go.mod",
+          "kind": "file",
+          "mode": "0o644",
+          "sha256": "beb5e9518eae2e93ac406e14fdd6a0881ee51847b8b82588e2041cec58482100"
+        },
+        {
+          "path": "contracts/releases/management-readonly-v1/consumer-kit-go/main.go",
+          "kind": "file",
+          "mode": "0o644",
+          "sha256": "8974161a3da48a257bb9c736a0a257a673d53bf302a967afc0db6129ad834842"
+        },
+        {
+          "path": "contracts/releases/management-readonly-v1/consumer-kit-go/main_test.go",
+          "kind": "file",
+          "mode": "0o644",
+          "sha256": "a9533c7bc70eb3ce800edd5c83a877932ca06d77edee7d10a71fa99957039d36"
+        },
+        {
+          "path": "contracts/releases/management-readonly-v1/consumer-kit-go/receipt.schema.json",
+          "kind": "file",
+          "mode": "0o644",
+          "sha256": "0f07328069b885a29b15f85b2d879eea3a2f5c59c359da27abdc860fe79cd70e"
+        },
+        {
+          "path": "contracts/releases/management-readonly-v1/consumer-kit-go/release.go",
+          "kind": "file",
+          "mode": "0o644",
+          "sha256": "446d7a20874434659798b57f81e2f002093d421f68220d95ad8e08eeaf4f92ae"
+        },
+        {
+          "path": "contracts/releases/management-readonly-v1/consumer-kit-go/schema.go",
+          "kind": "file",
+          "mode": "0o644",
+          "sha256": "64a2de784046a8704c93db474d0e4879382774daf49f99b0c1d67432ab12e767"
+        },
+        {
+          "path": "contracts/releases/management-readonly-v1/consumer-kit-go/severance.go",
+          "kind": "file",
+          "mode": "0o644",
+          "sha256": "b8e329b70aba9fb14a1ee07dfdcf09646da02eb669744043f6236726585fe9f5"
+        },
+        {
+          "path": "contracts/releases/management-readonly-v1/rollback.json",
+          "kind": "file",
+          "mode": "0o644",
+          "sha256": "9982d209c73a1021ef0bf3b3ebd183899c8d28bf850998d25eb6a3011ad27760"
+        },
+        {
+          "path": "contracts/releases/management-readonly-v1/schemas/v1/release-lock.schema.json",
+          "kind": "file",
+          "mode": "0o644",
+          "sha256": "548806e89860ee6f9afeced57c9f5425e0a6bd9bffc720fdc0a97319ef5852ab"
+        },
+        {
+          "path": "contracts/releases/management-readonly-v1/severance-fixtures.json",
+          "kind": "file",
+          "mode": "0o644",
+          "sha256": "65b00de153aa3c2fad4226a085a4de287b032dc13fead7486e71006e47770f54"
+        },
+        {
+          "path": "deploy/compose/management-local-observe-v1/README.md",
+          "kind": "file",
+          "mode": "0o644",
+          "sha256": "6f0754568fe8f1c07fc3c3c43b76c28e6b83d57d8e566c87f823f78983e12234"
+        },
+        {
+          "path": "deploy/compose/management-local-observe-v1/compose.yaml",
+          "kind": "file",
+          "mode": "0o644",
+          "sha256": "4aa70ec28e791fdcfc31c07f9e40f87472fe06145ccc8dd159c22301191d0b1b"
+        },
+        {
+          "path": "docs/runbooks/management-readonly-release.md",
+          "kind": "file",
+          "mode": "0o644",
+          "sha256": "bef2dba23113ae4adcff67a64c1c9f847e999804f27b87229d284d7a7332bb8b"
+        },
+        {
+          "path": "docs/specs/task-sp-103-local-observe-knowledge.md",
+          "kind": "file",
+          "mode": "0o644",
+          "sha256": "35ef9bcd83a16daab43c5d6a9facb712b5397bee3161a3651839b55e432cbc2b"
+        },
+        {
+          "path": "helm/omniscience/templates/_management_readonly_guards.tpl",
+          "kind": "file",
+          "mode": "0o644",
+          "sha256": "33a62c0bf269dcc8ffebb86e002c9c393e21a79e50f5e4166e397f45ddff7bf6"
+        },
+        {
+          "path": "helm/omniscience/templates/deployment.yaml",
+          "kind": "file",
+          "mode": "0o644",
+          "sha256": "cd336234db8eeb390824a779bd7f18dcd438c8fb81f40ab91df4a2904e809e43"
+        },
+        {
+          "path": "helm/omniscience/values.yaml",
+          "kind": "file",
+          "mode": "0o644",
+          "sha256": "e60d23c3f632635e900088a5664a51de8f3fe08d226ca19274704723f588b46b"
+        },
+        {
+          "path": "packages/core/src/omniscience_core/config.py",
+          "kind": "file",
+          "mode": "0o644",
+          "sha256": "eca3c25095d38fe053da212df7ea7b25e6b57a7c6cd4ef59a6c33d3b3c743969"
+        },
+        {
+          "path": "scripts/qualify_management_readonly_release.py",
+          "kind": "file",
+          "mode": "0o644",
+          "sha256": "5afd051aca10cea2166d2da6a4b6cf9ba2ed4afbe9b3071f1922e0041970223a"
+        },
+        {
+          "path": "tests/release/management_readonly/__init__.py",
+          "kind": "file",
+          "mode": "0o644",
+          "sha256": "765e97e7ec96aaaf1dd4ce9c0a92713ed9977c72eb4108d4ac7efc6413aecdd0"
+        },
+        {
+          "path": "tests/release/management_readonly/severance_fixtures.py",
+          "kind": "file",
+          "mode": "0o644",
+          "sha256": "a5820f0127c901bcd520d43feee0f4252d2194c143586677280a42386b7ba599"
+        },
+        {
+          "path": "tests/release/management_readonly/test_language_neutral_consumer_kit.py",
+          "kind": "file",
+          "mode": "0o644",
+          "sha256": "0db5b19db402b73921e43496819d7719db02f1f6b130a3c5f3082a30ccf61f7b"
+        },
+        {
+          "path": "tests/release/management_readonly/test_ops_rollback.py",
+          "kind": "file",
+          "mode": "0o644",
+          "sha256": "2fb0846ac0dc61a3fd3a1bdb007bcaafc982c12f8cc36910517d8f8c64cd2259"
+        },
+        {
+          "path": "tests/release/management_readonly/test_pw0_seeded_leak.py",
+          "kind": "file",
+          "mode": "0o644",
+          "sha256": "6454cbe74c03e74e53cfea60390180ab0555f8e9c641926fd6b14aa856cf41df"
+        },
+        {
+          "path": "tests/release/management_readonly/test_runtime_conformance.py",
+          "kind": "file",
+          "mode": "0o644",
+          "sha256": "87bbb2c54482ab11e7b7351839989b31135b2f9689eb2fa5c3c11b4a582aef48"
+        },
+        {
+          "path": "tests/release/management_readonly/test_severance_kit.py",
+          "kind": "file",
+          "mode": "0o644",
+          "sha256": "fac2bf65408bfebbeb39affe3857037956d7d856c05dff5918746d5b0164c773"
+        },
+        {
+          "path": "tests/test_local_observe_bootstrap.py",
+          "kind": "file",
+          "mode": "0o644",
+          "sha256": "b0821077f837708dc1ef2c8fbd5a3b62369181664338b6b707fb138f3b968f80"
+        },
+        {
+          "path": "tests/test_management_readonly_release_lock.py",
+          "kind": "file",
+          "mode": "0o644",
+          "sha256": "3c7f89c9ea495ecd27b927b6a821153d4be40129c8110dae2c4df6ebd55761bd"
+        },
+        {
+          "path": "tests/test_mcp_contract_v1.py",
+          "kind": "file",
+          "mode": "0o644",
+          "sha256": "d0f777d15d2fb42b7cfd8913e12a5c41d82ae2b0ce315edc21ca0d82b4abbf5f"
+        },
+        {
+          "path": "tests/test_mcp_token_profile_v1.py",
+          "kind": "file",
+          "mode": "0o644",
+          "sha256": "83153e740e6f67cd72e4caee1d4f0ff2cfb2431c37a25f49b9a0412a4646edd6"
+        },
+        {
+          "path": "tests/test_routes_tokens_coverage.py",
+          "kind": "file",
+          "mode": "0o644",
+          "sha256": "420367b1ea82878c851854838f0ce4544a3efc2b415fdd1e19cd459864e63906"
+        }
+      ]
+    },
+    "platform-portal": {
+      "root": "/Users/lo/Develop/multi-team-agentic/project/platform-portal/.worktrees/local-observe-v1",
+      "base_git_head": "94a2e36f7619664ba154d14e9d4bbe62503b9c49",
+      "branch": "codex/local-observe-v1",
+      "dirty": true,
+      "changes_sha256": "f4f8035d6d3c4b5d2db74dafcb43350e9a27b5535c5eaf7c5c032359b2277d48",
+      "changed_file_count": 83,
+      "files": [
+        {
+          "path": "backend/alembic/versions/0009_kv_owner_entitlement.py",
+          "kind": "file",
+          "mode": "0o644",
+          "sha256": "f9fd72c3f210254135e64c016a91a462008f1fdffdb44b178eab7034de168ac1"
+        },
+        {
+          "path": "backend/app/cmc/router.py",
+          "kind": "file",
+          "mode": "0o644",
+          "sha256": "7f0909e55b5d21a1790fa8222f6f0536f6abd8fc00be2905cd2eabf6bcb7ac86"
+        },
+        {
+          "path": "backend/app/db/models/tenant_workspace.py",
+          "kind": "file",
+          "mode": "0o644",
+          "sha256": "8056459fdcc460570ca69ea6ff821530c6fa5f08beca89e6573e9ca9aa70140e"
+        },
+        {
+          "path": "backend/app/kv/admission.py",
+          "kind": "file",
+          "mode": "0o644",
+          "sha256": "2db92251411b5a8e0a54663c5e697901e7ddbaf793a20d0783a978c6971acb2a"
+        },
+        {
+          "path": "backend/app/kv/authority_scan.py",
+          "kind": "file",
+          "mode": "0o644",
+          "sha256": "342679d653f0c56e4f024927dd88b87f4ebbd072bad6403240dc1ac7a4bf0dfd"
+        },
+        {
+          "path": "backend/app/kv/broker.py",
+          "kind": "file",
+          "mode": "0o644",
+          "sha256": "726a34a610c19640a957098c803c545ba749c556300928629354d66d3cb0c9c8"
+        },
+        {
+          "path": "backend/app/kv/config.py",
+          "kind": "file",
+          "mode": "0o644",
+          "sha256": "b547efa987cea33b83b5792ce033e4b5ea4405f9e54f5cf64975d292217058d1"
+        },
+        {
+          "path": "backend/app/kv/live_client.py",
+          "kind": "file",
+          "mode": "0o644",
+          "sha256": "8ff65cef831c2dc60dea55910263a81059b69546e5d9502a518ade523adf135a"
+        },
+        {
+          "path": "backend/app/kv/manifest.py",
+          "kind": "file",
+          "mode": "0o644",
+          "sha256": "bd356f759f4d507e3d82056f85b708b5479705190f0ea36710f1247dcbfbfb75"
+        },
+        {
+          "path": "backend/app/kv/mcp_client.py",
+          "kind": "file",
+          "mode": "0o644",
+          "sha256": "32baad411fbb426136e6055910191f3017689c3917272f8913462d12cfbe89c2"
+        },
+        {
+          "path": "backend/app/kv/owner_http.py",
+          "kind": "file",
+          "mode": "0o644",
+          "sha256": "a4b973f0f84767d5c4d7d2bd35510447e3d629cded59816d5176dabf3a2e37f3"
+        },
+        {
+          "path": "backend/app/kv/read_service.py",
+          "kind": "file",
+          "mode": "0o644",
+          "sha256": "bcd0eb57ca1f4c2c972568eb31a7711afac52b6a891072d860d1adc736b47e16"
+        },
+        {
+          "path": "backend/app/kv/router.py",
+          "kind": "file",
+          "mode": "0o644",
+          "sha256": "e8f9897008059f9b4ad6296b4924d08fe0370175654a00963432631119af75a0"
+        },
+        {
+          "path": "backend/app/kv/schemas.py",
+          "kind": "file",
+          "mode": "0o644",
+          "sha256": "807614f85b24139e11c66e739a8c596cd1fe130c84cbb2b60da3c7b447e14762"
+        },
+        {
+          "path": "backend/app/kv/startup_checks.py",
+          "kind": "file",
+          "mode": "0o644",
+          "sha256": "ba7404fb9f76c4d7b09ee1d92da4b60cb38e800cc629c41a0db57f713f603edf"
+        },
+        {
+          "path": "backend/app/kv/states.py",
+          "kind": "file",
+          "mode": "0o644",
+          "sha256": "8997c529fd5ddb221c036e957d467df3a588a833d8e00e66d8481de76c48dbab"
+        },
+        {
+          "path": "backend/app/kv/workspace_mapping.py",
+          "kind": "file",
+          "mode": "0o644",
+          "sha256": "bf1fad56861e2bbd27d8cf3655e0aa3147b5dc237e60e8292a3bf65be981b384"
+        },
+        {
+          "path": "backend/app/local_observe/__init__.py",
+          "kind": "file",
+          "mode": "0o644",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "backend/app/local_observe/bootstrap.py",
+          "kind": "file",
+          "mode": "0o644",
+          "sha256": "def4ccd6fdaff8a5193945937d405e1a2a6e5d7643427fb66908cf8811afefce"
+        },
+        {
+          "path": "backend/app/local_observe/delegation.py",
+          "kind": "file",
+          "mode": "0o644",
+          "sha256": "c936c99f5b6f2f893b7f325e58744e714b016f459f2514fb294c888694d6a084"
+        },
+        {
+          "path": "backend/app/local_observe/fixtures.py",
+          "kind": "file",
+          "mode": "0o644",
+          "sha256": "6d9b772241388068b806178851b0d63cba0addca99a16b8616aeb2d179e0cd5c"
+        },
+        {
+          "path": "backend/app/local_observe/probes.py",
+          "kind": "file",
+          "mode": "0o644",
+          "sha256": "f325781c406b23a98a4c8115dfb922b9093038fa3fec71a8513e2221e44476b3"
+        },
+        {
+          "path": "backend/app/local_observe/router.py",
+          "kind": "file",
+          "mode": "0o644",
+          "sha256": "c7e3fdecf7a08b2f160e97ea5b88ae20dd352e61805bf43f7e809dd20be94daf"
+        },
+        {
+          "path": "backend/app/local_observe/schemas.py",
+          "kind": "file",
+          "mode": "0o644",
+          "sha256": "02034293ba5e3587f98694cbc95cff0ff980240ba9ec3dcef6c8b6b4bbf8312d"
+        },
+        {
+          "path": "backend/app/main.py",
+          "kind": "file",
+          "mode": "0o644",
+          "sha256": "6d24ca7addae45a5656bb7debf615b203e6cb6915ad8ea669ce2b536e6dbc47d"
+        },
+        {
+          "path": "backend/app/runtime_profiles/barbarossa_read.py",
+          "kind": "file",
+          "mode": "0o644",
+          "sha256": "afc6cbc149f2fc5ddbdc9cc83d334bd9dd6aa1229e11e79a94085ab8e3085aa6"
+        },
+        {
+          "path": "backend/app/runtime_profiles/local/read_service.py",
+          "kind": "file",
+          "mode": "0o644",
+          "sha256": "e9c0f0d94505686becadbea597ecbef537493ef8e1208c544be2ea37a0748d3c"
+        },
+        {
+          "path": "backend/app/runtime_profiles/local/router.py",
+          "kind": "file",
+          "mode": "0o644",
+          "sha256": "a540c15317ec55088efe71f85ea480efe598e109622aaa67e807b0b4daeed88b"
+        },
+        {
+          "path": "backend/tests/kv/conftest.py",
+          "kind": "file",
+          "mode": "0o644",
+          "sha256": "419e95fa5ae58e455af38287ee04a459a962770be48227b74107556f17ea3eae"
+        },
+        {
+          "path": "backend/tests/kv/owner_double.py",
+          "kind": "file",
+          "mode": "0o644",
+          "sha256": "d73466369dad7e7c2d484af7479f698b4c0c1f508d898bef987e26b761fc9fb2"
+        },
+        {
+          "path": "backend/tests/kv/test_kv_admission.py",
+          "kind": "file",
+          "mode": "0o644",
+          "sha256": "95d8705bb660c08fd758f22eed88f22e858cfb746d4e67deecdc0236bbc69ad9"
+        },
+        {
+          "path": "backend/tests/kv/test_kv_broker_live.py",
+          "kind": "file",
+          "mode": "0o644",
+          "sha256": "d6c566fc5618702e89a1ba708acd316408499abaf6fea20d06722b60aead5bce"
+        },
+        {
+          "path": "backend/tests/kv/test_kv_config_and_wiring.py",
+          "kind": "file",
+          "mode": "0o644",
+          "sha256": "692514638bfa6c8653fae871613bfcdd38608d2e3b52ebe6f94711718d89ad70"
+        },
+        {
+          "path": "backend/tests/kv/test_kv_mcp_client.py",
+          "kind": "file",
+          "mode": "0o644",
+          "sha256": "f64f31e6e56284f06a20eea2c2d0297d1d86e9c43bb193a11059fa7498741faa"
+        },
+        {
+          "path": "backend/tests/kv/test_kv_mcp_sdk_lifecycle.py",
+          "kind": "file",
+          "mode": "0o644",
+          "sha256": "cd5f89a10e5f479dae37420327868263bc4ad11ae8c72679a096f4966e6cb5dd"
+        },
+        {
+          "path": "backend/tests/kv/test_kv_no_write_authority.py",
+          "kind": "file",
+          "mode": "0o644",
+          "sha256": "e8c4ffd3c1f6de6dec2852079af412063fb960c87492c7c862e762964f0b72db"
+        },
+        {
+          "path": "backend/tests/kv/test_kv_owner_entitlement_migration.py",
+          "kind": "file",
+          "mode": "0o644",
+          "sha256": "5d139b217af447f80e5c9794c57b31f040468197287c5fcd4ba2069634c8ee8c"
+        },
+        {
+          "path": "backend/tests/kv/test_kv_owner_http.py",
+          "kind": "file",
+          "mode": "0o644",
+          "sha256": "94bec65e62ccce001acc153cdc97f785fc59ff08e42b35737466492dd61b96cc"
+        },
+        {
+          "path": "backend/tests/kv/test_kv_read_service.py",
+          "kind": "file",
+          "mode": "0o644",
+          "sha256": "403f6f37d53f7b984bc525ca35708abf3871b3a12e592ea468ad6e12587f3b76"
+        },
+        {
+          "path": "backend/tests/kv/test_kv_states_and_contract_pin.py",
+          "kind": "file",
+          "mode": "0o644",
+          "sha256": "493899a1fccfc3cc1f0724cddcfb8359ffd6982822a481fa75d1d49311e3f8de"
+        },
+        {
+          "path": "backend/tests/test_cmc_router.py",
+          "kind": "file",
+          "mode": "0o644",
+          "sha256": "204fb9a23c8b9454fc753e9d0df69e76ce8d0fc4fbb0f2edf16a808cd9f4ecf4"
+        },
+        {
+          "path": "backend/tests/test_knowledge_view_live_e2e.py",
+          "kind": "file",
+          "mode": "0o644",
+          "sha256": "211d569df84b3c6182a8921dd700573ef4be4fb8c06a595be62655f9614b2e16"
+        },
+        {
+          "path": "backend/tests/test_legacy_barbarossa_delegation.py",
+          "kind": "file",
+          "mode": "0o644",
+          "sha256": "61078a8c60548ea92a58d891eab541d101883748e1c6c73f75181e308a6ee0d4"
+        },
+        {
+          "path": "backend/tests/test_local_observe.py",
+          "kind": "file",
+          "mode": "0o644",
+          "sha256": "184c5eadde760e54eabb020be51e0e0abe50d210168518e5eab64fbd0e9ecc12"
+        },
+        {
+          "path": "backend/tests/test_management_readonly_local_cmc.py",
+          "kind": "file",
+          "mode": "0o644",
+          "sha256": "eb425d270b85d0fb43ef98e59e8bb9e50a8d152e692cfbc73e7f109afbab9d2b"
+        },
+        {
+          "path": "docs/runbooks/barbarossa-ha-observability.md",
+          "kind": "file",
+          "mode": "0o644",
+          "sha256": "d593e21a2dea709e9e5ffdf8e03c50baccd8854a619ed6c5a062c0d712def110"
+        },
+        {
+          "path": "docs/runbooks/knowledge-view-live.md",
+          "kind": "file",
+          "mode": "0o644",
+          "sha256": "c675505c83413b8f98eac068229abda96836fecb88198774cd093f368bb6cadd"
+        },
+        {
+          "path": "docs/specs/task-sp-105-local-observe-portal.md",
+          "kind": "file",
+          "mode": "0o644",
+          "sha256": "01c1ed6b743ff8b2b6eb27c3b4deaad666ef21264eb8f528051dfee579af9891"
+        },
+        {
+          "path": "frontend/app/(shell)/observe/page.tsx",
+          "kind": "file",
+          "mode": "0o644",
+          "sha256": "15f9621f6550b7a5fa83e72725f7d381c793c7137e5a76f43d2464e9605adfe1"
+        },
+        {
+          "path": "frontend/app/(shell)/observe/reliability/data.ts",
+          "kind": "file",
+          "mode": "0o644",
+          "sha256": "8b056a5ff0764b966bfb8def8d889744c4bf1d4a88acf5e0dfd45d57264cb48b"
+        },
+        {
+          "path": "frontend/app/(shell)/observe/reliability/page.tsx",
+          "kind": "file",
+          "mode": "0o644",
+          "sha256": "7a46f3d408d4740359235e36f4e6afae096431dacd3391323cd593a21eb17512"
+        },
+        {
+          "path": "frontend/app/api/auth/login/route.ts",
+          "kind": "file",
+          "mode": "0o644",
+          "sha256": "ac406bab3eb0ee516036eb1c8bc3aec17b7bad7f1d5e2db2444e557f92ef8b36"
+        },
+        {
+          "path": "frontend/components/observe/AbsentRelationsPanel.tsx",
+          "kind": "file",
+          "mode": "0o644",
+          "sha256": "4772fd01875bd210ba4931080a39260f0ae643205a3b64936d07b52b825ea404"
+        },
+        {
+          "path": "frontend/components/observe/BlastRadiusSurfacingPanel.tsx",
+          "kind": "file",
+          "mode": "0o644",
+          "sha256": "e364abd9cceadaeb0ac104cd2e9969b6c9b73b9c1dbd8a91ae108346f4b2fe9c"
+        },
+        {
+          "path": "frontend/components/observe/KnowledgeGraphSlicePanel.tsx",
+          "kind": "file",
+          "mode": "0o644",
+          "sha256": "a875c0c57ba6b3c418d15fbc2229e6d2489514c470f5d15e5f64eccc639d18c3"
+        },
+        {
+          "path": "frontend/components/observe/KnowledgeProvenancePanel.tsx",
+          "kind": "file",
+          "mode": "0o644",
+          "sha256": "3c36a1b5cc6cf3d0b8aa5d35ca2f61f97789f110cc0346e7b507a51e745c95c1"
+        },
+        {
+          "path": "frontend/components/observe/KnowledgeReadOperationsPanel.tsx",
+          "kind": "file",
+          "mode": "0o644",
+          "sha256": "bf16bc3d693c953395525c8111b834c88e4f345ac194a345fcb9fb898c95797a"
+        },
+        {
+          "path": "frontend/components/observe/KnowledgeReadSelector.tsx",
+          "kind": "file",
+          "mode": "0o644",
+          "sha256": "937527b84ecd2fff40a323278609d48f241fa017a78b222af44b1c3a7bea2cba"
+        },
+        {
+          "path": "frontend/components/observe/KnowledgeStatePanel.tsx",
+          "kind": "file",
+          "mode": "0o644",
+          "sha256": "4687d3f3a0f804563eea52dd16a7b5fd0652e8680698980f9eac4ecd653acf9a"
+        },
+        {
+          "path": "frontend/components/observe/KnowledgeViewSection.tsx",
+          "kind": "file",
+          "mode": "0o644",
+          "sha256": "53c3e83d24c6a681178fe23870eb532131945b343c3d15731b8ea1beeef02b47"
+        },
+        {
+          "path": "frontend/components/observe/ObservePanels.test.tsx",
+          "kind": "file",
+          "mode": "0o644",
+          "sha256": "944264bb64cf327a1f5df31db3e77e48356f283de4a24f9dcf9b049b88213a63"
+        },
+        {
+          "path": "frontend/components/observe/ObservePanels.tsx",
+          "kind": "file",
+          "mode": "0o644",
+          "sha256": "e46b0aeff3267214fc4fa3cb80a4d28a1f07fe8137c243d4174818796826c2d3"
+        },
+        {
+          "path": "frontend/components/observe/ReliabilityPanels.tsx",
+          "kind": "file",
+          "mode": "0o644",
+          "sha256": "08f1da0e0280b5e147e756fab44a23cfc117b4ec99940fb8616f73a5aa6ef7c6"
+        },
+        {
+          "path": "frontend/components/observe/kv-contract.ts",
+          "kind": "file",
+          "mode": "0o644",
+          "sha256": "a06f3fc40094de41b7173c136a5fa365220116bfcb82552473b7c247ab9cbcd4"
+        },
+        {
+          "path": "frontend/components/observe/kv-primitives.tsx",
+          "kind": "file",
+          "mode": "0o644",
+          "sha256": "39eba1fabbeb8a0a1d4357a001e524ef16b3776a9972425cd05949b151e08699"
+        },
+        {
+          "path": "frontend/components/observe/kv-state.ts",
+          "kind": "file",
+          "mode": "0o644",
+          "sha256": "2282ba357ecbb8909dda0d3bb91b5aca113ca04c908ce098218dad27c907997e"
+        },
+        {
+          "path": "frontend/components/observe/reliability-contract.ts",
+          "kind": "file",
+          "mode": "0o644",
+          "sha256": "5191712bd29118241ae08d5cce39632fe5f8b53e51fab4d6b89fd773435955a1"
+        },
+        {
+          "path": "frontend/e2e/local-observe.spec.ts",
+          "kind": "file",
+          "mode": "0o644",
+          "sha256": "519de2f98d20536bf2d69a1733618bad44c5ec9a2434ec847becfe462a7e4f4e"
+        },
+        {
+          "path": "frontend/lib/api/backend-client.test.ts",
+          "kind": "file",
+          "mode": "0o644",
+          "sha256": "7e0c497a9280591d03c7a77933c5d5e0b408859482f1e6085dc092804bb835b8"
+        },
+        {
+          "path": "frontend/lib/api/mock-data.ts",
+          "kind": "file",
+          "mode": "0o644",
+          "sha256": "02a5aea9c6a43a0ef7d2354e8fac2b971dc095e95bce880e84bdbaf54463c87e"
+        },
+        {
+          "path": "frontend/playwright.local-observe.config.ts",
+          "kind": "file",
+          "mode": "0o644",
+          "sha256": "d95cc07184a4c3b6cb87118e574b6c75864c3b0446c6abde5b03b863839cdc4d"
+        },
+        {
+          "path": "frontend/tests/observe/absence-and-surfacing.test.tsx",
+          "kind": "file",
+          "mode": "0o644",
+          "sha256": "b840b913ea2d7af91f796b8aa0b265e906309a10297c408e8a73a6f9ba7d55f5"
+        },
+        {
+          "path": "frontend/tests/observe/contract-parity.test.ts",
+          "kind": "file",
+          "mode": "0o644",
+          "sha256": "5f12418d80b45e31365a85dfeca4d6c6a567aa5cccd3defb7d34dc00e1ddfae0"
+        },
+        {
+          "path": "frontend/tests/observe/fixtures.ts",
+          "kind": "file",
+          "mode": "0o644",
+          "sha256": "b9f339f04931e891dfd5ed46d3f2a46a1b80d9be4bd5f769d93f232592d6325f"
+        },
+        {
+          "path": "frontend/tests/observe/page-live-integration.test.tsx",
+          "kind": "file",
+          "mode": "0o644",
+          "sha256": "921319f627a7638f28de2244e1f7b58bc4ad55893011b58b8d341d4ccacc4197"
+        },
+        {
+          "path": "frontend/tests/observe/projection-provenance.test.tsx",
+          "kind": "file",
+          "mode": "0o644",
+          "sha256": "62b89101d26254425f078c4158a43f4a522666f9e9f4e1941f9f5dd97363e7d1"
+        },
+        {
+          "path": "frontend/tests/observe/reliability-runner.test.tsx",
+          "kind": "file",
+          "mode": "0o644",
+          "sha256": "c432a03444fa086b6f370c4f0de6b55c5ca783172ed39f282813cd697fe57265"
+        },
+        {
+          "path": "frontend/tests/observe/state-distinctness.test.tsx",
+          "kind": "file",
+          "mode": "0o644",
+          "sha256": "db32ac294bffca93b7662c2db0a50d9ef3a46304226d206484babb28647df7d9"
+        },
+        {
+          "path": "infra/compose/management-local-observe-v1/README.md",
+          "kind": "file",
+          "mode": "0o644",
+          "sha256": "863dcd84d4556cef077fde797f43cc5592e62429c0cb4bce0a9671521f8b7d0b"
+        },
+        {
+          "path": "infra/compose/management-local-observe-v1/compose.yaml",
+          "kind": "file",
+          "mode": "0o644",
+          "sha256": "a4612e0355f98c7ff22a526d84495f0b9e08233ff12b7371b9d59562a60e5b0e"
+        },
+        {
+          "path": "infra/compose/management-readonly-local/README.md",
+          "kind": "file",
+          "mode": "0o644",
+          "sha256": "f5713c5d092e12196e932e351c47277ffa332923258917f567e9c024a13cb13a"
+        },
+        {
+          "path": "infra/compose/management-readonly-local/compose.portal-read.yaml",
+          "kind": "file",
+          "mode": "0o644",
+          "sha256": "5754d782afb3e0accc9980fb6a6b6c75747bde4077dd7b31185ef615086027d3"
+        },
+        {
+          "path": "scripts/local_observe_realm.py",
+          "kind": "file",
+          "mode": "0o644",
+          "sha256": "6d4781d98aa4e0586f931b35c110c8ba73194e3e3467312aeff4215abcb9f855"
+        }
+      ]
+    }
+  }
+}

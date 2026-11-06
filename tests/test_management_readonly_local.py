@@ -19,10 +19,14 @@ from __future__ import annotations
 
 import importlib
 import json
+import os
+import runpy
 import shutil
 import subprocess
 import sys
 from pathlib import Path
+from types import SimpleNamespace
+from uuid import UUID
 
 import pytest
 
@@ -322,6 +326,160 @@ def test_live_capture_pass_is_only_from_explicit_observed_status():
     assert live_acs["AC-SP98-4"]["status"] == "PASS"
     # An AC with no observed entry never becomes PASS.
     assert live_acs["AC-SP98-5"]["status"] == "pending"
+
+
+def test_legacy_availability_probe_uses_signed_tenant_and_keeps_result_redacted():
+    probe = runpy.run_path(str(qual.LEGACY_READ_PROBE))["probe"]
+    tenant = UUID("00000000-0000-0000-0000-000000000001")
+    calls = []
+    signed_for = []
+
+    def sign_for(tenant_id):
+        signed_for.append(tenant_id)
+        return f"signed-for-{tenant_id}"
+
+    def get(url, **kwargs):
+        calls.append((url, kwargs))
+        status = (401, 200, 403, 409)[len(calls) - 1]
+        return SimpleNamespace(
+            status_code=status,
+            json=lambda: {
+                "topology": {
+                    "availability_class": "development-single-host",
+                    "ha_qualified": False,
+                    "activation_authority": "none",
+                },
+                "availability": {"never-emit-projection-body": True},
+            },
+        )
+
+    report = probe(SimpleNamespace(get=get), sign_for, tenant)
+    assert report == {
+        "unsigned_status": 401,
+        "signed_status": 200,
+        "foreign_status": 403,
+        "scope_mismatch_status": 409,
+        "valid_shape": True,
+    }
+    assert signed_for[0] == tenant
+    assert signed_for[1] != tenant
+    assert {url for url, _ in calls} == {
+        "http://barbarossa-api:8080/v1/local/availability"
+    }
+    assert calls[0][1] == {}
+    assert calls[1][1]["headers"] == {"Authorization": f"Bearer signed-for-{tenant}"}
+    assert calls[2][1]["headers"] == {
+        "Authorization": f"Bearer signed-for-{signed_for[1]}"
+    }
+    assert calls[3][1]["headers"] == calls[1][1]["headers"]
+    assert calls[3][1]["params"] == {"tenant": "tenant:qualification-foreign"}
+
+
+@pytest.mark.parametrize(
+    ("returncode", "unsigned_status", "result"),
+    [(0, 401, "observed"), (0, 200, "unexpected"), (1, 401, "unavailable")],
+)
+def test_legacy_capture_fails_closed_and_discards_command_output(
+    monkeypatch, returncode, unsigned_status, result
+):
+    def run(args, **kwargs):
+        assert args == [
+            "docker",
+            "compose",
+            "-p",
+            qual.PROFILE_ID,
+            "exec",
+            "-T",
+            "portal-backend",
+            "python",
+            "-",
+        ]
+        assert kwargs["input"] == qual.LEGACY_READ_PROBE.read_text()
+        return subprocess.CompletedProcess(
+            args,
+            returncode,
+            stdout=json.dumps({
+                "unsigned_status": unsigned_status,
+                "signed_status": 200,
+                "foreign_status": 403,
+                "scope_mismatch_status": 409,
+                "valid_shape": True,
+                "discard": "untrusted output",
+            }),
+            stderr="untrusted output",
+        )
+
+    monkeypatch.setattr(qual.subprocess, "run", run)
+    report = qual._probe_barbarossa_availability(qual.PROFILE_ID)
+    assert report["status"] == result
+    assert "untrusted output" not in json.dumps(report)
+
+
+def test_authenticated_legacy_assembly_keeps_topology_and_scopes_key_mounts(
+    monkeypatch, tmp_path
+):
+    owners = {
+        "SP98_OMNISCIENCE_FRAGMENT_DIR": qual.OMNI_FRAGMENT_DIR,
+        "SP98_BARBAROSSA_FRAGMENT_DIR": qual.BARB_FRAGMENT_DIR,
+        "SP98_PORTAL_FRAGMENT_DIR": qual.PORTAL_FRAGMENT_DIR,
+    }
+    fragments = {
+        var: Path(os.environ.get(var, default)).resolve()
+        for var, default in owners.items()
+    }
+    required = [
+        fragments["SP98_OMNISCIENCE_FRAGMENT_DIR"] / "compose.source.yaml",
+        fragments["SP98_BARBAROSSA_FRAGMENT_DIR"] / "compose.portal-read.yaml",
+        fragments["SP98_PORTAL_FRAGMENT_DIR"] / "compose.portal-read.yaml",
+    ]
+    if not all(path.is_file() for path in required) or not _docker_available():
+        pytest.skip("requires Docker and the authenticated owner fragments")
+    for var, path in fragments.items():
+        monkeypatch.setenv(var, str(path))
+    public, private = tmp_path / "public.pem", tmp_path / "private.pem"
+    public.touch()
+    private.touch(mode=0o600)
+    tenant = "00000000-0000-0000-0000-000000000001"
+    monkeypatch.setenv("BARBAROSSA_LEGACY_PORTAL_PUBLIC_KEY_FILE", str(public))
+    monkeypatch.setenv("PORTAL_LEGACY_READ_PRIVATE_KEY_FILE", str(private))
+    monkeypatch.setenv("BARBAROSSA_LEGACY_PORTAL_TENANT_ID", tenant)
+    monkeypatch.setenv("PORTAL_LEGACY_READ_TENANT_ID", tenant)
+
+    model = qual.render_compose([COMPOSE_DIR / "compose.portal-read.yaml"])
+    services = model["services"]
+    assert model["name"] == qual.PROFILE_ID
+    assert set(services) == qual.EXPECTED_STEADY_SERVICES | qual.EXPECTED_ONESHOT_SERVICES
+    assert (
+        qual.service_networks(services["portal-backend"])
+        == qual.PORTAL_BACKEND_ALLOWED_NETWORKS
+    )
+    assert qual.host_bindings(model) == qual.EXPECTED_HOST_BINDINGS
+    topology = qual.read_json(qual.EXPECTED_TOPOLOGY)
+    assert set(model["volumes"]) == set(topology["volumes"])
+    assert set(model["networks"]) == set(topology["networks"])
+    assert not model["networks"]["barbarossa-edge"].get("external", False)
+    barbarossa_env = services["barbarossa-api"]["environment"]
+    portal_env = services["portal-backend"]["environment"]
+    assert barbarossa_env["BARBAROSSA_LEGACY_PORTAL_TENANT_ID"] == tenant
+    assert portal_env["PORTAL_LEGACY_READ_TENANT_ID"] == tenant
+    mounts = [
+        (service, volume)
+        for service, config in services.items()
+        for volume in config.get("volumes", [])
+        if volume.get("source") in {str(public), str(private)}
+    ]
+    assert {(service, volume["source"]) for service, volume in mounts} == {
+        ("barbarossa-api", str(public)),
+        ("portal-backend", str(private)),
+    }
+    assert all(
+        volume["read_only"] and not volume["bind"]["create_host_path"]
+        for _, volume in mounts
+    )
+
+    monkeypatch.setenv("PORTAL_LEGACY_READ_PRIVATE_KEY_FILE", "")
+    with pytest.raises(qual.QualificationError, match="PORTAL_LEGACY_READ_PRIVATE_KEY_FILE"):
+        qual.render_compose([COMPOSE_DIR / "compose.portal-read.yaml"])
 
 
 def test_ac7_downgrades_to_partial_when_amd64_unmeasured():

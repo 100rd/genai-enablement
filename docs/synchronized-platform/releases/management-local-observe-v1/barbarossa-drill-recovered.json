@@ -1,0 +1,118 @@
+{
+  "schema_version": 1,
+  "case": {
+    "id": "case-f4bda5c69dbeea87c1c93179cbd160b7522f8e6afc10a8538f75803383c4b080",
+    "domain": "reliability",
+    "component": "barbarossa",
+    "status": "resolved",
+    "reason": "probe_unreachable",
+    "opened_at": "2026-11-06T15:28:12.877719Z",
+    "updated_at": "2026-11-06T15:29:12.867944Z"
+  },
+  "observations": [
+    {
+      "id": "obs-barbarossa-59799295",
+      "component": "barbarossa",
+      "state": "unhealthy",
+      "reason": "probe_unreachable",
+      "observed_at": "2026-11-06T15:27:42.851233Z",
+      "vantage": {
+        "source_id": "local-observer",
+        "vantage": "synthetic",
+        "failure_domain": "shared-host",
+        "shared_fate_with_subject": true
+      }
+    },
+    {
+      "id": "obs-barbarossa-59799296",
+      "component": "barbarossa",
+      "state": "unhealthy",
+      "reason": "probe_unreachable",
+      "observed_at": "2026-11-06T15:28:12.877719Z",
+      "vantage": {
+        "source_id": "local-observer",
+        "vantage": "synthetic",
+        "failure_domain": "shared-host",
+        "shared_fate_with_subject": true
+      }
+    },
+    {
+      "id": "obs-barbarossa-59799297",
+      "component": "barbarossa",
+      "state": "healthy",
+      "reason": "probe_ok",
+      "observed_at": "2026-11-06T15:28:42.86685Z",
+      "vantage": {
+        "source_id": "local-observer",
+        "vantage": "synthetic",
+        "failure_domain": "shared-host",
+        "shared_fate_with_subject": true
+      }
+    },
+    {
+      "id": "obs-barbarossa-59799298",
+      "component": "barbarossa",
+      "state": "healthy",
+      "reason": "probe_ok",
+      "observed_at": "2026-11-06T15:29:12.867944Z",
+      "vantage": {
+        "source_id": "local-observer",
+        "vantage": "synthetic",
+        "failure_domain": "shared-host",
+        "shared_fate_with_subject": true
+      }
+    }
+  ],
+  "assessments": [
+    {
+      "assessment_id": "assessment-c1288b4d98248ea6d7fb602a0b9af140599e117bc8b55b79e80bde2d3e234246",
+      "work_id": "work-87350549bad6615686f9b97f58bf9f8b8a85fae647a686e133e9b12ad6e34867",
+      "lease_epoch": 1,
+      "agent_profile": "management-local-observe-v1",
+      "model_revision": "sha256:fed2ebeede06f15f5d1109f42278fa81c14cc54a5e9feee4be8f9267d7231bdb",
+      "input_refs": [
+        {
+          "ref_id": "obs-barbarossa-59799295",
+          "revision": "sha256:caf7fc39fb5f5b94c48de94c97e4ac424268a9159e03cbb84f3a1d5f1703058c"
+        },
+        {
+          "ref_id": "obs-barbarossa-59799296",
+          "revision": "sha256:ca43f3daf5b72284fe2836d0e4c872942bb60b32ea83dce23a9d482c0b1394fd"
+        },
+        {
+          "ref_id": "knowledge-fba8f71b928cab27e5dc852ccdab5e95a858b7acc0237829a723ac8dddf79452",
+          "revision": "sha256:f8dec065e6d61990a7cdbbbab2001d68462b0c7ad137f40494ab04d6f1fec650"
+        }
+      ],
+      "facts_cited": [
+        "obs-barbarossa-59799295",
+        "obs-barbarossa-59799296"
+      ],
+      "hypotheses": [
+        "Two consecutive synthetic probes reported Barbarossa unreachable, consistent with the runbook's case-opening threshold.",
+        "Because both probes share the host failure domain with Barbarossa, they cannot establish external availability or high availability."
+      ],
+      "alternatives": [],
+      "uncertainty": "The observations are from 15:27–15:28 UTC; the supplied topology snapshot is historical (14:55 UTC), so it does not establish current topology or cause.",
+      "proposals": [],
+      "created_at": "2026-11-06T15:28:22.893208Z",
+      "expires_at": "2026-11-07T15:28:22.893208Z",
+      "authoritative": false,
+      "integrity": {
+        "algo": "sha256",
+        "digest": "d4ba32ea5ebe014f4e0783129a76c38980315f808c88b59442b2cd9b36620496",
+        "signer": "mock-unsigned"
+      }
+    }
+  ],
+  "context": [
+    {
+      "id": "knowledge-fba8f71b928cab27e5dc852ccdab5e95a858b7acc0237829a723ac8dddf79452",
+      "revision": "sha256:f8dec065e6d61990a7cdbbbab2001d68462b0c7ad137f40494ab04d6f1fec650",
+      "observed_at": "2026-11-06T14:55:21Z",
+      "source": "omniscience",
+      "workspace_id": "a34f0802-8321-5c7c-8a6b-dea95391faf5",
+      "content": "Local platform observation runbook. This prepared, synthetic topology describes the management-local-observe-v1 deployment on one host. Portal reads knowledge from Omniscience and observations from Barbarossa. Barbarossa's observer probes Omniscience readiness, its own API readiness and Portal backend readiness every 30 seconds. Two failures open a case; two successes resolve it. Missing evidence over 90 seconds is unknown or stale. One host shares a failure domain: these probes cannot establish external availability or HA. Check dependency readiness and recorded timestamps before proposing a cause. Codex assessments are non-authoritative text and must never execute remediation."
+    }
+  ]
+}
