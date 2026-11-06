@@ -20,14 +20,15 @@ separately. Both tenants passed real browser login/MCP isolation; all eleven sig
 
 SP-99 and SP-100 are merged. SP-86 source work and SP-101 Knowledge View are implemented and tested;
 SP-86 publication remains release-gated. Original dirty checkouts and earlier qualification receipts
-are preserved. Component changes are committed and published as pull requests. The coordinator delivery record
+are preserved. Changes in all four repositories are committed, pushed and published as open pull requests. The coordinator delivery record
 tracks source commits, review status and the separate local/production boundaries.
 
 - [Qualification and evidence](docs/synchronized-platform/releases/management-local-observe-v1/README.md)
 - [Runtime profile](docs/synchronized-platform/profiles/management-local-observe-v1.md)
 - [Execution progress](portfolio/local-observe-progress.json) and [local runbook](docs/runbooks/management-local-observe-v1.md)
 - [Commit and PR publication record](portfolio/local-observe-publication.json)
-- Component PRs: [Omniscience #374](https://github.com/100rd/Omniscience/pull/374), [Barbarossa #13](https://github.com/100rd/Barbarossa/pull/13), [Portal #23](https://github.com/100rd/platform-portal/pull/23).
+- Open PRs: [Omniscience #374](https://github.com/100rd/Omniscience/pull/374), [Barbarossa #13](https://github.com/100rd/Barbarossa/pull/13), [Portal #23](https://github.com/100rd/platform-portal/pull/23), [genai-enablement #60](https://github.com/100rd/genai-enablement/pull/60).
+- CI follow-ups fixed import/format/type/governance checks and legacy signed-read qualification. Barbarossa, Portal and coordinator checks passed at their recorded revisions; the Omniscience CI suite remains in progress in the timestamped publication record. No PR has been merged.
 - Portal: http://localhost:13000; this qualification is macOS/Docker Desktop, single-host and advisory only.
 - Published OCI releases, SP-89/SP-94, AWS, image vulnerability scanning, autonomous effects and HA remain separate gates.
 

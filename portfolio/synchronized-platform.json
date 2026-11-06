@@ -1354,7 +1354,9 @@
       "implementation": "complete",
       "verification": "passed",
       "local_activation": "running",
-      "qualification_evidence": "docs/synchronized-platform/releases/management-local-observe-v1/qualification.json"
+      "qualification_evidence": "docs/synchronized-platform/releases/management-local-observe-v1/qualification.json",
+      "publication": "four-prs-open",
+      "publication_tracking": "portfolio/local-observe-publication.json"
     }
   ],
   "work_packages": [
@@ -3126,7 +3128,10 @@
       "implementation": "complete",
       "verification": "passed",
       "local_activation": "running",
-      "evidence": "docs/synchronized-platform/releases/management-local-observe-v1/qualification.json"
+      "evidence": "docs/synchronized-platform/releases/management-local-observe-v1/qualification.json",
+      "implementation_commit": "d67ed1fe1ff92467f8916be97c43104e9150ef3f",
+      "pull_request": "https://github.com/100rd/genai-enablement/pull/60",
+      "publication": "pr-open"
     },
     {
       "id": "SP-103",
@@ -3149,7 +3154,7 @@
       "verification": "passed",
       "local_activation": "running",
       "evidence": "docs/synchronized-platform/releases/management-local-observe-v1/qualification.json",
-      "implementation_commit": "be14dad76e239e9a797ace6808a421ec5acf743d",
+      "implementation_commit": "639c52dac220b461d286b86a6fdeb36cf89300a4",
       "pull_request": "https://github.com/100rd/Omniscience/pull/374",
       "publication": "pr-open"
     },
@@ -3174,7 +3179,7 @@
       "verification": "passed",
       "local_activation": "running",
       "evidence": "docs/synchronized-platform/releases/management-local-observe-v1/qualification.json",
-      "implementation_commit": "6a9289601790e5c57124a543df34e4459058d62a",
+      "implementation_commit": "ebf937965e0942388c6cbe83c785f37a1d76397c",
       "pull_request": "https://github.com/100rd/Barbarossa/pull/13",
       "publication": "pr-open"
     },
@@ -3200,7 +3205,7 @@
       "verification": "passed",
       "local_activation": "running",
       "evidence": "docs/synchronized-platform/releases/management-local-observe-v1/qualification.json",
-      "implementation_commit": "6d223dbc76d3f6359ea9caabba44c625eed5c38a",
+      "implementation_commit": "f7e2bfe9bcc1f5683c09ef9f5878bf25d801a86e",
       "pull_request": "https://github.com/100rd/platform-portal/pull/23",
       "publication": "pr-open"
     },
@@ -3226,7 +3231,10 @@
       "implementation": "complete",
       "verification": "passed",
       "local_activation": "running",
-      "evidence": "docs/synchronized-platform/releases/management-local-observe-v1/qualification.json"
+      "evidence": "docs/synchronized-platform/releases/management-local-observe-v1/qualification.json",
+      "implementation_commit": "d67ed1fe1ff92467f8916be97c43104e9150ef3f",
+      "pull_request": "https://github.com/100rd/genai-enablement/pull/60",
+      "publication": "pr-open"
     }
   ],
   "execution_tracking": "portfolio/local-observe-progress.json",

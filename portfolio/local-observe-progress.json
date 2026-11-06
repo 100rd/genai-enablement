@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "profile": "management-local-observe-v1",
-  "as_of": "2026-11-06T16:55:30.618815+00:00",
-  "implementation": "committed-component-prs-open",
+  "as_of": "2026-11-06T17:13:38.806452+00:00",
+  "implementation": "committed",
   "verification": "passed-local-source-qualification",
   "local_activation": "running",
   "production_activation": "out_of_scope",
@@ -27,7 +27,10 @@
       "evidence": [
         "docs/synchronized-platform/releases/management-local-observe-v1/qualification.json"
       ],
-      "local_activation": "running"
+      "local_activation": "running",
+      "commit": "d67ed1fe1ff92467f8916be97c43104e9150ef3f",
+      "pr_url": "https://github.com/100rd/genai-enablement/pull/60",
+      "publication": "pr-open"
     },
     {
       "id": "SP-103",
@@ -38,7 +41,7 @@
         "docs/synchronized-platform/releases/management-local-observe-v1/qualification.json"
       ],
       "local_activation": "running",
-      "commit": "be14dad76e239e9a797ace6808a421ec5acf743d",
+      "commit": "639c52dac220b461d286b86a6fdeb36cf89300a4",
       "pr_url": "https://github.com/100rd/Omniscience/pull/374",
       "publication": "pr-open"
     },
@@ -51,7 +54,7 @@
         "docs/synchronized-platform/releases/management-local-observe-v1/qualification.json"
       ],
       "local_activation": "running",
-      "commit": "6a9289601790e5c57124a543df34e4459058d62a",
+      "commit": "ebf937965e0942388c6cbe83c785f37a1d76397c",
       "pr_url": "https://github.com/100rd/Barbarossa/pull/13",
       "publication": "pr-open"
     },
@@ -64,7 +67,7 @@
         "docs/synchronized-platform/releases/management-local-observe-v1/qualification.json"
       ],
       "local_activation": "running",
-      "commit": "6d223dbc76d3f6359ea9caabba44c625eed5c38a",
+      "commit": "f7e2bfe9bcc1f5683c09ef9f5878bf25d801a86e",
       "pr_url": "https://github.com/100rd/platform-portal/pull/23",
       "publication": "pr-open"
     },
@@ -76,7 +79,10 @@
       "evidence": [
         "docs/synchronized-platform/releases/management-local-observe-v1/qualification.json"
       ],
-      "local_activation": "running"
+      "local_activation": "running",
+      "commit": "d67ed1fe1ff92467f8916be97c43104e9150ef3f",
+      "pr_url": "https://github.com/100rd/genai-enablement/pull/60",
+      "publication": "pr-open"
     }
   ],
   "agent_runs": [
@@ -300,6 +306,51 @@
       "token_usage": null,
       "followup_reviews": 1,
       "measurement_note": "Time is an estimate; collaboration token usage unavailable."
+    },
+    {
+      "task": "fix_portal_pr_lint",
+      "model": "gpt-6-luna",
+      "state": "completed-reviewed",
+      "result": "Portal import ordering; Omniscience annotation/test formatting. Root reproduced checks, Python and generic reviews passed.",
+      "token_usage": null,
+      "elapsed_seconds": null,
+      "measurement_note": "Actual token/timing counters unavailable; no fabricated measured usage."
+    },
+    {
+      "task": "fix_barbarossa_pr_ci",
+      "model": "gpt-6.1-sol",
+      "state": "completed-reviewed",
+      "result": "Ephemeral identity and dependency-scope CI; root replayed real handler/rotation and scope regression; Go and generic review findings closed.",
+      "token_usage": null,
+      "elapsed_seconds": null,
+      "measurement_note": "Actual token/timing counters unavailable; no fabricated measured usage."
+    },
+    {
+      "task": "review_portal_ci_import",
+      "model": "gpt-6-luna",
+      "state": "completed-reviewed",
+      "result": "Python CI diffs reviewed; no runtime behavior changes.",
+      "token_usage": null,
+      "elapsed_seconds": null,
+      "measurement_note": "Actual token/timing counters unavailable; no fabricated measured usage."
+    },
+    {
+      "task": "review_barbarossa_ci_go",
+      "model": "gpt-6-luna",
+      "state": "completed-reviewed",
+      "result": "Fixture checked. Initial escaping concern independently disproved using actual bytes and emitted JWT; reviewer corrected finding.",
+      "token_usage": null,
+      "elapsed_seconds": null,
+      "measurement_note": "Actual token/timing counters unavailable; no fabricated measured usage."
+    },
+    {
+      "task": "review_publication_ci_fixes",
+      "model": "gpt-6.1-sol",
+      "state": "completed-reviewed",
+      "result": "Generic review approved after wiring scope regression into CI and updating runbook.",
+      "token_usage": null,
+      "elapsed_seconds": null,
+      "measurement_note": "Actual token/timing counters unavailable; no fabricated measured usage."
     }
   ],
   "evidence": "docs/synchronized-platform/releases/management-local-observe-v1/qualification.json",
@@ -307,11 +358,15 @@
   "component_deliveries": {
     "SP-86": {
       "implementation": "completed-and-source-tested",
-      "release": "not-published; dirty source and OCI release gate remain"
+      "release": "not-published; dirty source and OCI release gate remain",
+      "commit": "639c52dac220b461d286b86a6fdeb36cf89300a4",
+      "pr_url": "https://github.com/100rd/Omniscience/pull/374"
     },
     "SP-101": {
       "implementation": "completed-in-isolated-worktree",
-      "verification": "real two-tenant MCP and Chromium passed"
+      "verification": "real two-tenant MCP and Chromium passed",
+      "commit": "f7e2bfe9bcc1f5683c09ef9f5878bf25d801a86e",
+      "pr_url": "https://github.com/100rd/platform-portal/pull/23"
     }
   },
   "rework": [
@@ -350,5 +405,6 @@
     "HA/external availability",
     "native Linux bind-permission qualification"
   ],
-  "publication": "portfolio/local-observe-publication.json"
+  "publication": "portfolio/local-observe-publication.json",
+  "pull_requests": "open-in-all-four-repositories"
 }
