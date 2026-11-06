@@ -1,0 +1,19 @@
+apiVersion: v2
+name: management-local-observe-v1
+description: Synchronized Platform Umbrella Chart (Omniscience + Barbarossa + Platform Portal) for management-local-observe-v1
+type: application
+version: 0.1.0
+appVersion: "management-local-observe-v1"
+dependencies:
+  - name: omniscience
+    version: "0.2.0"
+    repository: "file://../../../../Omniscience/deploy/helm/omniscience"
+    condition: omniscience.enabled
+  - name: barbarossa
+    version: "0.1.0"
+    repository: "file://../../../../Barbarossa/deploy/helm/barbarossa"
+    condition: barbarossa.enabled
+  - name: platform-portal
+    version: "0.2.0"
+    repository: "file://../../../../platform-portal/deploy/helm/platform-portal"
+    condition: platform-portal.enabled
