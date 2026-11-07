@@ -97,6 +97,8 @@ file is unchanged. No platform acceptance claim changed.
 
 **Current source regression:** Omniscience full Python suite passes (4,423 passed, 78 skipped); mypy, Ruff, operator race, governance and MCP contract checks pass. Portal backend (1,469 passed, 4 skipped), frontend (702 passed), typecheck, lint and production build pass. These checks do not qualify the deployed EKS profile.
 
+**Source publication:** [Portal #25](https://github.com/100rd/platform-portal/pull/25), [Barbarossa #15](https://github.com/100rd/Barbarossa/pull/15) and [coordinator #63](https://github.com/100rd/genai-enablement/pull/63) merged after successful PR CI. [Omniscience #376](https://github.com/100rd/Omniscience/pull/376) is awaiting final CI after reviewed Go lint corrections. [Portal #26](https://github.com/100rd/platform-portal/pull/26) fixes unlocked production dependencies and awaits CI. Six isolated Linux/amd64 images are built locally, with offline smoke checks; no new images are published or deployed.
+
 ## EKS activation audit — 2026-11-06
 
 **Deployed; acceptance failed.** Read-only inspection of `nonprod-euc1` / `splatform`

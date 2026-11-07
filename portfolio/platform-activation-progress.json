@@ -278,6 +278,14 @@
       "requested_model": "gpt-6.1-sol",
       "token_usage": null,
       "lead_checks": "Full new-file review; nine tests reproduced; independent Python/security review clear. No live policy mutations; fresh capture/admission blocked by expired AWS session."
+    },
+    {
+      "name": "Portal locked production image",
+      "requested_model": "gpt-6.1-sol",
+      "review_model": "gpt-6-luna",
+      "state": "source-reviewed-image-built-ci-pending",
+      "token_usage": null,
+      "lead_checks": "Full Dockerfile diff, locked versions/dev exclusion and Alembic head0009 reproduced; independent review clear. Worker compared all34 installed distributions to runtime lock export and tested app import with synthetic settings."
     }
   ],
   "in_progress": [
@@ -569,6 +577,16 @@
       "wall_time_seconds": null,
       "review_rework_rounds": 0,
       "outcome": "Five-file fix; pinned Linux golangci-lint v1.61.0, build/vet and 96 race tests pass. Lead full diff and race rerun; independent Go review clear. Pushed a631b29."
+    },
+    {
+      "task": "portal-locked-runtime-image",
+      "requested_model": "gpt-6.1-sol",
+      "review_model": "gpt-6-luna",
+      "actual_model": "not exposed",
+      "token_usage": null,
+      "wall_time_seconds": null,
+      "review_rework_rounds": 0,
+      "outcome": "Locked runtime image built; all34 runtime distributions matched lock export; lead key version/dev-exclusion/Alembic checks and independent review passed. PR26 pending CI."
     }
   ],
   "storage_prerequisite_plan": {
@@ -718,20 +736,32 @@
         "pr": "https://github.com/100rd/Barbarossa/pull/15",
         "state": "merged",
         "merge_revision": "7f3b92fc97cd08d2853dbaee47857dc2f96cdd34",
-        "pr_ci": "5 workflows passed"
+        "pr_ci": "5 workflows passed",
+        "merge_ci": "5 push workflows passed"
       },
       "Portal": {
         "revision": "6ad5f737a4deea981b0003c7dcc751c82965dfae",
         "pr": "https://github.com/100rd/platform-portal/pull/25",
         "state": "merged",
         "merge_revision": "c28b466504e3af8da0b9f2d2ac1b503da14278b4",
-        "pr_ci": "3 workflows passed"
+        "pr_ci": "3 workflows passed",
+        "runtime_image_followup": {
+          "revision": "17798b957d512aa2101d4644b3bb116a6164926f",
+          "pr": "https://github.com/100rd/platform-portal/pull/26",
+          "state": "ci-pending",
+          "reason": "Production image previously ignored uv.lock; now uses locked production dependencies"
+        },
+        "merge_ci": "3 push workflows passed"
       },
       "genai-enablement": {
         "implementation_revision": "9eceef423e3c371f5cde1b6e325e9398261d180e",
-        "pr": "https://github.com/100rd/genai-enablement/pull/63"
+        "pr": "https://github.com/100rd/genai-enablement/pull/63",
+        "state": "merged",
+        "merge_revision": "50545a4b427fa065348a32dd0486f57a9f66dcd2",
+        "pr_ci": "passed"
       }
     },
-    "acceptance": "not-passed"
+    "acceptance": "not-passed",
+    "local_images": "docs/synchronized-platform/releases/management-platform-frankfurt-v1/source-checks/local-amd64-images.json"
   }
 }

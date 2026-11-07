@@ -1,0 +1,63 @@
+{
+  "date": "2026-11-07",
+  "state": "built-locally-not-published-or-deployed",
+  "acceptance": "not-passed",
+  "images": [
+    {
+      "tag": "platform-state-collector:frankfurt-a631b29",
+      "image_id": "sha256:1806b6e0a9d3e94f8872de438e25dff6e0bcbf8c147d3f2231661d907b059710",
+      "os": "linux",
+      "architecture": "amd64",
+      "source_revision": "a631b29ebd6e32130caad2d560a9eca66c4ce250"
+    },
+    {
+      "tag": "barbarossa-observe:frankfurt-4bf0b9e",
+      "image_id": "sha256:7075b0a5d296e767469cdb27fbe81f06ed137fd997895486e7e0a973963c277b",
+      "os": "linux",
+      "architecture": "amd64",
+      "source_revision": "4bf0b9e12d16c81617562d25904d651bef6be7da"
+    },
+    {
+      "tag": "platform-portal-frontend:frankfurt-17798b9",
+      "image_id": "sha256:d3ef46f9248d3787af8d9046eca9ae2e48ac608d771f610bb547f4ce562c6ea2",
+      "os": "linux",
+      "architecture": "amd64",
+      "source_revision": "17798b957d512aa2101d4644b3bb116a6164926f"
+    },
+    {
+      "tag": "platform-portal-backend:frankfurt-17798b9",
+      "image_id": "sha256:2e8ff07025577414a4e5ae5240f6d03fde728f5857472872ace2a14677adf1f2",
+      "os": "linux",
+      "architecture": "amd64",
+      "source_revision": "17798b957d512aa2101d4644b3bb116a6164926f"
+    },
+    {
+      "tag": "omniscience-local/omniscience-server:frankfurt-a631b29",
+      "image_id": "sha256:d00f9eecdd01713701b76aaca7990dd790ac8dbf327159021800ff5106b892ad",
+      "os": "linux",
+      "architecture": "amd64",
+      "source_revision": "a631b29ebd6e32130caad2d560a9eca66c4ce250"
+    },
+    {
+      "tag": "omniscience-local/omniscience-admin:frankfurt-a631b29",
+      "image_id": "sha256:f281e295a0769336c023718708d54c595eddfa2f01cbe1738c1928253e68530a",
+      "os": "linux",
+      "architecture": "amd64",
+      "source_revision": "a631b29ebd6e32130caad2d560a9eca66c4ce250"
+    }
+  ],
+  "checks": [
+    "Omniscience platform-state model import and offline embedding generation (384 dimensions) with network disabled/read-only filesystem",
+    "Portal frontend baked rewrite targets Kubernetes portal-backend:8000",
+    "Collector CLI help works with network disabled/read-only filesystem",
+    "Barbarossa binary usage exposes collect-platform; expected usage exit1",
+    "Portal backend installed versions match tested lock and excludes dev tools; Alembic head0009; independent Dockerfile review",
+    "Frontend source unchanged between6ad5f73 and17798b9; rebuilt with final owner revision label using identical cached source layers"
+  ],
+  "rejected_artifact": "platform-portal-backend:frankfurt-6ad5f73 used unlocked dependency install; superseded by locked17798b9",
+  "remaining": [
+    "ECR publication",
+    "Omniscience and Portal lock-fix CI/merge",
+    "Ordered EKS migration, deployment and real integration acceptance"
+  ]
+}
