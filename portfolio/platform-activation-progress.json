@@ -748,8 +748,10 @@
         "runtime_image_followup": {
           "revision": "17798b957d512aa2101d4644b3bb116a6164926f",
           "pr": "https://github.com/100rd/platform-portal/pull/26",
-          "state": "ci-pending",
-          "reason": "Production image previously ignored uv.lock; now uses locked production dependencies"
+          "state": "merged",
+          "reason": "Production image previously ignored uv.lock; now uses locked production dependencies",
+          "merge_revision": "1fe767e8b7cbd0abdd33101030f8cbb21497d4f0",
+          "pr_ci": "4 workflows passed"
         },
         "merge_ci": "3 push workflows passed"
       },

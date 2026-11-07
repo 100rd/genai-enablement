@@ -57,7 +57,7 @@
   "rejected_artifact": "platform-portal-backend:frankfurt-6ad5f73 used unlocked dependency install; superseded by locked17798b9",
   "remaining": [
     "ECR publication",
-    "Omniscience and Portal lock-fix CI/merge",
+    "Omniscience final CI/merge",
     "Ordered EKS migration, deployment and real integration acceptance"
   ]
 }
