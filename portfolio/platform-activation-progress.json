@@ -1,0 +1,716 @@
+{
+  "profile": "management-platform-frankfurt-v1",
+  "state": "implementation-in-progress",
+  "acceptance": "not-passed",
+  "deployment": "three-postgresql-stores-and-neo4j-retained-verified-api-ready-secondary-storage-open",
+  "confirmed_scope": {
+    "account": "120736097561",
+    "region": "eu-central-1",
+    "cluster": "nonprod-euc1",
+    "namespaces": "all"
+  },
+  "architecture": "Hybrid platform state: source pull baselines/reconciliation plus watch/events; durable authenticated collector push into Omniscience; Barbarossa pinned owner-evidence reads. Desired, observed, signals, relations and provenance remain distinct. No AWS Config.",
+  "source_worktrees": {
+    "Omniscience": ".worktrees/eks-direct-collectors",
+    "Barbarossa": ".worktrees/eks-platform-activation",
+    "Portal": ".worktrees/eks-platform-activation",
+    "genai-enablement": ".worktrees/local-observe-v1"
+  },
+  "verified_slices": [
+    {
+      "name": "Portal logout public origin and 303",
+      "state": "reviewed-source-only",
+      "lead_checks": "TypeScript, focused ESLint and 2 Vitest tests pass after base corrected to 480c5ba.",
+      "rework": "Initial worker branch mistakenly used stale 94a2e36; lead fast-forwarded isolated branch to current deployment HEAD; own edits preserved and checks repeated.",
+      "model": "gpt-6-luna",
+      "token_usage": null
+    },
+    {
+      "name": "Direct AWS regional collectors",
+      "state": "verified-source-and-live-read",
+      "lead_checks": "144 focused Python tests passed; actual direct adapter read 19 resources with account check; not yet ingested into deployed Omniscience.",
+      "resources": {
+        "ec2": 6,
+        "vpc": 2,
+        "security_group": 8,
+        "eks_cluster": 1,
+        "load_balancer": 1,
+        "rds_instance": 1
+      },
+      "model": "gpt-6.1-sol",
+      "token_usage": null,
+      "rework": "Independent review found best-effort error behavior mismatch; corrected with failing regression and rerun."
+    },
+    {
+      "name": "Barbarossa profile binding and provenance",
+      "state": "reviewed-source-only",
+      "lead_checks": "Root repeated isolated PostgreSQL18 suite: 12 top-level tests passed, including actual 0002 to 0003 upgrade; independent Go rereview approved.",
+      "model": "gpt-6.1-sol",
+      "estimated_tokens_range": [
+        15000,
+        22000
+      ],
+      "estimated_elapsed_minutes": 40,
+      "rework": "Three high-severity read/profile/provenance defects and legacy upgrade coverage gap fixed and independently re-reviewed."
+    },
+    {
+      "name": "Host runner alternate loopback origin",
+      "state": "reviewed-source-preflight-passed",
+      "lead_checks": "Loopback transport tests pass; built host runner passed actual Codex preflight. Existing local runner has not been stopped or redirected.",
+      "model": "gpt-6-luna",
+      "token_usage": null
+    },
+    {
+      "name": "Operator registered SourceID binding",
+      "state": "reviewed-source-only",
+      "lead_checks": "Root repeated 25 focused Go tests; independent Go review approved.",
+      "model": "gpt-6-luna",
+      "estimated_tokens": 2500,
+      "estimated_elapsed_minutes": 5
+    },
+    {
+      "name": "PostgreSQL backups",
+      "state": "private-backups-restore-verified",
+      "lead_checks": "All 3 deployed PostgreSQL stores dumped without workload restart; each dump restored with ON_ERROR_STOP into a separate disposable PostgreSQL18 container, exit0 and no ERROR lines. This does not qualify deployed persistence."
+    },
+    {
+      "name": "Kubernetes UID lifecycle and configured DRA identity",
+      "state": "reviewed-source-only",
+      "lead_checks": "Lead repeated fresh Go suite: 311 passed across 8 packages; independent Go review approved; vet passed. Installed Staticcheck panics internally. No deployed collector claim.",
+      "model": "gpt-6.1-sol",
+      "estimated_tokens_range": [
+        4000,
+        6000
+      ],
+      "estimated_elapsed_minutes": 8,
+      "remaining": "Drift reconciliation still covers 16 of 33 watched kinds; separate core coverage slice started.",
+      "subsequent_resolution": "The historical 16-kind gap was superseded by the reviewed 26-core-kind slice below; optional CRD parity remains open."
+    },
+    {
+      "name": "Kubernetes vector generation projection",
+      "state": "reviewed-source-only",
+      "lead_checks": "Independent vector review approved supported Neo4j/Qdrant runtime. Lead reproduced 122 tests, 3 skipped across four live stores plus config/admission/endpoints. Graph edge-first target deletion remains separately under repair.",
+      "model": "gpt-6.1-sol",
+      "token_usage": null,
+      "subsequent_resolution": "Bounded graph lifecycle repair subsequently passed the relationship-generation slice below; retain its stated historical-cutoff limitation."
+    },
+    {
+      "name": "Periodic reconciliation for 26 core Kubernetes kinds",
+      "state": "reviewed-source-only",
+      "lead_checks": "Lead reviewed full kinds.go diff and new core_coverage_test.go, then repeated reconciler package tests. Independent Go review: 313 tests across 8 packages, vet and diff-check pass. Optional CRD parity and deployment remain open.",
+      "model": "gpt-6-luna",
+      "estimated_tokens": 5700,
+      "estimated_elapsed_minutes": 7
+    },
+    {
+      "name": "Operator relationship generation fencing",
+      "state": "reviewed-source-only",
+      "lead_checks": "After final bidirectional relationship fencing, lead reran 122 Python tests with 3 skips against real disposable NATS/PostgreSQL/Neo4j/Qdrant plus configuration/admission/API tests. Both graph modes covered. Independent Python review approved the bounded lifecycle fix.",
+      "model": "gpt-6.1-sol",
+      "token_usage": null,
+      "remaining": "Exact historical cutoff timing for an edge already superseded before delayed delete remains unverified; no full historical acceptance claim."
+    },
+    {
+      "name": "Cloud-neutral platform evidence v1 wire contract",
+      "state": "reviewed-source-only",
+      "lead_checks": "38 focused contract tests passed; closed typed receipt/facts with raw 8 MiB boundary, canonical digest and coverage/identity/timestamp checks. Independent Python review approved; Node reproduced canonical bytes/digest. No persistence/API/collector/intake implementation implied.",
+      "model": "gpt-6.1-sol",
+      "token_usage": null
+    },
+    {
+      "name": "Atomic baseline evidence storage and protected read API",
+      "state": "reviewed-source-only",
+      "lead_checks": "104 tests passed including real PostgreSQL/auth HTTP, existing auth/operator regression; ruff/mypy pass. AUTOCOMMIT, cache and log review findings fixed.",
+      "evidence": "docs/synchronized-platform/releases/management-platform-frankfurt-v1/source-checks/platform-evidence-store-api.json",
+      "models": [
+        "gpt-6.1-sol",
+        "gpt-6-luna"
+      ],
+      "token_usage": null
+    },
+    {
+      "name": "platform-state-foundation",
+      "state": "source-verified-not-deployed",
+      "evidence": "docs/synchronized-platform/releases/management-platform-frankfurt-v1/source-checks/platform-state-foundation.json",
+      "tests": "201 passed; real PostgreSQL and authenticated HTTP",
+      "live_collection": "81 actual EKS Deployments read; not admitted to live owner"
+    },
+    {
+      "name": "barbarossa-platform-intake",
+      "state": "source-verified-not-deployed",
+      "evidence": "docs/synchronized-platform/releases/management-platform-frankfurt-v1/source-checks/barbarossa-platform-intake.json"
+    },
+    {
+      "name": "real-owner-collector-roundtrip",
+      "state": "synthetic-local-source-integration-passed",
+      "evidence": "docs/synchronized-platform/releases/management-platform-frankfurt-v1/source-checks/owner-collector-roundtrip.json",
+      "exclusions": [
+        "No EKS ingestion",
+        "No Codex invocation",
+        "No Portal browser acceptance"
+      ]
+    },
+    {
+      "name": "eks-barbarossa-storage",
+      "state": "deployed-and-verified",
+      "evidence": "docs/synchronized-platform/releases/management-platform-frankfurt-v1/source-checks/eks-barbarossa-storage.json",
+      "scope": "Existing local profile; Frankfurt source not activated"
+    },
+    {
+      "name": "eks-omniscience-postgres-storage",
+      "state": "deployed-and-verified",
+      "evidence": "docs/synchronized-platform/releases/management-platform-frankfurt-v1/source-checks/eks-omniscience-postgres-storage.json",
+      "scope": "Existing owner data retained; new platform-state source not deployed"
+    },
+    {
+      "name": "portal-owner-evidence",
+      "state": "reviewed-source-only",
+      "evidence": "docs/synchronized-platform/releases/management-platform-frankfurt-v1/source-checks/portal-owner-evidence.json"
+    },
+    {
+      "name": "collector-outbox",
+      "state": "reviewed-source-only",
+      "evidence": "docs/synchronized-platform/releases/management-platform-frankfurt-v1/source-checks/collector-outbox.json"
+    },
+    {
+      "name": "portal-owner-evidence-frontend",
+      "state": "reviewed-source-only",
+      "evidence": "docs/synchronized-platform/releases/management-platform-frankfurt-v1/source-checks/portal-owner-evidence-frontend.json"
+    },
+    {
+      "name": "frankfurt-read-boundary",
+      "state": "reviewed-source-only",
+      "evidence": "docs/synchronized-platform/releases/management-platform-frankfurt-v1/source-checks/frankfurt-read-boundary.json"
+    },
+    {
+      "name": "Source-scoped owner reads and projection binding",
+      "state": "reviewed-source-only",
+      "lead_checks": "Lead real PostgreSQL owner API and full Barbarossa command module race checks; 43 Portal backend and 31 frontend checks passed; independent reviews cleared",
+      "evidence": "docs/synchronized-platform/releases/management-platform-frankfurt-v1/source-checks/source-scope-and-refresh.json",
+      "token_usage": null
+    },
+    {
+      "name": "Durable collector publisher CLI",
+      "state": "reviewed-source-only",
+      "lead_checks": "Lead race tests for full platformstate and collector command packages passed; independently reviewed",
+      "evidence": "docs/synchronized-platform/releases/management-platform-frankfurt-v1/source-checks/collector-publisher-cli.json",
+      "token_usage": null
+    },
+    {
+      "name": "Two-source real owner/collector roundtrip",
+      "state": "reviewed-source-only",
+      "lead_checks": "Lead rerun exit 0 with assertions enabled; imported 1/3/4 and skipped sibling2; one case/job then resolved/cancelled",
+      "evidence": "docs/synchronized-platform/releases/management-platform-frankfurt-v1/source-checks/owner-collector-roundtrip-source-scoped.json",
+      "token_usage": null
+    },
+    {
+      "name": "Neo4j retained EBS recovery after source eviction",
+      "state": "live-verified-api-resumed",
+      "evidence": "docs/synchronized-platform/releases/management-platform-frankfurt-v1/source-checks/eks-neo4j-storage.json",
+      "token_usage": null
+    },
+    {
+      "name": "NATS/Qdrant native off-node backup",
+      "state": "captured-and-hash-verified",
+      "evidence": "docs/synchronized-platform/releases/management-platform-frankfurt-v1/source-checks/eks-secondary-storage-capture.json",
+      "token_usage": null
+    },
+    {
+      "name": "PostgreSQL network and Service owner boundaries",
+      "state": "reviewed-source-only",
+      "evidence": "docs/synchronized-platform/releases/management-platform-frankfurt-v1/source-checks/postgres-network-boundaries.json",
+      "token_usage": null
+    },
+    {
+      "name": "Trusted platform workspace and publisher provisioning",
+      "state": "reviewed-source-only",
+      "evidence": "docs/synchronized-platform/releases/management-platform-frankfurt-v1/source-checks/platform-state-provisioning.json",
+      "token_usage": null
+    },
+    {
+      "name": "Secondary-store Spot incident recovery rehearsal paths",
+      "state": "source-reviewed-live-rehearsal-in-progress",
+      "model": "gpt-6.1-sol",
+      "token_usage": null,
+      "elapsed_minutes": null,
+      "rework": "Scheduled EKS topology labels initially stopped exact metadata checks; narrowly validated Node/EBS labels. Original Spot source then disappeared; separate incident-mode journals and pinned replacement identities added without weakening normal guards. NATS on-demand scheduling and replacement Node UID added after review.",
+      "lead_checks": "Qdrant 25 focused tests and NATS 33 focused tests passed; independent Python review cleared both. Live restore is not yet accepted.",
+      "evidence": "docs/synchronized-platform/releases/management-platform-frankfurt-v1/source-checks/eks-secondary-storage-spot-interruption.json"
+    },
+    {
+      "name": "Omniscience scheduled collector owner Helm support",
+      "state": "source-reviewed-not-deployed",
+      "model": "gpt-6.1-sol",
+      "token_usage": null,
+      "lead_checks": "4 actual Helm render tests and 7 subtests passed; full new templates/tests/docs reviewed, independent review clear.",
+      "evidence": "docs/synchronized-platform/releases/management-platform-frankfurt-v1/source-checks/collector-helm.json"
+    },
+    {
+      "name": "Barbarossa Frankfurt owner Helm profile",
+      "state": "source-reviewed-not-deployed",
+      "model": "gpt-6.1-sol",
+      "token_usage": null,
+      "lead_checks": "Five real Helm tests passed; full templates/helpers/test/doc review and independent CLI/security review. Migration hardgate added after review.",
+      "evidence": "docs/synchronized-platform/releases/management-platform-frankfurt-v1/source-checks/barbarossa-frankfurt-helm.json"
+    },
+    {
+      "name": "Portal Frankfurt Helm identity binding and rollout",
+      "state": "source-reviewed-not-deployed",
+      "model": "gpt-6-luna",
+      "token_usage": null,
+      "rework": "Lead fixed reviewer HIGH: ConfigMap-only binding change left running backend with stale auth scope. Added conditional nonsecret checksum and rollout regression tests.",
+      "evidence": "docs/synchronized-platform/releases/management-platform-frankfurt-v1/source-checks/portal-frankfurt-helm.json"
+    },
+    {
+      "name": "Full-suite regression fixtures and Portal checks",
+      "state": "source-verified-omniscience-full-rerun-in-progress",
+      "models": [
+        "gpt-6.1-sol",
+        "gpt-6-luna"
+      ],
+      "token_usage": null,
+      "lead_checks": "Portal backend 1469 passed, 4 skipped; frontend 702 passed; lint exit 0. Omniscience ingestion 79 passed, operator authorization 16 passed, logging plus provisioning 19 passed. Independent Python review clear. Omniscience full-suite rerun pending.",
+      "rework": "Original full Omniscience run: 4420 passed, 78 skipped, 3 failed; fixed realistic queue/dedup fixtures and isolated standalone CLI integration from process-global structlog configuration."
+    },
+    {
+      "name": "PostgreSQL guarded policy-only preparation",
+      "state": "source-reviewed-offline-only",
+      "requested_model": "gpt-6.1-sol",
+      "token_usage": null,
+      "lead_checks": "Full new-file review; nine tests reproduced; independent Python/security review clear. No live policy mutations; fresh capture/admission blocked by expired AWS session."
+    }
+  ],
+  "in_progress": [
+    "PS-01/PS-02: strict v2 deployments partition contract, enrollment and transactional read/publish are source-verified. Complete multi-partition generations/materialization remain open.",
+    "Go collector read 81 real EKS Deployments. Durable outbox/publisher/CLI and separate local amd64 image are reviewed; regular EKS publisher and NATS state delivery remain pending.",
+    "Barbarossa source-scoped intake, profile/scope-bound projections and local real HTTP/PostgreSQL two-source roundtrip passed. Portal refuses wrong scope and clears stale UI on access failure. Not activated in EKS.",
+    "Three PostgreSQL stores and Neo4j now retained/live-verified; API restored HTTP200. Native NATS/Qdrant off-node backups verified; isolated EBS restore implementations under review, original hostPath stores preserved.",
+    "Network policy and Service ownership changes passed independent review and five real Helm render tests; live permissive policies not yet reconciled.",
+    "Dedicated management workspace/source/token provisioning command passed security review, identity-bound retry and25PGtests; no live enrollment yet.",
+    "Desired configuration, runtime signals, dependency joins, Security policies, runner activation, full coverage and final browser/failure qualification remain open."
+  ],
+  "remaining_acceptance": [
+    "Durable cluster storage and verified data-preserving migration/replacement",
+    "Restricted component network boundaries and ordered migrations",
+    "Actual regular collectors into deployed Omniscience with explicit coverage/deletion/freshness",
+    "Tenant-scoped live platform Knowledge View instead of seeded default-only topology",
+    "Neutral immutable owner evidence export and Barbarossa Reliability/Security intake",
+    "Host runner cutover plus real analysis/recommendation for each domain",
+    "Browser/API/fault/recovery/restart qualification on exact final images",
+    "Final independent review, source publication/CI and evidence-backed acceptance status"
+  ],
+  "retained_unused_work": "Omniscience .worktrees/eks-platform-activation contains an isolated AWS Config correction; it is excluded from the selected direct-collector delivery.",
+  "measurement_note": "Agent estimates are not billing usage. In-progress test reports do not qualify the deployed stack.",
+  "review_history": [
+    {
+      "slice": "operator-vector-lifecycle",
+      "state": "changes-requested",
+      "findings": [
+        "Delayed old-UID deletion can leave stale vectors when replacement SQL committed but vector write failed.",
+        "Generic non-operator same-hash replay changes PostgreSQL tombstone behavior without corresponding Qdrant behavior."
+      ],
+      "lead_checks": "Actual four-service focused suite: 76 passed, 3 skipped; these tests do not yet cover all review findings.",
+      "model": "gpt-6.1-sol",
+      "token_usage": null
+    },
+    {
+      "slice": "operator-ingestion-lifecycle",
+      "state": "changes-requested",
+      "model": "gpt-6.1-sol",
+      "findings": [
+        "High \u2014 Edge projection can reopen a deleted target.",
+        "High \u2014 UID-less upserts bypass generation fencing.",
+        "High \u2014 Replacement after a missed delete leaves the prior UID eligible for replay.",
+        "Medium \u2014 Current graph stats include closed resources, closed relationships, and unresolved placeholders."
+      ],
+      "remaining_boundaries": [
+        "Source-to-cluster ownership and publisher authorization within a workspace remain unverified.",
+        "Topology replacement must retire obsolete outgoing relationships.",
+        "Old outbox producer compatibility requires suspended publishers and full fleet replacement."
+      ],
+      "lead_followup": "Assigned fixes to original owners with separate writer/vector versus ingestion/graph ownership. Also checking observation-time versus broker-publication-time ordering."
+    },
+    {
+      "slice": "operator-graph-ordering",
+      "state": "changes-requested",
+      "model": "gpt-6.1-sol",
+      "findings": [
+        "A replacement can expose an edge left open by target deletion.",
+        "The delayed-delete case still exposes a stale edge."
+      ],
+      "lead_direction": "Fence operator relationships independently by source and target generation; late deletion must preserve replacement-stamped edges while closing old or pre-deletion unresolved edges."
+    }
+  ],
+  "agent_work_log": [
+    {
+      "task": "operator-vector-generation-fences",
+      "model": "gpt-6.1-sol",
+      "estimated_tokens": 9000,
+      "estimated_elapsed_minutes": 10,
+      "state": "independent-review-rework",
+      "retries": 1,
+      "note": "Worker estimate, not measured billing; lead reproduced 76 tests before new review fixes."
+    },
+    {
+      "task": "operator-lifecycle-python-review",
+      "model": "gpt-6.1-sol",
+      "token_usage": null,
+      "state": "changes-requested",
+      "note": "Ruff, mypy186files and67focusedtests reported; no EKS qualification."
+    },
+    {
+      "task": "storage-prerequisite-draft",
+      "model": "gpt-6-luna",
+      "token_usage": null,
+      "state": "independent-review-rework",
+      "retries": 2,
+      "note": "Draft only; no IAM/add-on/cluster mutation."
+    },
+    {
+      "task": "platform-state-source-audit-omniscience",
+      "model": "gpt-6-luna",
+      "token_usage": null,
+      "elapsed_minutes": null,
+      "state": "completed-read-only",
+      "retries": 0,
+      "note": "Existing operator and parser capabilities distinguished from uncommitted lifecycle/wire additions; no live verification."
+    },
+    {
+      "task": "platform-state-source-audit-barbarossa-portal",
+      "model": "gpt-6-luna",
+      "token_usage": null,
+      "elapsed_minutes": null,
+      "state": "completed-read-only",
+      "retries": 1,
+      "note": "Lead rejected initial stale Portal checkout findings; agent re-audited exact 480c5ba worktree. Existing Observe/Control split preserved."
+    },
+    {
+      "task": "platform-state-plan-independent-review",
+      "model": "gpt-6.1-sol",
+      "token_usage": null,
+      "elapsed_minutes": null,
+      "retries": 0,
+      "state": "findings-addressed",
+      "note": "Added discovery parity/full-scope gap gates, deployed prerequisite/fleet cutover boundaries, checkpoint/ACK failure tests and durable intake cursor/evidence retention. No live acceptance implied."
+    },
+    {
+      "task": "baseline-evidence-persistence",
+      "model": "gpt-6.1-sol",
+      "estimated_tokens": 5000,
+      "estimated_elapsed_minutes": 6,
+      "retries": 1,
+      "state": "reviewed-source-only"
+    },
+    {
+      "task": "baseline-evidence-read-api",
+      "model": "gpt-6-luna",
+      "token_usage": null,
+      "retries": 1,
+      "state": "reviewed-source-only",
+      "note": "Lead added realPG/token integration; independentsecurityreview completed."
+    },
+    {
+      "task": "v2 authenticated publishing and security repair",
+      "model": "gpt-6.1-sol",
+      "token_usage": null,
+      "elapsed_minutes_estimate": 15,
+      "retries": 1,
+      "result": "reviewed; lead 201-test regression passed; not deployed",
+      "review": "independent security/Python; in-flight revocation red reproduced and fixed"
+    },
+    {
+      "task": "Barbarossa platform-state atomic intake",
+      "model": "gpt-6.1-sol",
+      "token_usage": null,
+      "elapsed_minutes_estimate": 20,
+      "retries": 2,
+      "result": "17 real PG race tests passed; independent Go/SQL approved; not deployed"
+    },
+    {
+      "task": "bounded pinned owner HTTP client",
+      "model_requested": "gpt-6-luna",
+      "model_actual": null,
+      "token_usage": null,
+      "elapsed_minutes_estimate": 16,
+      "retries": 3,
+      "result": "39 race tests; independent Go review; lead corrected false-negative regression test; not deployed"
+    },
+    {
+      "task": "Frankfurt collector command and real owner HTTP integration",
+      "model_requested": "gpt-6.1-sol",
+      "token_usage": null,
+      "elapsed_minutes_estimate": 15,
+      "retries": 0,
+      "result": "independent review and lead reproduction passed; source only"
+    },
+    {
+      "task": "portal-owner-evidence",
+      "model_requested": "gpt-6-luna",
+      "actual_model": "not exposed",
+      "token_usage": null,
+      "estimated_elapsed_minutes": 12,
+      "rework_rounds": 3,
+      "result": "31 tests and independent Python review passed; source only"
+    },
+    {
+      "task": "collector-outbox",
+      "model_requested": "gpt-6.1-sol",
+      "actual_model": "not exposed",
+      "token_usage": null,
+      "estimated_elapsed_minutes": 10,
+      "rework_rounds": 1,
+      "result": "Independent Go review and lead race reproduction passed; process-exit coverage added"
+    },
+    {
+      "task": "frankfurt-read-boundary",
+      "models_requested": [
+        "gpt-6-luna",
+        "gpt-6.1-sol"
+      ],
+      "actual_model": "not exposed",
+      "token_usage": null,
+      "estimated_elapsed_minutes": 20,
+      "rework_rounds": 1,
+      "result": "Foreign legacy context import/disclosure fixed in both owners; root PG race +73 Portal tests passed"
+    },
+    {
+      "task": "neo4j-replacement-recovery",
+      "requested_model": "gpt-6.1-sol",
+      "actual_model": "not exposed",
+      "token_usage": null,
+      "wall_time_seconds": null,
+      "timing_note": "Not independently measured; image build approximately37s recorded separately",
+      "review_rework_rounds": 1,
+      "outcome": "Independent review + lead21tests and guarded live recovery passed; API HTTP200",
+      "recorded_at": "2026-11-07T12:19:47.940776+00:00"
+    },
+    {
+      "task": "collector-container-image",
+      "requested_model": "gpt-6-luna",
+      "actual_model": "not exposed",
+      "token_usage": null,
+      "wall_time_seconds": null,
+      "timing_note": "Not independently measured; image build approximately37s recorded separately",
+      "review_rework_rounds": 1,
+      "outcome": "Localamd64build and lead nonroot smoke passed; independent review approved after outbox mode doc correction",
+      "recorded_at": "2026-11-07T12:19:47.940976+00:00"
+    },
+    {
+      "task": "source-scoped-roundtrip-refresh",
+      "requested_model": "gpt-6.1-sol",
+      "actual_model": "not exposed",
+      "token_usage": null,
+      "wall_time_seconds": null,
+      "timing_note": "Not independently measured; image build approximately37s recorded separately",
+      "review_rework_rounds": 0,
+      "outcome": "Independent review and lead actual HTTP/PostgreSQL rerun exit0",
+      "recorded_at": "2026-11-07T12:19:47.940979+00:00"
+    },
+    {
+      "task": "network-and-secondary-storage-inventory",
+      "requested_model": "gpt-6-luna",
+      "actual_model": "not exposed",
+      "token_usage": null,
+      "wall_time_seconds": null,
+      "timing_note": "Not independently measured; image build approximately37s recorded separately",
+      "review_rework_rounds": 0,
+      "outcome": "Read-only source/live inventories; hostPath durability and additive policy blockers recorded",
+      "recorded_at": "2026-11-07T12:19:47.940981+00:00"
+    },
+    {
+      "task": "ingestion-fixture-regressions",
+      "requested_model": "gpt-6.1-sol",
+      "actual_model": "not exposed",
+      "token_usage": null,
+      "wall_time_seconds": null,
+      "timing_note": "Not independently measured",
+      "review_rework_rounds": 0,
+      "outcome": "Lead full diff and 79 tests; independent Python review; operator authorization 16 tests pass",
+      "recorded_at": "2026-11-07T13:45:43.917574+00:00"
+    },
+    {
+      "task": "provisioning-cli-isolation",
+      "requested_model": "gpt-6.1-sol",
+      "actual_model": "not exposed",
+      "token_usage": null,
+      "wall_time_seconds": null,
+      "timing_note": "Not independently measured",
+      "review_rework_rounds": 0,
+      "outcome": "Reproduced logging-order failure; subprocess fix; lead19 and independent30 focused tests pass",
+      "recorded_at": "2026-11-07T13:45:43.917749+00:00"
+    },
+    {
+      "task": "secondary-stage-null-endpoints",
+      "requested_model": "gpt-6.1-sol",
+      "actual_model": "not exposed",
+      "token_usage": null,
+      "wall_time_seconds": null,
+      "timing_note": "Not independently measured",
+      "review_rework_rounds": 0,
+      "outcome": "Reproduced actual pre-delete failure; lead and independent review plus71 tests pass; live retry in progress",
+      "recorded_at": "2026-11-07T13:45:43.917752+00:00"
+    },
+    {
+      "task": "independent-fixture-reviews",
+      "requested_model": "gpt-6-luna",
+      "actual_model": "not exposed",
+      "token_usage": null,
+      "wall_time_seconds": null,
+      "timing_note": "Not independently measured",
+      "review_rework_rounds": 0,
+      "outcome": "Python review clear; source binding and audit assertions preserved",
+      "recorded_at": "2026-11-07T13:45:43.917753+00:00"
+    }
+  ],
+  "storage_prerequisite_plan": {
+    "state": "portal-and-barbarossa-migrated-omniscience-postgres-in-progress-neo4j-pending",
+    "path": "deploy/eks/storage-prerequisites/README.md",
+    "scope": {
+      "account": "120736097561",
+      "region": "eu-central-1",
+      "cluster": "nonprod-euc1",
+      "namespace": "splatform"
+    },
+    "existing_database_migration_included": false,
+    "applied": true,
+    "applied_resources": [
+      "IAM nonprod-euc1-ebs-csi-controller with scoped trust",
+      "DenyEBSCSIOutsideEuCentral1 inline policy",
+      "AmazonEBSCSIDriverEKSClusterScopedPolicy attachment",
+      "aws-ebs-csi-driver v1.67.2-eksbuild.1 add-on creating with Pod Identity",
+      "Cilium kube-system/splatform-ebs-csi-aws-api exact EC2 hostname TCP443 plus DNS proxy rule"
+    ],
+    "evidence": "docs/synchronized-platform/releases/management-platform-frankfurt-v1/source-checks/eks-storage-prerequisite.json"
+  },
+  "source_evidence": "docs/synchronized-platform/releases/management-platform-frankfurt-v1/source-checks/verification.json",
+  "plan": "docs/synchronized-platform/platform-state-plan.md",
+  "platform_state_delivery": {
+    "decision": "hybrid",
+    "state": "implementation-in-progress",
+    "limited_vertical_slice_is_full_acceptance": false,
+    "sequence": [
+      {
+        "id": "PS-01",
+        "state": "in-progress",
+        "owner": "Omniscience/genai-enablement"
+      },
+      {
+        "id": "PS-02",
+        "state": "in-progress",
+        "owner": "Omniscience"
+      },
+      {
+        "id": "PS-02D",
+        "state": "in-progress",
+        "owner": "deployment/component owners"
+      },
+      {
+        "id": "PS-03",
+        "state": "planned",
+        "owner": "Omniscience/Portal"
+      },
+      {
+        "id": "PS-04",
+        "state": "in-progress",
+        "owner": "Barbarossa/Portal"
+      },
+      {
+        "id": "PS-05",
+        "state": "planned",
+        "owner": "Omniscience/Barbarossa"
+      },
+      {
+        "id": "PS-06",
+        "state": "planned",
+        "owner": "all owners/genai-enablement"
+      }
+    ]
+  },
+  "runtime_access": {
+    "state": "expired-token",
+    "account": "120736097561",
+    "note": "Verified process-scoped profile now fails STS ExpiredToken. SSO cached access token also expired; browser requires login. User asked to renew existing AWS profile. Original credential file unchanged; no credentials stored in source/container."
+  },
+  "runtime_incident": {
+    "component": "portal-backend",
+    "state": "portal-recovered-remaining-platform-acceptance-open",
+    "observed": "CrashLoopBackOff; portal_app authentication failure. Current portal PostgreSQL has neither portal_app role nor public tables; data mount emptyDir and Pod recreated after migration job.",
+    "recovery_input": "Private restore-verified portal-postgres backup 20261106T225549Z; restore to new retained storage planned, no overwrite of live data.",
+    "confirmed": "Current pg_dumpall contains only bootstrap database/roles (4150 bytes); application role/table query empty. This is data loss after emptyDir replacement, not merely a wrong password.",
+    "staging": "17 tables, Alembic revision and both current secret role logins verified on retained PVC",
+    "evidence": "docs/synchronized-platform/releases/management-platform-frankfurt-v1/source-checks/eks-portal-storage-recovery.json"
+  },
+  "runtime_maintenance": {
+    "component": "Omniscience Neo4j",
+    "state": "complete",
+    "helm_revision": 5,
+    "api_replicas": 1,
+    "api_ready_replicas": 1,
+    "ready_http": 200,
+    "evidence": "docs/synchronized-platform/releases/management-platform-frankfurt-v1/source-checks/eks-neo4j-storage.json",
+    "next": "Native NATS/Qdrant backups and retained-volume restoration; retain temporary disruption protection for these two Pods",
+    "secondary_handoff": {
+      "phase": "stage-stop-intent",
+      "schema": 2,
+      "api_replicas": 0,
+      "state": "blocked-on-expired-aws-session",
+      "production_storage_switch_verified": false,
+      "last_failure": "AWS STS ExpiredToken during stage shutdown. Original production StatefulSets not yet stopped. API last verified replicas=0; exact stage deletion/detach state needs fresh authorized read after credential renewal.",
+      "last_failure_resolution": "User notified to renew existing AWS profile; no automatic SSO session available. Retained claims and backups preserved."
+    }
+  },
+  "secondary_storage_blocker": {
+    "state": "both-native-restores-verified-production-cutover-pending",
+    "nats": {
+      "pvc": "omniscience-nats-js-omniscience-nats-0",
+      "pv": "pv-splatform-nats-noniac",
+      "hostPath": "/tmp/splatform-nats-noniac"
+    },
+    "qdrant": {
+      "pvc": "qdrant-storage-omniscience-qdrant-0",
+      "pv": "pv-splatform-qdrant-noniac",
+      "hostPath": "/tmp/splatform-qdrant-noniac"
+    },
+    "risk": "Original Spot node was interrupted and removed; replacement hostPath stores are not proven equivalent. Verified off-node native capture is retained; normal restore source-identity guards stopped as intended.",
+    "capture_evidence": "docs/synchronized-platform/releases/management-platform-frankfurt-v1/source-checks/eks-secondary-storage-capture.json",
+    "incident_evidence": "docs/synchronized-platform/releases/management-platform-frankfurt-v1/source-checks/eks-secondary-storage-spot-interruption.json",
+    "confirmed_data_loss": "Replacement Qdrant contains 0 points; verified off-node backup contains 7. NATS streams/durables exist but exact inventory differs.",
+    "qdrant_rehearsal_evidence": "docs/synchronized-platform/releases/management-platform-frankfurt-v1/source-checks/eks-qdrant-retained-rehearsal.json",
+    "nats_rehearsal_evidence": "docs/synchronized-platform/releases/management-platform-frankfurt-v1/source-checks/eks-nats-retained-rehearsal.json"
+  },
+  "network_boundary_work": {
+    "state": "source-reviewed-five-tests-passed-not-deployed",
+    "confirmed_live_findings": [
+      "Bitnami PostgreSQL NetworkPolicies allow all source pods on5432",
+      "Omniscience and Portal custom store selectors include other owners PostgreSQL"
+    ],
+    "additional_render_finding": "Under shared umbrella Release.Name, Bitnami Services share instance/name/component selectors and can select sibling databases. Unique owner identity must constrain Services as well as policy union.",
+    "validation_required": [
+      "Each approved owner runtime/migration/bootstrap caller reaches own PostgreSQL",
+      "Frontend and cross-owner callers denied by complete policy union",
+      "Independent canonical release selectors preserved",
+      "Umbrella PostgreSQL Services select only their own pods"
+    ],
+    "evidence_private": ".local-observe/frankfurt-activation/network-boundary-inventory.json",
+    "source_evidence": "docs/synchronized-platform/releases/management-platform-frankfurt-v1/source-checks/postgres-network-boundaries.json",
+    "preparation_evidence": "docs/synchronized-platform/releases/management-platform-frankfurt-v1/source-checks/postgres-policy-preparation.json"
+  },
+  "source_publication": {
+    "state": "committed-pushed-pr-open-ci-pending",
+    "components": {
+      "Omniscience": {
+        "revision": "8a2caf5e6cb9489d71690ad8b5773c11b103a110",
+        "pr": "https://github.com/100rd/Omniscience/pull/376"
+      },
+      "Barbarossa": {
+        "revision": "4bf0b9e12d16c81617562d25904d651bef6be7da",
+        "pr": "https://github.com/100rd/Barbarossa/pull/15"
+      },
+      "Portal": {
+        "revision": "6ad5f737a4deea981b0003c7dcc751c82965dfae",
+        "pr": "https://github.com/100rd/platform-portal/pull/25"
+      }
+    },
+    "acceptance": "not-passed"
+  }
+}

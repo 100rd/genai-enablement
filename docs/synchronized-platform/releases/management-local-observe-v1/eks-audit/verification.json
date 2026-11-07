@@ -1,0 +1,121 @@
+{
+  "schema_version": 1,
+  "profile": "management-local-observe-v1",
+  "as_of": "2026-11-06T22:36:20Z",
+  "context": "nonprod-euc1",
+  "namespace": "splatform",
+  "result": "deployed-acceptance-failed",
+  "scope": "read-only deployment inspection and actual browser/API journeys; no fault injection",
+  "source_revisions": {
+    "barbarossa": "1c6335656b348dbd9025aa82d0cb730b442604dd",
+    "omniscience": "639c52dac220b461d286b86a6fdeb36cf89300a4",
+    "portal": "1389aae9112ba03696fb3bc99560e970887d3241"
+  },
+  "revision_binding": "Observed image tags and Helm app versions; image build provenance not independently attested.",
+  "workloads": {
+    "deployments_ready": 7,
+    "statefulsets_ready": 6,
+    "migration_jobs_complete": 3
+  },
+  "browser": {
+    "execution": "actual interactive browser against the EKS Portal, using two separate tenant sessions",
+    "alpha_login": "passed",
+    "beta_login": "passed",
+    "alpha_graph": {
+      "entities": 3,
+      "edges": 2
+    },
+    "beta_graph": {
+      "entities": 3,
+      "edges": 2
+    },
+    "graph_scope": "owner-served seeded test topology",
+    "alpha_foreign_workspace": "NEEDS MAPPING; no graph/provenance disclosed",
+    "beta_control": "Owner access denied, as expected by the alpha-only allowlist",
+    "alpha_connection_cards": "Connected / HEALTHY with fresh timestamps",
+    "beta_connection_cards": "Status access denied via Barbarossa; own Omniscience graph remains available",
+    "case_evidence_navigation": "passed; recorded unhealthy and healthy history visible",
+    "logout": "failed; redirect uses localhost instead of deployed origin",
+    "cleanup": "Both created test SSO sessions logged out; temporary local credentials removed"
+  },
+  "identity": {
+    "passed": 11,
+    "total": 11,
+    "evidence": "identity-and-status.json"
+  },
+  "observations": {
+    "all_three_components": "healthy",
+    "latest_sample_at": "2026-11-06T22:26:46.993608Z",
+    "cadence": "repeated reads advanced persisted timestamps at 30-second cadence"
+  },
+  "control": {
+    "resolved_cases": 2,
+    "pending_jobs": 0,
+    "cancelled_history_jobs": 3,
+    "claim_attempts": 0,
+    "accepted_assessments_visible": 0,
+    "runner": "unknown",
+    "runner_last_seen_at": null
+  },
+  "findings": [
+    {
+      "id": "EKS-01",
+      "status": "confirmed",
+      "summary": "PostgreSQL x3 and Neo4j data use emptyDir; no durable Pod replacement guarantee",
+      "evidence": "storage.json"
+    },
+    {
+      "id": "EKS-02",
+      "status": "confirmed",
+      "summary": "Runner has no heartbeat; full Codex recovery path unverified",
+      "evidence": "identity-and-status.json",
+      "supporting_evidence": "deployment-details.json"
+    },
+    {
+      "id": "EKS-03",
+      "status": "confirmed",
+      "summary": "Frontend TCP connects to all three PostgreSQL services; policies are too broad",
+      "evidence": "frontend-db-network.json",
+      "limit": "No database credentials or SQL sent; no claim of unauthorized data reads"
+    },
+    {
+      "id": "EKS-04",
+      "status": "confirmed",
+      "summary": "shared-host/shared-fate provenance contradicts multi-node placement",
+      "evidence": "identity-and-status.json",
+      "supporting_evidence": "deployment-details.json"
+    },
+    {
+      "id": "EKS-05",
+      "status": "confirmed-historical-startup",
+      "summary": "Roles started before migrations completed; persistence errors/restarts observed; current workloads recovered",
+      "evidence": "deployment-details.json"
+    },
+    {
+      "id": "EKS-06",
+      "status": "confirmed",
+      "summary": "Logout returns 307 redirect to https://localhost:3000/login",
+      "evidence": "logout-routing.json"
+    }
+  ],
+  "startup_ordering": {
+    "barbarossaObserverStartedAt": "2026-11-06T22:10:46Z",
+    "barbarossaMigrationContainerFinishedAt": "2026-11-06T22:10:58Z",
+    "barbarossaMigrationJobCompletedAt": "2026-11-06T22:11:01Z",
+    "portalFrontendStartedAt": "2026-11-06T22:14:07Z",
+    "portalMigrationContainerFinishedAt": "2026-11-06T22:14:29Z",
+    "portalMigrationJobCompletedAt": "2026-11-06T22:14:32Z"
+  },
+  "unperformed": [
+    "deliberate outage drills",
+    "database Pod replacement and durable recovery",
+    "AI analysis invocation and end-to-end recovery",
+    "effective database grant audit",
+    "default-ServiceAccount RBAC audit",
+    "image build attestation",
+    "HA qualification"
+  ],
+  "cluster_configuration_changes": false,
+  "application_source_changes": false,
+  "previous_local_evidence": "Preserved unchanged; local counts and qualified receipts do not qualify this EKS installation."
+}

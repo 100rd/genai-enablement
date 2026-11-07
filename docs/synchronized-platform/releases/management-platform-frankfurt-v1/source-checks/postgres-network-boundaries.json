@@ -1,0 +1,33 @@
+{
+  "recorded_at": "2026-11-07T12:32:28.348766+00:00",
+  "scope": "Owner PostgreSQL Helm policies and Services; source only not deployed",
+  "files": {
+    "Omniscience/deploy/helm/omniscience/values.yaml": "f91d0349bbca4461b8b2122db69d2cece7a0951781e6649fa247de518280cd88",
+    "Omniscience/deploy/helm/omniscience/templates/networkpolicy.yaml": "237b970d6c572a9bc63276a6e5652ca9304cb11f176eade0de2e5ce65a6aa5ad",
+    "Barbarossa/deploy/helm/barbarossa/values.yaml": "0808e9f568bf059cb4e720069c9a62fa479ede9d53cba2b45c2850ac7f6fddb3",
+    "Barbarossa/deploy/helm/barbarossa/templates/networkpolicy.yaml": "7811a56866a726b007739d0215634bb7d5c9626216ac51444cdc165ad352f510",
+    "platform-portal/deploy/helm/platform-portal/values.yaml": "d2865ce964247819857759560e8aac5c2febfdc4f4a46426a1ea37ef3d7159bc",
+    "platform-portal/deploy/helm/platform-portal/templates/networkpolicy.yaml": "81a8453f4ce08c392f4f2739208329ed23ad4666904c7534689f8ddb3be9f38d",
+    "genai-enablement/tests/test_postgres_network_boundaries.py": "e6ce7c32f5e4ce3e984f4b39419fafcc5c3960882bf364d658c270d71918d3c9"
+  },
+  "verification": [
+    "Baseline shared release allowed Barbarossa API to Omniscience DB",
+    "Lead read all six owner chart diffs plus new union test",
+    "Independent security review approved after optional nested Keycloak database fix",
+    "Lead actual Helm render with pinned dependency versions: five tests passed",
+    "Independent canonical and umbrella owner DB access, migration/bootstrap/observer, frontend/cross-owner deny, preserved non-PG stores",
+    "Unique Service selection and canonical live immutable selectors checked",
+    "Optional Keycloak JDBC hostname retained; isolated nested DB policy tested",
+    "All three optional pg_dumpall CronJobs retain access only to own database"
+  ],
+  "deployment_requirements": [
+    "All three old permissive policy sets must be reconciled; reuse-values can retain old policy flags",
+    "Existing noncanonical owner releases and enabled nested Keycloak DB require immutable selector migration",
+    "External DB mode keeps approved caller TCP5432 egress and depends on destination controls",
+    "Live Cilium and Kubernetes traffic tests remain required"
+  ],
+  "cilium_inventory": "Observed clusterwide policies have no normal splatform workload-to-PostgreSQL allow; host/remote-node/kube-apiserver carve-outs remain distinct. No live enforcement claim.",
+  "requested_model": "gpt-6.1-sol",
+  "actual_model": "not exposed",
+  "token_usage": null
+}

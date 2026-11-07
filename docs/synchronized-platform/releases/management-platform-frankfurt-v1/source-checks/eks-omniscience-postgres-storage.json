@@ -1,0 +1,38 @@
+{
+  "recorded_at": "2026-11-07T11:26:13.850070+00:00",
+  "scope": "Existing Omniscience PostgreSQL storage migration; platform-state source features not deployed",
+  "account": "120736097561",
+  "region": "eu-central-1",
+  "cluster": "nonprod-euc1",
+  "release_revision": 3,
+  "release_status": "deployed",
+  "volume": {
+    "pvc_uid": "ba3f9011-d275-4273-9dbd-b1177dccf200",
+    "pv_name": "pvc-ba3f9011-d275-4273-9dbd-b1177dccf200",
+    "pv_uid": "833c7185-c0d6-4dd5-873c-d1fb7f3d2d40",
+    "volume_handle": "vol-0bfdd0276e01e05a0",
+    "availability_zone": "eu-central-1b"
+  },
+  "captured_counts": {
+    "alembic_version": 1,
+    "api_tokens": 6,
+    "audit_log": 0,
+    "chunks": 5,
+    "documents": 5,
+    "edges": 0,
+    "entities": 0,
+    "entity_emitter": 0,
+    "ingestion_runs": 0,
+    "outbox_events": 0,
+    "sources": 2,
+    "workspaces": 3
+  },
+  "backup_sha256": "50f0e58d8dde5d111b7f345adb9805c8cefc50900e96b06f8095c2f798210a0e",
+  "verification": [
+    "Exact 12-table row fingerprints, schema, role verifier and sequences matched staged and live DB while API paused",
+    "Both Secret database URLs authenticated through staged and original Services; Alembic0015 preserved",
+    "API replica1 Ready and HTTP /ready 200 after resume; workspace and source counts preserved"
+  ],
+  "temporary_probe_policy": "removed after successful resume",
+  "acceptance": "not-passed"
+}

@@ -1,0 +1,87 @@
+{
+  "date": "2026-11-07",
+  "state": "incident-recovery-in-progress",
+  "acceptance": "not-passed",
+  "scope": {
+    "account": "120736097561",
+    "region": "eu-central-1",
+    "cluster": "nonprod-euc1"
+  },
+  "cause": {
+    "event": "SpotInterrupted / TerminatingOnInterruption",
+    "time": "2026-11-07T12:49:07Z",
+    "old_node": "ip-10-1-14-115.eu-central-1.compute.internal",
+    "old_node_present": false,
+    "note": "Pod do-not-disrupt annotations do not prevent involuntary Spot interruption."
+  },
+  "replacement": {
+    "node": "ip-10-1-40-64.eu-central-1.compute.internal",
+    "nats_pod_uid": "2bdba0ec-737a-4dff-b7ef-9ff828bfc752",
+    "qdrant_pod_uid": "9b9530c8-6561-4630-b2f8-9fb88aa78543",
+    "process_ready": true,
+    "data_equivalence_verified": false,
+    "original_hostpath_pv_uids_unchanged": true,
+    "qdrant_points": 0,
+    "backup_qdrant_points": 7,
+    "qdrant_data_loss_confirmed": true,
+    "nats_exact_inventory_matches_backup": false,
+    "nats_difference": "Consumer creation timestamps changed to replacement startup; active waiters differ. Empty stream sequence state and four durable names match, but original persistence was reset."
+  },
+  "backup": {
+    "receipt_sha256": "da0a5889296385a577671d42984f04e7d36c7010e6a0fc746cadd4cb03601576",
+    "verified_artifacts": 7,
+    "bytes": 86740510,
+    "location": "private off-node capture-nmq_o7wh"
+  },
+  "qdrant_rehearsal": {
+    "phase": "new",
+    "upload_started": false,
+    "pod_evicted": true,
+    "retained_ebs_volume": "vol-0a93b0fda5a0875d2",
+    "status": "available-unattached",
+    "original_journal_preserved": true
+  },
+  "guards": "Normal stage stopped on source identity mismatch; source pins have not been relaxed. Separate incident recovery path requires review.",
+  "validation": {
+    "qdrant_stage_tests": 21,
+    "nats_capture_stage_tests": 26,
+    "independent_python_review": "passed scheduled topology-label changes",
+    "lead_tests": "passed both focused suites"
+  },
+  "remaining": [
+    "Determine replacement-store logical content and health",
+    "Restore pinned backup into isolated retained staging and verify restart",
+    "Review final source handoff and any post-capture reconciliation",
+    "Resume platform-state activation only after durability gates"
+  ],
+  "recovery_rehearsal": {
+    "qdrant": "accepted-exact-7-points-and-pod-replacement",
+    "journal": "private qdrant-stage-spot-20261107",
+    "placement": "managed EKS on-demand",
+    "current_gate": "Both isolated retained restorations verified; production StatefulSet handoff and live verification remain pending.",
+    "validation": "25 focused tests, independent Python review and lead reproduction passed; all seven backup artifacts rehashed",
+    "nats": "accepted-isolated-native-restore",
+    "nats_differences": [
+      "consumer created timestamp replaced by native restore",
+      "empty stream first_seq 0 became 1; messages/bytes/last_seq stay zero"
+    ]
+  },
+  "capacity_change": {
+    "nodegroup": "system-fab19daf44f9aa922fcdab89e3",
+    "type": "ON_DEMAND t3a.large",
+    "before": {
+      "minSize": 1,
+      "maxSize": 3,
+      "desiredSize": 2
+    },
+    "requested": {
+      "minSize": 1,
+      "maxSize": 3,
+      "desiredSize": 3
+    },
+    "update_id": "d9094137-aa20-355a-89a1-4e889a5d3d07",
+    "state": "successful",
+    "follow_up": "Reconcile Terragrunt desired capacity; do not scale down while retained stores depend on this capacity.",
+    "new_ready_node": "ip-10-1-45-212.eu-central-1.compute.internal"
+  }
+}

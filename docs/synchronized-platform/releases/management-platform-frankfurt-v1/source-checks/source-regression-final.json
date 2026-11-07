@@ -1,0 +1,38 @@
+{
+  "date": "2026-11-07",
+  "scope": "working-tree source checks; not EKS qualification",
+  "acceptance": "not-passed",
+  "portal": {
+    "backend_passed": 1469,
+    "backend_skipped": 4,
+    "frontend_passed": 702,
+    "typecheck": "passed",
+    "lint": "passed",
+    "production_build": "passed"
+  },
+  "barbarossa": {
+    "root_go_tests": "passed",
+    "observe_postgres_race": "passed"
+  },
+  "omniscience": {
+    "operator_race": "passed",
+    "mypy_source_files": 331,
+    "mypy": "passed",
+    "ruff": "passed",
+    "governance": "passed",
+    "mcp_contract_drift": "passed",
+    "ingestion_regressions_passed": 79,
+    "operator_authorization_passed": 16,
+    "logging_and_provisioning_passed": 19,
+    "full_pytest": "passed",
+    "passed": 4423,
+    "skipped": 78,
+    "duration_seconds": 517.01
+  },
+  "secondary_handoff": {
+    "offline_tests_passed": 71,
+    "live_phase": "stage-stop-intent",
+    "live_blocker": "AWS credential expired; production handoff and resume incomplete"
+  },
+  "commit_status": "component commits pushed; PR CI pending; coordinator not committed yet"
+}

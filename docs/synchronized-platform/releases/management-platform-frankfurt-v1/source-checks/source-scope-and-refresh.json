@@ -1,0 +1,37 @@
+{
+  "recorded_at": "2026-11-07T12:01:06.536854+00:00",
+  "scope": "source-specific owner revision reads, scope-bound projections, Frankfurt UI refresh; source only",
+  "files": {
+    "Omniscience/apps/server/src/omniscience_server/rest/platform_state.py": "23b9988fafa8d40f65029ab98dec0804f249ebc0971d48650a0f8e1b02ba03ab",
+    "Omniscience/packages/core/src/omniscience_core/platform_state/store.py": "73ed7f4d577635057d04223ccb513c46fd01eb3130560e6ccd0d3fd8c2873920",
+    "Omniscience/tests/test_platform_state_api_live.py": "40de599e9c316b1ff5ef4d8392f5aff9867c1a67caa2a7b74d279fbfaca2c251",
+    "Barbarossa/internal/platformstate/client.go": "b7b0635c765752431e8913788656870fafbb726545c9af058c85ab95d19ff0db",
+    "Barbarossa/internal/localobserve/scope_read.go": "4dad74ae763e36d380e223da102bb0369c0591c802ea798785fbf2242b72bf68",
+    "Barbarossa/internal/localobserve/model.go": "142e52b561fb95f1871ed41303b4d4a106b410694d22ea023506c578c8993064",
+    "Barbarossa/internal/localobserve/read.go": "dac26f39c28e862e8f20b4d86fc3db912a61fa68c57fc751672b42e8f5bcc66a",
+    "Barbarossa/internal/localobserve/job_read.go": "7a242c16d3d9a1ba9114e8b2eec5faad8c413839ea570f45cf15d15aa4bfa96d",
+    "Barbarossa/cmd/barbarossa-observe/scope_projection_integration_test.go": "ea2f80a561090acf9e195766f64b4193943fc1dfe2e87e2e71b9e07ea480e530",
+    "platform-portal/backend/tests/test_scope_projection.py": "6d1f61d168bb6f4c36e48a9d013d0e9ebf82794e05c5c910b7edcd144359e835",
+    "platform-portal/backend/tests/test_frankfurt_observe.py": "6a6bd62eb28f66ed71c4a95f474594c2adb9f9dadfdbdba9dfb68e32e69cd154",
+    "platform-portal/frontend/components/observe/PlatformConnections.tsx": "2caa2b316ed7c64f40faa559a922ce2a38cbb36c0b5a3fa6210948d7807241ae",
+    "platform-portal/frontend/components/observe/PlatformConnections.test.tsx": "6014981e8fcc24822899530aa77c3069ebaf3e459a5b45876e9850ec06befcd5",
+    "platform-portal/frontend/app/(shell)/observe/page.tsx": "0078e0a6951b0a6248712f9076dce23682dd4f35888d92d381510841a47e1ab7"
+  },
+  "lead_verification": [
+    "Real PostgreSQL authenticated owner API interleaved-source cursor test: 1 passed; cross-source and cross-workspace pinned reads rejected",
+    "Barbarossa cmd/barbarossa-observe full module race tests with real PostgreSQL: passed",
+    "Portal scope and Frankfurt backend tests: 43 passed",
+    "Portal PlatformConnections and Observe page integration: 31 passed",
+    "Lead reviewed source read, scope helper/wiring and frontend refresh changes"
+  ],
+  "independent_review": [
+    "Source filter and all-projection scope: no remaining blockers",
+    "Frontend refresh and error handling: no remaining blockers after rework"
+  ],
+  "limitations": [
+    "Not deployed to EKS",
+    "No live authenticated browser acceptance",
+    "Readiness observations are absent in Frankfurt projection, displayed unknown",
+    "Overall acceptance not passed"
+  ]
+}

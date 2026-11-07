@@ -1,0 +1,40 @@
+{
+  "recorded_at": "2026-11-07T11:43:29.037501+00:00",
+  "scope": "Frankfurt read-profile/tenant/evidence boundary and owner context isolation; source only",
+  "files": {
+    "Barbarossa": {
+      "internal/localobserve/context.go": "7a635bb47f72d06bce6d8ab543467d173da61af98acb0f51d683885a5b728998",
+      "internal/localobserve/model.go": "2cce2def3b031ec28126a6f810f1cba551889edf3383f6500a2c6cd69c91770e",
+      "internal/localobserve/read.go": "4ed85f83a7052262ce9e440ecce66b72be1b90b3b8091d120574f07aedd90d47",
+      "internal/localobserve/job_read.go": "69fb825ae0628e1ab4a880f7ed293a6238e377729d3086c7c16ee0192388994e",
+      "cmd/barbarossa-observe/main.go": "688c19f706526a93ab6c31b11a0d0271221c42d6a5786d338939ac8213fe4991",
+      "cmd/barbarossa-observe/context_profile_integration_test.go": "88db3fac7bfab24b4c8ef7ef39f7511bb6d78830679821f6a4cad4cc3182a01f",
+      "cmd/barbarossa-observe/projection_profile_integration_test.go": "be887c0345b5be73012f510725d455f5ad312b01c8658dc8ccb6abfc82772be6"
+    },
+    "Portal": {
+      "backend/app/local_observe/delegation.py": "cfd6f2fb94974a186771302f6b1fcf2eedc410a464fd36bc4139b35fc40b856a",
+      "backend/app/local_observe/router.py": "66c29132a59cc6f4b03eaae7b19a0f1497e2518712763135defd60f3f360d998",
+      "backend/app/local_observe/schemas.py": "5804c891e47a98e74548e44591d63d74b9b6c2f08b8ce13169722f6064814691",
+      "backend/tests/test_frankfurt_observe.py": "daa84a17c3430407a1779fc7c5a4171a497de69ef2263896dd098951d7cc77d6"
+    }
+  },
+  "verification": [
+    "Independent Go review approved mandatory owner profile projections",
+    "Independent security review approved after foreign context correction",
+    "Lead full changes read; local and Frankfurt PostgreSQL projection tests passed with race",
+    "Lead PostgreSQL context rejection/localpositive and startupguard tests passed with race",
+    "Lead Portal69focused+4legacydelegation tests passed"
+  ],
+  "deployment_prerequisites": [
+    "Fresh Frankfurt owner DB; never reuse existing local-profile history",
+    "Distinct Portal read signing key",
+    "Single operator-provisioned managementtenant\u2192workspace/target/source/cluster binding; Alpha/Beta excluded"
+  ],
+  "model_requested": {
+    "projection_and_context": "gpt-6-luna",
+    "portal_boundary": "gpt-6.1-sol"
+  },
+  "actual_models": "not exposed",
+  "token_usage": null,
+  "live_acceptance": false
+}

@@ -1,0 +1,17 @@
+{
+  "date": "2026-11-07",
+  "state": "source-reviewed-not-deployed",
+  "owner": "Portal",
+  "lead_checks": "Actual Helm config and backend render checks passed: exact five UUID JSON, missing binding failure, unchanged local profile, deterministic checksum, all five identity changes and owner URL trigger rollout, return to local removes checksum.",
+  "independent_review": "code-reviewer approved after HIGH stale-binding-on-upgrade defect fixed",
+  "rework": "Added Frankfurt-only nonsecret profile/owner checksum to backend Pod template. Documented dedicated signing key, old-Pod drain and outstanding token expiry, explicit rollout after subPath Secret rotation.",
+  "model_requested": "gpt-6-luna",
+  "review_model_requested": "gpt-6.1-sol",
+  "token_usage": null,
+  "live_gates": [
+    "provision mapping and distinct signing identity",
+    "publish backend/frontend image",
+    "configured owner endpoints",
+    "authenticate browser and verify tenant isolation"
+  ]
+}

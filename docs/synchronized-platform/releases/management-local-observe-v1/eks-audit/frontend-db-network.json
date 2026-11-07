@@ -1,0 +1,22 @@
+{
+  "probe": "TCP connect only from existing portal-frontend pod; no database credentials or queries",
+  "result": [
+    {
+      "host": "barbarossa-postgres",
+      "port": 5432,
+      "result": "tcp-connected"
+    },
+    {
+      "host": "omniscience-postgres",
+      "port": 5432,
+      "result": "tcp-connected"
+    },
+    {
+      "host": "portal-postgres",
+      "port": 5432,
+      "result": "tcp-connected"
+    }
+  ],
+  "source": "portal-frontend",
+  "purpose": "verify deployment network boundary"
+}

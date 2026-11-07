@@ -1,0 +1,56 @@
+{
+  "recorded_at": "2026-11-07T12:18:07.969391+00:00",
+  "scope": "Omniscience Neo4j retained EBS recovery, exact empty graph and application schema",
+  "state": "live-verified-api-resumed",
+  "helm_revision": 5,
+  "api_replicas": 1,
+  "api_ready_replicas": 1,
+  "ready_http": 200,
+  "volume": {
+    "pvc_uid": "55366793-bc66-497e-bf68-a24b3b85b56a",
+    "pv_name": "pvc-55366793-bc66-497e-bf68-a24b3b85b56a",
+    "pv_uid": "2a607daf-d33d-4efa-8916-44102583947a",
+    "volume_handle": "vol-0a4babc07ffc0d488",
+    "availability_zone": "eu-central-1b"
+  },
+  "pod_uid": "5d567147-051b-410a-a192-5d9c8be15cf1",
+  "graph": {
+    "nodes": 0,
+    "relationships": 0,
+    "indexes": 14,
+    "constraints": 4
+  },
+  "incident": "Karpenter replaced original emptyDir Neo4j after capture; normal cutover rejected changed identities before mutation. Reopened verified retained stage, compared exact catalog/internal IDs, recovered through separate guarded path. PostgreSQL data and EBS identity verified unchanged.",
+  "verification": [
+    "21 pure recovery tests passed; independent Python review cleared after resumable intent fix",
+    "Root reviewed full recovery code and new retry tests",
+    "recover-stage, stop-recovery-stage, cutover-recovery, verify-live-recovery, resume-recovery all passed",
+    "Original capture and shutdown receipts preserved/equal",
+    "Actual app credentials accepted and wrong password denied; exact staged/live schema, catalog and internal IDs matched",
+    "API readiness HTTP200 and replica1 ready after revision5",
+    "Protected PostgreSQL/NATS/Qdrant identities checked through cutover/resume"
+  ],
+  "private_receipt_hashes": {
+    "neo4j-storage-logical-capture.json": "69638ee6ad94f9692dc820e7decef9b39e294db4fc5a58d721557d2e1d1d35f2",
+    "neo4j-storage-stage-stopped.json": "69638ee6ad94f9692dc820e7decef9b39e294db4fc5a58d721557d2e1d1d35f2",
+    "neo4j-storage-replacement-stage-verified.json": "f1a34cb3832dffd9e04a7d10b6e5816c25edb43de759f5b6ece39ffa49701baa",
+    "neo4j-storage-replacement-stage-stopped.json": "f1a34cb3832dffd9e04a7d10b6e5816c25edb43de759f5b6ece39ffa49701baa",
+    "neo4j-storage-replacement-live-verified.json": "2cb1719afa9110674fbfa9ba856e01fc7a7df3dcf05b8ba7b4a834b3d757580d"
+  },
+  "implementation_hashes": {
+    "recover.py": "b691e75c8fca53c35166008e4555f11ce41b6b37a61a0ddde6ec68288e157edd",
+    "test_recover.py": "182d4aa9fd867352159941845b71c3d395eb08a1cc9b5f76f55f434383f05e5f",
+    "application-schema.cypher": "0ac5bd4b08470c862aa43c0fa0b0d4d996339fc8b400afe1db2374a86a4e7cd1",
+    "helm-values.yaml": "f4f746e3dad7925272e8062a74e42748c2f456f2b6cd07d87ddfadeef6a00a07",
+    "README.md": "339be8bb0c2a6af3d825619b08fa2ad7d68a7ec0ff7cfd5127df9c30595fb5ee"
+  },
+  "temporary_protection": "PostgreSQL Pod annotation restored. Original Neo4j Pod replaced. NATS/Qdrant annotations intentionally retained for hostPath migration.",
+  "limitations": [
+    "Logical empty-graph migration; fresh staged database internal IDs recorded separately from original",
+    "NATS/Qdrant remain hostPath and block storage acceptance",
+    "No platform-state ingestion, AI or browser acceptance inferred"
+  ],
+  "requested_model": "gpt-6.1-sol",
+  "actual_model": "not exposed",
+  "token_usage": null
+}

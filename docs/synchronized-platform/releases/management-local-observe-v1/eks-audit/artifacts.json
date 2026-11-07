@@ -1,0 +1,16 @@
+{
+  "algorithm": "sha256",
+  "artifacts": {
+    "README.md": "900abab01048eddf683a09b1436fc111332535458a37983365075d6025447502",
+    "control-alpha.png": "ee5faf5034c93bd79e9083966116f9cd2ed8d3688a527009fc47b2426abae431",
+    "coordinator-validation.json": "d99f090e65aeb13f0f646f13917aacbd1b95700343d4538b8a806c1ed9227ed2",
+    "deployment-details.json": "e4cdc1db4664f4adf88ce2bb183736bfd392cad2e2c4a8f576646f435d9c5cc2",
+    "frontend-db-network.json": "c998b36af8983d2f4559b2a87ff5ce6a907f96e72f8b526e420e92e6e83a00f0",
+    "identity-and-status.json": "962e3a4f9f4a835e6632e7f96c49abeddfadb57aa634b5b0e6c42c110f6c5d40",
+    "logout-routing.json": "dbe4adadf8ce73c31fc1c5458b7894973c8cac0e95431cb19d1ff2a20134ad26",
+    "observe-beta.png": "a42f2096a2a3f827dd5b8bd6835913eda16ad9054c9504d44588ef1dc3e20b63",
+    "reviews.json": "869454be98b6c23edf60ebc157c181aea825a972296082c6c4dca228d6849bc0",
+    "storage.json": "0e1323c36c7081d4a5052a454634fa2c7f36e5274aea23aa8119312ab2ed2d39",
+    "verification.json": "aae90a6d080774bf3e152441cf3b053375b2823a2afff2b60dd1cc42b1164831"
+  }
+}

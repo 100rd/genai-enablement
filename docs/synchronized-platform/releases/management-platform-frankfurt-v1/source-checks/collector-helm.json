@@ -1,0 +1,29 @@
+{
+  "date": "2026-11-07",
+  "state": "source-reviewed-not-deployed",
+  "owner": "Omniscience",
+  "worktree": ".worktrees/eks-direct-collectors",
+  "lead_checks": {
+    "helm_render_tests": 4,
+    "subtests": 7,
+    "result": "passed"
+  },
+  "independent_review": "no blocking template findings",
+  "features": [
+    "disabled by default, additive seven resources",
+    "single Recreate deployment, dedicated SA and scoped RBAC",
+    "existing outbox PVC and token Secret subPath",
+    "digest-pinned image and init image",
+    "fixed owner endpoint and narrow network policies"
+  ],
+  "live_gates": [
+    "image publication",
+    "migration and enrollment",
+    "Retain PVC and token provisioning",
+    "namespace Pod Security admission",
+    "effective network connectivity",
+    "actual durable generation publication"
+  ],
+  "requested_model": "gpt-6.1-sol",
+  "token_usage": null
+}

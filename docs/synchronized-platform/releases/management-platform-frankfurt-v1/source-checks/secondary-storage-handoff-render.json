@@ -1,0 +1,33 @@
+{
+  "date": "2026-11-07",
+  "state": "accepted-claims-real-helm-server-dryrun-passed",
+  "production_cutover": false,
+  "admission_verified": false,
+  "base_helm_revision": 5,
+  "manifest_sha256": "544a2978ea79d9df0b94c843d5cb07117b86c72edf465325640144f0fdf9473d",
+  "claims": {
+    "omniscience-nats": "nats-incident-940dcfa016b8",
+    "omniscience-qdrant": "omniscience-qdrant-stage-8b73fb5af099"
+  },
+  "changed": [
+    "ConfigMap/omniscience-qdrant",
+    "Deployment/omniscience-api",
+    "StatefulSet/omniscience-nats",
+    "StatefulSet/omniscience-qdrant"
+  ],
+  "api_replicas": 0,
+  "validation": "Lead reproduced 71 offline tests and current actual Helm server dry-run. Renamed StatefulSet CREATE dry-runs admitted the exact reviewed runtime specifications; production names remain unverified until install. Qdrant volume file modes preserve Kubernetes octal semantics.",
+  "lead_render_tests": 5,
+  "independent_review": "passed",
+  "remaining": "Production handoff in progress; live verification and API resume pending",
+  "superseded_manifest_sha256": "2ba62d787a87bee8900330357be5fedc7859f3b597c47befa3887733b0038483",
+  "admission": {
+    "scope": "renamed-statefulset-create-server-dry-run",
+    "production_name_admitted": false,
+    "spec_sha256": {
+      "omniscience-nats": "53af6f9a92f60e8188bf479a54a3a3d5b384bf034fbd736c1488d43d45676605",
+      "omniscience-qdrant": "869584792b6ca1ec01ba9af96750d2af7c3918c28f6617b954076ea1bc25d422"
+    }
+  },
+  "handoff_schema": 2
+}

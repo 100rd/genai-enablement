@@ -1,0 +1,7 @@
+{
+  "probe": "anonymous logout response; no user cookie sent",
+  "headers": [
+    "HTTP/2 307 ",
+    "location: https://localhost:3000/login"
+  ]
+}

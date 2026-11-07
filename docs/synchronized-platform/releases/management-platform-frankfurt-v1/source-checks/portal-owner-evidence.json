@@ -1,0 +1,28 @@
+{
+  "recorded_at": "2026-11-07T11:29:23.079739+00:00",
+  "scope": "Portal backend owner evidence and bounded component identity; Frankfurt profile remains disabled",
+  "base_revision": "480c5ba374c2074cf638f57b06c621ae4ede3cf4",
+  "files": {
+    "backend/app/local_observe/schemas.py": "63c3f14e579edb5a2466967dddd927d64a9af8aec076506415f16f3667084c90",
+    "backend/tests/test_local_observe.py": "2a15a53581ca5f517e544dfdfecb727f62cb138d920a4d61af276d482a62873c"
+  },
+  "verification": {
+    "focused_pytest_passed": 31,
+    "ruff": "passed",
+    "independent_python_review": "approved after generation-zero correction",
+    "lead_full_diff_and_reproduction": "passed"
+  },
+  "model_requested": "gpt-6-luna",
+  "actual_model": "not exposed",
+  "token_usage": null,
+  "rework": [
+    "Initial long-component test did not exceed128; replaced with actual proxy roundtrip",
+    "Positive generation enforced after review",
+    "Legacy omission and malformed proxy response covered"
+  ],
+  "not_claimed": [
+    "Frontend evidence rendering",
+    "Frankfurt profile activation",
+    "EKS deployment or browser acceptance"
+  ]
+}

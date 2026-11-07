@@ -1,0 +1,142 @@
+{
+  "checks": [
+    {
+      "check": "own",
+      "status": 200,
+      "expected": 200
+    },
+    {
+      "check": "anonymous",
+      "status": 401,
+      "expected": 401
+    },
+    {
+      "check": "wrong_signature",
+      "status": 401,
+      "expected": 401
+    },
+    {
+      "check": "expired",
+      "status": 401,
+      "expected": 401
+    },
+    {
+      "check": "wrong_audience",
+      "status": 401,
+      "expected": 401
+    },
+    {
+      "check": "wrong_scope",
+      "status": 403,
+      "expected": 403
+    },
+    {
+      "check": "foreign_tenant",
+      "status": 403,
+      "expected": 403
+    },
+    {
+      "check": "wrong_role",
+      "status": 401,
+      "expected": 401
+    },
+    {
+      "check": "tenant_query",
+      "status": 403,
+      "expected": 403
+    },
+    {
+      "check": "cases_query",
+      "status": 403,
+      "expected": 403
+    },
+    {
+      "check": "tenant_header",
+      "status": 403,
+      "expected": 403
+    }
+  ],
+  "passed": true,
+  "owner_status": {
+    "schema_version": 1,
+    "profile": "management-local-observe-v1",
+    "observed_at": "2026-11-06T22:26:56.40271Z",
+    "components": [
+      {
+        "id": "omniscience",
+        "state": "healthy",
+        "reason": "probe_ok",
+        "last_observed_at": "2026-11-06T22:26:46.993608Z",
+        "vantage": {
+          "source_id": "local-observer",
+          "vantage": "synthetic",
+          "failure_domain": "shared-host",
+          "shared_fate_with_subject": true
+        }
+      },
+      {
+        "id": "barbarossa",
+        "state": "healthy",
+        "reason": "probe_ok",
+        "last_observed_at": "2026-11-06T22:26:46.993608Z",
+        "vantage": {
+          "source_id": "local-observer",
+          "vantage": "synthetic",
+          "failure_domain": "shared-host",
+          "shared_fate_with_subject": true
+        }
+      },
+      {
+        "id": "portal",
+        "state": "healthy",
+        "reason": "probe_ok",
+        "last_observed_at": "2026-11-06T22:26:46.993608Z",
+        "vantage": {
+          "source_id": "local-observer",
+          "vantage": "synthetic",
+          "failure_domain": "shared-host",
+          "shared_fate_with_subject": true
+        }
+      }
+    ],
+    "cases": [
+      {
+        "id": "case-92593b48230b714e1762016e1bef28537e3e5cb63dcd1829fac5e50d473238ad",
+        "domain": "reliability",
+        "component": "portal",
+        "status": "resolved",
+        "reason": "probe_timeout",
+        "opened_at": "2026-11-06T22:11:46.990797Z",
+        "updated_at": "2026-11-06T22:15:16.993953Z"
+      },
+      {
+        "id": "case-9a2be9eb8e6cb80c9ce895344e2b4a1b2ad900d970802aec811be73738d1445a",
+        "domain": "reliability",
+        "component": "omniscience",
+        "status": "resolved",
+        "reason": "probe_timeout",
+        "opened_at": "2026-11-06T22:11:46.990797Z",
+        "updated_at": "2026-11-06T22:13:16.993558Z"
+      }
+    ],
+    "runner": {
+      "state": "unknown",
+      "last_seen_at": null,
+      "queue_pending": 0,
+      "active": 0,
+      "failed": 0,
+      "rate_limited_until": null,
+      "last_error": null
+    },
+    "domains": [
+      {
+        "id": "reliability",
+        "state": "healthy"
+      },
+      {
+        "id": "security",
+        "state": "healthy"
+      }
+    ]
+  }
+}

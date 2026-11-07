@@ -1,0 +1,23 @@
+{
+  "recorded_at": "2026-11-07T11:30:25.438918+00:00",
+  "scope": "Single deployments partition durable collector outbox; not connected to HTTP publisher or EKS",
+  "files": {
+    "operator/internal/platformstate/outbox.go": "353cfa783309488698781dbd44ae359bc48e629701ae2bd147cb7e58fa8a5d8c",
+    "operator/internal/platformstate/outbox_test.go": "47b2808a9158e4e02d326d2c5fbf1d1bbbd56f5621c82f0cdb669a5aa59a6264"
+  },
+  "verification": [
+    "Independent Go review approved",
+    "Lead complete new-file review and fresh outbox race tests passed",
+    "Real Deployment bytes and HTML-sensitive checkpoint survive process exit",
+    "Acknowledgment advances sequence durably; wrong sequence/digest rejected",
+    "Interrupted temporary file discarded; failed rename leaves state unchanged; exclusive ownership and scope binding tested"
+  ],
+  "limitations": [
+    "Trusted existing parent and POSIX local filesystem required",
+    "No power-loss/fsync failure injection",
+    "No scheduled publishing or EKS activation"
+  ],
+  "model_requested": "gpt-6.1-sol",
+  "actual_model": "not exposed",
+  "token_usage": null
+}

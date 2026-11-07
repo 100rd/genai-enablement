@@ -1,0 +1,51 @@
+{
+  "recorded_at": "2026-11-07T10:27:49.604799+00:00",
+  "account": "120736097561",
+  "region": "eu-central-1",
+  "cluster": "nonprod-euc1",
+  "scope": "Portal storage recovery only; full platform acceptance not passed",
+  "release": {
+    "name": "platform-portal",
+    "revision": "2",
+    "status": "deployed"
+  },
+  "postgres": {
+    "pod_uid": "8bc5efb9-f57f-48d0-8a74-c8c31bcc45f1",
+    "image": "registry-1.docker.io/bitnami/postgresql@sha256:b418fd5f001c272aad93ac1febf783f543ee45d8e359d58bd5afc3d2a9b62290",
+    "ready": true,
+    "data_volume": {
+      "name": "data",
+      "persistentVolumeClaim": {
+        "claimName": "portal-postgres-data-retained"
+      }
+    }
+  },
+  "backend": {
+    "desired": 1,
+    "ready": 1
+  },
+  "pvc": {
+    "name": "portal-postgres-data-retained",
+    "uid": "88ffb4bd-6394-4e07-bc40-9b25e572938a",
+    "phase": "Bound",
+    "size": "8Gi",
+    "pv": "pvc-88ffb4bd-6394-4e07-bc40-9b25e572938a",
+    "reclaim_policy": "Retain",
+    "volume_id": "vol-0d7a0524c8cd4bf17"
+  },
+  "verification": [
+    "isolated restore from verified 2026-11-06T22:55:49Z backup",
+    "17 public tables and exact staged row counts",
+    "Alembic 0009_kv_owner_entitlement",
+    "both current Secret login URLs authenticated via stage and live Service",
+    "tenant-scoped runtime read under RLS",
+    "backend rollout Ready",
+    "fresh browser SSO entry reached"
+  ],
+  "limitations": [
+    "Unknown changes after backup not recovered",
+    "Authenticated browser journey still pending",
+    "Other databases and Neo4j still require persistent storage",
+    "No full platform state or AI acceptance"
+  ]
+}

@@ -1,0 +1,69 @@
+{
+  "scope": "Sanitized direct Kubernetes placement query, local listener query and earlier filtered startup-log inspection",
+  "context": "nonprod-euc1",
+  "namespace": "splatform",
+  "node_aliases": "Different aliases are different Kubernetes worker nodes; original node names/IPs omitted.",
+  "placement": [
+    {
+      "role": "barbarossa-api",
+      "node_alias": "node-A"
+    },
+    {
+      "role": "barbarossa-observer",
+      "node_alias": "node-A"
+    },
+    {
+      "role": "omniscience-api",
+      "node_alias": "node-A"
+    },
+    {
+      "role": "portal-backend",
+      "node_alias": "node-B"
+    },
+    {
+      "role": "omniscience-neo4j",
+      "node_alias": "node-B"
+    }
+  ],
+  "startup_log_inspection": {
+    "observed_at": "2026-11-06T22:24:02Z",
+    "source": "kubectl logs barbarossa-observer and previous barbarossa-api container; safe message summaries only",
+    "observer_persistence_error_timestamps": {
+      "omniscience": "2026-11-06T22:10:49Z",
+      "portal": "2026-11-06T22:10:49Z",
+      "barbarossa": "2026-11-06T22:10:52Z"
+    },
+    "previous_barbarossa_api_exit_message": "prepared knowledge context could not be persisted",
+    "observer_persistence_errors_in_final_six_minute_window": 0,
+    "pod_restart_counts": {
+      "barbarossa-api": 1,
+      "omniscience-api": 1,
+      "portal-backend": 2
+    },
+    "startup_ordering": {
+      "barbarossaObserverStartedAt": "2026-11-06T22:10:46Z",
+      "barbarossaMigrationContainerFinishedAt": "2026-11-06T22:10:58Z",
+      "barbarossaMigrationJobCompletedAt": "2026-11-06T22:11:01Z",
+      "portalFrontendStartedAt": "2026-11-06T22:14:07Z",
+      "portalMigrationContainerFinishedAt": "2026-11-06T22:14:29Z",
+      "portalMigrationJobCompletedAt": "2026-11-06T22:14:32Z"
+    }
+  },
+  "local_port_check": {
+    "command": "lsof -nP -iTCP:18082 -sTCP:LISTEN",
+    "rows": [
+      {
+        "process": "com.docke",
+        "listener": "127.0.0.1:18082"
+      }
+    ],
+    "inference_limit": "Listener ownership only; this does not prove which backend an existing runner process serves."
+  },
+  "network_policy_inspection": {
+    "observed_at": "2026-11-06T22:25:31Z",
+    "postgres_5432_ingress": "No from selector in each of barbarossa-postgres, omniscience-postgres, portal-postgres",
+    "portal_policy": "portal-backend-isolation selects app.kubernetes.io/name=platform-portal, including frontend and Keycloak; allowed egress ports have no to selector",
+    "effective_frontend_tcp_test": "frontend-db-network.json"
+  },
+  "supporting_probe_recorded_at": "2026-11-06T22:40:27.675156+00:00"
+}

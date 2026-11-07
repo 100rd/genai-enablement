@@ -1,0 +1,16 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "DenyEBSCSIEC2ActionsOutsideFrankfurt",
+      "Effect": "Deny",
+      "Action": "ec2:*",
+      "Resource": "*",
+      "Condition": {
+        "StringNotEquals": {
+          "aws:RequestedRegion": "eu-central-1"
+        }
+      }
+    }
+  ]
+}

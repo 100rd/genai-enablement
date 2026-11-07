@@ -1,0 +1,11 @@
+neo4j:
+  image:
+    customImage: docker.io/library/neo4j@sha256:7dbd307cc8f35d6a061cf71659d3d8f783c3db9e8c2f5bb9d54f77921931952a
+  volumes:
+    data:
+      mode: volume
+      volume:
+        # Helm reuses the old volume map, so remove its emptyDir source explicitly.
+        emptyDir: null
+        persistentVolumeClaim:
+          claimName: omniscience-neo4j-data-retained
