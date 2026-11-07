@@ -27,12 +27,25 @@
     "full_pytest": "passed",
     "passed": 4423,
     "skipped": 78,
-    "duration_seconds": 517.01
+    "duration_seconds": 517.01,
+    "go_ci_followup": {
+      "revision": "a631b29ebd6e32130caad2d560a9eca66c4ce250",
+      "pinned_golangci_lint": "1.61.0 Linux passed",
+      "review": "independent Go review clear",
+      "lead_race_packages": 3,
+      "note": "Python source unchanged from full-suite revision; new GitHub CI pending"
+    }
   },
   "secondary_handoff": {
     "offline_tests_passed": 71,
     "live_phase": "stage-stop-intent",
     "live_blocker": "AWS credential expired; production handoff and resume incomplete"
   },
-  "commit_status": "component commits pushed; PR CI pending; coordinator not committed yet"
+  "commit_status": "all four repositories committed and pushed; PR CI pending",
+  "source_revisions": {
+    "Omniscience": "8a2caf5e6cb9489d71690ad8b5773c11b103a110",
+    "Barbarossa": "4bf0b9e12d16c81617562d25904d651bef6be7da",
+    "Portal": "6ad5f737a4deea981b0003c7dcc751c82965dfae",
+    "genai-enablement-implementation": "9eceef423e3c371f5cde1b6e325e9398261d180e"
+  }
 }

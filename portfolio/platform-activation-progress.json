@@ -263,13 +263,13 @@
     },
     {
       "name": "Full-suite regression fixtures and Portal checks",
-      "state": "source-verified-omniscience-full-rerun-in-progress",
+      "state": "source-verified",
       "models": [
         "gpt-6.1-sol",
         "gpt-6-luna"
       ],
       "token_usage": null,
-      "lead_checks": "Portal backend 1469 passed, 4 skipped; frontend 702 passed; lint exit 0. Omniscience ingestion 79 passed, operator authorization 16 passed, logging plus provisioning 19 passed. Independent Python review clear. Omniscience full-suite rerun pending.",
+      "lead_checks": "Omniscience full pytest 4423 passed, 78 skipped; mypy 331 files, Ruff/governance/MCP checks pass. Portal backend1469 passed4skipped, frontend702 passed, typecheck/lint/production build pass. Independent regression review clear.",
       "rework": "Original full Omniscience run: 4420 passed, 78 skipped, 3 failed; fixed realistic queue/dedup fixtures and isolated standalone CLI integration from process-global structlog configuration."
     },
     {
@@ -560,6 +560,15 @@
       "review_rework_rounds": 0,
       "outcome": "Python review clear; source binding and audit assertions preserved",
       "recorded_at": "2026-11-07T13:45:43.917753+00:00"
+    },
+    {
+      "task": "operator-ci-lint-fix",
+      "requested_model": "gpt-6.1-sol",
+      "actual_model": "not exposed",
+      "token_usage": null,
+      "wall_time_seconds": null,
+      "review_rework_rounds": 0,
+      "outcome": "Five-file fix; pinned Linux golangci-lint v1.61.0, build/vet and 96 race tests pass. Lead full diff and race rerun; independent Go review clear. Pushed a631b29."
     }
   ],
   "storage_prerequisite_plan": {
@@ -699,16 +708,28 @@
     "state": "committed-pushed-pr-open-ci-pending",
     "components": {
       "Omniscience": {
-        "revision": "8a2caf5e6cb9489d71690ad8b5773c11b103a110",
-        "pr": "https://github.com/100rd/Omniscience/pull/376"
+        "revision": "a631b29ebd6e32130caad2d560a9eca66c4ce250",
+        "pr": "https://github.com/100rd/Omniscience/pull/376",
+        "state": "pr-open-ci-pending",
+        "ci_note": "Six golangci-lint findings fixed; pinned Linux v1.61.0 lint passes, independent Go review clear and lead affected-package race passes. New revision PR CI pending."
       },
       "Barbarossa": {
         "revision": "4bf0b9e12d16c81617562d25904d651bef6be7da",
-        "pr": "https://github.com/100rd/Barbarossa/pull/15"
+        "pr": "https://github.com/100rd/Barbarossa/pull/15",
+        "state": "merged",
+        "merge_revision": "7f3b92fc97cd08d2853dbaee47857dc2f96cdd34",
+        "pr_ci": "5 workflows passed"
       },
       "Portal": {
         "revision": "6ad5f737a4deea981b0003c7dcc751c82965dfae",
-        "pr": "https://github.com/100rd/platform-portal/pull/25"
+        "pr": "https://github.com/100rd/platform-portal/pull/25",
+        "state": "merged",
+        "merge_revision": "c28b466504e3af8da0b9f2d2ac1b503da14278b4",
+        "pr_ci": "3 workflows passed"
+      },
+      "genai-enablement": {
+        "implementation_revision": "9eceef423e3c371f5cde1b6e325e9398261d180e",
+        "pr": "https://github.com/100rd/genai-enablement/pull/63"
       }
     },
     "acceptance": "not-passed"
