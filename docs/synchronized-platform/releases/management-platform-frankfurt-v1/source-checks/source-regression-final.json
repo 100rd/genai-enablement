@@ -51,7 +51,7 @@
     "live_phase": "stage-stop-intent",
     "live_blocker": "AWS credential expired; production handoff and resume incomplete"
   },
-  "commit_status": "implementation merged in all four repositories; current progress follow-up PR64 pending",
+  "commit_status": "implementation merged in all four repositories; current progress follow-up tracked in PR64",
   "source_revisions": {
     "Omniscience": "8a2caf5e6cb9489d71690ad8b5773c11b103a110",
     "Barbarossa": "4bf0b9e12d16c81617562d25904d651bef6be7da",
