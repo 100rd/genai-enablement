@@ -1,0 +1,26 @@
+{
+  "date": "2026-11-07",
+  "state": "advisories-reported-triage-pending",
+  "repository": "100rd/Omniscience",
+  "revision": "a631b29ebd6e32130caad2d560a9eca66c4ce250",
+  "job_url": "https://github.com/100rd/Omniscience/actions/runs/42379572931/job/128424143013",
+  "reported_findings": 103,
+  "reported_packages": 17,
+  "audit_exit_code": 1,
+  "workflow_policy": "continue-on-error: true",
+  "scope": "uv export requirements, including dev and platform-conditional dependencies; report may contain duplicates. Not an image-specific exploitability assessment.",
+  "baseline": "uv.lock and root pyproject.toml unchanged from d4991d416720e158e1e1f72c0545b6905ea34257",
+  "remaining": [
+    "Deduplicate advisory IDs and map to shipped runtime dependencies",
+    "Assess applicable advisories and test required version upgrades",
+    "Do not treat successful job conclusion as a passed security audit"
+  ],
+  "deduplicated_rows": 75,
+  "runtime_exact_version_matching_packages": 15,
+  "runtime_advisory_rows": 59,
+  "runtime_absent_packages": [
+    "virtualenv",
+    "werkzeug"
+  ],
+  "mapping_scope": "Read-only installed distribution metadata in built amd64 image; no advisory validity or exploitability conclusion. Portal does not contain the same reported package versions; that is not a clean Portal audit."
+}
