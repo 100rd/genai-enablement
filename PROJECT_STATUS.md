@@ -1,8 +1,122 @@
 # GenAI Enablement - Project Status
 
-**Last Updated**: 2026-11-06
+**Last Updated**: 2026-11-07
 **Phase**: Autonomous SRE Harness development — Stages 0 & 2 shipped; Stage 3 portable construction and Stage 7 (Sentinel) portable detector expansion in progress
-**Overall Health**: On Track
+**Overall Health (broader harness)**: On Track — platform-state activation remains unqualified
+
+## Platform-state activation — acceptance not passed, 2026-11-07
+
+**Portal recovered on retained storage:** the failed `emptyDir` database was preserved,
+and the verified 2026-11-06 22:55 UTC backup restored to an encrypted 8 GiB EBS PVC.
+Helm release `platform-portal` revision 2 is deployed; PostgreSQL and backend are Ready.
+Staging table counts, migration revision, role flags and both current credential logins
+passed; live Service authentication and backend rollout passed after cutover. A fresh
+browser reaches SSO. Changes after the backup are not claimed recovered. Other stores
+and the authenticated browser journey still require verification. See the
+[recovery evidence](docs/synchronized-platform/releases/management-platform-frankfurt-v1/source-checks/eks-portal-storage-recovery.json).
+
+
+**Barbarossa retained storage verified:** Helm revision 3 resumed both API and observer
+after exact staged/live checks of 6,072 observations, four cases, five jobs, schema and
+role state. Observations resumed (6,084 at the post-resume check). Existing profile
+history is preserved; its EKS store still has no accepted AI assessments.
+[Evidence](docs/synchronized-platform/releases/management-platform-frankfurt-v1/source-checks/eks-barbarossa-storage.json).
+**Omniscience PostgreSQL retained storage verified:** Helm revision 3 preserved all
+12 tables, three workspaces, two sources and five documents on retained EBS.
+[Evidence](docs/synchronized-platform/releases/management-platform-frankfurt-v1/source-checks/eks-omniscience-postgres-storage.json).
+**Neo4j retained storage verified:** Helm revision 5 is deployed; API replicas and
+ready replicas are one, and `/ready` returns 200. After Karpenter replaced the old
+emptyDir Pod during maintenance, guarded recovery reused the verified EBS stage.
+The exact empty graph, 14 indexes, four constraints, auth and staged database IDs
+matched. Original receipts remain preserved; PostgreSQL fingerprints remained intact.
+[Recovery evidence](docs/synchronized-platform/releases/management-platform-frankfurt-v1/source-checks/eks-neo4j-storage.json).
+**Secondary storage recovery:** AWS interrupted the original Spot node at 12:49 UTC.
+Replacement Qdrant had zero points instead of the seven in the verified off-node backup.
+Both isolated EBS restore rehearsals now pass: Qdrant's exact seven-point state survives
+Pod replacement, and NATS preserves three streams/four durables using the reviewed native
+empty-store equivalence check. Production still uses hostPath; the guarded StatefulSet
+handoff is in progress: the API is deliberately paused, schema-2 preparation and quiesced source checks passed; AWS session expired during staged writer shutdown. Production switch and API resume remain unverified; credential renewal is required to continue or safely cancel. Managed on-demand desired capacity increased from two to three within
+the existing maximum; Terragrunt reconciliation remains required.
+[Incident](docs/synchronized-platform/releases/management-platform-frankfurt-v1/source-checks/eks-secondary-storage-spot-interruption.json),
+[Qdrant restore](docs/synchronized-platform/releases/management-platform-frankfurt-v1/source-checks/eks-qdrant-retained-rehearsal.json),
+[NATS restore](docs/synchronized-platform/releases/management-platform-frankfurt-v1/source-checks/eks-nats-retained-rehearsal.json).
+
+**Deployment wiring, source only:** the scheduled Omniscience collector and separate
+Barbarossa Frankfurt API/intake/migration profile passed independent review and lead Helm
+tests. Frankfurt migration renders require both runtime roles at zero replicas. Neither
+profile wiring change is deployed; persistent state collection and live AI remain open.
+[Capture evidence](docs/synchronized-platform/releases/management-platform-frankfurt-v1/source-checks/eks-secondary-storage-capture.json).
+**Network isolation source ready, not deployed:** all three owner charts now constrain
+PostgreSQL access and Service ownership, including umbrella releases and optional
+Keycloak. Independent review and five real Helm render regressions passed. Existing
+live permissive policies still require reconciliation and traffic checks.
+[Source evidence](docs/synchronized-platform/releases/management-platform-frankfurt-v1/source-checks/postgres-network-boundaries.json).
+Full acceptance is not passed.
+
+
+The user confirmed account `120736097561`, `eu-central-1`, and every namespace of
+`nonprod-euc1`. Collection must be cloud agnostic and must not depend on AWS Config.
+The additive [Frankfurt profile](docs/synchronized-platform/profiles/management-platform-frankfurt-v1.md)
+keeps the earlier local qualification separate. Current work covers direct cloud and
+Kubernetes collection into Omniscience, advisory AI SRE/Security in Barbarossa, and
+closure of the EKS acceptance findings. This expanded profile is not yet activated.
+
+The direct AWS connector read 19 actual resources within the confirmed account.
+Its 144 focused tests passed. Portal logout, loopback runner targeting and Barbarossa
+profile/provenance isolation have source fixes with review; final deployment remains
+pending. Bounded Kubernetes lifecycle fixes are reviewed source changes; complete state
+admission and reconciliation coverage remain unfinished.
+The lead reproduced 122 focused tests against disposable NATS, PostgreSQL, Neo4j and
+Qdrant plus configuration/admission tests (3 skipped), and 311 Go operator tests.
+Go identity, vector generation and bounded graph lifecycle changes passed independent
+review. Periodic reconciliation now covers 26 core Kubernetes kinds. Source/cluster
+binding, publisher permissions and owner evidence intake still block activation; these
+results do not qualify EKS. See
+the [activation register](portfolio/platform-activation-progress.json) for open findings.
+All three existing PostgreSQL databases were privately backed up and each backup
+restored successfully into its own disposable PostgreSQL 18 container. Those initial restore checks were disposable. Portal was subsequently restored and
+cut over as recorded above; the remaining stores are not yet qualified.
+
+The [rebased platform-state plan](docs/synchronized-platform/platform-state-plan.md)
+chooses a hybrid: pull baselines/reconciliation plus watches/events, durable collector
+push into Omniscience, and pinned evidence reads by Barbarossa. Desired state, observed
+resources, runtime signals, relationships and evidence quality remain separate layers.
+Reuse the existing Go operator and AI queue. Next: authorized complete state generations,
+then a self-platform vertical slice, deterministic SRE/Security analysis and finally
+all-namespace/Frankfurt coverage. A limited vertical slice cannot qualify the full scope.
+PS-01/PS-02 now include a strict v2 contract, source-target enrollment with epoch
+fencing, immutable transactional batch persistence and authorized revision reads.
+The lead reproduced 201 tests, including real PostgreSQL and token-auth HTTP reads.
+The Go collector read 81 actual Deployments across EKS namespaces; this is a collection
+proof, not live owner ingestion. The Barbarossa parser, deterministic workload availability evaluation, and atomic
+revision → case → analysis queue intake passed source review and 17 PostgreSQL race
+tests. Delivery scheduling and deployment remain pending. The dedicated HTTP publish endpoint passed security review, including revocation
+during streamed upload.
+AWS/EKS access is restored using process-local credentials; the original credentials
+file is unchanged. No platform acceptance claim changed.
+
+**Current source regression:** Omniscience full Python suite passes (4,423 passed, 78 skipped); mypy, Ruff, operator race, governance and MCP contract checks pass. Portal backend (1,469 passed, 4 skipped), frontend (702 passed), typecheck, lint and production build pass. These checks do not qualify the deployed EKS profile.
+
+## EKS activation audit — 2026-11-06
+
+**Deployed; acceptance failed.** Read-only inspection of `nonprod-euc1` / `splatform`
+and actual browser sessions verified both tenant logins, real Omniscience graphs, fresh
+Barbarossa observations, cases/evidence in Control and all 11 signed-identity checks.
+Seven Deployments and six StatefulSets are ready; all three migration Jobs completed.
+These are EKS observations, separate from the successful local qualification below.
+
+Acceptance blockers: three PostgreSQL stores and Neo4j use `emptyDir` data volumes;
+the EKS runner has never reported a heartbeat; the Portal frontend can connect to all
+three database ports; and `shared-host` observation provenance contradicts multi-node
+placement. Startup also raced migrations, and Portal logout redirects to
+`https://localhost:3000/login`. The EKS snapshot has two resolved startup cases,
+three cancelled jobs and no accepted assessment visible in Control. It does not
+inherit the local installation's six cases or four assessments.
+
+See the [audit, evidence and owner follow-up queue](docs/synchronized-platform/releases/management-local-observe-v1/eks-audit/README.md).
+No workload, chart, source code, secret or network policy was changed by this audit.
+Fault injection, database Pod replacement and the complete Codex recovery drill remain
+unperformed on EKS. Source merges and earlier local receipts retain their scope.
 
 ## Current local activation — 2026-11-06
 
@@ -14,7 +128,8 @@ The 11 live signed-identity checks passed. Repeating the Omniscience seed preser
 PostgreSQL, Neo4j and Qdrant hashes, including IDs, document versions, graph temporal state and vectors.
 See [merge verification](docs/synchronized-platform/releases/management-local-observe-v1/merge-readiness/verification.json)
 and the [Kubernetes handoff](docs/runbooks/management-local-observe-kubernetes-handoff.md).
-Charts and deployment belong to the deployment agent; Kubernetes acceptance is pending.
+Charts and deployment belong to the deployment agent; the EKS audit above now records
+the deployed installation and its failed acceptance, separately from this local evidence.
 The local profile still has one observer and a host Codex runner; a cluster install does not qualify HA.
 
 **Barbarossa work is now in Control:** Portal `1389aae` shows cases, real analysis queue/history,
@@ -520,3 +635,13 @@ tiered autonomy, measured on leverage not tickets closed.
 12. Bind approved read-only incident sources/analyzer and curate real-incident B1 eval thresholds
 13. Identify and assess first pilot team
 14. Create the first CI/CD playbook and metrics dashboard only from an observed pilot workflow
+
+### 2026-11-07: secondary-store Spot interruption
+
+At 12:49:07 UTC AWS interrupted the node hosting NATS, Qdrant and the isolated Qdrant restore Pod. The original node is gone. Replacement source Pods are Ready, but logical data equivalence is unverified; normal restore guards stopped on changed identities. The seven-artifact off-node native capture remains available, and the isolated Qdrant EBS volume survived unattached. Explicit recovery rehearsal is in progress; full acceptance remains **not passed**. [Incident evidence](docs/synchronized-platform/releases/management-platform-frankfurt-v1/source-checks/eks-secondary-storage-spot-interruption.json).
+
+Follow-up live read confirmed Qdrant has **0 points versus 7 in the verified backup**. NATS recreated its three empty streams and four durables, but exact inventory differs. Restoration has not yet passed.
+
+Qdrant isolated EBS recovery passed exact seven-point comparison and Pod replacement on managed on-demand capacity. NATS native restore completed, but its acceptance gate remains closed while native restore metadata differences are checked. The managed on-demand node group increased desired capacity 2 → 3 within its existing maximum; Terragrunt reconciliation remains required. Production storage cutover is not yet complete.
+
+Both isolated native restore rehearsals are now verified: Qdrant preserves all 7 points across Pod replacement; NATS preserves 3 streams and 4 durables with a reviewed native empty-store equivalence check. Production StatefulSet handoff is still pending. Omniscience collector and separate Barbarossa Frankfurt Helm support passed source tests and review but are not deployed.

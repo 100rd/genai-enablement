@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: splatform-gp3-smoke
+  namespace: splatform
+  labels:
+    app.kubernetes.io/name: splatform-gp3-smoke
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: splatform-gp3
+  resources:
+    requests:
+      storage: 1Gi

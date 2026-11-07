@@ -1,0 +1,28 @@
+{
+  "recorded_at": "2026-11-07T12:15:11.868904+00:00",
+  "scope": "Local linux/amd64 collector image; not pushed or deployed",
+  "files": {
+    "operator/Dockerfile.platform-state-collector": "f7263399a7ab184bfd55f80f3699459f032d5981847d9cbc339833bb9955c6d1",
+    "operator/docs/platform-state-collector-image.md": "4afbd3c2c7aec924b985cc44d652ee16522160193dac6e60fa86dab76dae251a"
+  },
+  "image_id": "sha256:558efe6d1ca7efb283221e2137cc7cae2484df0b680e095c0993cb2ece0a37fd",
+  "verification": [
+    "Worker local buildx build passed",
+    "Independent review cleared after documenting exact outbox modes and no setgid/fsGroup mutation",
+    "Lead full new-file review and image inspection passed",
+    "Lead entrypoint help passed with read-only filesystem, no network, no capabilities, no-new-privileges",
+    "Lead missing-config invocation failed fast with exit1"
+  ],
+  "model_requested": "gpt-6-luna",
+  "actual_model": "not exposed",
+  "token_usage": null,
+  "build_seconds_approx": 37,
+  "rework": [
+    "Initial read-only inspection used wrong parent checkout; corrected before any edits",
+    "Outbox volume provisioning documentation corrected after review"
+  ],
+  "limitations": [
+    "No live Kubernetes mount or publisher acceptance",
+    "No published registry digest or deployed schedule"
+  ]
+}

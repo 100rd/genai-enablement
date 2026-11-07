@@ -1,0 +1,17 @@
+{
+  "recorded_at": "2026-11-07T12:04:17.703027+00:00",
+  "scope": "Synthetic local real owner HTTP/PostgreSQL and Barbarossa CLI integration",
+  "harness_sha256": "0e50a359ee62775e9b0f0e6dc1d3dcee373dc50066fe8eafa244a689d75f39b6",
+  "evidence_sha256": "e593e39b6fb2cc54043f7aeac19cc696797abc6f3aed6d6b5edbee13e7fea5ff",
+  "verification": [
+    "Independent Python review: no blockers",
+    "Lead full changed assertion review and independent rerun exit 0 with PYTHONOPTIMIZE=0",
+    "Source-specific imported revisions 1,3,4; sibling2 skipped",
+    "Durable watermark advances; same case/job across timestamp refresh; recovery resolves/cancels",
+    "Unauthorized and cross-scope requests rejected, exact replay retained"
+  ],
+  "limitations": [
+    "Loopback with disposable PostgreSQL18.6 and synthetic data",
+    "No EKS activation, Codex analysis, Portal authenticated browser or full acceptance"
+  ]
+}

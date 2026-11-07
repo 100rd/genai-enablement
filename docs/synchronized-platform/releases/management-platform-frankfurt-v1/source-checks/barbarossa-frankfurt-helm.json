@@ -1,0 +1,27 @@
+{
+  "date": "2026-11-07",
+  "state": "source-reviewed-not-deployed",
+  "owner": "Barbarossa",
+  "profile": "management-platform-frankfurt-v1",
+  "lead_checks": {
+    "helm_tests": 5,
+    "result": "passed"
+  },
+  "independent_review": "CLI/env/security/identity/migration-gate review passed",
+  "features": [
+    "separate fresh PostgreSQL workload required",
+    "API and collect-platform roles with dedicated identity credentials",
+    "migration phase requires both runtime replicas zero",
+    "no local context/legacyobserver in Frankfurt",
+    "only8080 API exposed,8082 token-gated runner via operator tunnel"
+  ],
+  "live_gates": [
+    "verify fresh DB and runtime/migrationDSNs",
+    "publish and pinimage",
+    "quiesce existingpods before subsequentmigrationjobs",
+    "effective networktraffic tests",
+    "ownerstate+runner+browserjourney"
+  ],
+  "model_requested": "gpt-6.1-sol",
+  "token_usage": null
+}

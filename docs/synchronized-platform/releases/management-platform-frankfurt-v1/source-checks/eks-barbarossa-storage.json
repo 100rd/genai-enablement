@@ -1,0 +1,39 @@
+{
+  "recorded_at": "2026-11-07T11:07:22.091455+00:00",
+  "scope": "Barbarossa existing local-profile storage migration; new Frankfurt collector not deployed",
+  "account": "120736097561",
+  "region": "eu-central-1",
+  "cluster": "nonprod-euc1",
+  "release_revision": 3,
+  "release_status": "deployed",
+  "volume": {
+    "pvc_uid": "4f27280d-997a-4144-b6c4-37332eef48a1",
+    "pv_name": "pvc-4f27280d-997a-4144-b6c4-37332eef48a1",
+    "pv_uid": "1a581bb5-8e73-435d-88e3-2b719feee0a3",
+    "volume_handle": "vol-0800a4fc974d84a86",
+    "availability_zone": "eu-central-1b"
+  },
+  "captured_counts": {
+    "local_observe_assessments": 0,
+    "local_observe_case_observations": 18,
+    "local_observe_cases": 4,
+    "local_observe_components": 4,
+    "local_observe_context_snapshots": 0,
+    "local_observe_control": 1,
+    "local_observe_job_context": 0,
+    "local_observe_job_observations": 10,
+    "local_observe_jobs": 5,
+    "local_observe_observations": 6072,
+    "local_observe_usage_reservations": 0,
+    "schema_migrations": 1
+  },
+  "post_resume_observations": 6084,
+  "backup_sha256": "a6c9f14d22df4c2995d1d594fa79f92d4c03f259fc27904ddd88861d2ac03d63",
+  "verification": [
+    "exact 12-table row fingerprints, schema, role verifier and sequences matched staged and live restored DB",
+    "both current Secret URLs authenticated via staged and original Services",
+    "API and observer replicas1 Ready after guarded revision3 resume"
+  ],
+  "temporary_probe_policy": "removed after successful resume",
+  "acceptance": "not-passed"
+}

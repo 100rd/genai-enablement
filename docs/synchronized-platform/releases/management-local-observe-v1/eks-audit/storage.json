@@ -1,0 +1,84 @@
+[
+  {
+    "name": "barbarossa-postgres",
+    "data_volume": {
+      "emptyDir": {},
+      "name": "data"
+    },
+    "data_mounts": [
+      {
+        "mountPath": "/bitnami/postgresql",
+        "name": "data"
+      }
+    ],
+    "volume_claim_templates": []
+  },
+  {
+    "name": "omniscience-postgres",
+    "data_volume": {
+      "emptyDir": {},
+      "name": "data"
+    },
+    "data_mounts": [
+      {
+        "mountPath": "/bitnami/postgresql",
+        "name": "data"
+      }
+    ],
+    "volume_claim_templates": []
+  },
+  {
+    "name": "portal-postgres",
+    "data_volume": {
+      "emptyDir": {},
+      "name": "data"
+    },
+    "data_mounts": [
+      {
+        "mountPath": "/bitnami/postgresql",
+        "name": "data"
+      }
+    ],
+    "volume_claim_templates": []
+  },
+  {
+    "name": "omniscience-neo4j",
+    "data_volume": {
+      "emptyDir": {},
+      "name": "data"
+    },
+    "data_mounts": [
+      {
+        "mountPath": "/backups",
+        "name": "data",
+        "subPathExpr": "backups"
+      },
+      {
+        "mountPath": "/data",
+        "name": "data",
+        "subPathExpr": "data"
+      },
+      {
+        "mountPath": "/import",
+        "name": "data",
+        "subPathExpr": "import"
+      },
+      {
+        "mountPath": "/licenses",
+        "name": "data",
+        "subPathExpr": "licenses"
+      },
+      {
+        "mountPath": "/logs",
+        "name": "data",
+        "subPathExpr": "logs/$(POD_NAME)"
+      },
+      {
+        "mountPath": "/metrics",
+        "name": "data",
+        "subPathExpr": "metrics/$(POD_NAME)"
+      }
+    ],
+    "volume_claim_templates": []
+  }
+]

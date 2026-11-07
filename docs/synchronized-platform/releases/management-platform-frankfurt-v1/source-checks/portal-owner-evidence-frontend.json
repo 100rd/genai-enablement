@@ -1,0 +1,23 @@
+{
+  "recorded_at": "2026-11-07T11:37:10.823433+00:00",
+  "scope": "Frontend owner evidence parsing and Observe text rendering; no Frankfurt activation",
+  "files": {
+    "frontend/components/observe/reliability-contract.ts": "4cdb30e328fc7632b4ea335825e0b6b2096a8dd456bda64de45b098998c06be8",
+    "frontend/components/observe/ReliabilityPanels.tsx": "b190ec9178394aa3a40144c94e05f72fb7ec570942b5c79a0a1d4927203f1f56",
+    "frontend/tests/observe/reliability-owner-evidence.test.tsx": "ad7a5acd3e9642d62566c149d6a91f266727edddb8ca33668b53c3842335087d"
+  },
+  "verification": {
+    "lead_complete_diff_and_new_test_read": "passed",
+    "lead_focused_vitest": {
+      "files": 4,
+      "tests_passed": 26
+    },
+    "independent_typescript_review": "approved",
+    "typecheck": "passed by reviewer",
+    "eslint": "passed by reviewer"
+  },
+  "live_browser_acceptance": false,
+  "model_requested": "gpt-6-luna",
+  "actual_model": "not exposed",
+  "token_usage": null
+}

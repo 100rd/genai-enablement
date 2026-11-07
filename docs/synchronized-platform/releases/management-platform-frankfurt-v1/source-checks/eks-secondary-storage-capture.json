@@ -1,0 +1,34 @@
+{
+  "recorded_at": "2026-11-07T12:29:35.416205+00:00",
+  "scope": "Native NATS/Qdrant backups copied off node; restoration not yet verified",
+  "state": "captured-and-hash-verified",
+  "private_receipt_sha256": "da0a5889296385a577671d42984f04e7d36c7010e6a0fc746cadd4cb03601576",
+  "artifact_count": 7,
+  "artifact_bytes": 86740510,
+  "streams": 3,
+  "durable_consumers": 4,
+  "qdrant_points": 7,
+  "qdrant_point_digest": "0b33b2866404b1bd204cd49b0f52c0b9976efaff5b3ab05b744060e4c09804d4",
+  "helm_revision": 5,
+  "post_capture_api_ready_http": 200,
+  "verification": [
+    "Independent Python review cleared after mandatory checksum and fsync fixes",
+    "Lead full script/tests review and eight local tests passed",
+    "Real native capture passed with stable source identities/logical fingerprints",
+    "Lead independently rehashed all seven downloaded artifacts",
+    "API restored to one replica and readiness HTTP200 after capture"
+  ],
+  "implementation_hashes": {
+    "capture.py": "84c37c71626440b5378657dea0e454e31852ecf1aa3d597af2e2680c9a20fbf3",
+    "test_capture.py": "b53448db98baf5f22851475dac0fe76851e39d05b37f79b7b52e3c2dce1266fd",
+    "README.md": "bb34fafb1344ac272ac8292216fe7c176fdc97de67d5959f7ea8c2da61e7836a"
+  },
+  "limitations": [
+    "Sources still use hostPath",
+    "Native archive semantic restore not yet rehearsed",
+    "No source cutover or full platform acceptance"
+  ],
+  "model_requested": "gpt-6.1-sol",
+  "actual_model": "not exposed",
+  "token_usage": null
+}

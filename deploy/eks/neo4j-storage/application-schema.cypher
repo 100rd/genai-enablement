@@ -1,0 +1,12 @@
+CREATE CONSTRAINT entity_workspace_id_unique IF NOT EXISTS FOR (n:Entity) REQUIRE (n.workspace_id, n.id) IS UNIQUE;
+CREATE INDEX entity_workspace_kind IF NOT EXISTS FOR (n:Entity) ON (n.workspace_id, n.kind);
+CREATE INDEX entity_workspace_name IF NOT EXISTS FOR (n:Entity) ON (n.workspace_id, n.name);
+CREATE INDEX entity_source_id IF NOT EXISTS FOR (n:Entity) ON (n.source_id);
+CREATE INDEX entity_workspace_kind_cluster IF NOT EXISTS FOR (n:Entity) ON (n.workspace_id, n.kind, n.cluster);
+CREATE INDEX entity_state_workspace_kind_cluster IF NOT EXISTS FOR (s:EntityState) ON (s.workspace_id, s.kind, s.cluster);
+CREATE CONSTRAINT entity_state_workspace_id_valid_from_unique IF NOT EXISTS FOR (s:EntityState) REQUIRE (s.workspace_id, s.id, s.valid_from) IS UNIQUE;
+CREATE INDEX entity_workspace_recorded_at IF NOT EXISTS FOR (n:Entity) ON (n.workspace_id, n.recorded_at);
+CREATE INDEX entity_state_workspace_valid_window IF NOT EXISTS FOR (s:EntityState) ON (s.workspace_id, s.id, s.valid_from, s.valid_to);
+CREATE INDEX entity_state_workspace_recorded_at IF NOT EXISTS FOR (s:EntityState) ON (s.workspace_id, s.recorded_at);
+CREATE CONSTRAINT store_checkpoint_workspace_source_unique IF NOT EXISTS FOR (c:StoreCheckpoint) REQUIRE (c.workspace_id, c.source_id) IS UNIQUE;
+CREATE CONSTRAINT document_checkpoint_workspace_source_document_unique IF NOT EXISTS FOR (d:DocumentCheckpoint) REQUIRE (d.workspace_id, d.source_id, d.document_id) IS UNIQUE;

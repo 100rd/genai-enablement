@@ -1,0 +1,33 @@
+{
+  "scope": "Barbarossa source-only platform workload intake; not deployed",
+  "base_revision": "c7131b3882d603133d50c2cea6ae039a7f52c2af",
+  "files": {
+    "internal/platformstate/evidence.go": "97ab8e698d568b5f4deb2fe31f6bff78a388a156b9df78d87da4b4f49f338ebf",
+    "internal/platformstate/evidence_test.go": "4ce0320fd5cd4db8aaebfc8df88ee5e8372f698eb86d60ed6dc161efa5c5f39c",
+    "internal/localobserve/platform_intake.go": "4049c4deb3e40808105236ba761ce0e4e34f06cd988b55c02bb0c7e76c16db8f",
+    "internal/localobserve/store.go": "13783ae9f6f2b3d94957b4399cc81349f41508595e78fa03e5b5490d9fd7c874",
+    "internal/localobserve/model.go": "e1583d3b9943738f2afffe0f0e33a2169b03d0f0179f974ea262b6cc8322ab6f",
+    "internal/localobserve/read.go": "82ec4acecc03076f69024914d409a766c55698269621415fffc34a62a0e83b4c",
+    "internal/localobserve/jobs.go": "0114a2b1d9cc1087e983af9d5db04ab34626f43ed562072edd0c8c1e4332ca2c",
+    "internal/localobserve/job_read.go": "f34ccd8539e3366a09b35aecaef18682c9c2d7d0998e24ac71ce1044508e9df3",
+    "cmd/barbarossa-observe/main.go": "6dffe3829ab6bd5e2521de6005933d9ad162b973e81d045fd2cac9b69b5d77eb",
+    "cmd/barbarossa-observe/platform_intake_integration_test.go": "81b2f9ce2b8396e3c86bcf4fe24ca9ac83c6692895188487d87b8193c41daa72",
+    "deploy/postgresql/migrations/management-local-observe-v1/0003_observe_provenance.up.sql": "6fdf952550071352bd718adb87ca8d0e6e2e4b49a5e10158f949231edd757c3a",
+    "deploy/postgresql/migrations/management-local-observe-v1/0004_platform_intake.up.sql": "5c081e24dd4f7e391f78ab20015ce7691a23b3a873604cc2945817ff8dff26d7"
+  },
+  "verification": {
+    "lead": "17 command tests with real PostgreSQL18 and race detector passed",
+    "independent": "Go/SQL review approved, same tests and vet passed",
+    "worker": "1386 main-module tests passed before final migration/watermark fixes; not claimed final-state root regression",
+    "staticcheck": "installed analyzer incompatible with Go1.27; not passed"
+  },
+  "fixed_findings": [
+    "Repeat migration could reinstall obsolete provenance trigger",
+    "Late older healthy evidence could resolve newer incident; watermark prevents this"
+  ],
+  "remaining": [
+    "HTTP client and scheduled ingestion not connected",
+    "Frankfurt requires separate bound store; existing local profile history preserved",
+    "No live AI SRE/Security or EKS acceptance"
+  ]
+}

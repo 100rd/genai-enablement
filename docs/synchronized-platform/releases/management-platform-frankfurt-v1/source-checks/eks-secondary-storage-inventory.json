@@ -1,0 +1,15 @@
+{
+  "state": "open",
+  "nats": {
+    "pvc": "omniscience-nats-js-omniscience-nats-0",
+    "pv": "pv-splatform-nats-noniac",
+    "hostPath": "/tmp/splatform-nats-noniac"
+  },
+  "qdrant": {
+    "pvc": "qdrant-storage-omniscience-qdrant-0",
+    "pv": "pv-splatform-qdrant-noniac",
+    "hostPath": "/tmp/splatform-qdrant-noniac"
+  },
+  "risk": "Both PVs use node-local hostPath; Retain does not preserve data across node replacement. EBS migration and exact recovery verification required.",
+  "recorded_at": "2026-11-07T12:07:38.003704+00:00"
+}

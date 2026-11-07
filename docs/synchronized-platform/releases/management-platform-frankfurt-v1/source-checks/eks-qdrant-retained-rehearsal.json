@@ -1,0 +1,32 @@
+{
+  "date": "2026-11-07",
+  "state": "isolated-restore-and-pod-replacement-verified",
+  "live_production_cutover": false,
+  "source": "pinned off-node snapshot before Spot interruption",
+  "backup_receipt_sha256": "da0a5889296385a577671d42984f04e7d36c7010e6a0fc746cadd4cb03601576",
+  "stage_receipt_sha256": "a427f77846b0edb09cc14186a74c04fa8329d5e5741df66b4b4b147bc036060f",
+  "accepted_at": "2026-11-07T13:05:11.117010+00:00",
+  "points": 7,
+  "point_digest": "0b33b2866404b1bd204cd49b0f52c0b9976efaff5b3ab05b744060e4c09804d4",
+  "volume": {
+    "pvc_uid": "675a3228-c299-4df1-9e42-2eff10ad481a",
+    "pv_uid": "67703f38-547c-40ce-b535-30123f6e7ddb",
+    "pv_name": "pvc-675a3228-c299-4df1-9e42-2eff10ad481a",
+    "volume_handle": "vol-0a5387fc40bbc240e",
+    "availability_zone": "eu-central-1c"
+  },
+  "peer_id": 926458902444837,
+  "peer_uri": "http://127.0.0.1:6335/",
+  "restore_pod_uid": "26bbbeb2-414e-48b5-9c29-32880c1001d6",
+  "restart_pod_uid": "16468181-47d2-4f3d-b9dc-e7eadd57c5f3",
+  "placement": "EKS managed ON_DEMAND",
+  "checks": [
+    "exact vectors and payloads digest",
+    "collection configuration and payload schema",
+    "aliases and active local shard",
+    "same peer and EBS after owned Pod replacement",
+    "recorded UID and admitted spec guards",
+    "isolated loopback and scoped deny policies"
+  ],
+  "acceptance": "platform-not-passed"
+}

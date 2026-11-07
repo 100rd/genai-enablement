@@ -1,0 +1,35 @@
+{
+  "recorded_at": "2026-11-07T12:02:58.307711+00:00",
+  "scope": "Durable collector outbox, bounded HTTP publisher, deployments CLI; source only",
+  "files": {
+    "operator/internal/platformstate/encode.go": "3c7587bbcb8854f4f86ce11b434dd45b80a57872ecea5e43d4684b7e8e6f451c",
+    "operator/internal/platformstate/publish_test.go": "1b4172e08071268e8734e0db7a3100eb24a02152bcd706e548c070b284cf8628",
+    "operator/internal/platformstate/collect.go": "87b430ff10e948e5b636378275ebedfedd79f56a91e7bac409e42b4a17dd6ca7",
+    "operator/internal/platformstate/collect_test.go": "b5c20beb2782c365e58e77ba0dd8b1aad9626b4edb0f02b696c25509aa2cb3c1",
+    "operator/internal/platformstate/outbox_test.go": "47b2808a9158e4e02d326d2c5fbf1d1bbbd56f5621c82f0cdb669a5aa59a6264",
+    "operator/internal/platformstate/publish.go": "61d52bd080be1a2584f77c4dd102e6e72c112b295ba1a50a734be1e4f99006c6",
+    "operator/internal/platformstate/outbox.go": "353cfa783309488698781dbd44ae359bc48e629701ae2bd147cb7e58fa8a5d8c",
+    "operator/internal/platformstate/encode_test.go": "01cad283e531bef31405b36797e2abc5306c6a2009ecad3df656d10aff82e2df",
+    "operator/cmd/platform-state-collector/config.go": "72b56bd4932e02c1ceef729cdeacdf3244bc482ceba1d2679cc71f6e25399304",
+    "operator/cmd/platform-state-collector/collector.go": "cc467fa1e814a3234cb003774b8c2f99e92f5119cbc6da28df803006f45d6d66",
+    "operator/cmd/platform-state-collector/collector_test.go": "6c34a67551ae09df3eea4c153773178be0aec37c7012b696e2c32cc35c163830",
+    "operator/cmd/platform-state-collector/config_test.go": "4777592de2ac4cb549967831866a8f34b87272b1ec0c066edee0a3826d6d6292",
+    "operator/cmd/platform-state-collector/main.go": "e36c306e6f8fc3c2821f538cebce6aa34fdc4b585fa15da63e6ec2f2fd0972bb"
+  },
+  "verification": [
+    "Lead full source review and independent Go review passed after fixes",
+    "Lead fresh go test -race -count=1 ./internal/platformstate ./cmd/platform-state-collector passed",
+    "Pending generation bytes survive process restart and are acknowledged only after validated owner response",
+    "Actual cluster UID checked before each cycle including pending delivery",
+    "Outbox failure terminates process for supervised recovery; explicit kubeconfig cannot fall back to ambient cluster"
+  ],
+  "limitations": [
+    "No deployment or scheduled ingestion in EKS yet",
+    "Publisher token uses regular file mount; restart needed for rotation",
+    "Deployments only; full platform coverage not satisfied",
+    "No power-loss/fsync fault injection"
+  ],
+  "requested_model": "gpt-6.1-sol",
+  "actual_model": "not exposed",
+  "token_usage": null
+}

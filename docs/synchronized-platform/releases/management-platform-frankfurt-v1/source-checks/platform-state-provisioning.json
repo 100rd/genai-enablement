@@ -1,0 +1,27 @@
+{
+  "recorded_at": "2026-11-07T12:45:28.332215+00:00",
+  "scope": "Trusted deployments partition provisioning command; source only",
+  "files": {
+    "scripts/provision_platform_state.py": "5f832d4b2415e1e219179645388990214c3975a709fb2e902f66831cf02f5dfe",
+    "tests/test_platform_state_provision.py": "8cf5a43a78a3ce59f4ac292d38407fba4a2a7263650ddee821d4374841c599d4",
+    "docs/platform-state-provisioning.md": "5e7e4cf5253b93b52521b22c49b7c154e6297e4e11b78afbb1e3f5f15d4ebc52"
+  },
+  "verification": [
+    "Independent Python/auth review cleared after DB identity and audit fixes",
+    "Lead full command/tests/docs review and real PostgreSQL provision+enrollment suite:25passed",
+    "Reviewer Ruff lint/format and strict mypy passed",
+    "Private credential file synced before transaction commit; exact replay preserves token secrets",
+    "Actual DB/system/schema/workspace table identity prevents cross-schema retry reuse",
+    "Postcommit sanitized audit and durable completion record exclude plaintext",
+    "Commit acknowledgment loss, rollback, conflicting rows, filesystem sync failure and no token output checked"
+  ],
+  "limitations": [
+    "No live workspace/token/enrollment created",
+    "Operator must verify actual target cluster UID before calling",
+    "Requires pg_control_system permission; physical DB clones can retain identity, explicit destination verification still required",
+    "Only deployments partition epoch1, tokens expire within seven days"
+  ],
+  "requested_model": "gpt-6.1-sol",
+  "actual_model": "not exposed",
+  "token_usage": null
+}

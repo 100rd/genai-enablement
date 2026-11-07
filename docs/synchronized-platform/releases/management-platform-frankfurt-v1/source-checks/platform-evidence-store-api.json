@@ -1,0 +1,63 @@
+{
+  "status": "source-reviewed-not-deployed",
+  "date": "2026-11-07",
+  "base_revision": "2272deca928bfc8dac304b243585090e08be0924",
+  "files": [
+    {
+      "path": "packages/core/src/omniscience_core/platform_evidence/store.py",
+      "sha256": "471ea3bec894cbaba700263e7b6fb4c52a8840f6108cd2d1e661d373eea9e5b9"
+    },
+    {
+      "path": "packages/core/alembic/versions/0017_platform_evidence.py",
+      "sha256": "48765dc31795e76400a4bf11fe5901fcd81ba1a07d5d34dcfca6dee260ab2662"
+    },
+    {
+      "path": "apps/server/src/omniscience_server/rest/platform_evidence.py",
+      "sha256": "090b3578ceb56feee855019b5f54c59669b530cb5f396501a76f836d9e946be7"
+    },
+    {
+      "path": "apps/server/src/omniscience_server/rest/router.py",
+      "sha256": "f13829410c0d57a8a063c8614059da5df3ccdb62d32e0540b67146844a4582e0"
+    },
+    {
+      "path": "packages/core/src/omniscience_core/auth/scopes.py",
+      "sha256": "e18532ca2d7b2fd02997b50191d0d493a24a538be320d162ec7a1acc3681a291"
+    },
+    {
+      "path": "tests/test_platform_evidence_store.py",
+      "sha256": "5f5e938395dccc7c696cddfd380d6d8cdc7ba1b9c2cc36d87568725d77a6467e"
+    },
+    {
+      "path": "tests/test_platform_evidence_endpoint.py",
+      "sha256": "946e73d34f9b257bdd24db501822ee8ca6ce43596571a2ef724f5949fc34b7ca"
+    },
+    {
+      "path": "tests/test_platform_evidence_api_live.py",
+      "sha256": "6cfb91dba79efdc53ac1395a0ddb244c821d262c3ec225f8a4881d3411547abe"
+    },
+    {
+      "path": "contracts/platform-evidence/v1/README.md",
+      "sha256": "369bd099a016fd3c2de5d19bbe71432d4e11c3ba684bebcb2eac1d0fd9ded27d"
+    },
+    {
+      "path": "docs/design/platform-state-contract-v2.md",
+      "sha256": "b65013723cf44c617a9999de96f765c55e3c595acbdfa73a5e9ea543ed431b54"
+    }
+  ],
+  "verification": {
+    "suite": "contract/store/endpoint/liveAPI/auth/operator endpoint",
+    "passed": 104,
+    "skipped": 0,
+    "database": "isolated PostgreSQL, with real auth token lookup; no EKS mutation",
+    "independent_reviews": [
+      "store/Python/SQL approved after AUTOCOMMIT correction",
+      "API/security approved after cache/error-log corrections"
+    ],
+    "typecheck": "passed after generic helper correction"
+  },
+  "limitations": [
+    "baseline v1 evidence only; v2 wire implementation remains pending",
+    "No collector admission endpoint, broker ACL rollout or live scheduled publication",
+    "EKS session expired; deployment/acceptance not performed"
+  ]
+}

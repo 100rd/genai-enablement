@@ -1,0 +1,18 @@
+{
+  "status": "passed",
+  "scope": "EBS CSI prerequisite and retained1Gi write/read only, not database migration or HA",
+  "cluster": "nonprod-euc1",
+  "account": "120736097561",
+  "addon": "v1.67.2-eksbuild.1",
+  "storageclass": "splatform-gp3",
+  "pvc_uid": "82169b35-6650-4c8b-b01a-eeaa1e8531fd",
+  "volume_id": "vol-0067b0939a6bcbc87",
+  "encrypted": true,
+  "kms_key": "arn:aws:kms:eu-central-1:120736097561:key/3ab9eabb-1379-482f-8975-7e961e024fcf",
+  "reclaim_policy": "Retain",
+  "writer": "Succeeded",
+  "reader": "Succeeded",
+  "marker_verified": true,
+  "resources_retained": true,
+  "network_policy": "kube-system/splatform-ebs-csi-aws-api"
+}

@@ -1,0 +1,25 @@
+{
+  "model": "gpt-6-luna",
+  "scope": "Independent review of coordinator diff, portable evidence and private audit summaries; no cluster access or edits",
+  "estimated_elapsed_seconds": 360,
+  "estimated_tokens": 2200,
+  "actual_tokens": null,
+  "findings": [
+    {
+      "id": "REVIEW-1",
+      "issue": "No portable placement evidence for EKS-04",
+      "resolution": "Added sanitized node aliases from direct Kubernetes query in deployment-details.json"
+    },
+    {
+      "id": "REVIEW-2",
+      "issue": "No portable startup-log evidence for EKS-05",
+      "resolution": "Attached safe message/timestamp summaries from the earlier runtime inspection in deployment-details.json"
+    },
+    {
+      "id": "REVIEW-3",
+      "issue": "No portable local-port evidence for EKS-02",
+      "resolution": "Repeated lsof query and attached process/listener only in deployment-details.json"
+    }
+  ],
+  "lead_followup": "Inspected all three additions, supporting references and source summaries; findings addressed. No runtime or deployment fix claimed."
+}

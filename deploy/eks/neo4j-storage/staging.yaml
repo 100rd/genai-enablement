@@ -1,0 +1,76 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: omniscience-neo4j-data-retained
+  namespace: splatform
+spec:
+  accessModes: [ReadWriteOnce]
+  storageClassName: splatform-gp3
+  resources:
+    requests:
+      storage: 8Gi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: omniscience-neo4j-restore
+  namespace: splatform
+spec:
+  selector:
+    app: omniscience-neo4j-restore
+    helm.neo4j.com/instance: omniscience-neo4j-restore
+  ports:
+    - name: bolt
+      port: 7687
+      targetPort: 7687
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: omniscience-neo4j-storage-ingress
+  namespace: splatform
+spec:
+  podSelector:
+    matchExpressions:
+      - key: app
+        operator: In
+        values: [omniscience-neo4j, omniscience-neo4j-restore]
+  policyTypes: [Ingress]
+  ingress:
+    - from:
+        - podSelector:
+            matchLabels:
+              app.kubernetes.io/name: omniscience-neo4j-storage-probe
+      ports:
+        - {protocol: TCP, port: 7687}
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: omniscience-neo4j-storage-egress
+  namespace: splatform
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: omniscience-neo4j-storage-probe
+  policyTypes: [Ingress, Egress]
+  ingress: []
+  egress:
+    - to:
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: kube-system
+          podSelector:
+            matchLabels:
+              k8s-app: kube-dns
+      ports:
+        - {protocol: UDP, port: 53}
+        - {protocol: TCP, port: 53}
+    - to:
+        - podSelector:
+            matchExpressions:
+              - key: app
+                operator: In
+                values: [omniscience-neo4j, omniscience-neo4j-restore]
+      ports:
+        - {protocol: TCP, port: 7687}

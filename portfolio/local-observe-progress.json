@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "profile": "management-local-observe-v1",
-  "as_of": "2026-11-06T20:58:32.181038+00:00",
+  "as_of": "2026-11-06T22:36:20Z",
   "implementation": "merged-to-main",
   "verification": "passed-local-source-control-and-merge-readiness",
   "local_activation": "running",
@@ -654,6 +654,39 @@
       "retry_count": 0,
       "result": "No blocking accuracy, scope or credential leak issue. Main CI receipt awaited separately at review time.",
       "evidence": "docs/synchronized-platform/releases/management-local-observe-v1/merge-readiness/reviews.json"
+    },
+    {
+      "task": "EKS runtime audit",
+      "model": "gpt-6.1-sol",
+      "state": "completed-reviewed",
+      "token_usage": null,
+      "token_estimate": 4000,
+      "elapsed_seconds_estimate": 180,
+      "retry_count": 0,
+      "measurement_note": "Estimated generated tokens/time, not billing data. Lead checked report, exact data mounts, live owner freshness and browser evidence.",
+      "evidence": "docs/synchronized-platform/releases/management-local-observe-v1/eks-audit/verification.json"
+    },
+    {
+      "task": "EKS access audit",
+      "model": "gpt-6-luna",
+      "state": "completed-reviewed",
+      "token_usage": null,
+      "token_estimate": 4300,
+      "elapsed_seconds_estimate": 420,
+      "retry_count": 1,
+      "measurement_note": "One local projection-query correction; no kubectl retries. Lead checked policy rules, ran live TCP and signed identity checks, and corrected inaccurate Secret-read wording.",
+      "evidence": "docs/synchronized-platform/releases/management-local-observe-v1/eks-audit/verification.json"
+    },
+    {
+      "task": "Independent EKS evidence review",
+      "model": "gpt-6-luna",
+      "state": "completed-reviewed",
+      "token_usage": null,
+      "token_estimate": 2200,
+      "elapsed_seconds_estimate": 360,
+      "retry_count": 0,
+      "result": "Three missing portable receipts identified; lead attached and verified placement, filtered startup-error summaries and local listener evidence.",
+      "evidence": "docs/synchronized-platform/releases/management-local-observe-v1/eks-audit/reviews.json"
     }
   ],
   "evidence": "docs/synchronized-platform/releases/management-local-observe-v1/qualification.json",
@@ -735,7 +768,55 @@
     "queue_rows": 0,
     "runner": "online"
   },
-  "kubernetes_activation": "pending-deployment-agent",
+  "kubernetes_activation": "deployed-acceptance-failed",
   "merge_readiness_evidence": "docs/synchronized-platform/releases/management-local-observe-v1/merge-readiness/verification.json",
-  "kubernetes_handoff": "docs/runbooks/management-local-observe-kubernetes-handoff.md"
+  "kubernetes_handoff": "docs/runbooks/management-local-observe-kubernetes-handoff.md",
+  "kubernetes_audit_evidence": "docs/synchronized-platform/releases/management-local-observe-v1/eks-audit/verification.json",
+  "kubernetes_followup_queue": [
+    {
+      "id": "EKS-01",
+      "state": "open",
+      "summary": "PostgreSQL x3 and Neo4j data use emptyDir; no durable Pod replacement guarantee"
+    },
+    {
+      "id": "EKS-02",
+      "state": "open",
+      "summary": "Runner has no heartbeat; full Codex recovery path unverified"
+    },
+    {
+      "id": "EKS-03",
+      "state": "open",
+      "summary": "Frontend TCP connects to all three PostgreSQL services; policies are too broad"
+    },
+    {
+      "id": "EKS-04",
+      "state": "open",
+      "summary": "shared-host/shared-fate provenance contradicts multi-node placement"
+    },
+    {
+      "id": "EKS-05",
+      "state": "open",
+      "summary": "Roles started before migrations completed; persistence errors/restarts observed; current workloads recovered"
+    },
+    {
+      "id": "EKS-06",
+      "state": "open",
+      "summary": "Logout returns 307 redirect to https://localhost:3000/login"
+    }
+  ],
+  "platform_expansion": {
+    "profile": "management-platform-frankfurt-v1",
+    "state": "implementation-in-progress",
+    "scope": {
+      "account": "120736097561",
+      "region": "eu-central-1",
+      "cluster": "nonprod-euc1",
+      "namespaces": "all"
+    },
+    "collection": "cloud-agnostic contracts; Kubernetes and direct AWS API adapters; no AWS Config dependency",
+    "effects": "analysis-and-recommendations-only",
+    "activation": "not-qualified",
+    "profile_document": "docs/synchronized-platform/profiles/management-platform-frankfurt-v1.md",
+    "execution_tracking": "portfolio/platform-activation-progress.json"
+  }
 }

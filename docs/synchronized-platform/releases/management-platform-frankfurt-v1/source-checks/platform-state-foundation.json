@@ -1,0 +1,45 @@
+{
+  "scope": "Source foundation only; no live ingestion or platform acceptance",
+  "base_revision": "2272deca928bfc8dac304b243585090e08be0924",
+  "working_tree": "dirty; preserve prior work",
+  "tests": {
+    "result": "201 passed, 2 known warnings, 0 skipped",
+    "backend": "disposable PostgreSQL 18 at local port 60842",
+    "includes": [
+      "strict v1/v2 contracts",
+      "enrollment and lifecycle",
+      "immutable store and revision API",
+      "real token-auth publish and mid-stream revocation",
+      "production cache handlers",
+      "auth and tenant regressions"
+    ]
+  },
+  "files": {
+    "apps/server/src/omniscience_server/rest/platform_evidence.py": "84385d585d701554640748b962cc934e0cec06b7e2fd5e2a096e259267980298",
+    "apps/server/src/omniscience_server/rest/platform_state.py": "2b1bc4f33a3e6455e130366ac3765111fab91523c666c4940b51a66fce1bf261",
+    "apps/server/src/omniscience_server/rest/router.py": "e4fab28a943d1b047598344fcc585b49a533f8c0bc27149dec5baf56053de920",
+    "operator/internal/platformstate/collect.go": "87b430ff10e948e5b636378275ebedfedd79f56a91e7bac409e42b4a17dd6ca7",
+    "operator/internal/platformstate/collect_test.go": "b5c20beb2782c365e58e77ba0dd8b1aad9626b4edb0f02b696c25509aa2cb3c1",
+    "operator/internal/platformstate/encode.go": "3c7587bbcb8854f4f86ce11b434dd45b80a57872ecea5e43d4684b7e8e6f451c",
+    "operator/internal/platformstate/encode_test.go": "01cad283e531bef31405b36797e2abc5306c6a2009ecad3df656d10aff82e2df",
+    "packages/core/alembic/versions/0017_platform_evidence.py": "48765dc31795e76400a4bf11fe5901fcd81ba1a07d5d34dcfca6dee260ab2662",
+    "packages/core/alembic/versions/0018_platform_evidence_enrollment.py": "565013419352d0c59618263ab43f8e680065578931079384ceee810dbac06fb4",
+    "packages/core/alembic/versions/0019_platform_state_batches.py": "39ddc42d85cc28e9602db934ff31b0bbdc6ae1197174a0058b64749f913a3e0d",
+    "packages/core/src/omniscience_core/auth/scopes.py": "876e88eefcca4f867178ad827bd90f1079835aefe463c124edb4060527d31d0f",
+    "packages/core/src/omniscience_core/platform_evidence/__init__.py": "12035d7f163b9a36f83e481660859f7c253b658fcbafe9f0ddb49a4516f11891",
+    "packages/core/src/omniscience_core/platform_evidence/enrollment.py": "c96dc3d3321e24dc31b7bf73d13ec4e87d240b6dafdee9fa9732af2264f43a9d",
+    "packages/core/src/omniscience_core/platform_evidence/models.py": "f853efc238b7280384d66b5b9b584565a7625504639ecbb5441720d22a8320be",
+    "packages/core/src/omniscience_core/platform_evidence/store.py": "471ea3bec894cbaba700263e7b6fb4c52a8840f6108cd2d1e661d373eea9e5b9",
+    "packages/core/src/omniscience_core/platform_state/__init__.py": "c7b4fc23a442083292a1dca47866034c95c18a7397f3179b3ddd662a71816247",
+    "packages/core/src/omniscience_core/platform_state/models.py": "6ea1ec2b030b2b573f35c6b3254ad3b4096217b324cd064d1c5e05c6d0d475d7",
+    "packages/core/src/omniscience_core/platform_state/store.py": "e42adf3fc28d46f8bb1620ab714220fa9a516d6215b3edfc40de000ddcf427ce",
+    "tests/test_platform_evidence_cache.py": "c91033d6766e8abc2c1828e8cf676d99640070bde6127f970181043c302016a9",
+    "tests/test_platform_state_publish.py": "c51358e8345ced7e6b8707fbea9dd573b2db07e7d7f0787da0b93b4ef4cebdec"
+  },
+  "limitations": [
+    "Only observed Kubernetes workload batches admitted",
+    "No deployed publisher or reconciliation scheduling",
+    "No desired/signals/dependencies materialization",
+    "No EKS acceptance"
+  ]
+}

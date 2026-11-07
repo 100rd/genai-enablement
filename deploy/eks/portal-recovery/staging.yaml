@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: portal-postgres-data-retained
+  namespace: splatform
+spec:
+  accessModes: [ReadWriteOnce]
+  storageClassName: splatform-gp3
+  resources:
+    requests:
+      storage: 8Gi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: portal-postgres-restore
+  namespace: splatform
+spec:
+  selector:
+    app.kubernetes.io/instance: portal-postgres-restore
+    app.kubernetes.io/name: postgresql
+  ports:
+    - name: postgresql
+      port: 5432
+      targetPort: 5432

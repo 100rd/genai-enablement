@@ -1,0 +1,14 @@
+{
+  "scope": "source-only pinned owner HTTP client",
+  "files": {
+    "internal/platformstate/client.go": "b5b33bdd7cc177b03f6c6434939ac2bd27e34fd07ada7420f80302287888915e",
+    "internal/platformstate/client_test.go": "19d62dd864b7aea1888378eeca26feea5a50303fa149282d2f0d8fab2a450d00"
+  },
+  "verification": [
+    "39 race-enabled package tests",
+    "independent Go review",
+    "required fields regression failed with guard removed and passed restored",
+    "numeric loopback or exact internal Omniscience origin only"
+  ],
+  "deployment": "not deployed"
+}

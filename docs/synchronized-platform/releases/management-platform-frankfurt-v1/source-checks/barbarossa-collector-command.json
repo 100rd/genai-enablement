@@ -1,0 +1,22 @@
+{
+  "scope": "source-only collector command and observer maintenance control",
+  "files": {
+    "cmd/barbarossa-observe/platform_collect.go": "7fd0039e4d9035c475273c64dd96fa01e061029c0baaf8478502785bbde01c5e",
+    "cmd/barbarossa-observe/platform_collect_test.go": "b3b6141defc934cb4796bdcbc1d97c18d5090800a9f24ddc0518a2e0d74112d2",
+    "cmd/barbarossa-observe/main.go": "00a262e996968b05789baf7c4f0fc181db26a3af93d17940a4262b64432d2ff5",
+    "cmd/barbarossa-observe/platform_intake_integration_test.go": "0b19b3871812632db00f0e1254153a056027dcd6a8e00e41d9a01528b2df06f3",
+    "deploy/helm/barbarossa/templates/worker.yaml": "802d8155308386d400851b1cba9790eec85dc20b46068a4b9132a18577ad85b0",
+    "deploy/helm/barbarossa/values.yaml": "b26f99e319efdb88940d87588f92456e1983a071868c0aa99d7cd18bc4e8e161"
+  },
+  "lead_verification": [
+    "21 real PostgreSQL command tests with race detector",
+    "39 owner client/parser tests with race detector",
+    "1405 main-module tests across 48 passing packages",
+    "Helm observer0/1 renders;2/-1/garbage rejected"
+  ],
+  "independent_review": [
+    "Go collector review approved",
+    "code integration/chart review approved; comment corrected"
+  ],
+  "deployment": "new collector command not deployed"
+}

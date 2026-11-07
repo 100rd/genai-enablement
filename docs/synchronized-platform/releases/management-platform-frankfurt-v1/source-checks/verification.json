@@ -1,0 +1,60 @@
+{
+  "state": "partial-implementation-source-checks",
+  "acceptance": "not-passed",
+  "deployed": false,
+  "committed": false,
+  "base_revision": "2272deca928bfc8dac304b243585090e08be0924",
+  "content_manifest_sha256": "88eb70c0ceab6f06ecc13c7ff025aa531ef9e121511d1bfdccb09dfae43a346c",
+  "lead_checks": [
+    {
+      "scope": "operator lifecycle, vector, graph, admission, configuration, endpoints",
+      "passed": 122,
+      "skipped": 3,
+      "services": [
+        "disposable NATS",
+        "disposable PostgreSQL",
+        "disposable Neo4j",
+        "disposable Qdrant"
+      ]
+    },
+    {
+      "scope": "cloud-neutral evidence wire contract",
+      "passed": 38,
+      "skipped": 0
+    },
+    {
+      "scope": "final changed Go reconciler package",
+      "passed": 32
+    }
+  ],
+  "independent_checks": [
+    {
+      "scope": "Go operator final core coverage",
+      "passed": 313,
+      "packages": 8,
+      "vet": "passed"
+    },
+    {
+      "scope": "bounded Python lifecycle/vector changes",
+      "review": "approved",
+      "historical_cutoff_edge_case": "unverified"
+    },
+    {
+      "scope": "neutral evidence contract",
+      "review": "approved",
+      "python_and_javascript_canonical_digest": "matched"
+    }
+  ],
+  "remaining": [
+    "Optional CRD reconciliation",
+    "Source/cluster ownership",
+    "NATS publisher ACLs",
+    "Topology replacement and owner edges",
+    "Immutable receipt persistence and authorized API",
+    "Collector receipt publication and Barbarossa intake",
+    "Portal profile integration",
+    "Cluster storage/network/migration fixes",
+    "Live SRE/Security AI qualification",
+    "Source publication and CI"
+  ]
+}

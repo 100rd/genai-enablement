@@ -1,0 +1,23 @@
+{
+  "date": "2026-11-07",
+  "state": "isolated-native-restore-verified",
+  "production_cutover": false,
+  "source_backup_sha256": "da0a5889296385a577671d42984f04e7d36c7010e6a0fc746cadd4cb03601576",
+  "receipt_sha256": "5fd952ca92bc8284f9b88ce57cfbd45ac6f28151b8d94894fb67e2035cf3d8e8",
+  "volume": {
+    "pvc_uid": "fb17255e-a325-42d1-87d2-b760b6223581",
+    "pv_uid": "0c2ee8b5-edfe-448e-b2fa-3e2a8721c3af",
+    "pv": "pvc-fb17255e-a325-42d1-87d2-b760b6223581",
+    "volume_handle": "vol-0ccfc3fc8e659c603",
+    "availability_zone": "eu-central-1b"
+  },
+  "streams": 3,
+  "consumers": 4,
+  "comparison": "nats-2.15.2-empty-native-restore-v1",
+  "logical_sha256": "e14545b48fbeb0c64b554b83ffb457395e65248fae8d05a91aab34b76d3b6172",
+  "observed_sha256": "efdd04769437cf59f5310753b037a8fe90ab554b3bc13acb270b969f9558c7f8",
+  "normalization": "Only pristine empty NATS2.15.2 file-stream first_seq0->1 and later durable creation timestamps; config, message state and idle cursors must otherwise match exactly. Raw inventory preserved.",
+  "lead_tests": 34,
+  "independent_python_review": "passed",
+  "platform_acceptance": "not-passed"
+}

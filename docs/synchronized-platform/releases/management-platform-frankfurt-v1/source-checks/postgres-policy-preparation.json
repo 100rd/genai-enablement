@@ -1,0 +1,14 @@
+{
+  "date": "2026-11-07",
+  "state": "source-reviewed-offline-only",
+  "acceptance": "not-passed",
+  "live_mutations": false,
+  "authenticated_preparation": "blocked-expired-aws-session",
+  "lead_tests_passed": 9,
+  "independent_review": "passed after rejecting ambiguous Cilium spec/specs and broad external PostgreSQL egress",
+  "scope": "Policy-only prepare; guarded patches and server dry-run code. No apply command. Models final union and required paths at every prefix; does not prove dataplane traffic.",
+  "files": {
+    "deploy/eks/postgres-network-boundaries/prepare.py": "f248ffddf1210b71a2543c340ecb97413c73b166d664f358629000fe2925d8ee",
+    "deploy/eks/postgres-network-boundaries/test_prepare.py": "ec1a72b2d4d1bd1642665e72a0796d2e68e0689e09cd6015bd5949b3b5fc53c2"
+  }
+}
